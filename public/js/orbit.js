@@ -88,12 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 3. Desktop True 3D Geocentric Scene Engine ---
   let ctx3D = null;
   let width3D = 600, height3D = 460;
-  let camPitch = 0.62; // Tilt angle (radians)
+  let camPitch = 0.58; // Tilt angle (radians) ~33 deg for perfect 3D perspective
   let camYaw = -0.35;   // Rotation angle (radians)
-  let camDist = 360;   // Distance (closer zoom for expansive diagram)
+  let camDist = 500;   // Calibrated closer distance so the circle is BIG, prominent and fits canvas
+  let targetCamDist = 500;
   let isDragging = false;
   let lastMouseX = 0, lastMouseY = 0;
-  let targetPitch = 0.62, targetYaw = -0.35;
+  let targetPitch = 0.58, targetYaw = -0.35;
   let velYaw = 0, velPitch = 0;
   let animFrameId = null;
 
@@ -237,9 +238,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     desktopCanvas.addEventListener('wheel', (e) => {
       e.preventDefault();
-      camDist += e.deltaY * 0.35;
-      camDist = Math.max(220, Math.min(520, camDist));
+      const zoomDelta = e.deltaY * 0.55;
+      targetCamDist += zoomDelta;
+      targetCamDist = Math.max(420, Math.min(1150, targetCamDist));
+      if (typeof updateZoomPill === 'function') updateZoomPill();
     }, { passive: false });
+
+    // Touch Pinch-to-Zoom for Mobile & Trackpads
+    let touchStartDist = null;
+    desktopCanvas.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        touchStartDist = Math.sqrt(dx * dx + dy * dy);
+      }
+    }, { passive: true });
+
+    desktopCanvas.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length === 2 && touchStartDist) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const diff = touchStartDist - dist;
+        touchStartDist = dist;
+        targetCamDist += diff * 1.5;
+        targetCamDist = Math.max(420, Math.min(1150, targetCamDist));
+        if (typeof updateZoomPill === 'function') updateZoomPill();
+      }
+    }, { passive: true });
+
+    desktopCanvas.addEventListener('touchend', () => {
+      touchStartDist = null;
+    }, { passive: true });
   }
 
   // 3D Projection Matrix (Transforms 3D world coordinates to 2D screen coordinates)
@@ -256,9 +286,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const y2 = y * cosX - z1 * sinX;
     const z2 = y * sinX + z1 * cosX;
 
-    const fov = 480;
+    const fov = 540;
     const depth = camDist + z2;
-    if (depth <= 12) return { x: cx, y: cy, scale: 0, visible: false, depth: 9999 };
+    if (depth <= 20) return { x: cx, y: cy, scale: 0, visible: false, depth: 9999 };
 
     const scale = fov / depth;
     return {
@@ -294,7 +324,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 4. Render Master 3D Astrolabe Ecliptic Scene ---
-  const ringRadius = 290;
+  let orbitMode = 'multiring'; // 'multiring' (v2 concentric paths) or 'classic' (v1 single wheel)
+  const ringRadius = 260;
+  const multiringRashiRadius = 345;
+
+  function getGrahaRadius(planetName) {
+    if (orbitMode !== 'multiring') return ringRadius;
+    const radii = {
+      'Moon': 75,
+      'Mercury': 105,
+      'Venus': 135,
+      'Sun': 170,
+      'Mars': 205,
+      'Jupiter': 245,
+      'Saturn': 285,
+      'Rahu': 320,
+      'Ketu': 320
+    };
+    return radii[planetName] || ringRadius;
+  }
+
   const nakshatraRadius = 320;
   let simTime = 0;
 
@@ -303,6 +352,9 @@ document.addEventListener('DOMContentLoaded', () => {
     monitorPerformance();
 
     simTime += 0.016;
+
+    // Smooth camera distance zoom easing
+    camDist += (targetCamDist - camDist) * 0.14;
 
     // Smooth inertia and physics damping
     if (!isDragging) {
@@ -313,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Continuous dynamic celestial revolution
       if (Math.abs(velYaw) < 0.0001 && !activeHoveredGraha) {
-        targetYaw += 0.0036; // Noticeable, majestic continuous orbital revolution
+        targetYaw += 0.0075; // Increased speed for fluid, majestic continuous orbital revolution
       }
     }
 
@@ -389,22 +441,58 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx3D.stroke();
     });
 
-    // --- Geocentric Reference Concentric Disks ---
-    // Draw concentric declination / distance rings on the ecliptic plane
-    const innerRings = [105, 195];
-    innerRings.forEach(r => {
-      ctx3D.beginPath();
-      const steps = 48;
-      for (let s = 0; s <= steps; s++) {
-        const rad = (s / steps) * Math.PI * 2;
-        const p = project3D(Math.cos(rad) * r, 0, Math.sin(rad) * r, cx, cy);
-        if (s === 0) ctx3D.moveTo(p.x, p.y);
-        else ctx3D.lineTo(p.x, p.y);
-      }
-      ctx3D.strokeStyle = 'rgba(164, 180, 240, 0.08)';
-      ctx3D.lineWidth = 1;
-      ctx3D.stroke();
-    });
+    // --- Geocentric Reference Tracks & Multi-Ring Concentric Astrolabe (v2.0) ---
+    const activeOuterRadius = orbitMode === 'multiring' ? multiringRashiRadius : ringRadius;
+
+    if (orbitMode === 'multiring') {
+      // Draw 8 dedicated concentric planetary orbit tracks around Earth
+      const grahaTracks = [
+        { name: 'Moon', r: 75, color: '#d9e4f5' },
+        { name: 'Mercury', r: 105, color: '#5ce6c0' },
+        { name: 'Venus', r: 135, color: '#ffd6e8' },
+        { name: 'Sun', r: 170, color: '#ffb347' },
+        { name: 'Mars', r: 205, color: '#ff5c5c' },
+        { name: 'Jupiter', r: 245, color: '#f4c95d' },
+        { name: 'Saturn', r: 285, color: '#6b7a99' },
+        { name: 'Rahu / Ketu', r: 320, color: '#7a5cff' }
+      ];
+
+      grahaTracks.forEach(track => {
+        ctx3D.beginPath();
+        const steps = isLowPerformance ? 36 : 64;
+        for (let s = 0; s <= steps; s++) {
+          const rad = (s / steps) * Math.PI * 2;
+          const p = project3D(Math.cos(rad) * track.r, 0, Math.sin(rad) * track.r, cx, cy);
+          if (s === 0) ctx3D.moveTo(p.x, p.y);
+          else ctx3D.lineTo(p.x, p.y);
+        }
+        const isHovered = activeHoveredGraha && (
+          activeHoveredGraha.name === track.name ||
+          (track.name.includes('Rahu') && (activeHoveredGraha.name === 'Rahu' || activeHoveredGraha.name === 'Ketu'))
+        );
+        ctx3D.strokeStyle = isHovered ? track.color : `${track.color}40`;
+        ctx3D.lineWidth = isHovered ? 2.4 : 1.1;
+        ctx3D.setLineDash(isHovered ? [8, 4] : [3, 5]);
+        ctx3D.stroke();
+        ctx3D.setLineDash([]);
+      });
+    } else {
+      // Classic single-ring mode reference disks
+      const innerRings = [105, 195];
+      innerRings.forEach(r => {
+        ctx3D.beginPath();
+        const steps = 48;
+        for (let s = 0; s <= steps; s++) {
+          const rad = (s / steps) * Math.PI * 2;
+          const p = project3D(Math.cos(rad) * r, 0, Math.sin(rad) * r, cx, cy);
+          if (s === 0) ctx3D.moveTo(p.x, p.y);
+          else ctx3D.lineTo(p.x, p.y);
+        }
+        ctx3D.strokeStyle = 'rgba(164, 180, 240, 0.08)';
+        ctx3D.lineWidth = 1;
+        ctx3D.stroke();
+      });
+    }
 
     // --- 360° Ecliptic Ribbon & Fine Graduations (Armillary Astrolabe) ---
     // Outer Ecliptic Gold Ring
@@ -412,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ringSteps = 72;
     for (let s = 0; s <= ringSteps; s++) {
       const rad = (s / ringSteps) * Math.PI * 2;
-      const p = project3D(Math.cos(rad) * ringRadius, 0, Math.sin(rad) * ringRadius, cx, cy);
+      const p = project3D(Math.cos(rad) * activeOuterRadius, 0, Math.sin(rad) * activeOuterRadius, cx, cy);
       if (s === 0) ctx3D.moveTo(p.x, p.y);
       else ctx3D.lineTo(p.x, p.y);
     }
@@ -428,8 +516,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const isMed = deg % 10 === 0;
       const len = isMajor ? 12 : (isMed ? 7 : 4);
 
-      const pInner = project3D(Math.cos(rad) * (ringRadius - len), 0, Math.sin(rad) * (ringRadius - len), cx, cy);
-      const pOuter = project3D(Math.cos(rad) * (ringRadius + len), 0, Math.sin(rad) * (ringRadius + len), cx, cy);
+      const pInner = project3D(Math.cos(rad) * (activeOuterRadius - len), 0, Math.sin(rad) * (activeOuterRadius - len), cx, cy);
+      const pOuter = project3D(Math.cos(rad) * (activeOuterRadius + len), 0, Math.sin(rad) * (activeOuterRadius + len), cx, cy);
 
       if (pInner.visible && pOuter.visible) {
         ctx3D.beginPath();
@@ -451,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Sector boundary radial line
       const radBorder = (startDeg * Math.PI) / 180;
       const pC = project3D(0, 0, 0, cx, cy);
-      const pEdge = project3D(Math.cos(radBorder) * (ringRadius + 14), 0, Math.sin(radBorder) * (ringRadius + 14), cx, cy);
+      const pEdge = project3D(Math.cos(radBorder) * (activeOuterRadius + 14), 0, Math.sin(radBorder) * (activeOuterRadius + 14), cx, cy);
       if (pEdge.visible) {
         ctx3D.beginPath();
         ctx3D.moveTo(pC.x, pC.y);
@@ -474,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
       for (let s = 0; s <= arcSteps; s++) {
         const deg = startDeg + (s / arcSteps) * 30;
         const rad = (deg * Math.PI) / 180;
-        const p = project3D(Math.cos(rad) * ringRadius, 0, Math.sin(rad) * ringRadius, cx, cy);
+        const p = project3D(Math.cos(rad) * activeOuterRadius, 0, Math.sin(rad) * activeOuterRadius, cx, cy);
         if (s === 0) ctx3D.moveTo(p.x, p.y);
         else ctx3D.lineTo(p.x, p.y);
       }
@@ -484,7 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Rashi Label Placement
       const midRad = (midDeg * Math.PI) / 180;
-      const pLabel = project3D(Math.cos(midRad) * (ringRadius + 30), 0, Math.sin(midRad) * (ringRadius + 30), cx, cy);
+      const pLabel = project3D(Math.cos(midRad) * (activeOuterRadius + 30), 0, Math.sin(midRad) * (activeOuterRadius + 30), cx, cy);
       if (pLabel.visible) {
         ctx3D.fillStyle = isAspectTarget ? '#ffe8a3' : rashi.element;
         ctx3D.font = `bold ${Math.max(11, 14 * pLabel.scale)}px 'Cinzel', serif`;
@@ -497,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Central Earth (Geocentric Core with Volumetric Atmosphere) ---
     const earthProj = project3D(0, 0, 0, cx, cy);
     if (earthProj.visible) {
-      const eRadius = 42 * earthProj.scale;
+      const eRadius = 26 * earthProj.scale;
 
       // Outer Atmospheric Corona Glow
       const atmoGrad = ctx3D.createRadialGradient(earthProj.x, earthProj.y, eRadius * 0.4, earthProj.x, earthProj.y, eRadius * 2.4);
@@ -563,10 +651,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Project all planets and sort by depth for correct 3D occlusion
       const projectedPlanets = planetsList.map(p => {
         const rad = (p.longitude * Math.PI) / 180;
-        const wx = Math.cos(rad) * ringRadius;
-        const wz = Math.sin(rad) * ringRadius;
+        const pRad = getGrahaRadius(p.name);
+        const wx = Math.cos(rad) * pRad;
+        const wz = Math.sin(rad) * pRad;
         const proj = project3D(wx, 0, wz, cx, cy);
-        return { ...p, proj, rad, wx, wz };
+        return { ...p, proj, rad, wx, wz, pRad };
       }).filter(p => p.proj.visible);
 
       projectedPlanets.sort((a, b) => b.proj.depth - a.proj.depth);
@@ -574,14 +663,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // 1. Draw Aspect Beams (Vedic Drishti laser threads)
       if (activeHoveredGraha) {
         const hRad = (activeHoveredGraha.longitude * Math.PI) / 180;
-        const hProj = project3D(Math.cos(hRad) * ringRadius, 0, Math.sin(hRad) * ringRadius, cx, cy);
+        const hRadius = getGrahaRadius(activeHoveredGraha.name);
+        const hProj = project3D(Math.cos(hRad) * hRadius, 0, Math.sin(hRad) * hRadius, cx, cy);
 
         // Aspect targets
         if (activeHoveredGraha.rashi) {
           const aspectTargets = getVedicAspects(activeHoveredGraha.name, activeHoveredGraha.rashi.index);
           aspectTargets.forEach(tgtIndex => {
             const tgtRad = ((tgtIndex * 30 + 15) * Math.PI) / 180;
-            const tgtProj = project3D(Math.cos(tgtRad) * ringRadius, 0, Math.sin(tgtRad) * ringRadius, cx, cy);
+            const tgtProj = project3D(Math.cos(tgtRad) * activeOuterRadius, 0, Math.sin(tgtRad) * activeOuterRadius, cx, cy);
 
             ctx3D.beginPath();
             ctx3D.moveTo(hProj.x, hProj.y);
@@ -609,29 +699,42 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx3D.setLineDash([]);
       }
 
-      // 3. Render Each Graha with Volumetric Depth
+      // 3. Render Each Graha with Volumetric Depth and Authentic Planetary Identity
       projectedPlanets.forEach(p => {
         const isHovered = activeHoveredGraha && activeHoveredGraha.name === p.name;
-        const baseRadius = (p.name === 'Sun' || p.name === 'Jupiter' ? 28 : 22) * p.proj.scale;
+        const baseRadius = (p.name === 'Sun' || p.name === 'Jupiter' ? 18 : 14) * p.proj.scale;
         const radius = isHovered ? baseRadius * 1.3 : baseRadius;
 
-        // Radial Atmospheric Corona Glow
+        // V2 Planetary Identity Palette Lookup
+        const grahaPalette = {
+          Sun: { color: '#ffb347', glow: 'rgba(255, 179, 71, 0.6)' },
+          Moon: { color: '#d9e4f5', glow: 'rgba(217, 228, 245, 0.6)' },
+          Mars: { color: '#ff5c5c', glow: 'rgba(255, 92, 92, 0.6)' },
+          Mercury: { color: '#5ce6c0', glow: 'rgba(92, 230, 192, 0.6)' },
+          Jupiter: { color: '#f4c95d', glow: 'rgba(244, 201, 93, 0.65)' },
+          Venus: { color: '#ffd6e8', glow: 'rgba(255, 214, 232, 0.6)' },
+          Saturn: { color: '#6b7a99', glow: 'rgba(107, 122, 153, 0.6)' },
+          Rahu: { color: '#7a5cff', glow: 'rgba(122, 92, 255, 0.65)' },
+          Ketu: { color: '#8c7b75', glow: 'rgba(140, 123, 117, 0.6)' }
+        }[p.name] || { color: p.color || '#f4c95d', glow: 'rgba(244, 201, 93, 0.5)' };
+
+        // Radial Atmospheric Corona Glow (V2 Dedicated Retrograde Violet vs Graha Color)
         const haloGrad = ctx3D.createRadialGradient(p.proj.x, p.proj.y, radius * 0.5, p.proj.x, p.proj.y, radius * 2.6);
-        haloGrad.addColorStop(0, p.isRetrograde ? 'rgba(244, 63, 94, 0.6)' : (p.glow || 'rgba(245, 190, 72, 0.5)'));
+        haloGrad.addColorStop(0, p.isRetrograde ? 'rgba(177, 131, 255, 0.65)' : grahaPalette.glow);
         haloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx3D.beginPath();
         ctx3D.arc(p.proj.x, p.proj.y, radius * 2.6, 0, Math.PI * 2);
         ctx3D.fillStyle = haloGrad;
         ctx3D.fill();
 
-        // Dynamic Vakri (Retrograde) Counter-Loop Visual Indicator
+        // Dynamic Vakri (Retrograde) Counter-Loop Visual Indicator — Distinct Neon Violet (#b183ff)
         if (p.isRetrograde && p.name !== 'Rahu' && p.name !== 'Ketu') {
           ctx3D.save();
           ctx3D.beginPath();
           const loopRadius = radius * 1.8;
           ctx3D.arc(p.proj.x, p.proj.y, loopRadius, simTime * 5.0, simTime * 5.0 + Math.PI * 1.5, true); // counter-clockwise
-          ctx3D.strokeStyle = '#f43f5e';
-          ctx3D.lineWidth = 2.2;
+          ctx3D.strokeStyle = '#b183ff'; // V2 Dedicated Retrograde Violet
+          ctx3D.lineWidth = 2.4;
           ctx3D.stroke();
 
           // Retrograde particle pip
@@ -640,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const pipY = p.proj.y - Math.sin(pipAngle) * loopRadius;
           ctx3D.beginPath();
           ctx3D.arc(pipX, pipY, 3, 0, Math.PI * 2);
-          ctx3D.fillStyle = '#ffedd5';
+          ctx3D.fillStyle = '#f3e8ff';
           ctx3D.fill();
           ctx3D.restore();
         }
@@ -681,7 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
           );
           sphereGrad.addColorStop(0, '#ffffff');
           sphereGrad.addColorStop(0.35, p.color);
-          sphereGrad.addColorStop(1, p.isRetrograde ? '#991b1b' : '#0f172a');
+          sphereGrad.addColorStop(1, p.isRetrograde ? '#581c87' : '#0f172a');
 
           ctx3D.beginPath();
           ctx3D.arc(p.proj.x, p.proj.y, radius, 0, Math.PI * 2);
@@ -716,11 +819,11 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx3D.fillText(`${p.name} • ${p.longitude}°`, p.proj.x, p.proj.y - radius - 16);
         }
 
-        // Retrograde badge indicator
+        // Retrograde badge indicator (V2 Dedicated Neon Violet Token)
         if (p.isRetrograde && p.name !== 'Rahu' && p.name !== 'Ketu') {
-          ctx3D.fillStyle = '#f43f5e';
+          ctx3D.fillStyle = '#b183ff';
           ctx3D.font = `bold ${Math.max(9, 11 * p.proj.scale)}px 'Inter', sans-serif`;
-          ctx3D.fillText('Retrograde (Rx)', p.proj.x + radius + 24, p.proj.y - 4);
+          ctx3D.fillText('℞ Vakri', p.proj.x + radius + 24, p.proj.y - 4);
         }
       });
     }
@@ -746,15 +849,16 @@ document.addEventListener('DOMContentLoaded', () => {
       let found = null;
       for (const p of Object.values(activeSkyData.planets)) {
         const rad = (p.longitude * Math.PI) / 180;
-        const wx = Math.cos(rad) * ringRadius;
-        const wz = Math.sin(rad) * ringRadius;
+        const pRad = getGrahaRadius(p.name);
+        const wx = Math.cos(rad) * pRad;
+        const wz = Math.sin(rad) * pRad;
         const proj = project3D(wx, 0, wz, cx, cy);
         if (!proj.visible) continue;
 
-        const baseRadius = 28 * proj.scale;
+        const baseRadius = 18 * proj.scale;
         const dx = mx - proj.x;
         const dy = my - proj.y;
-        if (Math.sqrt(dx * dx + dy * dy) <= baseRadius + 18) {
+        if (Math.sqrt(dx * dx + dy * dy) <= baseRadius + 14) {
           found = p;
           break;
         }
@@ -773,6 +877,17 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedGraha = activeHoveredGraha;
         updateInspector(selectedGraha);
         highlightLinkedWidgets(selectedGraha);
+        // Sync active state on bottom badges
+        document.querySelectorAll('.orbit-planet-badge').forEach(b => {
+          const pName = b.getAttribute('data-planet');
+          b.classList.toggle('active', pName && pName.toLowerCase() === selectedGraha.name.toLowerCase());
+        });
+      } else {
+        // Deselect when clicking on empty canvas
+        selectedGraha = null;
+        updateInspector(null);
+        highlightLinkedWidgets(null);
+        document.querySelectorAll('.orbit-planet-badge').forEach(b => b.classList.remove('active'));
       }
     });
 
@@ -784,21 +899,35 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Quick-select planet by clicking badges
-    document.querySelectorAll('.orbit-planet-badge').forEach(badge => {
-      badge.addEventListener('click', () => {
-        const pText = badge.textContent.split(' ')[0].trim();
+    // Quick-select planet by clicking bottom badges
+    const planetBadges = document.querySelectorAll('.orbit-planet-badge');
+    planetBadges.forEach(badge => {
+      badge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const pAttr = badge.getAttribute('data-planet') || badge.textContent.split(' ')[0].trim();
         if (activeSkyData && activeSkyData.planets) {
           const found = Object.values(activeSkyData.planets).find(p =>
-            p.name.toLowerCase() === pText.toLowerCase() ||
-            (pText === 'North' && p.name === 'Rahu') ||
-            (pText === 'South' && p.name === 'Ketu')
+            p.name.toLowerCase() === pAttr.toLowerCase() ||
+            (pAttr === 'Rahu' && p.name === 'Rahu') ||
+            (pAttr === 'Ketu' && p.name === 'Ketu') ||
+            (pAttr === 'North' && p.name === 'Rahu') ||
+            (pAttr === 'South' && p.name === 'Ketu')
           );
           if (found) {
-            selectedGraha = found;
-            activeHoveredGraha = found;
-            updateInspector(found);
-            highlightLinkedWidgets(found);
+            const isAlreadyActive = badge.classList.contains('active');
+            planetBadges.forEach(b => b.classList.remove('active'));
+            if (!isAlreadyActive) {
+              badge.classList.add('active');
+              selectedGraha = found;
+              activeHoveredGraha = found;
+              updateInspector(found);
+              highlightLinkedWidgets(found);
+            } else {
+              selectedGraha = null;
+              activeHoveredGraha = null;
+              updateInspector(null);
+              highlightLinkedWidgets(null);
+            }
           }
         }
       });
@@ -967,7 +1096,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
-  // --- 8. Planet-to-Live-Widget Interactivity (Preserved from Phase 2) ---
+  // --- 8. Planet-to-Live-Widget Interactivity (Targeted Sky-to-Street Correlation) ---
   function highlightLinkedWidgets(planet) {
     document.querySelectorAll('.celestial-linked-pulse').forEach(el => {
       el.classList.remove('celestial-linked-pulse');
@@ -975,11 +1104,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!planet || !planet.symbolLink) return;
 
-    const targetChip = document.querySelector(`.ticker-chip[data-symbol="${planet.symbolLink}"], .instrument-card[data-symbol="${planet.symbolLink}"]`);
-    if (targetChip) targetChip.classList.add('celestial-linked-pulse');
+    // Highlight ONLY the specific correlated market card
+    const targetCard = document.querySelector(`.instrument-card[data-symbol="${planet.symbolLink}"]`);
+    if (targetCard) {
+      targetCard.classList.add('celestial-linked-pulse');
+    }
+
+    const targetChip = document.querySelector(`.ticker-chip[data-symbol="${planet.symbolLink}"]`);
+    if (targetChip) {
+      targetChip.classList.add('celestial-linked-pulse');
+    }
 
     const targetSyncCard = document.querySelector(`.sync-card[data-planet="${planet.name.toLowerCase()}"]`);
-    if (targetSyncCard) targetSyncCard.classList.add('celestial-linked-pulse');
+    if (targetSyncCard) {
+      targetSyncCard.classList.add('celestial-linked-pulse');
+    }
   }
 
   // --- 9. Load Real Data from Backend Ephemeris (Cached VedAstro Engine) ---
@@ -1128,6 +1267,99 @@ document.addEventListener('DOMContentLoaded', () => {
         jumpToDate(selectedDate);
       }
     });
+  }
+
+  // --- 7. Cosmic Finance v2.0 Dynamic Controls & SSE Wireup ---
+  const btnToggleOrbitMode = document.getElementById('btnToggleOrbitMode');
+  const btnToggleCalcDrawer = document.getElementById('btnToggleCalcDrawer');
+  const btnCloseCalcDrawer = document.getElementById('btnCloseCalcDrawer');
+  const orbitCalcDrawer = document.getElementById('orbitCalcDrawer');
+  const sseTickCount = document.getElementById('sseTickCount');
+  const v2StreamStatus = document.getElementById('v2StreamStatus');
+
+  if (btnToggleOrbitMode) {
+    btnToggleOrbitMode.addEventListener('click', () => {
+      orbitMode = orbitMode === 'multiring' ? 'classic' : 'multiring';
+      btnToggleOrbitMode.innerHTML = orbitMode === 'multiring'
+        ? '<span>🪐</span> Concentric Paths'
+        : '<span>⭕</span> Single Wheel';
+      btnToggleOrbitMode.classList.toggle('active', orbitMode === 'multiring');
+    });
+  }
+
+  if (btnToggleCalcDrawer && orbitCalcDrawer) {
+    btnToggleCalcDrawer.addEventListener('click', () => {
+      orbitCalcDrawer.classList.toggle('hidden');
+      btnToggleCalcDrawer.classList.toggle('active', !orbitCalcDrawer.classList.contains('hidden'));
+    });
+  }
+
+  if (btnCloseCalcDrawer && orbitCalcDrawer) {
+    btnCloseCalcDrawer.addEventListener('click', () => {
+      orbitCalcDrawer.classList.add('hidden');
+      if (btnToggleCalcDrawer) btnToggleCalcDrawer.classList.remove('active');
+    });
+  }
+
+  // Interactive On-Screen Zoom Controls (v2.0)
+  const btnZoomIn = document.getElementById('btnZoomIn');
+  const btnZoomOut = document.getElementById('btnZoomOut');
+  const btnZoomFit = document.getElementById('btnZoomFit');
+  const zoomLevelPill = document.getElementById('zoomLevelPill');
+
+  function updateZoomPill() {
+    if (zoomLevelPill) {
+      const pct = Math.round((500 / targetCamDist) * 100);
+      zoomLevelPill.textContent = `${pct}%`;
+    }
+  }
+
+  if (btnZoomIn) {
+    btnZoomIn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      targetCamDist = Math.max(320, targetCamDist - 55);
+      updateZoomPill();
+    });
+  }
+
+  if (btnZoomOut) {
+    btnZoomOut.addEventListener('click', (e) => {
+      e.stopPropagation();
+      targetCamDist = Math.min(880, targetCamDist + 55);
+      updateZoomPill();
+    });
+  }
+
+  if (btnZoomFit) {
+    btnZoomFit.addEventListener('click', (e) => {
+      e.stopPropagation();
+      targetCamDist = 500;
+      targetPitch = 0.58;
+      targetYaw = -0.35;
+      updateZoomPill();
+    });
+  }
+
+  // Real-Time SSE Packet Stream Telemetry Counter
+  let ssePacketCounter = 0;
+  try {
+    const sse = new EventSource('/api/stream/market');
+    sse.onmessage = (evt) => {
+      ssePacketCounter++;
+      if (sseTickCount) {
+        sseTickCount.textContent = `Streaming (${ssePacketCounter} pkts)`;
+      }
+      if (v2StreamStatus) {
+        v2StreamStatus.textContent = `Live Stream Active (${ssePacketCounter} pkts • 0ms)`;
+      }
+    };
+    sse.onerror = () => {
+      if (v2StreamStatus) {
+        v2StreamStatus.textContent = 'Auto-reconnecting SSE...';
+      }
+    };
+  } catch (err) {
+    console.debug('SSE initialization error in orbit.js:', err);
   }
 
   // Start 3D Render Loop

@@ -25,10 +25,10 @@
   <%- include('../partials/footer') %>
 
   <!-- Core Scripts -->
-  <script src="/js/main.js"></script>
+  <script src="/js/main.js?v=2.1"></script>
   <% if (typeof extraScripts !== 'undefined' && extraScripts.length) { %>
     <% extraScripts.forEach(function(src) { %>
-      <script src="<%= src %>"></script>
+      <script src="<%= src %>?v=2.1"></script>
     <% }); %>
   <% } %>
 </body>

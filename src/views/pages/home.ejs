@@ -2,22 +2,22 @@
   <!-- Unified Responsive Observatory Section -->
   <section class="hero-observatory-section" id="heroObservatory">
     <div class="container hero-container" style="flex-direction: column; align-items: stretch;">
-      <div class="hero-headline-block" style="max-width: 900px; margin: 0 auto 24px; text-align: center;">
-        <div class="cosmic-badge" style="margin: 0 auto 14px;">
+      <div class="hero-headline-block" style="max-width: 900px; margin: 0 auto 12px; text-align: center;">
+        <div class="cosmic-badge" style="margin: 0 auto 10px;">
           <span class="pulsing-star">✦</span>
           <span>AUTHENTIC GEOCENTRIC OBSERVATORY</span>
         </div>
-        <h1 class="hero-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem);">
+        <h1 class="hero-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem); margin-top: 6px; margin-bottom: 8px;">
           Where Stars Meet <span class="text-gold">The Street</span>
         </h1>
-        <p class="hero-subtext" style="margin: 0 auto 18px; max-width: 720px;">
+        <p class="hero-subtext" style="margin: 0 auto 12px; max-width: 720px;">
           Decipher macro market sentiment through mathematical planetary ephemeris, real-time Indian index dynamics, and Vedic trading propensity analytics.
         </p>
-        <div class="trust-calculation-banner" style="max-width: 680px; margin: 0 auto 20px;">
+        <div class="trust-calculation-banner" style="max-width: 680px; margin: 0 auto 14px;">
           <span class="trust-icon">⚖️</span>
           <span class="trust-text"><strong>Core Principle:</strong> "We don't predict. We calculate, and we show you the calculation."</span>
         </div>
-        <div class="hero-cta-group" style="justify-content: center;">
+        <div class="hero-cta-group" style="justify-content: center; margin-top: 4px; margin-bottom: 4px;">
           <a href="/trading-kundli" class="btn btn-gold btn-lg">
             <span>Decode Your Trading Kundli</span>
             <span class="btn-arrow">&rarr;</span>
@@ -35,26 +35,89 @@
       <div class="hero-orbit-card hero-orbit-fullscreen" id="heroOrbitCard">
         <div class="orbit-card-header">
           <div class="header-left-meta">
-            <span class="orbit-status-dot" id="observatoryStatusDot"></span>
+            <span class="orbit-status-radar">
+              <span class="orbit-status-dot" id="observatoryStatusDot"></span>
+            </span>
             <span class="orbit-status-title" id="observatoryModeLabel">Live Sky (Sidereal Lahiri)</span>
-          </div>
-          <div class="header-right-badges">
-            <span class="vedastro-telemetry-badge" id="vedastroTelemetryBadge" title="NASA JPL Swiss Ephemeris Telemetry Active (Lahiri Ayanamsha)">
-              <span class="vedastro-dot"></span>
-              <span>Swiss Ephemeris Calibrated</span>
+            <span class="sse-live-indicator" id="sseLiveIndicator" title="SSE Telemetry Stream (0ms latency)">
+              <span class="v2-dot-green"></span> <span id="sseTickCount">Stream Active</span>
             </span>
             <span class="time-machine-badge" id="timeMachineDateBadge" style="display: none;">Archive Date</span>
+          </div>
+
+          <div class="header-center-switch">
+            <button class="btn-v2-pill active" id="btnToggleOrbitMode" title="Toggle between concentric multi-ring orbits and single wheel">
+              <span>🪐</span> Concentric Paths
+            </button>
+          </div>
+
+          <div class="header-right-badges">
+            <button class="btn-v2-pill btn-math-pill" id="btnToggleCalcDrawer" title="Inspect Ephemeris & Mathematical formulas">
+              <span>📐</span> Calculation Math
+            </button>
+            <span class="vedastro-telemetry-badge" id="vedastroTelemetryBadge" title="NASA JPL Swiss Ephemeris Telemetry Active (Lahiri Ayanamsha)">
+              <span class="vedastro-dot"></span>
+              <span>JPL DE440</span>
+            </span>
             <span class="planetary-hour-badge" id="planetaryHourBadge">Hora: Calculating...</span>
           </div>
         </div>
 
         <!-- Canvas Container: True 3D Geocentric Ecliptic Scene -->
         <div class="orbit-canvas-wrapper" id="orbitCanvasWrapper">
+          <!-- Calculation Transparency Overlay Drawer (v2.0) -->
+          <div class="orbit-calc-drawer hidden" id="orbitCalcDrawer">
+            <div class="calc-drawer-header">
+              <div class="calc-drawer-title">
+                <span>📐</span>
+                <strong>Calculation Methodology &amp; Mathematical Ephemeris (v2.0)</strong>
+                <span class="v2-tag">Zero Black-Box</span>
+              </div>
+              <button class="calc-drawer-close" id="btnCloseCalcDrawer" aria-label="Close calculation drawer">&times;</button>
+            </div>
+            <div class="calc-drawer-grid">
+              <div class="calc-card">
+                <h4><span>🪐</span> Geocentric Sidereal Lahiri Ayanamsha</h4>
+                <p>True tropical positions converted to sidereal Nirayana zodiac with Chitra Paksha offset:</p>
+                <div class="calc-code-block">&lambda;<sub>sidereal</sub> = &lambda;<sub>tropical</sub> - 24.2298&deg; (Lahiri)</div>
+                <p style="margin-top: 6px; font-size: 0.76rem; color: #94a3b8;">Calibrated against JPL DE440 ephemeris with 0.001 arc-second geocentric precision.</p>
+              </div>
+
+              <div class="calc-card">
+                <h4><span>🪙</span> COMEX to MCX 24K Gold Valuation</h4>
+                <p>International bullion conversion with USD/INR foreign exchange and statutory import levy:</p>
+                <div class="calc-code-block">MCX 10g = (COMEX_USD / 31.1035) &times; USDINR &times; 1.15</div>
+                <p style="margin-top: 6px; font-size: 0.76rem; color: #94a3b8;">Includes 15% statutory customs levy benchmark for Indian physical gold spot parity.</p>
+              </div>
+
+              <div class="calc-card">
+                <h4><span>⚡</span> SSE EventStream Architecture</h4>
+                <p>Unidirectional push over HTTP/2 eliminates client polling lag:</p>
+                <div class="calc-code-block">GET /api/stream/market &rarr; text/event-stream (0ms push)</div>
+                <p style="margin-top: 6px; font-size: 0.76rem; color: #94a3b8;">Circuit breaker trips after 3 consecutive external NSE scrape failures into resilient stale cache.</p>
+              </div>
+            </div>
+          </div>
+
           <canvas id="orbitCanvas" width="1200" height="640" aria-label="Interactive 3D Geocentric Zodiac Wheel"></canvas>
           <div class="canvas-3d-hint">
             <span>🖱️ Drag to Rotate 3D View • Scroll to Zoom • Hover Planet for Coordinates &amp; Market Telemetry</span>
           </div>
-          <div class="orbit-fallback-notice" id="orbitFallbackBadges">
+
+          <!-- Floating Interactive Zoom HUD Overlay (v2.0) -->
+          <div class="orbit-zoom-hud" id="orbitZoomHud" aria-label="Observatory Zoom Controls">
+            <button class="zoom-btn" id="btnZoomIn" title="Zoom In (+)" aria-label="Zoom In">
+              <span class="zoom-icon">&plus;</span>
+            </button>
+            <span class="zoom-level-pill" id="zoomLevelPill">100%</span>
+            <button class="zoom-btn" id="btnZoomOut" title="Zoom Out (&minus;)" aria-label="Zoom Out">
+              <span class="zoom-icon">&minus;</span>
+            </button>
+            <button class="zoom-btn zoom-fit-btn" id="btnZoomFit" title="Fit Entire System (Reset Framing)" aria-label="Fit Full View">
+              <span>⛶ Fit</span>
+            </button>
+          </div>
+          <div class="orbit-fallback-notice" id="orbitFallbackBadges" role="toolbar" aria-label="Navagraha Quick Selection">
             <span class="orbit-planet-badge" data-planet="Sun">Sun ☉</span>
             <span class="orbit-planet-badge" data-planet="Moon">Moon ☽</span>
             <span class="orbit-planet-badge" data-planet="Mercury">Mercury ☿</span>
@@ -62,8 +125,8 @@
             <span class="orbit-planet-badge" data-planet="Mars">Mars ♂</span>
             <span class="orbit-planet-badge" data-planet="Jupiter">Jupiter ♃</span>
             <span class="orbit-planet-badge" data-planet="Saturn">Saturn ♄</span>
-            <span class="orbit-planet-badge" data-planet="Rahu">North Node ☊</span>
-            <span class="orbit-planet-badge" data-planet="Ketu">South Node ☋</span>
+            <span class="orbit-planet-badge" data-planet="Rahu">Rahu ☊</span>
+            <span class="orbit-planet-badge" data-planet="Ketu">Ketu ☋</span>
           </div>
         </div>
 
@@ -256,7 +319,7 @@
           <div class="inst-top-row">
             <div class="inst-symbol-group">
               <span class="inst-dot dot-gold"></span>
-              <span class="inst-name">Gold (INR/g)</span>
+              <span class="inst-name">Gold (MCX)</span>
               <span class="inst-code">XAU - INR</span>
             </div>
             <div class="inst-badge badge-up">
@@ -264,7 +327,7 @@
             </div>
           </div>
           <div class="inst-price-row">
-            <span class="inst-price">93,420 <span class="inst-unit">/g</span></span>
+            <span class="inst-price">93,420 <span class="inst-unit">/10g</span></span>
           </div>
           <div class="inst-sparkline">
             <svg class="spark-svg" viewBox="0 0 200 45" preserveAspectRatio="none">
@@ -953,7 +1016,8 @@
       </div>
     </div>
   </section>
-  <div class="floating-hora-widget" id="floatingHoraWidget" role="complementary" aria-label="Current Planetary Hour">
+  <!-- Floating Hora widget hidden to prevent collision with Zoom HUD and market cards; hora is displayed in header & mood section -->
+  <div class="floating-hora-widget" id="floatingHoraWidget" role="complementary" aria-label="Current Planetary Hour" style="display: none !important;">
     <div class="floating-hora-inner">
       <div class="floating-hora-top">
         <span class="floating-hora-dot"></span>

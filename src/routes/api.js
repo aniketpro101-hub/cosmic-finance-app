@@ -25,6 +25,30 @@ router.get('/market-data', (req, res) => {
   }
 });
 
+// 1b. Real-Time Server-Sent Events (SSE) Stream
+router.get('/stream/market', (req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache, no-transform',
+    'Connection': 'keep-alive',
+    'X-Accel-Buffering': 'no'
+  });
+
+  const eventBus = require('../services/eventBus');
+  const initial = getCachedMarketTelemetry();
+  res.write(`data: ${JSON.stringify(initial)}\n\n`);
+
+  const onUpdate = (payload) => {
+    res.write(`data: ${JSON.stringify(payload)}\n\n`);
+  };
+
+  eventBus.on('market:update', onUpdate);
+
+  req.on('close', () => {
+    eventBus.off('market:update', onUpdate);
+  });
+});
+
 // Live Market Data Feeds Health
 router.get('/market-data/feeds', (req, res) => {
   try {

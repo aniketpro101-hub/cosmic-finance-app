@@ -122,9 +122,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Initial poll and recurring 3-second live refresh loop
+  let sseConnected = false;
+
+  function connectSSEStream() {
+    if (!window.EventSource) return;
+    try {
+      const es = new EventSource('/api/stream/market');
+      es.onmessage = (event) => {
+        sseConnected = true;
+        try {
+          const payload = JSON.parse(event.data);
+          updateDisplay(payload);
+        } catch (err) {}
+      };
+      es.onerror = () => {
+        sseConnected = false;
+      };
+    } catch (err) {
+      sseConnected = false;
+    }
+  }
+
+  // Connect Real-Time SSE Stream with Smart Fallback
+  connectSSEStream();
   pollMarketData();
-  setInterval(pollMarketData, 3000);
+  setInterval(() => {
+    if (!sseConnected) {
+      pollMarketData();
+    }
+  }, 3000);
 
   // C.4 Load Sector Heatmap by Planetary Dignity
   async function loadSectorHeatmap() {

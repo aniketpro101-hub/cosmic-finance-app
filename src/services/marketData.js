@@ -6,6 +6,7 @@
 const db = require('../db/database');
 const { getIndianMarketStatus } = require('../utils/indianTime');
 const { syncLiveMarketFeeds, getLiveFeedsHealth } = require('./liveFeedIngestor');
+const eventBus = require('./eventBus');
 
 // Check if Indian Stock Market (NSE/BSE) is currently open
 // Trading hours: Mon - Fri, 09:15 AM to 03:30 PM IST (UTC+5:30)
@@ -91,6 +92,9 @@ function refreshMarketCache() {
         updateStmt.run(newPrice, newChangeAmt, newChangePct, r.symbol);
       });
     })();
+
+    // Emit live SSE update to connected clients
+    eventBus.emit('market:update', getCachedMarketTelemetry());
   } catch (err) {
     console.error('Market cache update error:', err.message);
   }

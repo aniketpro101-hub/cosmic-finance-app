@@ -60,11 +60,22 @@ async function getNSESessionCookie() {
   return nseCookie;
 }
 
+let consecutiveNSEFailures = 0;
+let nseCircuitTrippedUntil = 0;
+
 /**
  * Fetch official live NSE Indices (NIFTY 50, BANK NIFTY, NIFTY IT, etc.)
  */
 async function fetchNSEIndices() {
   const startTime = Date.now();
+  const now = Date.now();
+
+  // If circuit is tripped, avoid hammering upstream and serve cached last close
+  if (now < nseCircuitTrippedUntil) {
+    feedHealthState.nse.status = 'Circuit Breaker Open (Serving Last Close)';
+    return null;
+  }
+
   try {
     const cookie = await getNSESessionCookie();
     const controller = new AbortController();
@@ -84,6 +95,7 @@ async function fetchNSEIndices() {
     if (res.ok) {
       const json = await res.json();
       if (json && Array.isArray(json.data)) {
+        consecutiveNSEFailures = 0; // Reset circuit breaker
         const nifty = json.data.find(i => i.index === 'NIFTY 50');
         const bankNifty = json.data.find(i => i.index === 'NIFTY BANK');
         feedHealthState.nse = {
@@ -109,8 +121,17 @@ async function fetchNSEIndices() {
           allIndices: json.data
         };
       }
+    } else {
+      consecutiveNSEFailures++;
     }
   } catch (err) {
+    consecutiveNSEFailures++;
+  }
+
+  if (consecutiveNSEFailures >= 3) {
+    nseCircuitTrippedUntil = Date.now() + 5 * 60 * 1000; // 5 min trip
+    feedHealthState.nse.status = 'Circuit Tripped (Stale: Last Close Retained)';
+  } else {
     feedHealthState.nse.status = 'Standby (Cached)';
   }
   return null;

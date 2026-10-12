@@ -111,4 +111,48 @@
   /* Layout Dimensions */
   --container-max-width: 1280px;
   --header-height: 76px;
+
+  /* 4b. Navagraha Planetary Identity Tokens */
+  --graha-surya: #ffb347;   /* Sun: Warm radiant gold */
+  --graha-chandra: #d9e4f5; /* Moon: Silvery pearl shimmer */
+  --graha-mangala: #ff5c5c; /* Mars: War crimson */
+  --graha-budha: #5ce6c0;   /* Mercury: Mint aquamarine (Tech/IT) */
+  --graha-guru: #f4c95d;    /* Jupiter: Royal amber gold (Banks) */
+  --graha-shukra: #ffd6e8;  /* Venus: Luminous champagne rose (Auto/Luxury) */
+  --graha-shani: #6b7a99;   /* Saturn: Steel slate (Infra/Metals) */
+  --graha-rahu: #7a5cff;    /* Rahu: Electric violet void (Crypto/Speculation) */
+  --graha-ketu: #8c7b75;    /* Ketu: Smoky burnt ash */
+
+  /* Dedicated Vakri (Retrograde) & Data Status Tokens */
+  --signal-retrograde: #b183ff;        /* Distinct neon purple — isolated from market red */
+  --signal-retrograde-glow: rgba(177, 131, 255, 0.45);
+  --signal-stale: #ffb74d;             /* Amber for market-closed / stale data */
+
+  /* Motion Design System Tokens */
+  --ease-cosmic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-orbital: linear;
+  --duration-instant: 120ms;
+  --duration-transition: 280ms;
+  --duration-ambient: 8000ms;
 }
+
+/* Tabular Numerals Discipline — Eliminates horizontal digit jitter during live ticking */
+.telemetry-value,
+.asset-price,
+.chip-price,
+.inst-price,
+.hud-ticker-price,
+.tabular-nums {
+  font-variant-numeric: tabular-nums !important;
+  font-feature-settings: "tnum" 1 !important;
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
