@@ -1,0 +1,68 @@
+<div class="page-container container section-rhythm">
+  <article class="single-article-wrapper">
+    <header class="article-header">
+      <div class="article-breadcrumb">
+        <a href="/articles">&larr; Back to Articles</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current"><%= article.category %></span>
+      </div>
+
+      <div class="article-category-badge"><%= article.category %></div>
+      <h1 class="article-title"><%= article.title %></h1>
+
+      <div class="article-meta-bar">
+        <div class="author-info">
+          <span class="author-avatar">✦</span>
+          <div>
+            <span class="author-name"><%= article.author_name %></span>
+            <span class="article-date"><%= new Date(article.published_at || article.created_at).toLocaleDateString('en-IN', { month: 'long', day: 'numeric', year: 'numeric' }) %></span>
+          </div>
+        </div>
+        <span class="read-duration">⏱️ <%= article.read_time || '5 min read' %></span>
+      </div>
+    </header>
+
+    <div class="article-content-body">
+      <%- article.content %>
+    </div>
+
+    <!-- Engagement & Reaction Bar (No Login Required) -->
+    <div class="article-engagement-bar">
+      <div class="reactions-group">
+        <span class="reactions-title">Quick Reactions:</span>
+        <button class="btn-reaction" data-reaction="fire" aria-label="Insightful Fire">🔥 <span class="count">24</span></button>
+        <button class="btn-reaction" data-reaction="wealth" aria-label="Wealth Energy">💰 <span class="count">19</span></button>
+        <button class="btn-reaction" data-reaction="market" aria-label="Market Bull">📈 <span class="count">31</span></button>
+        <button class="btn-reaction" data-reaction="cosmic" aria-label="Cosmic Insight">🪐 <span class="count">45</span></button>
+      </div>
+
+      <div class="share-group">
+        <span class="share-title">Share Article:</span>
+        <a href="https://api.whatsapp.com/send?text=<%= encodeURIComponent(article.title + ' — ' + currentUrl) %>" class="btn btn-gold btn-xs" target="_blank" rel="noopener">
+          Share on WhatsApp 💬
+        </a>
+      </div>
+    </div>
+
+    <!-- Author Bio Box -->
+    <div class="author-bio-card">
+      <div class="bio-avatar">✦</div>
+      <div class="bio-text">
+        <h4>About <%= article.author_name %></h4>
+        <p><%= article.author_bio || 'Researcher at Cosmic Finance specializing in Vedic astronomical macro cycles and capital market psychology.' %></p>
+      </div>
+    </div>
+
+    <!-- Community Invitation CTA -->
+    <div class="article-write-cta">
+      <h3>Have an Astrological Market Thesis to Share?</h3>
+      <p>Submit your own article for review by our editorial board.</p>
+      <a href="/submit-article" class="btn btn-outline btn-sm">Write For Us &rarr;</a>
+    </div>
+
+    <!-- Article Footer Disclaimer -->
+    <div class="article-disclaimer-note">
+      <p><strong>Note:</strong> This article is published for educational and astrological research analysis only. It does not constitute investment advice or trading recommendations. Past astrological correlations do not guarantee future market behavior.</p>
+    </div>
+  </article>
+</div>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weekly Outlook & Track Record | Cosmic Finance Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-dashboard-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand"><span class="logo-symbol">✦</span> Cosmic Admin</div>
+      <nav class="sidebar-nav">
+        <a href="<%= adminPath %>" class="sidebar-link">📊 Control Deck</a>
+        <a href="<%= adminPath %>/thoughts" class="sidebar-link">✍️ Daily Thoughts</a>
+        <a href="<%= adminPath %>/articles" class="sidebar-link">📚 Article Review</a>
+        <a href="<%= adminPath %>/news" class="sidebar-link">📰 Curated News</a>
+        <a href="<%= adminPath %>/outlook" class="sidebar-link active">⚖️ Macro Outlook & Track Record</a>
+        <a href="<%= adminPath %>/leads" class="sidebar-link">🎯 Kundli Leads</a>
+        <a href="<%= adminPath %>/analytics" class="sidebar-link">📈 Analytics</a>
+      </nav>
+      <div class="sidebar-footer"><a href="<%= adminPath %>/logout" class="sidebar-logout">Logout &rarr;</a></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <h2>Weekly Macro Calls & Public Track Record</h2>
+        <span class="text-secondary text-sm">Verify outcomes to automatically update the public record</span>
+      </header>
+
+      <div class="admin-content-inner">
+        <!-- Outcome Verification Form -->
+        <div class="admin-panel mb-6">
+          <h3>Verify Historical Macro Call Outcome</h3>
+          <form action="<%= adminPath %>/outlook/verify-outcome" method="POST" class="cosmic-form">
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="weekRange">Week Range / Timestamp</label>
+                <input type="text" id="weekRange" name="weekRange" class="form-control" placeholder="e.g. Oct 06 – Oct 12, 2024" required>
+              </div>
+              <div class="form-group col-half">
+                <label for="status">Verification Status</label>
+                <select id="status" name="status" class="form-control" required>
+                  <option value="Verified Match">Verified Match (Cycle aligned)</option>
+                  <option value="Verified Divergence">Verified Divergence (Market deviated)</option>
+                  <option value="Pending">Pending Outcome</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="statedCall">Stated Macro Call in Outlook</label>
+              <textarea id="statedCall" name="statedCall" class="form-control" rows="2" placeholder="What was originally stated in the weekly macro outlook..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="actualOutcome">Actual Market Outcome (Immutable Public Log)</label>
+              <textarea id="actualOutcome" name="actualOutcome" class="form-control" rows="2" placeholder="What actually happened in the market once the week passed..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="marketMetricDelta">Key Metric Delta</label>
+              <input type="text" id="marketMetricDelta" name="marketMetricDelta" class="form-control" placeholder="e.g. NIFTY -0.2%, GOLD +1.8%">
+            </div>
+
+            <button type="submit" class="btn btn-gold">Publish Verified Outcome to Public Track Record &rarr;</button>
+          </form>
+        </div>
+
+        <!-- Verified Track Record Table -->
+        <div class="admin-panel">
+          <h3>Current Public Track Record Entries (<%= trackRecords.length %>)</h3>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Week Range</th>
+                <th>Stated Macro Call</th>
+                <th>Actual Outcome</th>
+                <th>Status</th>
+                <th>Metric Delta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (trackRecords.length === 0) { %>
+                <tr><td colspan="5" class="text-center text-muted">No track record entries yet.</td></tr>
+              <% } else { %>
+                <% trackRecords.forEach(t => { %>
+                  <tr>
+                    <td><strong><%= t.week_range %></strong><br><small class="text-muted"><%= t.published_date %></small></td>
+                    <td><%= t.stated_macro_call %></td>
+                    <td><%= t.actual_outcome || 'Pending verification' %></td>
+                    <td>
+                      <span class="status-pill <%= t.status === 'Verified Match' ? 'converted' : (t.status === 'Verified Divergence' ? 'new' : 'contacted') %>">
+                        <%= t.status %>
+                      </span>
+                    </td>
+                    <td><code><%= t.market_metric_delta || '-' %></code></td>
+                  </tr>
+                <% }); %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

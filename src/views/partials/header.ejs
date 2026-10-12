@@ -1,0 +1,71 @@
+<header class="site-header" id="siteHeader">
+  <div class="header-container container">
+    <a href="/" class="brand-logo" id="brandLogo">
+      <span class="logo-symbol">✦</span>
+      <span class="logo-text">Cosmic<span class="logo-accent">Finance</span></span>
+    </a>
+
+    <!-- Desktop Navigation (Strictly NO login/signup links) -->
+    <nav class="desktop-nav" id="desktopNav" aria-label="Main Navigation">
+      <ul class="nav-list">
+        <li><a href="/market-data" class="nav-link <%= currentPath === '/market-data' ? 'active' : '' %>">Live Data</a></li>
+        <li><a href="/weekly-outlook" class="nav-link <%= currentPath === '/weekly-outlook' ? 'active' : '' %>">Weekly Outlook</a></li>
+        <li><a href="/articles" class="nav-link <%= currentPath.startsWith('/articles') ? 'active' : '' %>">Articles</a></li>
+        <li><a href="/news" class="nav-link <%= currentPath === '/news' ? 'active' : '' %>">News</a></li>
+        <li><a href="/trading-kundli" class="nav-link <%= currentPath === '/trading-kundli' || currentPath === '/kundli' ? 'active' : '' %>">Know Your Kundli</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="/trading-kundli" class="btn btn-gold btn-header-cta" id="headerKundliCta">
+        Decode Your Chart
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Navigation -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-header">
+      <div class="brand-logo">
+        <span class="logo-symbol">✦</span>
+        <span class="logo-text">Cosmic<span class="logo-accent">Finance</span></span>
+      </div>
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close Menu">&times;</button>
+    </div>
+    <div class="mobile-quick-pills">
+      <a href="/market-data" class="quick-pill">📊 Live Data</a>
+      <a href="/weekly-outlook" class="quick-pill">🪐 Outlook</a>
+      <a href="/trading-kundli" class="quick-pill highlight">✨ Free Kundli</a>
+    </div>
+    <nav class="mobile-nav">
+      <ul class="mobile-nav-list">
+        <li><a href="/" class="mobile-nav-link <%= currentPath === '/' ? 'active' : '' %>">🌌 Observatory (Home)</a></li>
+        <li><a href="/market-data" class="mobile-nav-link <%= currentPath === '/market-data' ? 'active' : '' %>">📈 Live Market Pulse</a></li>
+        <li><a href="/weekly-outlook" class="mobile-nav-link <%= currentPath === '/weekly-outlook' ? 'active' : '' %>">📜 Weekly Macro Outlook</a></li>
+        <li><a href="/patterns" class="mobile-nav-link <%= currentPath.startsWith('/patterns') ? 'active' : '' %>">📐 Historical Patterns</a></li>
+        <li><a href="/track-record" class="mobile-nav-link <%= currentPath === '/track-record' ? 'active' : '' %>">🎯 Public Track Record</a></li>
+        <li><a href="/trading-kundli" class="mobile-nav-link <%= currentPath === '/trading-kundli' ? 'active' : '' %>">🔮 Know Your Trading Kundli</a></li>
+        <li><a href="/articles" class="mobile-nav-link <%= currentPath.startsWith('/articles') ? 'active' : '' %>">📚 Financial Astrology Articles</a></li>
+        <li><a href="/news" class="mobile-nav-link <%= currentPath === '/news' ? 'active' : '' %>">📰 Curated Cosmic News</a></li>
+        <li><a href="/about" class="mobile-nav-link <%= currentPath === '/about' ? 'active' : '' %>">🪐 About Cosmic Finance</a></li>
+        <li><a href="/contact" class="mobile-nav-link <%= currentPath === '/contact' ? 'active' : '' %>">📞 WhatsApp & Consultation</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <div class="mobile-consultation-bar">
+        <a href="https://wa.me/918888888888?text=<%= encodeURIComponent(whatsappMessage) %>" class="btn btn-gold btn-block" target="_blank" rel="noopener">
+          Chat on WhatsApp
+        </a>
+      </div>
+      <p class="mobile-disclaimer-note">Non-advisory educational platform. SEBI non-registered.</p>
+    </div>
+  </div>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+</header>

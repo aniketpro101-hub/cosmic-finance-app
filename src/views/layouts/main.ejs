@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="cosmic-theme" data-page="<%= pageId %>">
+  <!-- Subtle ambient celestial background canvas -->
+  <div class="stars-backdrop" id="starsBackdrop" aria-hidden="true"></div>
+
+  <!-- Interactive Cosmic Stardust Cursor Overlay -->
+  <canvas id="cosmicCursorCanvas" class="cosmic-cursor-canvas" aria-hidden="true"></canvas>
+
+  <!-- Main Site Navigation -->
+  <%- include('../partials/header') %>
+
+  <!-- Page Main Content Slot -->
+  <main class="site-main" id="mainContent">
+    <%- body %>
+  </main>
+
+  <!-- Persistent Regulatory Notice -->
+  <%- include('../partials/disclaimer') %>
+
+  <!-- Main Site Footer -->
+  <%- include('../partials/footer') %>
+
+  <!-- Core Scripts -->
+  <script src="/js/main.js"></script>
+  <% if (typeof extraScripts !== 'undefined' && extraScripts.length) { %>
+    <% extraScripts.forEach(function(src) { %>
+      <script src="<%= src %>"></script>
+    <% }); %>
+  <% } %>
+</body>
+</html>

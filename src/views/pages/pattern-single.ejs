@@ -1,0 +1,101 @@
+<div class="container section-rhythm">
+  <div class="single-article-wrapper">
+    <nav class="breadcrumb-nav mb-4">
+      <a href="/patterns" class="text-gold">&larr; Back to Historical Pattern Library</a>
+    </nav>
+
+    <header class="single-article-header">
+      <div class="article-meta-tags mb-3">
+        <span class="pill-badge gold">Empirical Pattern</span>
+        <span class="pill-badge">Benchmark: <%= pattern.asset_symbol %></span>
+        <span class="sample-count-badge">Sample Size: <%= pattern.sample_count %> Occurrences</span>
+      </div>
+
+      <h1 class="article-headline mb-4"><%= pattern.title %></h1>
+
+      <div class="trust-calculation-banner mb-6">
+        <span class="trust-icon">⚖️</span>
+        <span class="trust-text"><strong>Transparent Calculation:</strong> Computed across <%= pattern.sample_count %> historical cycles between <%= pattern.date_range_start %> and <%= pattern.date_range_end %>. Zero AI-generated text.</span>
+      </div>
+    </header>
+
+    <!-- Comprehensive Empirical Statistics Card -->
+    <div class="result-metric-box mb-6">
+      <h3 class="mb-4 text-gold">Summary Statistics (<%= pattern.sample_count %> Cycles Studied)</h3>
+      <div class="pattern-stats-preview-grid">
+        <div class="p-stat">
+          <span class="p-label">Positive Cycles</span>
+          <strong class="p-val text-green"><%= pattern.positive_occurrences %> / <%= pattern.sample_count %> (<%= pattern.win_rate_percent %>%)</strong>
+        </div>
+        <div class="p-stat">
+          <span class="p-label">Negative Cycles</span>
+          <strong class="p-val text-red"><%= pattern.negative_occurrences %> / <%= pattern.sample_count %> (<%= (100 - pattern.win_rate_percent).toFixed(1) %>%)</strong>
+        </div>
+        <div class="p-stat">
+          <span class="p-label">Mean Cycle Return</span>
+          <strong class="p-val <%= pattern.avg_return_percent >= 0 ? 'text-green' : 'text-red' %>"><%= pattern.avg_return_percent >= 0 ? '+' : '' %><%= pattern.avg_return_percent %>%</strong>
+        </div>
+        <div class="p-stat">
+          <span class="p-label">Median Cycle Return</span>
+          <strong class="p-val"><%= pattern.median_return_percent >= 0 ? '+' : '' %><%= pattern.median_return_percent %>%</strong>
+        </div>
+        <div class="p-stat">
+          <span class="p-label">Maximum Gain</span>
+          <strong class="p-val text-green">+<%= pattern.max_gain_percent %>%</strong>
+        </div>
+        <div class="p-stat">
+          <span class="p-label">Maximum Drawdown</span>
+          <strong class="p-val text-red"><%= pattern.max_drawdown_percent %>%</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytical Context (Admin/Analyst Written) -->
+    <div class="article-content-body">
+      <h2>Planetary Condition & Analytical Context</h2>
+      <p class="text-secondary"><strong>Condition Defined:</strong> <%= pattern.planetary_condition %></p>
+      <p><%= pattern.analytical_summary %></p>
+
+      <h2>Raw Historical Occurrences Log</h2>
+      <p class="text-sm text-secondary">
+        Below is the transparent record of historical occurrences examined in this empirical study:
+      </p>
+
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Occurrence Window</th>
+              <th>Starting Price</th>
+              <th>Ending Price</th>
+              <th>Cycle Return</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% pattern.occurrences.forEach(occ => { %>
+              <tr>
+                <td><strong><%= occ.window %></strong></td>
+                <td><%= Number(occ.startPrice).toLocaleString('en-IN') %></td>
+                <td><%= Number(occ.endPrice).toLocaleString('en-IN') %></td>
+                <td class="<%= occ.returnPct >= 0 ? 'text-green' : 'text-red' %>">
+                  <strong><%= occ.returnPct >= 0 ? '+' : '' %><%= occ.returnPct.toFixed(2) %>%</strong>
+                </td>
+                <td><%= occ.durationDays %> Days</td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="article-callout-box mt-6">
+        <h4>Methodology & Verification Transparency</h4>
+        <p class="mb-0 text-sm"><%= pattern.methodology_note %></p>
+      </div>
+
+      <div class="article-disclaimer-note mt-6">
+        <p><strong>Regulatory Notice:</strong> This historical study is strictly educational and analytical. Cosmic Finance does not provide investment advice, buy/sell recommendations, or price targets. Financial markets are subject to systemic risks.</p>
+      </div>
+    </div>
+  </div>
+</div>

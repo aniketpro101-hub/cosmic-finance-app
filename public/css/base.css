@@ -1,0 +1,147 @@
+/**
+ * Cosmic Finance — Base Styles & Resets
+ * Aligned with "Deep Space Meets Gold Vault" Specification
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-space-950);
+  color: var(--text-primary);
+  line-height: 1.65;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(157, 130, 240, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 85% 30%, rgba(242, 200, 121, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg-space-950) 0%, var(--bg-space-900) 50%, var(--bg-space-950) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings — Space Grotesk (500, 600, 700) Display / Observatory Cockpit */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+h1 { font-size: var(--text-4xl); font-weight: 700; letter-spacing: -0.03em; }
+h2 { font-size: var(--text-3xl); font-weight: 700; letter-spacing: -0.025em; }
+h3 { font-size: var(--text-2xl); font-weight: 600; letter-spacing: -0.02em; }
+h4 { font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.015em; }
+h5, h6 { font-size: var(--text-lg); font-weight: 600; }
+
+p {
+  font-family: var(--font-body);
+  margin-bottom: var(--space-4);
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--gold-500);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+a:hover {
+  color: var(--gold-400);
+  text-shadow: 0 0 8px var(--gold-glow);
+}
+
+/* ==============================================================
+   STRICT TYPOGRAPHY RULE:
+   Numbers and financial prices are NEVER rendered in Space Grotesk.
+   They are strictly rendered in IBM Plex Mono (400, 500) so that
+   decimal points and digits align vertically like precision laboratory readouts.
+   ============================================================== */
+.num, .price, .percentage, .ticker-chip, .asset-price,
+.inst-price, .inst-timestamp, .stat-val, .hora-hero-name, .hora-hero-time,
+.floating-hora-clock, .floating-hora-widget, .chip-price, .chip-change,
+.market-value, [data-price], [data-stat], .inst-code, .telemetry-pill,
+.orbit-status-title, .time-machine-badge, .planetary-hour-badge {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Indic Fallback for Vedic Terminology */
+.indic-text, .vedic-term, .yoga-title, [lang="hi"] {
+  font-family: 'Noto Sans Devanagari', var(--font-body);
+}
+
+/* Utilities */
+.text-gold { color: var(--gold-500) !important; }
+.text-violet { color: var(--violet-400) !important; }
+.text-success, .text-green { color: var(--success-400) !important; }
+.text-danger, .text-red { color: var(--negative-400) !important; }
+.text-muted, .text-dim { color: var(--text-dim) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-primary { color: var(--text-primary) !important; }
+.text-sm { font-size: var(--text-sm) !important; }
+.text-xs { font-size: var(--text-xs) !important; }
+.text-center { text-align: center; }
+
+.d-flex { display: flex; }
+.d-inline { display: inline-block; }
+.gap-2 { gap: var(--space-2); }
+.justify-content-between { justify-content: space-between; }
+.w-auto { width: auto !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: var(--space-1) !important; }
+.mb-2 { margin-bottom: var(--space-2) !important; }
+.mb-3 { margin-bottom: var(--space-3) !important; }
+.mb-4 { margin-bottom: var(--space-4) !important; }
+.mb-6 { margin-bottom: var(--space-6) !important; }
+.mt-4 { margin-top: var(--space-4) !important; }
+.mt-6 { margin-top: var(--space-6) !important; }
+.mt-8 { margin-top: var(--space-8) !important; }
+.py-4 { padding-top: var(--space-4) !important; padding-bottom: var(--space-4) !important; }
+.py-6 { padding-top: var(--space-6) !important; padding-bottom: var(--space-6) !important; }
+.py-8 { padding-top: var(--space-8) !important; padding-bottom: var(--space-8) !important; }
+.col-full { grid-column: 1 / -1; width: 100%; }
+
+/* Ambient Stars Canvas Overlay */
+.stars-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+.site-main {
+  flex: 1 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Dedicated Top-Level Cosmic Cursor Overlay */
+.cosmic-cursor-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999999;
+}

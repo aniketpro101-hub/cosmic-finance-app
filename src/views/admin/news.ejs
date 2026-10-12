@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>News Management | Cosmic Finance Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-dashboard-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand"><span class="logo-symbol">✦</span> Cosmic Admin</div>
+      <nav class="sidebar-nav">
+        <a href="<%= adminPath %>" class="sidebar-link">📊 Control Deck</a>
+        <a href="<%= adminPath %>/thoughts" class="sidebar-link">✍️ Daily Thoughts</a>
+        <a href="<%= adminPath %>/articles" class="sidebar-link">📚 Article Review</a>
+        <a href="<%= adminPath %>/news" class="sidebar-link active">📰 Curated News</a>
+        <a href="<%= adminPath %>/leads" class="sidebar-link">🎯 Kundli Leads</a>
+        <a href="<%= adminPath %>/analytics" class="sidebar-link">📈 Analytics</a>
+      </nav>
+      <div class="sidebar-footer"><a href="<%= adminPath %>/logout" class="sidebar-logout">Logout &rarr;</a></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <h2>News Radar Curation</h2>
+      </header>
+
+      <div class="admin-content-inner">
+        <div class="admin-panel mb-6">
+          <h3>Publish Curated News Dispatch</h3>
+          <form action="<%= adminPath %>/news" method="POST" class="cosmic-form">
+            <div class="form-group">
+              <label for="newsTitle">News Headline</label>
+              <input type="text" id="newsTitle" name="title" class="form-control" placeholder="e.g. RBI Keeps Repo Rate Unchanged at 6.5%" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="sourceName">Source Publication</label>
+                <input type="text" id="sourceName" name="sourceName" class="form-control" placeholder="e.g. Financial Express" required>
+              </div>
+              <div class="form-group col-half">
+                <label for="category">Category</label>
+                <select id="category" name="category" class="form-control">
+                  <option value="Macro">Macro</option>
+                  <option value="Astro-Market">Astro-Market</option>
+                  <option value="Gold">Gold</option>
+                  <option value="Crypto">Crypto</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="sourceUrl">Source URL (Outbound Link)</label>
+              <input type="url" id="sourceUrl" name="sourceUrl" class="form-control" placeholder="https://..." required>
+            </div>
+            <div class="form-group">
+              <label for="newsSummary">Brief Context / Summary</label>
+              <textarea id="newsSummary" name="summary" class="form-control" rows="3" placeholder="Explain the market relevance..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-gold">Publish News Item</button>
+          </form>
+        </div>
+
+        <div class="admin-panel">
+          <h3>Live Curated News Items</h3>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Headline</th>
+                  <th>Source</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (newsList && newsList.length) { %>
+                  <% newsList.forEach(function(item) { %>
+                    <tr>
+                      <td><strong><%= item.title %></strong></td>
+                      <td><%= item.source_name %></td>
+                      <td><span class="pill-badge"><%= item.category %></span></td>
+                      <td><%= new Date(item.published_at || item.created_at).toLocaleDateString('en-IN') %></td>
+                    </tr>
+                  <% }); %>
+                <% } else { %>
+                  <tr><td colspan="4" class="text-center text-muted">No news items published yet.</td></tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

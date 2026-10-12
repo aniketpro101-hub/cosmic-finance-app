@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Deck | Cosmic Finance Admin</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-dashboard-body">
+  <div class="admin-layout">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand">
+        <span class="logo-symbol">✦</span>
+        <span>Cosmic Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="<%= adminPath %>" class="sidebar-link active">📊 Control Deck</a>
+        <a href="<%= adminPath %>/thoughts" class="sidebar-link">✍️ Daily Thoughts</a>
+        <a href="<%= adminPath %>/articles" class="sidebar-link">📚 Article Review</a>
+        <a href="<%= adminPath %>/news" class="sidebar-link">📰 Curated News</a>
+        <a href="<%= adminPath %>/leads" class="sidebar-link">🎯 Kundli Leads</a>
+        <a href="<%= adminPath %>/analytics" class="sidebar-link">📈 Analytics</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="<%= adminPath %>/logout" class="sidebar-logout">Logout &rarr;</a>
+      </div>
+    </aside>
+
+    <!-- Admin Main Body -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <h2>Control Deck Overview</h2>
+        <div class="admin-user-info">
+          <span class="status-badge live">● 2FA Active</span>
+          <span class="user-name">Welcome, Administrator</span>
+        </div>
+      </header>
+
+      <div class="admin-content-inner">
+        <!-- Quick Stats Cards -->
+        <div class="admin-metrics-row">
+          <div class="metric-card">
+            <span class="metric-title">Today's Kundli Leads</span>
+            <span class="metric-num"><%= stats.newLeadsCount || 0 %></span>
+            <span class="metric-sub">Captured via Funnel</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Pending Article Reviews</span>
+            <span class="metric-num"><%= stats.pendingArticlesCount || 0 %></span>
+            <span class="metric-sub">Community submissions</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Daily Thoughts Published</span>
+            <span class="metric-num"><%= stats.thoughtsCount || 0 %></span>
+            <span class="metric-sub">Live on Home Feed</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Data Pipeline Status</span>
+            <span class="metric-num text-success">Healthy</span>
+            <span class="metric-sub">Cache updated recently</span>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Recent Queue Section -->
+        <div class="admin-sections-grid">
+          <div class="admin-panel">
+            <div class="panel-header-split">
+              <h3>Recent Trading Kundli Inquiries</h3>
+              <a href="<%= adminPath %>/leads" class="panel-link">View All Leads &rarr;</a>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>DOB / POB</th>
+                    <th>Speculation Yoga</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (recentLeads && recentLeads.length) { %>
+                    <% recentLeads.forEach(function(lead) { %>
+                      <tr>
+                        <td><strong><%= lead.full_name %></strong></td>
+                        <td><%= lead.dob %> (<%= lead.pob %>)</td>
+                        <td><span class="pill-badge"><%= lead.speculation_yoga || 'Pending' %></span></td>
+                        <td><%= lead.lead_type || 'whatsapp' %></td>
+                        <td><span class="status-pill <%= (lead.status || 'new').toLowerCase() %>"><%= lead.status || 'New' %></span></td>
+                      </tr>
+                    <% }); %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="5" class="text-center text-muted">No recent inquiries logged yet.</td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="admin-panel">
+            <div class="panel-header-split">
+              <h3>Pending Community Articles</h3>
+              <a href="<%= adminPath %>/articles" class="panel-link">Open Queue &rarr;</a>
+            </div>
+            <div class="pending-articles-list">
+              <% if (pendingArticles && pendingArticles.length) { %>
+                <% pendingArticles.forEach(function(art) { %>
+                  <div class="pending-item">
+                    <h4><%= art.title %></h4>
+                    <p class="pending-meta">By <%= art.author_name %> • <%= art.category %></p>
+                  </div>
+                <% }); %>
+              <% } else { %>
+                <p class="text-muted text-center py-4">Moderation queue is clean. No pending submissions.</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<div class="page-container container section-rhythm">
+  <header class="page-header text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>CURATED RADAR</span>
+    </div>
+    <h1 class="page-title">Market & Cosmic <span class="text-gold">News</span></h1>
+    <p class="page-subtitle">
+      Selected Indian market milestones, macroeconomic developments, and planetary ingress news curated for context.
+    </p>
+  </header>
+
+  <div class="news-master-grid" id="newsGrid">
+    <% if (typeof newsItems !== 'undefined' && newsItems.length) { %>
+      <% newsItems.forEach(function(item) { %>
+        <article class="news-card">
+          <div class="news-card-header">
+            <span class="news-tag <%= item.category ? item.category.toLowerCase() : 'macro' %>"><%= item.category || 'Macro' %></span>
+            <time class="news-date"><%= new Date(item.published_at || item.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) %></time>
+          </div>
+          <h2 class="news-title">
+            <a href="<%= item.source_url %>" target="_blank" rel="noopener"><%= item.title %></a>
+          </h2>
+          <p class="news-summary"><%= item.summary %></p>
+          <div class="news-footer">
+            <span class="news-source">Source: <strong><%= item.source_name %></strong></span>
+            <a href="<%= item.source_url %>" target="_blank" rel="noopener" class="source-link">Visit Source &rarr;</a>
+          </div>
+        </article>
+      <% }); %>
+    <% } else { %>
+      <!-- Starter news item -->
+      <article class="news-card">
+        <div class="news-card-header">
+          <span class="news-tag macro">Macro Equities</span>
+          <time class="news-date">Today</time>
+        </div>
+        <h2 class="news-title">
+          <a href="#">RBI Monetary Policy Committee Maintains Stance on Growth-Inflation Balance</a>
+        </h2>
+        <p class="news-summary">
+          Central banking committee highlights domestic liquidity resilience while monitoring global geopolitical developments and crude price shifts.
+        </p>
+        <div class="news-footer">
+          <span class="news-source">Source: <strong>Economic Bureau</strong></span>
+          <a href="#" class="source-link">External Dispatch &rarr;</a>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <div class="news-card-header">
+          <span class="news-tag astro-market">Astro-Market</span>
+          <time class="news-date">Yesterday</time>
+        </div>
+        <h2 class="news-title">
+          <a href="#">Rare Triple Planetary Conjunction Occurring in Spring Equinox Alignment</a>
+        </h2>
+        <p class="news-summary">
+          Astrological observers note historical parallels with shift in commodity inflation cycles and precious metal accumulation patterns.
+        </p>
+        <div class="news-footer">
+          <span class="news-source">Source: <strong>Cosmic Finance Desk</strong></span>
+          <a href="#" class="source-link">Observatory Report &rarr;</a>
+        </div>
+      </article>
+    <% } %>
+  </div>
+</div>

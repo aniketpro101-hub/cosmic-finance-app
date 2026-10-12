@@ -1,0 +1,74 @@
+<div class="container section-rhythm">
+  <!-- Page Header -->
+  <div class="page-title-block text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>CALCULATION-FIRST PATTERN LIBRARY</span>
+    </div>
+    <h1 class="page-headline">Historical Planetary <span class="text-gold">Market Patterns</span></h1>
+    <p class="page-subtitle">
+      Empirical statistical cross-referencing of astronomical planetary cycles against historical Indian market benchmarks.
+    </p>
+    <div class="trust-calculation-banner" style="max-width: 680px; margin: var(--space-4) auto;">
+      <span class="trust-icon">⚖️</span>
+      <span class="trust-text"><strong>Core Principle:</strong> "We don't predict. We calculate, and we show you the calculation." Sample counts, occurrences, and drawdowns are fully disclosed.</span>
+    </div>
+  </div>
+
+  <!-- Patterns Grid -->
+  <div class="articles-master-grid mt-8">
+    <% if (patterns.length === 0) { %>
+      <div class="text-center text-muted col-full py-8">
+        <p>No historical patterns indexed yet.</p>
+      </div>
+    <% } else { %>
+      <% patterns.forEach(p => { %>
+        <article class="article-card pattern-card">
+          <div class="card-meta">
+            <span class="pill-badge gold">Pattern Library</span>
+            <span class="sample-count-badge">Sample Size: <%= p.sample_count %> Cycles</span>
+          </div>
+
+          <h2 class="card-title">
+            <a href="/patterns/<%= p.slug %>"><%= p.title %></a>
+          </h2>
+
+          <p class="card-excerpt"><%= p.analytical_summary %></p>
+
+          <!-- Core Computed Metrics -->
+          <div class="pattern-stats-preview-grid">
+            <div class="p-stat">
+              <span class="p-label">Positive Win Rate</span>
+              <strong class="p-val <%= p.win_rate_percent >= 50 ? 'text-green' : 'text-red' %>"><%= p.win_rate_percent %>%</strong>
+            </div>
+            <div class="p-stat">
+              <span class="p-label">Avg Return</span>
+              <strong class="p-val <%= p.avg_return_percent >= 0 ? 'text-green' : 'text-red' %>"><%= p.avg_return_percent >= 0 ? '+' : '' %><%= p.avg_return_percent %>%</strong>
+            </div>
+            <div class="p-stat">
+              <span class="p-label">Median Return</span>
+              <strong class="p-val"><%= p.median_return_percent >= 0 ? '+' : '' %><%= p.median_return_percent %>%</strong>
+            </div>
+            <div class="p-stat">
+              <span class="p-label">Max Drawdown</span>
+              <strong class="p-val text-red"><%= p.max_drawdown_percent %>%</strong>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <span class="sample-years">Study Period: <%= p.date_range_start.split('-')[0] %>–<%= p.date_range_end.split('-')[0] %></span>
+            <a href="/patterns/<%= p.slug %>" class="btn btn-outline btn-xs">View Complete Calculation &rarr;</a>
+          </div>
+        </article>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <!-- Non-Advisory Honesty Banner -->
+  <div class="article-callout-box mt-8">
+    <h4>Empirical Rigor & Methodology Notice</h4>
+    <p class="mb-0 text-sm text-secondary">
+      Historical correlation does not guarantee future market behavior. All pattern statistics are computed mathematically from official exchange settlement data and geocentric sidereal planetary coordinates. Cosmic Finance never generates synthetic or AI-hallucinated projections.
+    </p>
+  </div>
+</div>

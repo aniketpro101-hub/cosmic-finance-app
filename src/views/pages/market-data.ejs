@@ -1,0 +1,238 @@
+<div class="page-container container section-rhythm">
+  <header class="page-header text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>COSMIC INSTRUMENT PANEL</span>
+    </div>
+    <h1 class="page-title">Live Market <span class="text-gold">Pulse & Indices</span></h1>
+    <p class="page-subtitle">
+      Real-time and indicative market benchmarks styled as precision observatory telemetry.
+    </p>
+    <div class="market-status-bar" style="flex-wrap: wrap; gap: 8px;">
+      <span class="status-indicator live"></span>
+      <span class="status-text">Server Cache: Active Multi-Source Aggregator</span>
+      <span class="status-time" id="lastUpdatedClock">Last Updated: <%= istNow.timeStr %> IST</span>
+      <span class="feed-source-pill" style="background: rgba(0, 230, 118, 0.12); border: 1px solid rgba(0, 230, 118, 0.3); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; color: #00e676;">🇮🇳 NSE India Live</span>
+      <span class="feed-source-pill" style="background: rgba(240, 185, 11, 0.12); border: 1px solid rgba(240, 185, 11, 0.3); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; color: #f0b90b;">⚡ Binance Crypto</span>
+      <span class="feed-source-pill" style="background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.3); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; color: #ffd700;">🪙 24K Bullion Spot</span>
+    </div>
+  </header>
+
+  <!-- Market Grid -->
+  <div class="market-dashboard-grid">
+    <!-- Indian Equities -->
+    <div class="market-panel-card">
+      <div class="panel-header">
+        <h3>🇮🇳 Indian Equity Indices</h3>
+        <span class="asset-category">NSE / BSE</span>
+      </div>
+      <div class="asset-rows">
+        <div class="asset-row" id="rowNifty">
+          <div class="asset-info">
+            <span class="asset-symbol">NIFTY 50</span>
+            <span class="asset-sub">National Stock Exchange</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceNifty">22,514.80</span>
+            <span class="asset-change positive" id="changeNifty">+132.40 (+0.59%)</span>
+          </div>
+        </div>
+        <div class="asset-row" id="rowSensex">
+          <div class="asset-info">
+            <span class="asset-symbol">SENSEX</span>
+            <span class="asset-sub">Bombay Stock Exchange</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceSensex">74,228.60</span>
+            <span class="asset-change positive" id="changeSensex">+398.20 (+0.54%)</span>
+          </div>
+        </div>
+        <div class="asset-row" id="rowBankNifty">
+          <div class="asset-info">
+            <span class="asset-symbol">BANK NIFTY</span>
+            <span class="asset-sub">Banking Sector Benchmark</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceBankNifty">48,490.15</span>
+            <span class="asset-change negative" id="changeBankNifty">-85.30 (-0.18%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bullion & Precious Metals -->
+    <div class="market-panel-card">
+      <div class="panel-header">
+        <h3>👑 Bullion & Commodities</h3>
+        <span class="asset-category">MCX / Global</span>
+      </div>
+      <div class="asset-rows">
+        <div class="asset-row" id="rowGold">
+          <div class="asset-info">
+            <span class="asset-symbol">GOLD (MCX)</span>
+            <span class="asset-sub">24K Bullion / 10 Grams</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceGold">₹71,850</span>
+            <span class="asset-change positive" id="changeGold">+410.00 (+0.57%)</span>
+          </div>
+        </div>
+        <div class="asset-row" id="rowSilver">
+          <div class="asset-info">
+            <span class="asset-symbol">SILVER (MCX)</span>
+            <span class="asset-sub">Industrial & Bullion / 1 Kg</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceSilver">₹84,200</span>
+            <span class="asset-change positive" id="changeSilver">+650.00 (+0.78%)</span>
+          </div>
+        </div>
+        <div class="asset-row" id="rowCrude">
+          <div class="asset-info">
+            <span class="asset-symbol">BRENT CRUDE</span>
+            <span class="asset-sub">Global Energy Benchmark</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceCrude">$82.40</span>
+            <span class="asset-change negative" id="changeCrude">-0.85 (-1.02%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cryptocurrencies & Global Macro -->
+    <div class="market-panel-card">
+      <div class="panel-header">
+        <h3>🌐 Crypto & Global Macro</h3>
+        <span class="asset-category">24/7 Global Assets</span>
+      </div>
+      <div class="asset-rows">
+        <div class="asset-row" id="rowBtc">
+          <div class="asset-info">
+            <span class="asset-symbol">BITCOIN (BTC)</span>
+            <span class="asset-sub">Digital Sovereign Store</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceBtc">$67,820</span>
+            <span class="asset-change positive" id="changeBtc">+1,420 (+2.14%)</span>
+          </div>
+        </div>
+        <div class="asset-row" id="rowEth">
+          <div class="asset-info">
+            <span class="asset-symbol">ETHEREUM (ETH)</span>
+            <span class="asset-sub">Decentralized Compute</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceEth">$3,540</span>
+            <span class="asset-change positive" id="changeEth">+88.50 (+2.56%)</span>
+          </div>
+        </div>
+        <div class="asset-row" id="rowNasdaq">
+          <div class="asset-info">
+            <span class="asset-symbol">NASDAQ 100</span>
+            <span class="asset-sub">Global Tech Benchmark</span>
+          </div>
+          <div class="asset-metrics">
+            <span class="asset-price" id="priceNasdaq">18,295.40</span>
+            <span class="asset-change positive" id="changeNasdaq">+110.20 (+0.61%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C.4 Sector Heatmap by Planetary Dignity -->
+  <section class="section-rhythm market-addon-section" id="sectorHeatmapSection">
+    <div class="section-header-compact">
+      <div class="cosmic-badge">
+        <span class="pulsing-star">✦</span>
+        <span>ASTRONOMICAL GOVERNANCE</span>
+      </div>
+      <h2 class="section-title-sm">Sector Heatmap by <span class="text-gold">Planetary Dignity</span></h2>
+      <p class="section-desc-sm">
+        Live dignity and strength coordinates of ruling astronomical bodies computed via Lahiri sidereal ephemeris.
+      </p>
+    </div>
+
+    <div class="sector-heatmap-grid" id="sectorHeatmapGrid">
+      <div class="loading-state-card">Loading planetary dignity matrix...</div>
+    </div>
+
+    <div class="honesty-transparency-callout">
+      <span class="icon">⚖️</span>
+      <div>
+        <strong>Calculated Dignity Mapping:</strong> Planetary dignity (Exalted, Moolatrikona, Own Sign, Friendly, Neutral, Debilitated, or Vakri) is computed in real-time from sidereal longitude and traditional Parashari relationships. Not investment recommendations.
+      </div>
+    </div>
+  </section>
+
+  <!-- C.5 Vikram Samvat Seasonality Widget -->
+  <section class="section-rhythm market-addon-section" id="vikramSamvatSection">
+    <div class="section-header-compact">
+      <div class="cosmic-badge">
+        <span class="pulsing-star">✦</span>
+        <span>EMPIRICAL LUNAR RECKONING</span>
+      </div>
+      <h2 class="section-title-sm">Vikram Samvat <span class="text-gold">Seasonality Matrix</span></h2>
+      <p class="section-desc-sm">
+        Historical monthly Nifty 50 performance analyzed across 24 completed Vikram Samvat cycles (Amanta lunar reckoning).
+      </p>
+    </div>
+
+    <div class="samvat-meta-strip" id="samvatMetaStrip">
+      <div class="meta-item">
+        <span class="meta-label">Sample Window</span>
+        <span class="meta-val" id="samvatSamplePeriod">VS 2057 – 2081 (2000–2024)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Total Lunar Observations</span>
+        <span class="meta-val" id="samvatObservations">288 Months (24 Cycles)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Benchmark Index</span>
+        <span class="meta-val">NSE Nifty 50 Total Return</span>
+      </div>
+    </div>
+
+    <div class="samvat-months-grid" id="samvatMonthsGrid">
+      <div class="loading-state-card">Computing empirical monthly distributions...</div>
+    </div>
+
+    <div class="honesty-transparency-callout">
+      <span class="icon">📊</span>
+      <div>
+        <strong>Sample Size Disclosure:</strong> Every monthly average represents precisely 24 independent annual lunar cycles. We do not predict future returns; we document historical frequency. Past performance does not guarantee future market behavior.
+      </div>
+    </div>
+  </section>
+
+  <!-- C.6 Sovereign Index Natal Charts -->
+  <section class="section-rhythm market-addon-section" id="indexChartsSection">
+    <div class="section-header-compact">
+      <div class="cosmic-badge">
+        <span class="pulsing-star">✦</span>
+        <span>HORARY INCEPTION CHARTS</span>
+      </div>
+      <h2 class="section-title-sm">Sovereign Index <span class="text-gold">Natal Birth Cards</span></h2>
+      <p class="section-desc-sm">
+        Authentic Vedic horary charts erected for India's benchmark financial indices at their official launch timestamps.
+      </p>
+    </div>
+
+    <div class="index-charts-grid" id="indexChartsGrid">
+      <div class="loading-state-card">Erecting sovereign horary charts...</div>
+    </div>
+  </section>
+
+  <!-- Core Trust & Regulatory Banner -->
+  <div class="calculation-trust-banner">
+    <div class="trust-pill">
+      <span class="trust-check">✦</span>
+      <span>TRUST PRINCIPLE: "We don't predict. We calculate, and we show you the calculation."</span>
+    </div>
+    <p class="trust-disclaimer">
+      All market values, astronomical positions, and statistical calculations presented on this page are computed for educational and analytical study only. Cosmic Finance provides no stock tips, price targets, or financial advisory services. For personal consultations, connect with our desk at <strong class="text-gold">+91 8888888888</strong>.
+    </p>
+  </div>
+</div>
+

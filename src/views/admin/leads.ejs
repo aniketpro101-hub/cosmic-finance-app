@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kundli Leads | Cosmic Finance Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-dashboard-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand"><span class="logo-symbol">✦</span> Cosmic Admin</div>
+      <nav class="sidebar-nav">
+        <a href="<%= adminPath %>" class="sidebar-link">📊 Control Deck</a>
+        <a href="<%= adminPath %>/thoughts" class="sidebar-link">✍️ Daily Thoughts</a>
+        <a href="<%= adminPath %>/articles" class="sidebar-link">📚 Article Review</a>
+        <a href="<%= adminPath %>/news" class="sidebar-link">📰 Curated News</a>
+        <a href="<%= adminPath %>/leads" class="sidebar-link active">🎯 Kundli Leads</a>
+        <a href="<%= adminPath %>/analytics" class="sidebar-link">📈 Analytics</a>
+      </nav>
+      <div class="sidebar-footer"><a href="<%= adminPath %>/logout" class="sidebar-logout">Logout &rarr;</a></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <h2>Trading Kundli Leads & Consultation Queue</h2>
+      </header>
+
+      <div class="admin-content-inner">
+        <div class="admin-panel">
+          <div class="panel-header-split">
+            <h3>Captured Consultation Inquiries (<%= leads.length %>)</h3>
+            <span class="security-tag">🔐 AES-256 Decrypted In-Memory</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Client Name</th>
+                  <th>Birth Coordinates</th>
+                  <th>Decrypted Phone</th>
+                  <th>Yoga / Archetype</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Update Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (leads && leads.length) { %>
+                  <% leads.forEach(function(l) { %>
+                    <tr>
+                      <td><strong><%= l.full_name %></strong></td>
+                      <td>
+                        <small><%= l.dob %> <%= l.tob ? '@ ' + l.tob : '' %></small><br>
+                        <small class="text-muted"><%= l.pob %></small>
+                      </td>
+                      <td>
+                        <% if (l.phone_decrypted && l.phone_decrypted !== 'None') { %>
+                          <a href="https://wa.me/<%= l.phone_decrypted.replace(/[^0-9]/g, '') %>" target="_blank" class="text-gold">
+                            <%= l.phone_decrypted %> 💬
+                          </a>
+                        <% } else { %>
+                          <span class="text-muted">Teaser only</span>
+                        <% } %>
+                      </td>
+                      <td>
+                        <span class="pill-badge"><%= l.speculation_yoga || 'Standard' %></span><br>
+                        <small class="text-muted"><%= l.trading_personality || '' %></small>
+                      </td>
+                      <td><%= l.lead_type %></td>
+                      <td><span class="status-pill <%= (l.status || 'new').toLowerCase() %>"><%= l.status || 'New' %></span></td>
+                      <td>
+                        <form action="<%= adminPath %>/leads/status" method="POST" class="d-flex gap-2">
+                          <input type="hidden" name="leadId" value="<%= l.id %>">
+                          <select name="status" class="form-control form-control-sm">
+                            <option value="New" <%= l.status === 'New' ? 'selected' : '' %>>New</option>
+                            <option value="Contacted" <%= l.status === 'Contacted' ? 'selected' : '' %>>Contacted</option>
+                            <option value="Converted" <%= l.status === 'Converted' ? 'selected' : '' %>>Converted</option>
+                            <option value="Not Interested" <%= l.status === 'Not Interested' ? 'selected' : '' %>>Not Interested</option>
+                          </select>
+                          <button type="submit" class="btn btn-outline btn-xs">Save</button>
+                        </form>
+                      </td>
+                    </tr>
+                  <% }); %>
+                <% } else { %>
+                  <tr><td colspan="7" class="text-center text-muted">No leads logged yet.</td></tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

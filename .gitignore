@@ -1,0 +1,16 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+*.log
+data/
+*.sqlite
+*.sqlite3
+*.db
+.DS_Store
+Thumbs.db
+dist/
+build/
+user_ai_prompt.txt
+ooo.md
+cosmic-v2/

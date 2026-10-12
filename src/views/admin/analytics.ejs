@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analytics | Cosmic Finance Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-dashboard-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand"><span class="logo-symbol">✦</span> Cosmic Admin</div>
+      <nav class="sidebar-nav">
+        <a href="<%= adminPath %>" class="sidebar-link">📊 Control Deck</a>
+        <a href="<%= adminPath %>/thoughts" class="sidebar-link">✍️ Daily Thoughts</a>
+        <a href="<%= adminPath %>/articles" class="sidebar-link">📚 Article Review</a>
+        <a href="<%= adminPath %>/news" class="sidebar-link">📰 Curated News</a>
+        <a href="<%= adminPath %>/leads" class="sidebar-link">🎯 Kundli Leads</a>
+        <a href="<%= adminPath %>/analytics" class="sidebar-link active">📈 Analytics</a>
+      </nav>
+      <div class="sidebar-footer"><a href="<%= adminPath %>/logout" class="sidebar-logout">Logout &rarr;</a></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <h2>Observatory Analytics & Performance</h2>
+      </header>
+
+      <div class="admin-content-inner">
+        <div class="admin-metrics-row mb-6">
+          <div class="metric-card">
+            <span class="metric-title">Total Inquiries</span>
+            <span class="metric-num"><%= analytics.totalLeads %></span>
+            <span class="metric-sub">Generated through Funnel</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Converted Consultations</span>
+            <span class="metric-num text-success"><%= analytics.convertedLeads %></span>
+            <span class="metric-sub">Active Paid Clients</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-title">Published Articles</span>
+            <span class="metric-num text-gold"><%= analytics.totalArticles %></span>
+            <span class="metric-sub">Educational Library</span>
+          </div>
+        </div>
+
+        <div class="admin-panel">
+          <h3>Funnel Conversion Health</h3>
+          <p class="text-muted">Tracking visitors navigating from the public celestial experience into the personalized consultation pipeline.</p>
+          <div class="conversion-progress-box py-4">
+            <div class="progress-bar-bg" style="background: rgba(255,255,255,0.08); height: 12px; border-radius: 6px; overflow: hidden;">
+              <div class="progress-fill" style="background: var(--gold-500); width: <%= analytics.totalLeads > 0 ? Math.round((analytics.convertedLeads / analytics.totalLeads) * 100) : 0 %>%; height: 100%;"></div>
+            </div>
+            <div class="d-flex justify-content-between mt-2 text-muted">
+              <span>Conversion Ratio</span>
+              <span><strong><%= analytics.totalLeads > 0 ? Math.round((analytics.convertedLeads / analytics.totalLeads) * 100) : 0 %>%</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

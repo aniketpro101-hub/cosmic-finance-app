@@ -1,0 +1,713 @@
+/**
+ * Cosmic Finance — Orbit & Observatory Visualization Styles
+ * Phase 10: High-End Observatory Instrument Panel & Armillary Sphere
+ */
+
+/* Master Cockpit Frame (Full-Screen Observatory) */
+.hero-orbit-card {
+  background: linear-gradient(155deg, rgba(12, 18, 44, 0.94) 0%, rgba(5, 8, 22, 0.98) 100%);
+  border: 1px solid rgba(245, 190, 72, 0.32);
+  border-radius: 22px;
+  padding: 24px 28px;
+  box-shadow: 0 24px 64px rgba(2, 4, 12, 0.8), 0 0 50px rgba(138, 92, 246, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  width: 100%;
+}
+
+.hero-orbit-fullscreen {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Luxury Observatory Tech Corners */
+.hero-orbit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border-top: 2px solid var(--gold-400);
+  border-left: 2px solid var(--gold-400);
+  pointer-events: none;
+}
+
+.hero-orbit-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  border-bottom: 2px solid var(--gold-400);
+  border-right: 2px solid var(--gold-400);
+  pointer-events: none;
+}
+
+/* Top Telemetry Header */
+.orbit-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--space-border-subtle);
+  padding-bottom: var(--space-3);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.header-left-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header-right-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.orbit-status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--market-green);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px var(--market-green-glow);
+  transition: all 0.3s ease;
+  animation: pulseLiveDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseLiveDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.orbit-status-title {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.time-machine-badge {
+  background: rgba(245, 190, 72, 0.22);
+  border: 1px solid var(--gold-500);
+  color: var(--gold-400);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 12px rgba(245, 190, 72, 0.25);
+}
+
+.planetary-hour-badge {
+  background: rgba(138, 92, 246, 0.15);
+  border: 1px solid rgba(138, 92, 246, 0.45);
+  color: var(--violet-400);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.72rem;
+  box-shadow: 0 0 12px rgba(138, 92, 246, 0.2);
+}
+
+/* Trust Principle Banner */
+.trust-calculation-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: linear-gradient(90deg, rgba(245, 190, 72, 0.1) 0%, rgba(138, 92, 246, 0.08) 100%);
+  border: 1px solid rgba(245, 190, 72, 0.35);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  margin: var(--space-4) 0;
+  font-size: var(--text-xs);
+  color: var(--text-primary);
+  line-height: 1.5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.trust-calculation-banner.mobile-trust {
+  margin: var(--space-3) auto;
+  max-width: 330px;
+}
+
+.trust-icon {
+  font-size: 1.25rem;
+}
+
+/* Hero Telemetry Highlight Badges */
+.hero-telemetry-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(14, 21, 50, 0.7);
+  border: 1px solid rgba(164, 180, 240, 0.15);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(8px);
+}
+
+.telemetry-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.telemetry-dot.gold { background: var(--gold-400); box-shadow: 0 0 6px var(--gold-glow); }
+.telemetry-dot.violet { background: var(--violet-400); box-shadow: 0 0 6px var(--violet-glow); }
+.telemetry-dot.green { background: var(--market-green); box-shadow: 0 0 6px var(--market-green-glow); }
+
+/* 3D Canvas Viewport */
+.orbit-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #0c122c 0%, #060a1a 50%, #03050d 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(164, 180, 240, 0.22);
+  overflow: hidden;
+  box-shadow: inset 0 0 70px rgba(3, 5, 13, 0.95), var(--shadow-card);
+}
+
+#orbitCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+.canvas-3d-hint {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(6, 10, 26, 0.88);
+  border: 1px solid rgba(245, 190, 72, 0.35);
+  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  font-size: 0.74rem;
+  color: var(--gold-300);
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.03em;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-display);
+}
+
+.orbit-fallback-notice {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.orbit-planet-badge {
+  background: rgba(14, 21, 50, 0.9);
+  border: 1px solid rgba(245, 190, 72, 0.3);
+  font-size: 0.76rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  font-family: var(--font-display);
+}
+
+.orbit-planet-badge:hover {
+  background: rgba(245, 190, 72, 0.22);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(245, 190, 72, 0.4);
+}
+
+/* 4D Time Machine Interactive Cockpit (Grand & Spacious Command Deck) */
+.time-machine-cockpit {
+  margin-top: 20px;
+  padding: 24px 28px;
+  background: linear-gradient(180deg, rgba(14, 21, 50, 0.85) 0%, rgba(6, 10, 26, 0.95) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(242, 200, 121, 0.28);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.time-machine-controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(164, 180, 240, 0.12);
+}
+
+.tm-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+}
+
+.tm-icon {
+  font-size: 1.35rem;
+}
+
+.tm-header-left strong {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--gold-400);
+}
+
+.tm-sub {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  margin-left: 6px;
+  font-family: var(--font-body);
+}
+
+#btnResetToLive {
+  padding: 7px 18px;
+  font-size: 0.82rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  border-radius: 9999px;
+  border: 1px solid rgba(242, 200, 121, 0.35);
+  background: rgba(242, 200, 121, 0.1);
+  color: var(--gold-300);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+#btnResetToLive:hover {
+  background: rgba(242, 200, 121, 0.22);
+  border-color: var(--gold-400);
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(242, 200, 121, 0.35);
+}
+
+/* Time Scrub Slider & Date Display */
+.tm-scrub-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.tm-date-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tm-label {
+  font-size: 0.82rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#tmCurrentDateLabel {
+  color: var(--gold-300);
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: rgba(242, 200, 121, 0.14);
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(242, 200, 121, 0.35);
+  box-shadow: 0 0 14px rgba(242, 200, 121, 0.15);
+  letter-spacing: 0.02em;
+}
+
+.tm-scrub-slider {
+  width: 100%;
+  accent-color: var(--gold-500);
+  cursor: pointer;
+  height: 12px;
+  background: linear-gradient(90deg, #182042 0%, #293668 50%, var(--gold-500) 100%);
+  border-radius: 9999px;
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  -webkit-appearance: none;
+  appearance: none;
+  transition: opacity 0.2s;
+}
+
+.tm-scrub-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gold-400);
+  border: 3px solid #ffffff;
+  cursor: grab;
+  box-shadow: 0 0 16px var(--gold-glow), 0 2px 8px rgba(0, 0, 0, 0.7);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.tm-scrub-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.22);
+  background: var(--gold-300);
+}
+
+.tm-scrub-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gold-400);
+  border: 3px solid #ffffff;
+  cursor: grab;
+  box-shadow: 0 0 16px var(--gold-glow), 0 2px 8px rgba(0, 0, 0, 0.7);
+  transition: transform 0.15s ease;
+}
+
+.tm-scrub-slider::-moz-range-thumb:hover {
+  transform: scale(1.22);
+  background: var(--gold-300);
+}
+
+/* Time Presets Bar */
+.tm-presets-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 2px 0;
+}
+
+.tm-preset-chip {
+  padding: 7px 16px;
+  background: rgba(14, 21, 50, 0.75);
+  border: 1px solid rgba(164, 180, 240, 0.2);
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tm-preset-chip:hover {
+  background: rgba(242, 200, 121, 0.14);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  transform: translateY(-1px);
+}
+
+.tm-preset-chip.active {
+  background: rgba(242, 200, 121, 0.24);
+  border-color: var(--gold-500);
+  color: var(--gold-300);
+  font-weight: 600;
+  box-shadow: 0 0 14px rgba(242, 200, 121, 0.3);
+}
+
+/* Connected Historical Market Readout (Large Cockpit Gauges) */
+.tm-market-readout-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  background: rgba(4, 5, 13, 0.85);
+  padding: 20px 24px;
+  border-radius: 14px;
+  border: 1px solid rgba(164, 180, 240, 0.16);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.tm-readout-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tm-readout-stat .stat-name {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.tm-readout-stat .stat-val {
+  font-size: 1.4rem !important;
+  color: var(--gold-400);
+  font-family: var(--font-mono) !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.tm-readout-notes {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(164, 180, 240, 0.14);
+  padding-top: 12px;
+  margin-top: 6px;
+  line-height: 1.5;
+  font-family: var(--font-body);
+}
+
+/* Detailed Graha Inspector Drawer */
+.orbit-info-drawer {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: linear-gradient(145deg, rgba(14, 21, 50, 0.8) 0%, rgba(6, 10, 26, 0.9) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(245, 190, 72, 0.25);
+  box-shadow: var(--shadow-card);
+}
+
+.orbit-hint-text {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.planet-inspect-view {
+  animation: fadeInInspect 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inspect-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.inspect-glyph {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 12px var(--gold-glow));
+}
+
+.inspect-title h4 {
+  font-size: var(--text-base);
+  margin-bottom: 3px;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.inspect-sub-tags {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: var(--text-xs);
+}
+
+.inspect-vakri-badge {
+  background: rgba(244, 63, 94, 0.25);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.5);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.3);
+}
+
+.inspect-direct-badge {
+  background: rgba(34, 197, 94, 0.18);
+  color: var(--market-green);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.inspect-dignity-badge {
+  background: rgba(138, 92, 246, 0.2);
+  color: var(--violet-400);
+  border: 1px solid rgba(138, 92, 246, 0.4);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.inspect-grid-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.detail-box {
+  background: rgba(4, 7, 17, 0.6);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--space-border-subtle);
+  font-size: var(--text-xs);
+}
+
+.detail-box .detail-label {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.detail-box strong {
+  color: var(--gold-300);
+  font-size: var(--text-sm);
+}
+
+.inspect-desc {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--space-3);
+}
+
+.inspect-market-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(4, 7, 17, 0.7);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(245, 190, 72, 0.25);
+  font-size: var(--text-xs);
+}
+
+.inspect-market-link strong {
+  color: var(--gold-400);
+  font-weight: 700;
+}
+
+/* Linked Widget Pulse Effect */
+.celestial-linked-pulse {
+  border-color: var(--gold-500) !important;
+  background-color: rgba(245, 190, 72, 0.2) !important;
+  box-shadow: 0 0 20px var(--gold-glow) !important;
+  transition: all 0.3s ease;
+}
+
+@keyframes fadeInInspect {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Templates */
+.mobile-orbit-preview {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-3) auto;
+  max-width: 340px;
+}
+
+.mobile-tm-scrub-box {
+  background: var(--space-bg-card);
+  border: 1px solid var(--space-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.mobile-tm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.mobile-presets-bar {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+  scrollbar-width: none;
+}
+
+.mobile-presets-bar::-webkit-scrollbar { display: none; }
+
+.mobile-preset-pill {
+  padding: 4px 10px;
+  background: var(--space-bg-mid);
+  border: 1px solid var(--space-border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.mobile-market-readout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  background: rgba(4, 7, 17, 0.6);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .orbit-canvas-wrapper {
+    height: 380px;
+    min-height: 340px;
+  }
+  .time-machine-cockpit {
+    padding: 18px 16px;
+  }
+  .tm-market-readout-panel {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .tm-readout-stat .stat-val {
+    font-size: 1.15rem !important;
+  }
+}

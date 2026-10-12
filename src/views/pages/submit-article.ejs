@@ -1,0 +1,81 @@
+<div class="page-container container section-rhythm">
+  <header class="page-header text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>COMMUNITY CONTRIBUTIONS</span>
+    </div>
+    <h1 class="page-title">Submit an Article — <span class="text-gold">Write For Us</span></h1>
+    <p class="page-subtitle">
+      Contribute your financial astrology research, historical market case studies, or planetary cycle insights. No account creation or login required.
+    </p>
+  </header>
+
+  <div class="form-card-container">
+    <div class="form-card">
+      <div class="form-info-notice">
+        <span class="notice-icon">🛡️</span>
+        <p><strong>Editorial Moderation Policy:</strong> All public article submissions pass through an editorial review by the Cosmic Finance desk before being published. No content auto-publishes.</p>
+      </div>
+
+      <form id="submitArticleForm" class="cosmic-form" action="/api/articles/submit" method="POST">
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="authorName">Your Full Name / Pen Name <span class="required">*</span></label>
+            <input type="text" id="authorName" name="authorName" class="form-control" placeholder="e.g. Rahul Verma" required>
+          </div>
+          <div class="form-group col-half">
+            <label for="authorEmail">Email Address (Kept Private) <span class="required">*</span></label>
+            <input type="email" id="authorEmail" name="authorEmail" class="form-control" placeholder="name@domain.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="articleTitle">Article Title <span class="required">*</span></label>
+          <input type="text" id="articleTitle" name="articleTitle" class="form-control" placeholder="e.g. Navigating Saturn Transits in Banking Stocks" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category <span class="required">*</span></label>
+          <select id="category" name="category" class="form-control" required>
+            <option value="Basics">Astrology Basics</option>
+            <option value="Planets">Planets & Market Behavior</option>
+            <option value="Personal">Personal & Trader Astrology</option>
+            <option value="Cycles">Macro Cycles & History</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="articleExcerpt">Short Summary / Excerpt (1-2 sentences) <span class="required">*</span></label>
+          <textarea id="articleExcerpt" name="articleExcerpt" class="form-control" rows="2" placeholder="Brief premise of what this article explains..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="articleContent">Article Content (Markdown or Plain Text) <span class="required">*</span></label>
+          <textarea id="articleContent" name="articleContent" class="form-control" rows="12" placeholder="Write your full article text here. Subheadings and structured paragraphs recommended..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="authorBio">Short Author Bio (Will appear at bottom of article)</label>
+          <input type="text" id="authorBio" name="authorBio" class="form-control" placeholder="e.g. Astrological researcher with 7 years market tracking experience.">
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="consent-label">
+            <input type="checkbox" id="complianceAgree" name="complianceAgree" required>
+            <span>I confirm that this article does NOT contain direct buy/sell/target/stop-loss recommendations or financial advice.</span>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold btn-lg btn-block" id="btnSubmitArticle">
+            Submit Article For Review
+          </button>
+        </div>
+      </form>
+
+      <div id="submitSuccessAlert" class="alert-success" style="display: none;">
+        ✨ Your article has been received successfully! Our editorial desk will review it shortly.
+      </div>
+    </div>
+  </div>
+</div>

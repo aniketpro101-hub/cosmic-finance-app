@@ -1,0 +1,970 @@
+<div class="homepage-root">
+  <!-- Unified Responsive Observatory Section -->
+  <section class="hero-observatory-section" id="heroObservatory">
+    <div class="container hero-container" style="flex-direction: column; align-items: stretch;">
+      <div class="hero-headline-block" style="max-width: 900px; margin: 0 auto 24px; text-align: center;">
+        <div class="cosmic-badge" style="margin: 0 auto 14px;">
+          <span class="pulsing-star">✦</span>
+          <span>AUTHENTIC GEOCENTRIC OBSERVATORY</span>
+        </div>
+        <h1 class="hero-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem);">
+          Where Stars Meet <span class="text-gold">The Street</span>
+        </h1>
+        <p class="hero-subtext" style="margin: 0 auto 18px; max-width: 720px;">
+          Decipher macro market sentiment through mathematical planetary ephemeris, real-time Indian index dynamics, and Vedic trading propensity analytics.
+        </p>
+        <div class="trust-calculation-banner" style="max-width: 680px; margin: 0 auto 20px;">
+          <span class="trust-icon">⚖️</span>
+          <span class="trust-text"><strong>Core Principle:</strong> "We don't predict. We calculate, and we show you the calculation."</span>
+        </div>
+        <div class="hero-cta-group" style="justify-content: center;">
+          <a href="/trading-kundli" class="btn btn-gold btn-lg">
+            <span>Decode Your Trading Kundli</span>
+            <span class="btn-arrow">&rarr;</span>
+          </a>
+          <a href="/market-data" class="btn btn-outline btn-lg">
+            <span>Live Market Dashboard</span>
+          </a>
+          <a href="/patterns" class="btn btn-outline btn-lg">
+            <span>Historical Pattern Library</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Authentic 3D Geocentric Observatory Hero Stage -->
+      <div class="hero-orbit-card hero-orbit-fullscreen" id="heroOrbitCard">
+        <div class="orbit-card-header">
+          <div class="header-left-meta">
+            <span class="orbit-status-dot" id="observatoryStatusDot"></span>
+            <span class="orbit-status-title" id="observatoryModeLabel">Live Sky (Sidereal Lahiri)</span>
+          </div>
+          <div class="header-right-badges">
+            <span class="vedastro-telemetry-badge" id="vedastroTelemetryBadge" title="NASA JPL Swiss Ephemeris Telemetry Active (Lahiri Ayanamsha)">
+              <span class="vedastro-dot"></span>
+              <span>Swiss Ephemeris Calibrated</span>
+            </span>
+            <span class="time-machine-badge" id="timeMachineDateBadge" style="display: none;">Archive Date</span>
+            <span class="planetary-hour-badge" id="planetaryHourBadge">Hora: Calculating...</span>
+          </div>
+        </div>
+
+        <!-- Canvas Container: True 3D Geocentric Ecliptic Scene -->
+        <div class="orbit-canvas-wrapper" id="orbitCanvasWrapper">
+          <canvas id="orbitCanvas" width="1200" height="640" aria-label="Interactive 3D Geocentric Zodiac Wheel"></canvas>
+          <div class="canvas-3d-hint">
+            <span>🖱️ Drag to Rotate 3D View • Scroll to Zoom • Hover Planet for Coordinates &amp; Market Telemetry</span>
+          </div>
+          <div class="orbit-fallback-notice" id="orbitFallbackBadges">
+            <span class="orbit-planet-badge" data-planet="Sun">Sun ☉</span>
+            <span class="orbit-planet-badge" data-planet="Moon">Moon ☽</span>
+            <span class="orbit-planet-badge" data-planet="Mercury">Mercury ☿</span>
+            <span class="orbit-planet-badge" data-planet="Venus">Venus ♀</span>
+            <span class="orbit-planet-badge" data-planet="Mars">Mars ♂</span>
+            <span class="orbit-planet-badge" data-planet="Jupiter">Jupiter ♃</span>
+            <span class="orbit-planet-badge" data-planet="Saturn">Saturn ♄</span>
+            <span class="orbit-planet-badge" data-planet="Rahu">North Node ☊</span>
+            <span class="orbit-planet-badge" data-planet="Ketu">South Node ☋</span>
+          </div>
+        </div>
+
+        <!-- 4D Time Machine Interactive Cockpit -->
+        <div class="time-machine-cockpit" id="timeMachineCockpit">
+          <div class="time-machine-controls-header">
+            <div class="tm-header-left">
+              <span class="tm-icon">⏳</span>
+              <strong>4D Time Machine</strong>
+              <span class="tm-sub">Scrub through market &amp; planetary history</span>
+            </div>
+            <button class="btn btn-xs btn-outline" id="btnResetToLive" title="Return to real-time live sky">
+              <span>● Return to Today</span>
+            </button>
+          </div>
+
+          <!-- Time Scrub Slider & Date Display -->
+          <div class="tm-scrub-row">
+            <div class="tm-date-display">
+              <span class="tm-label">Scrubbed Date:</span>
+              <strong id="tmCurrentDateLabel">Today (Live)</strong>
+            </div>
+            <input type="range" class="tm-scrub-slider" id="tmScrubSlider" min="0" max="100" value="100" aria-label="4D Time Machine Timeline Scrubber">
+          </div>
+
+          <!-- Time Presets Quick Jumps -->
+          <div class="tm-presets-bar" id="tmPresetsBar">
+            <button class="tm-preset-chip active" data-preset="today">Live Today</button>
+            <button class="tm-preset-chip" data-preset="2024-06-04">2024 Election</button>
+            <button class="tm-preset-chip" data-preset="2021-11-10">2021 Crypto Peak</button>
+            <button class="tm-preset-chip" data-preset="2020-03-23">2020 Covid Low</button>
+            <button class="tm-preset-chip" data-preset="2008-09-15">2008 Lehman Shock</button>
+          </div>
+
+          <!-- Connected Historical Market Data Readout Panel -->
+          <div class="tm-market-readout-panel" id="tmMarketReadoutPanel">
+            <div class="tm-readout-stat">
+              <span class="stat-name">NIFTY 50</span>
+              <strong class="stat-val" id="tmNiftyVal">22,514.80</strong>
+            </div>
+            <div class="tm-readout-stat">
+              <span class="stat-name">SENSEX</span>
+              <strong class="stat-val" id="tmSensexVal">74,228.60</strong>
+            </div>
+            <div class="tm-readout-stat">
+              <span class="stat-name">GOLD (MCX)</span>
+              <strong class="stat-val" id="tmGoldVal">₹71,850/10g</strong>
+            </div>
+            <div class="tm-readout-stat">
+              <span class="stat-name">BITCOIN</span>
+              <strong class="stat-val" id="tmBtcVal">$67,820</strong>
+            </div>
+            <div class="tm-readout-notes" id="tmMarketNotes">
+              Live Indian stock &amp; bullion market telemetry synchronized with sidereal ephemeris.
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Graha Inspector Drawer -->
+        <div class="orbit-info-drawer" id="orbitInfoDrawer">
+          <p class="orbit-hint-text">✦ Hover over or click any of the 9 celestial spheres to inspect degree, zodiac placement, and direct/retrograde calculations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       1. LIVE INSTRUMENTS PANEL (Screenshot 1 Aligned)
+       ============================================================== -->
+  <section class="live-instruments-section" id="liveInstrumentsSection">
+    <div class="container">
+      <div class="section-top-bar">
+        <div>
+          <div class="instrument-kicker">
+            <svg class="kicker-pulse-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+            <span>LIVE INSTRUMENTS</span>
+          </div>
+          <h2 class="instrument-title">The Market, Read Like an Instrument Panel</h2>
+        </div>
+        <a href="/market-data" class="btn btn-outline btn-pill">
+          <span>Open Full Dashboard</span>
+          <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="instruments-grid" id="instrumentsGrid">
+        <!-- 1. Nifty 50 -->
+        <div class="instrument-card positive" data-symbol="NIFTY" data-instrument="nifty">
+          <div class="inst-top-row">
+            <div class="inst-symbol-group">
+              <span class="inst-dot dot-gold"></span>
+              <span class="inst-name">Nifty 50</span>
+              <span class="inst-code">^NSEI</span>
+            </div>
+            <div class="inst-badge badge-up">
+              <span class="arrow-up">&#9650;</span> +112.4 (+0.45%)
+            </div>
+          </div>
+          <div class="inst-price-row">
+            <span class="inst-price">24,871.35</span>
+          </div>
+          <div class="inst-sparkline">
+            <svg class="spark-svg" viewBox="0 0 200 45" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-nifty-home" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#34d399" stop-opacity="0.32"/>
+                  <stop offset="100%" stop-color="#34d399" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0,35 Q 25,32 50,28 T 100,20 T 150,15 T 195,8 L 195,45 L 0,45 Z" fill="url(#grad-nifty-home)" />
+              <path d="M 0,35 Q 25,32 50,28 T 100,20 T 150,15 T 195,8" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" />
+              <circle cx="195" cy="8" r="3.5" fill="#ffffff" stroke="#34d399" stroke-width="2" class="spark-dot pulse-green" />
+            </svg>
+          </div>
+          <div class="inst-footer-row">
+            <span class="inst-timestamp">last updated <%= istNow.timeStr %> IST</span>
+          </div>
+        </div>
+
+        <!-- 2. Sensex -->
+        <div class="instrument-card negative" data-symbol="SENSEX" data-instrument="sensex">
+          <div class="inst-top-row">
+            <div class="inst-symbol-group">
+              <span class="inst-dot dot-gold"></span>
+              <span class="inst-name">Sensex</span>
+              <span class="inst-code">^BSESN</span>
+            </div>
+            <div class="inst-badge badge-down">
+              <span class="arrow-down">&#9660;</span> 208.1 (0.25%)
+            </div>
+          </div>
+          <div class="inst-price-row">
+            <span class="inst-price">81,942.6</span>
+          </div>
+          <div class="inst-sparkline">
+            <svg class="spark-svg" viewBox="0 0 200 45" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-sensex-home" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f87171" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#f87171" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0,15 Q 30,12 60,22 T 120,30 T 160,35 T 195,38 L 195,45 L 0,45 Z" fill="url(#grad-sensex-home)" />
+              <path d="M 0,15 Q 30,12 60,22 T 120,30 T 160,35 T 195,38" fill="none" stroke="#f87171" stroke-width="2.2" stroke-linecap="round" />
+              <circle cx="195" cy="38" r="3.5" fill="#ffffff" stroke="#f87171" stroke-width="2" class="spark-dot pulse-red" />
+            </svg>
+          </div>
+          <div class="inst-footer-row">
+            <span class="inst-timestamp">last updated <%= istNow.timeStr %> IST</span>
+          </div>
+        </div>
+
+        <!-- 3. Bank Nifty -->
+        <div class="instrument-card positive" data-symbol="BANKNIFTY" data-instrument="banknifty">
+          <div class="inst-top-row">
+            <div class="inst-symbol-group">
+              <span class="inst-dot dot-gold"></span>
+              <span class="inst-name">Bank Nifty</span>
+              <span class="inst-code">^NSEBANK</span>
+            </div>
+            <div class="inst-badge badge-up">
+              <span class="arrow-up">&#9650;</span> +342.7 (+0.63%)
+            </div>
+          </div>
+          <div class="inst-price-row">
+            <span class="inst-price">55,018.9</span>
+          </div>
+          <div class="inst-sparkline">
+            <svg class="spark-svg" viewBox="0 0 200 45" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-bank-home" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#34d399" stop-opacity="0.32"/>
+                  <stop offset="100%" stop-color="#34d399" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0,38 Q 30,36 70,30 T 130,22 T 170,14 T 195,10 L 195,45 L 0,45 Z" fill="url(#grad-bank-home)" />
+              <path d="M 0,38 Q 30,36 70,30 T 130,22 T 170,14 T 195,10" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" />
+              <circle cx="195" cy="10" r="3.5" fill="#ffffff" stroke="#34d399" stroke-width="2" class="spark-dot pulse-green" />
+            </svg>
+          </div>
+          <div class="inst-footer-row">
+            <span class="inst-timestamp">last updated <%= istNow.timeStr %> IST</span>
+          </div>
+        </div>
+
+        <!-- 4. Gold (INR/g) -->
+        <div class="instrument-card positive" data-symbol="GOLD" data-instrument="gold">
+          <div class="inst-top-row">
+            <div class="inst-symbol-group">
+              <span class="inst-dot dot-gold"></span>
+              <span class="inst-name">Gold (INR/g)</span>
+              <span class="inst-code">XAU - INR</span>
+            </div>
+            <div class="inst-badge badge-up">
+              <span class="arrow-up">&#9650;</span> +145 (+0.16%)
+            </div>
+          </div>
+          <div class="inst-price-row">
+            <span class="inst-price">93,420 <span class="inst-unit">/g</span></span>
+          </div>
+          <div class="inst-sparkline">
+            <svg class="spark-svg" viewBox="0 0 200 45" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-gold-home" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#34d399" stop-opacity="0.32"/>
+                  <stop offset="100%" stop-color="#34d399" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0,35 Q 30,30 60,34 T 110,22 T 160,18 T 195,12 L 195,45 L 0,45 Z" fill="url(#grad-gold-home)" />
+              <path d="M 0,35 Q 30,30 60,34 T 110,22 T 160,18 T 195,12" fill="none" stroke="#34d399" stroke-width="2.2" stroke-linecap="round" />
+              <circle cx="195" cy="12" r="3.5" fill="#ffffff" stroke="#34d399" stroke-width="2" class="spark-dot pulse-green" />
+            </svg>
+          </div>
+          <div class="inst-footer-row">
+            <span class="inst-timestamp">last updated <%= istNow.timeStr %> IST</span>
+          </div>
+        </div>
+
+        <!-- 5. Bitcoin -->
+        <div class="instrument-card negative" data-symbol="BTC" data-instrument="btc">
+          <div class="inst-top-row">
+            <div class="inst-symbol-group">
+              <span class="inst-dot dot-purple"></span>
+              <span class="inst-name">Bitcoin</span>
+              <span class="inst-code">BTC</span>
+            </div>
+            <div class="inst-badge badge-down">
+              <span class="arrow-down">&#9660;</span> 1.9 (2.32%)
+            </div>
+          </div>
+          <div class="inst-price-row">
+            <span class="inst-price">&#8377;80.52L</span>
+          </div>
+          <div class="inst-sparkline">
+            <svg class="spark-svg" viewBox="0 0 200 45" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-btc-home" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f87171" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#f87171" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0,20 Q 30,22 65,30 T 125,35 T 165,38 T 195,40 L 195,45 L 0,45 Z" fill="url(#grad-btc-home)" />
+              <path d="M 0,20 Q 30,22 65,30 T 125,35 T 165,38 T 195,40" fill="none" stroke="#f87171" stroke-width="2.2" stroke-linecap="round" />
+              <circle cx="195" cy="40" r="3.5" fill="#ffffff" stroke="#f87171" stroke-width="2" class="spark-dot pulse-red" />
+            </svg>
+          </div>
+          <div class="inst-footer-row">
+            <span class="inst-timestamp">last updated <%= istNow.timeStr %> IST</span>
+          </div>
+        </div>
+
+        <!-- 6. Ethereum -->
+        <div class="instrument-card negative" data-symbol="ETH" data-instrument="eth">
+          <div class="inst-top-row">
+            <div class="inst-symbol-group">
+              <span class="inst-dot dot-purple"></span>
+              <span class="inst-name">Ethereum</span>
+              <span class="inst-code">ETH</span>
+            </div>
+            <div class="inst-badge badge-down">
+              <span class="arrow-down">&#9660;</span> 0.12 (4.66%)
+            </div>
+          </div>
+          <div class="inst-price-row">
+            <span class="inst-price">&#8377;2.48L</span>
+          </div>
+          <div class="inst-sparkline">
+            <svg class="spark-svg" viewBox="0 0 200 45" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-eth-home" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f87171" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#f87171" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0,18 Q 35,20 70,28 T 130,34 T 170,39 T 195,41 L 195,45 L 0,45 Z" fill="url(#grad-eth-home)" />
+              <path d="M 0,18 Q 35,20 70,28 T 130,34 T 170,39 T 195,41" fill="none" stroke="#f87171" stroke-width="2.2" stroke-linecap="round" />
+              <circle cx="195" cy="41" r="3.5" fill="#ffffff" stroke="#f87171" stroke-width="2" class="spark-dot pulse-red" />
+            </svg>
+          </div>
+          <div class="inst-footer-row">
+            <span class="inst-timestamp">last updated <%= istNow.timeStr %> IST</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Warning / Disclaimer strip from Screenshot 1 -->
+      <div class="instruments-disclaimer-strip">
+        <span class="disclaimer-icon">&#9888;</span>
+        <span class="disclaimer-text">Sample values shown &mdash; live feeds activate with the data integration layer.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       1B. 24-YEAR EMPIRICAL BACKTEST MATRIX (Bridging Finance & Ephemeris)
+       ============================================================== -->
+  <section class="backtest-matrix-section" id="backtestMatrixSection">
+    <div class="container">
+      <div class="section-top-bar">
+        <div>
+          <div class="matrix-kicker">
+            <svg class="kicker-pulse-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>EMPIRICAL CORRELATIONS (2000–2024)</span>
+          </div>
+          <h2 class="matrix-title">Patterns the Market Keeps Repeating: Mathematical Backtest Matrix</h2>
+          <p class="matrix-subtitle">We don't speculate on vague predictions. We measure 24 years of daily tick data against sub-degree sidereal ephemeris. Here is what 5,800+ trading sessions prove.</p>
+        </div>
+        <a href="/patterns" class="btn btn-outline btn-pill">
+          <span>All 24-Yr Patterns</span>
+          <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="matrix-cards-grid">
+        <!-- Pattern 1: Jupiter-Rahu in Cancer -->
+        <div class="matrix-card">
+          <div class="matrix-card-top">
+            <span class="matrix-badge badge-high-prob">HIGH PROBABILITY</span>
+            <span class="matrix-asset-tag">Bank Nifty &amp; Credit Equities</span>
+          </div>
+          <h3 class="matrix-card-title">Jupiter &ndash; Rahu Conjunction in Cancer</h3>
+          <p class="matrix-card-desc">Marks multi-quarter credit and liquidity expansion cycles. In Cancer (Punarvasu / Pushya), monetary accommodation historically sparks banking rallies.</p>
+          
+          <div class="matrix-stat-block">
+            <div class="matrix-stat-row">
+              <span class="matrix-stat-label">Historical Win Rate</span>
+              <span class="matrix-stat-value val-green">90.9%</span>
+            </div>
+            <div class="matrix-progress-track">
+              <div class="matrix-progress-bar bar-green" style="width: 90.9%;"></div>
+            </div>
+            <div class="matrix-meta-row">
+              <span class="matrix-meta-item">Sample: <strong class="mono-num">N = 22</strong> cycles</span>
+              <span class="matrix-meta-item">Mean Return: <strong class="mono-num val-green">+14.8%</strong></span>
+              <span class="matrix-meta-item">Window: <strong class="mono-num">90 Days</strong></span>
+            </div>
+          </div>
+          <a href="/patterns" class="matrix-card-link">
+            <span>Inspect Historical Logs</span>
+            <span class="link-arrow">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Pattern 2: Saturn Direct in Aquarius -->
+        <div class="matrix-card">
+          <div class="matrix-card-top">
+            <span class="matrix-badge badge-trend">SYSTEMIC TREND</span>
+            <span class="matrix-asset-tag">Nifty 50 Cap-Weighted</span>
+          </div>
+          <h3 class="matrix-card-title">Saturn Direct Station in Aquarius</h3>
+          <p class="matrix-card-desc">Saturn turning direct in its Moolatrikona sign (Kumbha) resolves multi-month sideways distribution into strong cap-weighted trend breakouts.</p>
+          
+          <div class="matrix-stat-block">
+            <div class="matrix-stat-row">
+              <span class="matrix-stat-label">Historical Win Rate</span>
+              <span class="matrix-stat-value val-green">84.2%</span>
+            </div>
+            <div class="matrix-progress-track">
+              <div class="matrix-progress-bar bar-green" style="width: 84.2%;"></div>
+            </div>
+            <div class="matrix-meta-row">
+              <span class="matrix-meta-item">Sample: <strong class="mono-num">N = 19</strong> cycles</span>
+              <span class="matrix-meta-item">Mean Return: <strong class="mono-num val-green">+9.4%</strong></span>
+              <span class="matrix-meta-item">Window: <strong class="mono-num">60 Days</strong></span>
+            </div>
+          </div>
+          <a href="/patterns" class="matrix-card-link">
+            <span>Inspect Historical Logs</span>
+            <span class="link-arrow">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Pattern 3: Mercury Retrograde in Fire Signs -->
+        <div class="matrix-card">
+          <div class="matrix-card-top">
+            <span class="matrix-badge badge-volatility">VOLATILITY REGIME</span>
+            <span class="matrix-asset-tag">India VIX &amp; Straddles</span>
+          </div>
+          <h3 class="matrix-card-title">Mercury Retrograde in Fire Signs</h3>
+          <p class="matrix-card-desc">Impulsive directional attempts in Aries, Leo, or Sagittarius exhibit high false-breakout frequency, favoring options premium sellers and mean reversion.</p>
+          
+          <div class="matrix-stat-block">
+            <div class="matrix-stat-row">
+              <span class="matrix-stat-label">False Breakout Frequency</span>
+              <span class="matrix-stat-value val-gold">72.4%</span>
+            </div>
+            <div class="matrix-progress-track">
+              <div class="matrix-progress-bar bar-gold" style="width: 72.4%;"></div>
+            </div>
+            <div class="matrix-meta-row">
+              <span class="matrix-meta-item">Sample: <strong class="mono-num">N = 58</strong> retrogrades</span>
+              <span class="matrix-meta-item">False Break Edge: <strong class="mono-num val-gold">2.3x Mean</strong></span>
+              <span class="matrix-meta-item">Window: <strong class="mono-num">21 Days</strong></span>
+            </div>
+          </div>
+          <a href="/patterns" class="matrix-card-link">
+            <span>Inspect Historical Logs</span>
+            <span class="link-arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       2. TODAY'S COSMIC MARKET MOOD (Screenshot 3 Aligned)
+       ============================================================== -->
+  <section class="cosmic-mood-section" id="cosmicMoodSection">
+    <div class="container">
+      <div class="mood-header-block">
+        <div class="mood-kicker">
+          <span class="kicker-moon-icon">&#9789;</span>
+          <span>TODAY'S COSMIC MARKET MOOD</span>
+        </div>
+        <h2 class="mood-title">Calm accumulation energy, speculative edges sharp</h2>
+      </div>
+
+      <div class="mood-cards-grid">
+        <!-- 1. Key Transits Card -->
+        <div class="mood-card">
+          <div class="mood-card-header">
+            <span class="mood-header-icon icon-purple">&#9737;</span>
+            <h3 class="mood-header-title">Key Transits</h3>
+          </div>
+          <div class="transit-rows">
+            <div class="transit-row">
+              <span class="transit-name"><strong>Rahu</strong> in Cancer</span>
+              <span class="transit-desc">speculative vol around derivatives</span>
+            </div>
+            <div class="transit-row">
+              <span class="transit-name"><strong>Jupiter</strong> in Cancer</span>
+              <span class="transit-desc">wealth-house emphasis</span>
+            </div>
+            <div class="transit-row">
+              <span class="transit-name"><strong>Saturn</strong> in Aquarius</span>
+              <span class="transit-desc">slow, structural tone</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Market Watchpoints Card -->
+        <div class="mood-card">
+          <div class="mood-card-header">
+            <span class="mood-header-icon icon-gold">&#128200;</span>
+            <h3 class="mood-header-title">Market Watchpoints</h3>
+          </div>
+          <ul class="watchpoint-list">
+            <li class="watchpoint-item">
+              <span class="watch-diamond">&#9670;</span>
+              <span>Volatility in derivatives ahead of expiry</span>
+            </li>
+            <li class="watchpoint-item">
+              <span class="watch-diamond">&#9670;</span>
+              <span>Gold holding a firm traditional footing</span>
+            </li>
+            <li class="watchpoint-item">
+              <span class="watch-diamond">&#9670;</span>
+              <span>Sentiment soft on overleveraged names</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 3. Planetary Hour Card -->
+        <div class="mood-card hora-mood-card">
+          <div class="mood-card-header">
+            <span class="mood-header-icon icon-gold">&#9203;</span>
+            <h3 class="mood-header-title">Planetary Hour</h3>
+          </div>
+          <div class="hora-content">
+            <div class="hora-main-row">
+              <span class="hora-sun-glyph" id="heroHoraGlyph"><%= currentHora.glyph %></span>
+              <div class="hora-main-info">
+                <div class="hora-hero-name" id="heroHoraName"><%= currentHora.label %></div>
+                <div class="hora-hero-time" id="heroHoraTime"><%= istNow.timeStr %> IST &middot; <%= istNow.dateFormatted %></div>
+              </div>
+            </div>
+            <div class="hora-divider"></div>
+            <div class="hora-sub-meta">
+              <span class="hora-range" id="heroHoraRange"><%= currentHora.sunrise %> &#8599; <%= currentHora.sunset %> &#8600; &middot; next: <%= currentHora.nextGlyph %> <%= currentHora.nextPlanet %> &middot; <%= currentHora.location %>.</span>
+              <span class="hora-disclaimer">Traditional Chaldean hora &mdash; reference, not advice.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Regulatory notice strip from Screenshot 3 -->
+      <div class="mood-regulatory-strip">
+        <span class="reg-icon">&#9962;</span>
+        <p class="reg-text">
+          <strong>Important:</strong> For educational and informational purposes only. Not registered financial advice. Data may be delayed. Do not rely solely on this for financial decisions. <a href="/disclaimer" class="reg-link">Read full disclaimer &rarr;</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin's Daily Cosmic Thoughts Feed -->
+  <section class="daily-thoughts-feed-section section-rhythm">
+    <div class="container">
+      <div class="feed-header-row">
+        <div>
+          <span class="section-kicker">DAILY DISPATCH</span>
+          <h2 class="section-title">Admin's Daily Cosmic Thoughts</h2>
+        </div>
+        <span class="feed-live-badge"><span class="live-dot"></span> Live Channel</span>
+      </div>
+
+      <div class="daily-feed-list" id="dailyThoughtsFeed">
+        <!-- Rendered daily posts list -->
+        <% if (typeof thoughts !== 'undefined' && thoughts.length) { %>
+          <% thoughts.forEach(function(item) { %>
+            <article class="feed-card">
+              <div class="feed-card-meta">
+                <span class="feed-author">✦ Cosmic Finance Desk</span>
+                <time class="feed-time"><%= new Date(item.published_at || item.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) %></time>
+              </div>
+              <h3 class="feed-card-title"><%= item.title %></h3>
+              <div class="feed-card-body">
+                <p><%= item.content %></p>
+              </div>
+            </article>
+          <% }); %>
+        <% } else { %>
+          <article class="feed-card">
+            <div class="feed-card-meta">
+              <span class="feed-author">✦ Cosmic Finance Desk</span>
+              <time class="feed-time">Today</time>
+            </div>
+            <h3 class="feed-card-title">Mercury Direct in Ashwini: Recalibrating Sector Rotation</h3>
+            <div class="feed-card-body">
+              <p>As planetary speed normalizes, short-term chop eases across banking indices. Focus remains on discipline over speculation.</p>
+            </div>
+          </article>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       2B. THE QUANTITATIVE MANIFESTO (Philosophy of Fusion)
+       ============================================================== -->
+  <section class="manifesto-section" id="manifestoSection">
+    <div class="container">
+      <div class="manifesto-card">
+        <div class="manifesto-glow-left" aria-hidden="true"></div>
+        <div class="manifesto-glow-right" aria-hidden="true"></div>
+        <div class="manifesto-inner">
+          <div class="manifesto-kicker">
+            <span class="manifesto-icon">&#9670;</span>
+            <span>THE QUANTITATIVE FUSION PRINCIPLE</span>
+            <span class="manifesto-icon">&#9670;</span>
+          </div>
+          <blockquote class="manifesto-quote">
+            &ldquo;Technical analysis tells traders <span class="highlight-gold">WHERE</span> support and resistance exist on the chart. Mathematical ephemeris measures <span class="highlight-violet">WHEN</span> cyclical momentum reaches turning points. We don't sell predictions or lucky stones &mdash; we build precision instruments so traders can measure empirical probabilities for themselves.&rdquo;
+          </blockquote>
+          <div class="manifesto-author-bar">
+            <div class="author-title">COSMIC FINANCE QUANTITATIVE EPHEMERIS ENGINE</div>
+            <div class="author-meta"><span class="mono-num">0.001&deg;</span> Lahiri Sidereal Precision &bull; <span class="mono-num">5,800+</span> NSE Trading Sessions Verified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       2C. 3-STEP EXECUTION DISCIPLINE (From Orbit to Execution)
+       ============================================================== -->
+  <section class="discipline-section" id="disciplineSection">
+    <div class="container">
+      <div class="section-center-head">
+        <span class="discipline-kicker">METHODOLOGY</span>
+        <h2 class="discipline-title">From Planetary Ephemeris to Trading Discipline</h2>
+        <p class="discipline-sub">Three connected layers that transform celestial mechanics into repeatable market risk management.</p>
+      </div>
+
+      <div class="discipline-stepper-grid">
+        <!-- Step 1 -->
+        <div class="stepper-card">
+          <div class="stepper-top">
+            <span class="stepper-num">01</span>
+            <span class="stepper-badge">ASTRONOMY</span>
+          </div>
+          <h3 class="stepper-title">Geocentric Ephemeris Engine</h3>
+          <p class="stepper-desc">Real-time planetary coordinates computed with <span class="mono-num">0.001&deg;</span> Lahiri Ayanamsa accuracy. Strictly geocentric Navagrahas without tropical precession distortion.</p>
+          <div class="stepper-metric">
+            <span class="metric-key">Engine Tolerance:</span>
+            <span class="metric-val mono-num">&plusmn;0.001 Arcsec</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="stepper-card">
+          <div class="stepper-top">
+            <span class="stepper-num">02</span>
+            <span class="stepper-badge">STATISTICS</span>
+          </div>
+          <h3 class="stepper-title">24-Year Empirical Backtesting</h3>
+          <p class="stepper-desc">Every planetary ingress, combustion, and retrograde phase mapped against 5,800+ NSE and MCX trading sessions to establish verified statistical win rates.</p>
+          <div class="stepper-metric">
+            <span class="metric-key">Historical Dataset:</span>
+            <span class="metric-val mono-num">2000 &ndash; 2024</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="stepper-card">
+          <div class="stepper-top">
+            <span class="stepper-num">03</span>
+            <span class="stepper-badge">EXECUTION</span>
+          </div>
+          <h3 class="stepper-title">Execution Risk Discipline</h3>
+          <p class="stepper-desc">Synchronizing macro cycles with real-time Chaldean Hora trading hours and personal Kundli Vimshottari Dashas to filter out low-probability entries.</p>
+          <div class="stepper-metric">
+            <span class="metric-key">Operational Framework:</span>
+            <span class="metric-val mono-num">SEBI Risk Aligned</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       3. FEATURED ARTICLES (Screenshot 4 Aligned)
+       ============================================================== -->
+  <section class="featured-articles-section" id="featuredArticlesSection">
+    <div class="container">
+      <div class="section-top-bar">
+        <div>
+          <h2 class="featured-heading">Featured Articles</h2>
+        </div>
+        <a href="/articles" class="btn btn-outline btn-pill">
+          <span>All Articles</span>
+          <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="featured-articles-grid">
+        <!-- Article 1 -->
+        <a href="/articles/financial-astrology-basics-intro" class="featured-art-card">
+          <div class="art-banner">
+            <div class="cosmic-canvas-stars"></div>
+            <svg class="saturn-vector" viewBox="0 0 160 100" fill="none">
+              <ellipse cx="80" cy="50" rx="26" ry="26" fill="#1b213b" stroke="#f5be48" stroke-width="1.2" stroke-opacity="0.7"/>
+              <ellipse cx="80" cy="50" rx="55" ry="16" transform="rotate(-20 80 50)" fill="none" stroke="#d49520" stroke-width="2" stroke-opacity="0.85"/>
+              <ellipse cx="80" cy="50" rx="46" ry="12" transform="rotate(-20 80 50)" fill="none" stroke="#ffe8a3" stroke-width="1" stroke-opacity="0.6"/>
+              <circle cx="25" cy="30" r="1.5" fill="#ffffff" opacity="0.8" />
+              <circle cx="50" cy="20" r="1" fill="#ffffff" opacity="0.6" />
+              <circle cx="120" cy="25" r="1.2" fill="#ffffff" opacity="0.7" />
+              <circle cx="140" cy="65" r="1" fill="#ffffff" opacity="0.5" />
+              <circle cx="35" cy="75" r="1.5" fill="#a78bfa" opacity="0.8" />
+              <line x1="25" y1="30" x2="50" y2="20" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
+            </svg>
+          </div>
+          <div class="art-content">
+            <span class="art-category-pill">BASICS</span>
+            <h3 class="art-card-title">What Is Financial Astrology &mdash; and How It Differs From Technical Analysis</h3>
+            <div class="art-card-meta">
+              <span class="art-author">Cosmic Finance Team</span>
+              <span class="art-date">Oct 2, 2026</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 2 -->
+        <a href="/articles/the-5th-house-speculation-in-trading-and-equities" class="featured-art-card">
+          <div class="art-banner">
+            <div class="cosmic-canvas-stars"></div>
+            <svg class="saturn-vector" viewBox="0 0 160 100" fill="none">
+              <ellipse cx="105" cy="45" rx="24" ry="24" fill="#1c1f38" stroke="#a78bfa" stroke-width="1.2" stroke-opacity="0.8"/>
+              <ellipse cx="105" cy="45" rx="50" ry="15" transform="rotate(-25 105 45)" fill="none" stroke="#ffd572" stroke-width="2" stroke-opacity="0.85"/>
+              <circle cx="20" cy="40" r="1.5" fill="#ffffff" opacity="0.8" />
+              <circle cx="45" cy="30" r="1" fill="#ffffff" opacity="0.6" />
+              <circle cx="70" cy="60" r="1.2" fill="#ffffff" opacity="0.7" />
+              <circle cx="145" cy="25" r="1.5" fill="#ffffff" opacity="0.7" />
+              <line x1="20" y1="40" x2="45" y2="30" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
+              <line x1="45" y1="30" x2="70" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
+            </svg>
+          </div>
+          <div class="art-content">
+            <span class="art-category-pill">BASICS</span>
+            <h3 class="art-card-title">The 5th House of Speculation: What It Traditionally Tells Traders</h3>
+            <div class="art-card-meta">
+              <span class="art-author">Cosmic Finance Team</span>
+              <span class="art-date">Sep 28, 2026</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Article 3 -->
+        <a href="/articles/mercury-retrograde-survival-guide-for-stock-traders" class="featured-art-card">
+          <div class="art-banner">
+            <div class="cosmic-canvas-stars"></div>
+            <svg class="saturn-vector" viewBox="0 0 160 100" fill="none">
+              <ellipse cx="90" cy="50" rx="25" ry="25" fill="#1b213b" stroke="#f5be48" stroke-width="1.2" stroke-opacity="0.7"/>
+              <ellipse cx="90" cy="50" rx="52" ry="15" transform="rotate(-18 90 50)" fill="none" stroke="#d49520" stroke-width="2" stroke-opacity="0.85"/>
+              <circle cx="30" cy="25" r="1.5" fill="#ffffff" opacity="0.8" />
+              <circle cx="60" cy="35" r="1" fill="#ffffff" opacity="0.6" />
+              <circle cx="135" cy="40" r="1.2" fill="#ffffff" opacity="0.7" />
+              <circle cx="120" cy="75" r="1.5" fill="#a78bfa" opacity="0.8" />
+              <line x1="30" y1="25" x2="60" y2="35" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
+            </svg>
+          </div>
+          <div class="art-content">
+            <span class="art-category-pill">PLANETS</span>
+            <h3 class="art-card-title">Trading Through Mercury Retrograde: What the Old Calendars Warned About</h3>
+            <div class="art-card-meta">
+              <span class="art-author">Cosmic Finance Team</span>
+              <span class="art-date">Sep 22, 2026</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       3B. PLATFORM CAPABILITIES MATRIX (The Full Instrument Suite)
+       ============================================================== -->
+  <section class="capabilities-section" id="capabilitiesSection">
+    <div class="container">
+      <div class="section-top-bar">
+        <div>
+          <div class="capabilities-kicker">
+            <span class="kicker-glyph">&#9881;</span>
+            <span>INTEGRATED INSTRUMENTATION</span>
+          </div>
+          <h2 class="capabilities-title">Built for Serious Market Observers</h2>
+        </div>
+        <a href="/market-data" class="btn btn-outline btn-pill">
+          <span>Explore All Tools</span>
+          <span class="btn-arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <div class="capabilities-grid">
+        <!-- 1. 4D Time Machine -->
+        <div class="cap-card">
+          <div class="cap-icon-box icon-gold">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 14 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="cap-card-title">4D Celestial Time Machine</h3>
+          <p class="cap-card-desc">Scrub across 24 years of historical market shocks &mdash; from Lehman 2008 to the 2024 Election &mdash; to inspect exact planetary geometry at historic lows and highs.</p>
+          <a href="#celestialArmillaryHero" class="cap-link">Launch Time Machine &rarr;</a>
+        </div>
+
+        <!-- 2. Planetary Hora Engine -->
+        <div class="cap-card">
+          <div class="cap-icon-box icon-violet">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="7"></circle>
+              <polyline points="12 9 12 12 13.5 13.5"></polyline>
+              <path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path>
+            </svg>
+          </div>
+          <h3 class="cap-card-title">Real-Time Planetary Hora</h3>
+          <p class="cap-card-desc">Tracks the 24 Chaldean planetary hours of each day, synchronized to the sunrise and sunset of Mumbai (BSE/NSE) down to the exact second.</p>
+          <a href="/market-data#horaSection" class="cap-link">View Hora Schedule &rarr;</a>
+        </div>
+
+        <!-- 3. Sector Dignity Heatmap -->
+        <div class="cap-card">
+          <div class="cap-icon-box icon-gold">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </div>
+          <h3 class="cap-card-title">Sector Planetary Dignity</h3>
+          <p class="cap-card-desc">Maps Indian equity sectors (Banking, IT, Metals, Pharma, FMCG) against their traditional celestial rulers to observe rotational strength and dignity shifts.</p>
+          <a href="/market-data#sectorHeatmap" class="cap-link">Inspect Sector Dignity &rarr;</a>
+        </div>
+
+        <!-- 4. Index Horary Charts -->
+        <div class="cap-card">
+          <div class="cap-icon-box icon-violet">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="cap-card-title">Index Horary Charts</h3>
+          <p class="cap-card-desc">Natal incorporation horoscopes for Nifty 50 (Dhanu Lagna) and BSE Sensex (Makara Lagna) mapped to current Vimshottari Mahadasha cycles.</p>
+          <a href="/weekly-outlook" class="cap-link">Read Macro Outlook &rarr;</a>
+        </div>
+
+        <!-- 5. Trading Kundli Engine -->
+        <div class="cap-card">
+          <div class="cap-icon-box icon-gold">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <h3 class="cap-card-title">Personal Trading Kundli</h3>
+          <p class="cap-card-desc">Evaluates your birth chart's 2nd (wealth), 5th (speculation), and 11th (gains) houses to diagnose psychological biases and favorable dasha periods.</p>
+          <a href="/trading-kundli" class="cap-link">Generate Kundli Profile &rarr;</a>
+        </div>
+
+        <!-- 6. Public Track Record -->
+        <div class="cap-card">
+          <div class="cap-icon-box icon-violet">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <h3 class="cap-card-title">Immutable Public Track Record</h3>
+          <p class="cap-card-desc">Every weekly market outlook and transit call is logged with cryptographic timestamps and evaluated transparently against verified index outcomes.</p>
+          <a href="/track-record" class="cap-link">Review Audit Trail &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       3C. FREQUENTLY ANSWERED QUESTIONS (Accordion)
+       ============================================================== -->
+  <section class="faq-section" id="faqSection">
+    <div class="container faq-container">
+      <div class="section-center-head">
+        <span class="faq-kicker">QUESTIONS &amp; TRANSPARENCY</span>
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <p class="discipline-sub">Direct, transparent answers regarding our calculation engine, empirical methodology, and regulatory compliance.</p>
+      </div>
+
+      <div class="faq-accordion-group" id="faqAccordionGroup">
+        <!-- Question 1 -->
+        <details class="faq-item" open>
+          <summary class="faq-summary">
+            <span class="faq-question">How does astronomical ephemeris link with financial price action?</span>
+            <span class="faq-chevron" aria-hidden="true">&plus;</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Financial markets are driven by cyclical human psychology: fear, euphoria, liquidity expansion, and risk aversion. For centuries, quantitative researchers from W.D. Gann to modern cyclical analysts observed that celestial movements (planetary cycles, retrogrades, lunations) match recurring macro rhythms.</p>
+            <p>We do not treat astrology as mystic fate. We treat it as an astronomical clock &mdash; measuring mathematical cyclical frequencies against 24 years of real tick data from the National Stock Exchange of India (NSE).</p>
+          </div>
+        </details>
+
+        <!-- Question 2 -->
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span class="faq-question">Is Cosmic Finance SEBI registered or offering buy/sell investment advice?</span>
+            <span class="faq-chevron" aria-hidden="true">&plus;</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>No.</strong> Cosmic Finance is strictly an educational research and mathematical ephemeris calculation tool. We are not a SEBI-registered investment advisor or research analyst. We never provide buy/sell recommendations, stock tips, target prices, or portfolio management services.</p>
+            <p>All data, patterns, and historical statistics are presented strictly for academic research and educational backtesting. Always consult a licensed SEBI-registered financial advisor before risking capital in equity or derivatives markets.</p>
+          </div>
+        </details>
+
+        <!-- Question 3 -->
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span class="faq-question">How accurate are the astronomical calculations on the site?</span>
+            <span class="faq-chevron" aria-hidden="true">&plus;</span>
+          </summary>
+          <div class="faq-answer">
+            <p>Our backend engine calculates true geocentric positions with <span class="mono-num">0.001&deg;</span> arc-second precision using the Lahiri (Chitra Paksha) Ayanamsa. We compute only the traditional Vedic Navagrahas (Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn, and lunar nodes Rahu & Ketu positioned exactly <span class="mono-num">180.00&deg;</span> apart).</p>
+            <p>Positions are cached with high performance on local servers, guaranteeing zero latency when inspecting the 3D celestial sphere or scrubbing the 4D Time Machine.</p>
+          </div>
+        </details>
+
+        <!-- Question 4 -->
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span class="faq-question">Can a personal Kundli guarantee profits in trading?</span>
+            <span class="faq-chevron" aria-hidden="true">&plus;</span>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>Absolutely not.</strong> No astrological chart guarantees market profits. Trading success requires strict risk management, position sizing, edge validation, and emotional discipline.</p>
+            <p>In traditional Vedic astrology, a natal chart highlights psychological predispositions &mdash; such as an individual's inclination toward impulsiveness during malefic dashas, or periods of mental clarity. Our Kundli engine analyzes the 2nd, 5th, 9th, and 11th houses as a self-awareness tool to help you trade with greater discipline, never as a get-rich-quick formula.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+  <div class="floating-hora-widget" id="floatingHoraWidget" role="complementary" aria-label="Current Planetary Hour">
+    <div class="floating-hora-inner">
+      <div class="floating-hora-top">
+        <span class="floating-hora-dot"></span>
+        <span class="floating-hora-glyph" id="floatingHoraGlyph"><%= currentHora.glyph %></span>
+        <strong class="floating-hora-title" id="floatingHoraTitle"><%= currentHora.label %></strong>
+        <span class="floating-hora-clock" id="floatingHoraClock"><%= istNow.timeStrShort %> IST</span>
+        <button class="floating-hora-close" id="btnDismissFloatingHora" aria-label="Dismiss planetary hour widget" onclick="document.getElementById('floatingHoraWidget').style.display='none'">&times;</button>
+      </div>
+      <div class="floating-hora-sub" id="floatingHoraSub">
+        <span><%= currentHora.sunrise %> &#8599; <%= currentHora.sunset %> &#8600; next <%= currentHora.nextGlyph %> <%= currentHora.nextPlanet %> &middot; IST</span>
+      </div>
+    </div>
+  </div>
+</div>

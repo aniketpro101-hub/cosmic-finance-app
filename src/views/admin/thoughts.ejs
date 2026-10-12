@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Thoughts | Cosmic Finance Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-dashboard-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand"><span class="logo-symbol">✦</span> Cosmic Admin</div>
+      <nav class="sidebar-nav">
+        <a href="<%= adminPath %>" class="sidebar-link">📊 Control Deck</a>
+        <a href="<%= adminPath %>/thoughts" class="sidebar-link active">✍️ Daily Thoughts</a>
+        <a href="<%= adminPath %>/articles" class="sidebar-link">📚 Article Review</a>
+        <a href="<%= adminPath %>/news" class="sidebar-link">📰 Curated News</a>
+        <a href="<%= adminPath %>/leads" class="sidebar-link">🎯 Kundli Leads</a>
+        <a href="<%= adminPath %>/analytics" class="sidebar-link">📈 Analytics</a>
+      </nav>
+      <div class="sidebar-footer"><a href="<%= adminPath %>/logout" class="sidebar-logout">Logout &rarr;</a></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <h2>Daily Thoughts / Danayani Editor</h2>
+      </header>
+
+      <div class="admin-content-inner">
+        <!-- New Thought Editor -->
+        <div class="admin-panel mb-6">
+          <h3>Compose Daily Cosmic Thought</h3>
+          <p class="text-muted">Broadcast macro astrological observations directly to the homepage Live Feed.</p>
+
+          <form action="<%= adminPath %>/thoughts" method="POST" class="cosmic-form">
+            <div class="form-group">
+              <label for="thoughtTitle">Headline / Title</label>
+              <input type="text" id="thoughtTitle" name="title" class="form-control" placeholder="e.g. Mercury Trine Jupiter: High Trade Velocity in Tech" required>
+            </div>
+            <div class="form-group">
+              <label for="thoughtContent">Thought Commentary</label>
+              <textarea id="thoughtContent" name="content" class="form-control" rows="5" placeholder="Write plain-language astrological commentary on current market behavior..." required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="publishTiming">Publish Timing</label>
+                <select id="publishTiming" name="publishTiming" class="form-control" onchange="document.getElementById('scheduleBox').style.display = this.value === 'schedule' ? 'block' : 'none';">
+                  <option value="now">Publish Immediately</option>
+                  <option value="schedule">Schedule for Later</option>
+                </select>
+              </div>
+              <div class="form-group col-half" id="scheduleBox" style="display: none;">
+                <label for="scheduledFor">Schedule Date & Time</label>
+                <input type="datetime-local" id="scheduledFor" name="scheduledFor" class="form-control">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-gold">Save & Dispatch Thought</button>
+          </form>
+        </div>
+
+        <!-- Thoughts History -->
+        <div class="admin-panel">
+          <h3>Published Thoughts Archive</h3>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Published / Scheduled Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (thoughts && thoughts.length) { %>
+                  <% thoughts.forEach(function(t) { %>
+                    <tr>
+                      <td><strong><%= t.title %></strong></td>
+                      <td><%= new Date(t.published_at || t.created_at).toLocaleString('en-IN') %></td>
+                      <td>
+                        <% if (new Date(t.published_at) > new Date()) { %>
+                          <span class="status-pill pending">Scheduled</span>
+                        <% } else { %>
+                          <span class="status-pill active">Live</span>
+                        <% } %>
+                      </td>
+                    </tr>
+                  <% }); %>
+                <% } else { %>
+                  <tr><td colspan="3" class="text-center text-muted">No thoughts published yet.</td></tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

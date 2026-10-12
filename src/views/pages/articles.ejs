@@ -1,0 +1,69 @@
+<div class="page-container container section-rhythm">
+  <header class="page-header text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>CELESTIAL ARCHIVES & RESEARCH</span>
+    </div>
+    <h1 class="page-title">Financial Astrology <span class="text-gold">Articles</span></h1>
+    <p class="page-subtitle">
+      Deep-dive research on planetary cycles, Dhana yogas, historical market panics, and trader psychology.
+    </p>
+  </header>
+
+  <!-- Filter & Search Controls -->
+  <div class="articles-filter-bar">
+    <div class="category-pills" id="categoryPills">
+      <button class="filter-pill active" data-category="all">All Articles</button>
+      <button class="filter-pill" data-category="Basics">Astrology Basics</button>
+      <button class="filter-pill" data-category="Planets">Planets & Markets</button>
+      <button class="filter-pill" data-category="Personal">Trader Kundli</button>
+      <button class="filter-pill" data-category="Cycles">Market Cycles</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="articleSearchInput" class="form-control" placeholder="Search topics or keywords...">
+    </div>
+  </div>
+
+  <!-- Articles Grid -->
+  <div class="articles-master-grid" id="articlesGrid">
+    <% if (typeof articles !== 'undefined' && articles.length) { %>
+      <% articles.forEach(function(item) { %>
+        <article class="article-card" data-category="<%= item.category %>">
+          <div class="card-meta-top">
+            <span class="card-tag"><%= item.category %></span>
+            <span class="card-read-time"><%= item.read_time %></span>
+          </div>
+          <h2 class="card-title"><a href="/articles/<%= item.slug %>"><%= item.title %></a></h2>
+          <p class="card-excerpt"><%= item.excerpt %></p>
+          <div class="card-footer">
+            <span class="author-name">By <%= item.author_name %></span>
+            <a href="/articles/<%= item.slug %>" class="read-more">Read Full Article &rarr;</a>
+          </div>
+        </article>
+      <% }); %>
+    <% } else { %>
+      <!-- Fallback starter card for skeleton -->
+      <article class="article-card" data-category="Basics">
+        <div class="card-meta-top">
+          <span class="card-tag">Basics</span>
+          <span class="card-read-time">6 min read</span>
+        </div>
+        <h2 class="card-title"><a href="/articles/financial-astrology-basics-intro">What is Financial Astrology and How Does it Differ from Technical Analysis</a></h2>
+        <p class="card-excerpt">Examining how celestial time cycles measure sentiment, institutional timing, and capital flows alongside charting indicators.</p>
+        <div class="card-footer">
+          <span class="author-name">By Cosmic Finance Desk</span>
+          <a href="/articles/financial-astrology-basics-intro" class="read-more">Read Full Article &rarr;</a>
+        </div>
+      </article>
+    <% } %>
+  </div>
+
+  <!-- Community Callout: Write for Us -->
+  <div class="write-for-us-banner">
+    <div class="write-banner-content">
+      <h3>Are You an Astrologer or Market Researcher?</h3>
+      <p>Share your thesis, research notes, or historical market analysis with our growing community of traders.</p>
+    </div>
+    <a href="/submit-article" class="btn btn-outline">Submit Your Article for Review &rarr;</a>
+  </div>
+</div>

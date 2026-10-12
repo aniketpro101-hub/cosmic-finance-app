@@ -1,0 +1,66 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= title || 'Cosmic Finance — Where Stars Meet The Street' %></title>
+<meta name="description" content="<%= description || 'Where Stars Meet The Street. Blending macro financial astrology with live Indian market indices, gold, and crypto data.' %>">
+<meta name="keywords" content="financial astrology, Indian stock market, NIFTY 50 astro cycles, gold planetary cycles, trading kundli, vedic trading">
+<meta name="robots" content="index, follow">
+
+<!-- Canonical & OpenGraph -->
+<link rel="canonical" href="http://localhost:3000<%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
+<meta property="og:site_name" content="Cosmic Finance">
+<meta property="og:title" content="<%= title || 'Cosmic Finance — Where Stars Meet The Street' %>">
+<meta property="og:description" content="<%= description || 'Where Stars Meet The Street. Blending macro financial astrology with live Indian market indices, gold, and crypto data.' %>">
+<meta property="og:type" content="<%= typeof article !== 'undefined' ? 'article' : 'website' %>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<%= title || 'Cosmic Finance' %>">
+<meta name="twitter:description" content="<%= description || 'Where Stars Meet The Street.' %>">
+
+<!-- Offline Self-Hosted High Performance Typography (Zero CDN Latency, Zero CLS, 100% Privacy) -->
+<link rel="stylesheet" href="/css/fonts.css">
+
+<!-- Fallback Google Fonts CDN -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- Core Stylesheets -->
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/layout.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/orbit.css">
+<link rel="stylesheet" href="/css/hero-variants.css">
+
+<!-- Structured Data JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Cosmic Finance",
+  "url": "http://localhost:3000",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "http://localhost:3000/articles?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<% if (typeof article !== 'undefined' && article) { %>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "<%= article.title.replace(/"/g, '\\"') %>",
+  "description": "<%= (article.excerpt || '').replace(/"/g, '\\"') %>",
+  "author": {
+    "@type": "Person",
+    "name": "<%= article.author_name %>"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Cosmic Finance"
+  },
+  "datePublished": "<%= article.published_at || article.created_at %>"
+}
+</script>
+<% } %>

@@ -1,0 +1,74 @@
+<div class="page-container container section-rhythm">
+  <header class="page-header text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>DIRECT DESK COMMUNICATION</span>
+    </div>
+    <h1 class="page-title">Personal <span class="text-gold">Consultation & Contact</span></h1>
+    <p class="page-subtitle">
+      Connect directly with our Vedic financial astrology researchers via WhatsApp, phone, or direct inquiry.
+    </p>
+  </header>
+
+  <div class="contact-channels-grid">
+    <!-- WhatsApp Direct Card -->
+    <div class="channel-card highlight-gold">
+      <div class="channel-icon">💬</div>
+      <h2>Instant WhatsApp Chat</h2>
+      <p class="channel-phone">+91 8888888888</p>
+      <p class="channel-desc">
+        Fastest response time for 1-on-1 Trading Kundli reviews, planetary transit inquiries, and booking details.
+      </p>
+      <a href="https://wa.me/918888888888?text=<%= encodeURIComponent(whatsappMessage) %>" class="btn btn-gold btn-block btn-lg" target="_blank" rel="noopener">
+        Open WhatsApp Chat &rarr;
+      </a>
+    </div>
+
+    <!-- Phone Call Card -->
+    <div class="channel-card">
+      <div class="channel-icon">📞</div>
+      <h2>Telephone Consultation</h2>
+      <p class="channel-phone">+91 8888888888</p>
+      <p class="channel-desc">
+        Available Monday to Saturday: 10:00 AM – 6:30 PM IST. Direct telephone discussion for in-depth chart readings.
+      </p>
+      <a href="tel:+918888888888" class="btn btn-outline btn-block btn-lg">
+        Call Desk Directly &rarr;
+      </a>
+    </div>
+  </div>
+
+  <!-- Direct Consultation Request Form -->
+  <div class="consultation-form-section">
+    <div class="form-card">
+      <h2>Send Direct Consultation Request</h2>
+      <p>Leave your contact number and preferred timeframe; our desk will reach out to you.</p>
+
+      <form id="contactInquiryForm" class="cosmic-form" action="/api/leads/inquiry" method="POST">
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="contactName">Your Name <span class="required">*</span></label>
+            <input type="text" id="contactName" name="fullName" class="form-control" placeholder="e.g. Amit Patel" required>
+          </div>
+          <div class="form-group col-half">
+            <label for="contactPhone">Phone / WhatsApp Number <span class="required">*</span></label>
+            <input type="tel" id="contactPhone" name="phone" class="form-control" placeholder="+91 9876543210" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contactMessage">Inquiry / Consultation Context (Optional)</label>
+          <textarea id="contactMessage" name="notes" class="form-control" rows="4" placeholder="Mention if you have specific trading timeframes or asset classes you want to examine..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold btn-lg">Submit Request</button>
+        </div>
+      </form>
+
+      <div id="contactSuccessMsg" class="alert-success" style="display: none;">
+        ✅ Thank you! Your request has been logged. Our consultation coordinator will contact you shortly.
+      </div>
+    </div>
+  </div>
+</div>

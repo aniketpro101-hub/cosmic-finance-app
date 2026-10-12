@@ -1,0 +1,230 @@
+<div class="page-container container section-rhythm">
+  <header class="page-header text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>VEDIC TRADING PROCLIVITY ENGINE</span>
+    </div>
+    <h1 class="page-title">Know Your <span class="text-gold">Trading Kundli</span></h1>
+    <p class="page-subtitle">
+      Decode your innate psychological trading strengths, speculation yoga propensity, and asset-class alignment through classical Jyotish planetary physics.
+    </p>
+  </header>
+
+  <div class="kundli-funnel-wrapper" id="kundliFunnel">
+    <!-- Step 1: Input Form -->
+    <div class="kundli-card" id="kundliFormCard">
+      <div class="kundli-card-header">
+        <h2>Enter Your Birth Coordinates</h2>
+        <p>Your birth details remain 100% confidential and encrypted using AES-256 standard.</p>
+      </div>
+
+      <form id="tradingKundliForm" class="cosmic-form" novalidate>
+        <div class="form-group">
+          <label for="fullName">Full Name <span class="required">*</span></label>
+          <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Vikram Sharma" required>
+          <span class="field-error" id="nameError"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-half">
+            <label for="dob">Date of Birth <span class="required">*</span></label>
+            <input type="date" id="dob" name="dob" class="form-control" required>
+            <span class="field-error" id="dobError"></span>
+          </div>
+          <div class="form-group col-half">
+            <label for="tob">Time of Birth</label>
+            <input type="time" id="tob" name="tob" class="form-control" step="60">
+            <div class="checkbox-subgroup">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="approxTime" name="approxTime">
+                <span>Approximate / Not completely certain</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pob">Place of Birth (City, State) <span class="required">*</span></label>
+          <input type="text" id="pob" name="pob" class="form-control" list="indianCities" placeholder="e.g. Mumbai, Maharashtra" required>
+          <datalist id="indianCities">
+            <option value="Mumbai, Maharashtra">
+            <option value="Delhi, NCR">
+            <option value="Bengaluru, Karnataka">
+            <option value="Ahmedabad, Gujarat">
+            <option value="Kolkata, West Bengal">
+            <option value="Chennai, Tamil Nadu">
+            <option value="Hyderabad, Telangana">
+            <option value="Pune, Maharashtra">
+            <option value="Surat, Gujarat">
+            <option value="Jaipur, Rajasthan">
+            <option value="Indore, Madhya Pradesh">
+            <option value="Lucknow, Uttar Pradesh">
+            <option value="Nagpur, Maharashtra">
+            <option value="Chandigarh, Punjab">
+          </datalist>
+          <span class="field-error" id="pobError"></span>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="consent-label">
+            <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+            <span>I consent to having my birth details calculated for educational trading astrological analysis in accordance with the <a href="/privacy" target="_blank">Privacy Policy</a>.</span>
+          </label>
+          <span class="field-error" id="consentError"></span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-gold btn-block btn-lg" id="btnCalculateKundli">
+            <span>Calculate Trading Kundli</span>
+            <span class="btn-icon">✧</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Processing State (Ceremonial Celestial Animation) -->
+    <div class="kundli-processing-state" id="kundliProcessingState" style="display: none;">
+      <div class="celestial-spinner">
+        <div class="orbit-ring ring-1"></div>
+        <div class="orbit-ring ring-2"></div>
+        <div class="celestial-core">✦</div>
+      </div>
+      <h3>Calculating Planetary Ephemeris...</h3>
+      <p>Analyzing 2nd, 5th, and 11th houses against planetary positions</p>
+    </div>
+
+    <!-- Step 2: Instant Teaser Result (Hidden by default) -->
+    <div class="kundli-result-card" id="kundliResultCard" style="display: none;">
+      <div class="result-header">
+        <div class="result-badge">Personalized Jyotish Teaser</div>
+        <h2 id="resultUserName">Analysis for Vikram</h2>
+        <span class="result-timestamp">Calculated via Vedic Geocentric Ephemeris</span>
+      </div>
+
+      <!-- Vedic Diamond Chakra Chart Visualization -->
+      <div class="vedic-chakra-visual">
+        <svg viewBox="0 0 300 300" class="chakra-svg" aria-label="Vedic Kundli Natal Chart">
+          <!-- Outer border -->
+          <rect x="10" y="10" width="280" height="280" fill="none" stroke="rgba(164, 180, 240, 0.25)" stroke-width="2"/>
+          <!-- Diagonals -->
+          <line x1="10" y1="10" x2="290" y2="290" stroke="rgba(164, 180, 240, 0.18)" stroke-width="1.5"/>
+          <line x1="290" y1="10" x2="10" y2="290" stroke="rgba(164, 180, 240, 0.18)" stroke-width="1.5"/>
+          <!-- Inner Diamond -->
+          <polygon points="150,10 290,150 150,290 10,150" fill="rgba(245, 190, 72, 0.08)" stroke="#f5be48" stroke-width="2"/>
+          
+          <!-- Key Bhavas Accents -->
+          <!-- 1st House (Lagna) Top Diamond Center -->
+          <text x="150" y="70" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="bold">1. Lagna</text>
+          <text x="150" y="90" text-anchor="middle" fill="#94a3b8" font-size="10" id="chartLagnaSign">Aries</text>
+
+          <!-- 2nd House (Dhana/Wealth) Top Left Triangle -->
+          <text x="75" y="45" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="600">2. Dhana</text>
+
+          <!-- 5th House (Speculation Yoga) Bottom Left Triangle (Highlighted!) -->
+          <circle cx="75" cy="225" r="28" fill="rgba(245, 190, 72, 0.2)" stroke="#f5be48" stroke-dasharray="3,3"/>
+          <text x="75" y="222" text-anchor="middle" fill="#ffd572" font-size="11" font-weight="bold">5. Purva Punya</text>
+          <text x="75" y="238" text-anchor="middle" fill="#f5be48" font-size="9">(Speculation)</text>
+
+          <!-- 11th House (Labha/Gains) Bottom Right Triangle -->
+          <text x="225" y="225" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="600">11. Labha</text>
+
+          <!-- Center Astrological Bindu -->
+          <circle cx="150" cy="150" r="5" fill="#f5be48" filter="drop-shadow(0 0 6px rgba(245, 190, 72, 0.8))"/>
+        </svg>
+      </div>
+
+      <div class="result-metrics-grid">
+        <div class="result-metric-box">
+          <span class="metric-label">Speculation Yoga (5th Bhava)</span>
+          <span class="metric-value highlight" id="speculationScore">Strong (Uchha)</span>
+          <p class="metric-desc">Benefic aspect on the 5th lord indicates natural instinct for disciplined calculation over irrational impulse.</p>
+        </div>
+        <div class="result-metric-box">
+          <span class="metric-label">Trading Personality Archetype</span>
+          <span class="metric-value" id="personalityArchetype">Calculated Strategist</span>
+          <p class="metric-desc">Thrives in structured setups; gains compound through swing timeframe patience rather than intraday scalping.</p>
+        </div>
+        <div class="result-metric-box">
+          <span class="metric-label">Harmonized Asset Class</span>
+          <span class="metric-value" id="favoredAsset">Bullion & Sovereign Debt</span>
+          <p class="metric-desc">Jupiterian and Solar planetary placements favor steady wealth accrual in metals and capital preservation vehicles.</p>
+        </div>
+      </div>
+
+      <!-- Phase 10: Real Computed Vimshottari Mahadasha & Antardasha Timeline -->
+      <div class="result-metric-box dasha-breakdown-card" id="dashaBreakdownBox">
+        <div class="dasha-header">
+          <span class="metric-label">Active Planetary Timing (Vimshottari Dasha Engine)</span>
+          <span class="dasha-badge" id="birthNakshatraLabel">Birth Nakshatra: Calculating...</span>
+        </div>
+        <div class="dasha-timelines-grid">
+          <div class="dasha-tier-box">
+            <span class="tier-label">Current Ruling Mahadasha</span>
+            <div class="tier-val" id="mahadashaLord">Lord Rahu</div>
+            <span class="tier-dates" id="mahadashaDates">2010 – 2028</span>
+            <p class="tier-desc" id="mahadashaDesc">Governs transformative volatility cycles and asymmetric market exposure.</p>
+          </div>
+          <div class="dasha-tier-box">
+            <span class="tier-label">Active Sub-Period (Antardasha)</span>
+            <div class="tier-val" id="antardashaLord">Lord Moon (Chandra)</div>
+            <span class="tier-dates" id="antardashaDates">2025 – 2027</span>
+            <p class="tier-desc">Governs emotional temperament, risk calibration, and short-term liquidity rotations.</p>
+          </div>
+        </div>
+        <div class="calculation-honesty-note">
+          <span>⚖️ <strong>Calculated, Not Predicted:</strong> Computed strictly from natal Chandra sidereal longitude using 120-year Vimshottari mathematical cycle.</span>
+        </div>
+      </div>
+
+      <!-- Authentic Vedic Wealth Yogas & Speculation Placements (VedAstro Swiss Ephemeris Engine) -->
+      <div class="result-metric-box dhana-yogas-card" id="dhanaYogasBox" style="display: none;">
+        <div class="dasha-header">
+          <div>
+            <span class="metric-label">Classical Dhana & Speculative Yogas</span>
+            <div class="dhana-subtitle">Vedic wealth and trading propensity rules detected from Brihat Parasara Hora Sastra</div>
+          </div>
+          <span class="dasha-badge" id="vedastroVerifiedBadge">🛰️ NASA JPL Swiss Ephemeris</span>
+        </div>
+        <div class="dhana-yogas-grid" id="dhanaYogasList">
+          <!-- Populated dynamically via kundli-form.js -->
+        </div>
+        <div class="calculation-honesty-note">
+          <span>⚖️ <strong>Mathematical Transparency:</strong> Calculations evaluated against 110+ classical Parashari rules via VedAstro Swiss Ephemeris Engine (Lahiri Sidereal).</span>
+        </div>
+      </div>
+
+      <!-- Conversion Point: WhatsApp & Call Request -->
+      <div class="consultation-conversion-box">
+        <div class="conversion-header">
+          <h3>Unlock Your Complete In-Depth Trading Kundli & Planetary Timing</h3>
+          <p>Schedule a personal 1-on-1 confidential astrological review with our principal astrologer.</p>
+        </div>
+
+        <div class="consultation-action-buttons">
+          <a href="#" id="kundliWhatsAppLink" class="btn btn-gold btn-lg" target="_blank" rel="noopener">
+            <span>Discuss My Kundli on WhatsApp</span>
+            <span class="btn-icon">💬</span>
+          </a>
+          <button type="button" class="btn btn-outline btn-lg" id="btnRequestCall">
+            <span>Request Direct Phone Call</span>
+          </button>
+        </div>
+
+        <!-- Call Request Sub-Form (Expandable) -->
+        <div class="call-request-drawer" id="callRequestDrawer" style="display: none;">
+          <h4>Provide Contact Number for Call Request:</h4>
+          <form id="callRequestForm" class="call-form">
+            <div class="input-with-button">
+              <input type="tel" id="userPhone" class="form-control" placeholder="+91 9876543210" required>
+              <button type="submit" class="btn btn-gold">Confirm Call Request</button>
+            </div>
+            <p class="call-note">We will contact you during standard business hours. Phone numbers are stored encrypted.</p>
+          </form>
+          <div class="call-success-msg" id="callSuccessMsg" style="display: none;">
+            ✅ Call request received! Our consultation desk will contact you soon.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

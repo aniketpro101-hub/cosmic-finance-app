@@ -1,0 +1,86 @@
+<div class="container section-rhythm">
+  <!-- Page Header -->
+  <div class="page-title-block text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>PUBLIC INTEGRITY LOG</span>
+    </div>
+    <h1 class="page-headline">Public Track Record & <span class="text-gold">Verified Macro Calls</span></h1>
+    <p class="page-subtitle">
+      A transparent, permanent record of every macro call published in our Weekly Outlook against verified market outcomes.
+    </p>
+
+    <div class="trust-calculation-banner" style="max-width: 680px; margin: var(--space-4) auto;">
+      <span class="trust-icon">⚖️</span>
+      <span class="trust-text"><strong>Immutable Integrity:</strong> "We don't predict. We calculate, and we show you the calculation." Every past call and miss is logged without retrospective editing.</span>
+    </div>
+  </div>
+
+  <!-- Verified Calls Table Card -->
+  <div class="single-article-wrapper mt-8">
+    <div class="panel-header-split mb-4">
+      <div>
+        <h3 class="mb-1 text-gold">Historical Macro Call Audit Log</h3>
+        <span class="text-secondary text-sm">Cross-referencing stated astrological macro commentary with official market index settlement figures</span>
+      </div>
+      <span class="dasha-badge"><%= records.length %> Verified Records</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Timeframe</th>
+            <th>Stated Macro Call</th>
+            <th>Actual Market Outcome</th>
+            <th>Verification Status</th>
+            <th>Benchmark Delta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (records.length === 0) { %>
+            <tr>
+              <td colspan="5" class="text-center text-muted py-6">No verified calls recorded yet.</td>
+            </tr>
+          <% } else { %>
+            <% records.forEach(r => { %>
+              <tr>
+                <td>
+                  <strong><%= r.week_range %></strong>
+                  <br>
+                  <small class="text-muted"><%= r.published_date %></small>
+                </td>
+                <td style="max-width: 260px;">
+                  <p class="text-sm mb-0"><%= r.stated_macro_call %></p>
+                </td>
+                <td style="max-width: 280px;">
+                  <p class="text-sm text-secondary mb-0"><%= r.actual_outcome %></p>
+                </td>
+                <td>
+                  <span class="status-pill <%= r.status === 'Verified Match' ? 'converted' : (r.status === 'Verified Divergence' ? 'new' : 'contacted') %>">
+                    <%= r.status %>
+                  </span>
+                </td>
+                <td>
+                  <code class="text-xs"><%= r.market_metric_delta || '-' %></code>
+                </td>
+              </tr>
+            <% }); %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Integrity Note -->
+    <div class="article-callout-box mt-6">
+      <h4>Our Standard of Transparency</h4>
+      <p class="mb-0 text-sm text-secondary">
+        Any market cycle analysis that deletes its misses is not analytical research — it is marketing. Cosmic Finance maintains this public track record so visitors can independently evaluate the historical efficacy of geocentric planetary cycle analysis over time.
+      </p>
+    </div>
+
+    <div class="article-disclaimer-note mt-6">
+      <p><strong>Regulatory Compliance:</strong> This track record is purely educational and reflective of historical macro commentary. It does not constitute investment advice or stock recommendations. Past cycle correspondence is not a guarantee of future performance.</p>
+    </div>
+  </div>
+</div>
