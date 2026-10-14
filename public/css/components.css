@@ -7858,35 +7858,50 @@
 
 @media (max-width: 768px) {
   .footer-bottom {
-    padding: 14px 0 18px;
+    padding: 16px 0 22px !important;
   }
 
   .footer-bottom-inner {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 10px !important;
+    width: 100% !important;
   }
 
   .footer-bottom-inner .copyright,
   .footer-bottom-inner .secure-badge {
-    font-size: 0.67rem;
-    line-height: 1.4;
-    text-align: center;
-    margin: 0;
+    width: 100% !important;
+    font-size: 0.68rem !important;
+    line-height: 1.45 !important;
+    text-align: center !important;
+    margin: 0 !important;
+    color: #94a3b8 !important;
+  }
+
+  .roasbodhi-attribution {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 2px 0 !important;
   }
 
   .roasbodhi-badge {
-    padding: 2.5px 8px;
-    gap: 4px;
+    padding: 3px 10px !important;
+    gap: 5px !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
   }
 
   .roasbodhi-text {
-    font-size: 0.64rem;
+    font-size: 0.65rem !important;
+    white-space: nowrap !important;
   }
 
   .roasbodhi-brand {
-    font-size: 0.66rem;
+    font-size: 0.67rem !important;
+    white-space: nowrap !important;
   }
 }
