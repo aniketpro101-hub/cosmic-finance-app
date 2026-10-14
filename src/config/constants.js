@@ -12,10 +12,38 @@ const CONSTANTS = {
 
   // Central Phone Number (Must strictly be +91 8888888888 per guidelines)
   PHONE_NUMBER: process.env.CONSULTATION_PHONE || '+91 8888888888',
-  WHATSAPP_NUMBER_RAW: '918888888888', // Clean digits for WhatsApp API wa.me/ link
+  WHATSAPP_NUMBER_RAW: '919039610001', // Dr. Ashish Patni official VIP WhatsApp helpline
+
+  // Celebrity Financial Astrologer & Mentor Profile
+  FOUNDER: {
+    NAME: 'Dr. Ashish Patni',
+    HONORIFIC: 'Celebrity Financial Astrologer & Vedic Market Architect',
+    WEBSITE_URL: 'https://www.bhavishyam.com',
+    WEBSITE_DISPLAY: 'www.bhavishyam.com',
+    PHOTO: '/images/dr-ashish-patni.jpg',
+    EXPERTISE: 'Financial Astrology, Equity Index Forecasting, Bullion Cycles, Kundli Wealth Timing',
+    ORGANIZATION: 'Bhavishyam',
+    BIO: 'Dr. Ashish Patni is a distinguished celebrity astrologer, corporate consultant, and pioneer in Vedic Financial Astrology. As the founder of Bhavishyam (www.bhavishyam.com), he has decoded the celestial mechanics behind Dalal Street and global market cycles, guiding prominent industrialists, institutional investors, and seasoned traders across India.',
+    // Dual format for template convenience
+    name: 'Dr. Ashish Patni',
+    title: 'Celebrity Financial Astrologer & Numerologist',
+    tagline: 'Founder, Bhavishyam • Master of Vedic Financial Market Cycles',
+    website: 'https://www.bhavishyam.com',
+    websiteDisplay: 'www.bhavishyam.com',
+    photo: '/images/dr-ashish-patni.jpg',
+    whatsappNumber: '919039610001',
+    bio: 'Dr. Ashish Patni is a distinguished celebrity astrologer, corporate consultant, and pioneer in Vedic Financial Astrology. As the founder of Bhavishyam (www.bhavishyam.com), he has decoded the celestial mechanics behind Dalal Street and global market cycles, guiding prominent industrialists, institutional investors, and seasoned traders across India.',
+    stats: {
+      experience: '20+ Yrs',
+      clients: '25,000+',
+      countries: '45+',
+      research: 'ABDC Indexed',
+      awards: '8+ State Honours'
+    }
+  },
 
   // Default Consultation Message
-  WHATSAPP_PREFILLED_MESSAGE: 'Hello Cosmic Finance team, I have just checked my Trading Kundli analysis and would like to book a personal guidance consultation.',
+  WHATSAPP_PREFILLED_MESSAGE: 'Namaste Dr. Ashish Patni ji, I have generated my Trading Kundli on Cosmic Finance and would like to consult with you for my personalized Financial Market Prediction and Stock Market timing.',
 
   // Hidden Admin Route (Never linked in public menus, footers, or sitemap.xml)
   ADMIN_PATH: process.env.ADMIN_SECRET_PATH || '/portal-cosmic-admin-7x89q',
@@ -33,6 +61,8 @@ const CONSTANTS = {
     WEEKLY_OUTLOOK: { path: '/weekly-outlook', title: 'Weekly Market Outlook | Cosmic Finance' },
     MARKET_DATA: { path: '/market-data', title: 'Live Market Data & Dashboard | Cosmic Finance' },
     KUNDLI: { path: '/trading-kundli', title: 'Know Your Trading Kundli | Cosmic Finance' },
+    GANN_SQUARE: { path: '/gann-square', title: "Gann's Square of 9 & Sarvatobhadra Chakra | Cosmic Finance" },
+    FOUNDER: { path: '/founder', title: 'Celebrity Astrologer & Founder Dr. Ashish Patni | Cosmic Finance' },
     ARTICLES: { path: '/articles', title: 'Financial Astrology Articles | Cosmic Finance' },
     SUBMIT_ARTICLE: { path: '/submit-article', title: 'Write For Us — Submit Article | Cosmic Finance' },
     NEWS: { path: '/news', title: 'Market & Cosmic News | Cosmic Finance' },

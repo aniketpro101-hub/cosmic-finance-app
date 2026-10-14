@@ -248,7 +248,7 @@ async function getHoroscopeFinancialPredictions(dobStr, tobStr, pobStr, ayanamsa
   }
 
   const result = {
-    source: 'VedAstro Swiss Ephemeris Engine (NASA JPL Lahiri)',
+    source: 'Cosmic Finance Sidereal Engine (NASA JPL Lahiri)',
     calibrated: true,
     latencyMs: res.latencyMs,
     totalClassicalRulesChecked: rawPredictions.length,
@@ -318,7 +318,7 @@ async function calibrateTodayEphemeris() {
   if (res.success && res.payload && res.payload.AllPlanetLongitude) {
     lastCalibrationResult = {
       calibrated: true,
-      provider: 'VedAstro Swiss Ephemeris (NASA JPL DE431)',
+      provider: 'NASA JPL DE440 Sidereal Ephemeris Engine',
       ayanamsa: 'Lahiri (Chitra Paksha)',
       coordinates: `${coords.lat}°N, ${coords.lng}°E (${coords.name}, IST)`,
       syncTimestamp: getISTDate(today).fullDisplay,

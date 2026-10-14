@@ -92,13 +92,29 @@ router.get('/ephemeris', async (req, res) => {
   });
 });
 
-// Live VedAstro Swiss Ephemeris Status Endpoint
-router.get('/vedastro/status', async (req, res) => {
+// Live Astronomical Telemetry Status Endpoint
+router.get('/astronomy/telemetry', async (req, res) => {
   const telemetry = await calibrateTodayEphemeris();
   return res.json({
     status: 'success',
     telemetry
   });
+});
+
+const { getComprehensivePanchang } = require('../services/panchangService');
+
+// Live Daily Vedic Panchang (English & Hindi)
+router.get('/panchang', (req, res) => {
+  try {
+    const panchang = getComprehensivePanchang();
+    return res.json({
+      status: 'success',
+      panchang
+    });
+  } catch (err) {
+    console.error('Error calculating Panchang:', err);
+    return res.status(500).json({ error: 'Failed to compute daily panchang.' });
+  }
 });
 
 // Real-time Vedic Hora Endpoint
@@ -166,9 +182,23 @@ router.get('/patterns', (req, res) => {
 
 const { evaluateTradingKundli, evaluateTradingKundliAsync } = require('../services/kundliEngine');
 
-// 2. Kundli Calculation & Teaser Generator
+// 2. Kundli Calculation & Comprehensive Analysis Engine
 router.post('/kundli/calculate', formSubmissionLimiter, async (req, res) => {
-  const { fullName, dob, tob, pob, approxTime } = req.body;
+  let {
+    fullName, gender, dob, tob, pob,
+    day, month, year, hrs, min, sec,
+    lat, lng, ayanamsa, chartStyle, horaryNumber
+  } = req.body;
+
+  // Reconstruct dob if sent as day, month, year
+  if (!dob && day && month && year) {
+    dob = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  }
+
+  // Reconstruct tob if sent as hrs, min, sec
+  if (!tob && (hrs !== undefined || min !== undefined)) {
+    tob = `${String(hrs || 12).padStart(2, '0')}:${String(min || 0).padStart(2, '0')}:${String(sec || 0).padStart(2, '0')}`;
+  }
 
   if (!fullName || !dob || !pob) {
     return res.status(400).json({ error: 'Full Name, Date of Birth, and Place of Birth are required.' });
@@ -179,8 +209,14 @@ router.post('/kundli/calculate', formSubmissionLimiter, async (req, res) => {
     return res.status(400).json({ error: 'Date of birth cannot be in the future.' });
   }
 
-  // Compute Vedic Trading Kundli evaluation augmented with VedAstro Swiss Ephemeris predictions
-  const analysis = await evaluateTradingKundliAsync({ fullName, dob, tob, pob, approxTime });
+  // Compute comprehensive Vedic Trading Kundli evaluation
+  const analysis = await evaluateTradingKundliAsync({
+    fullName, gender: gender || 'Male', dob, tob, pob,
+    day, month, year, hrs, min, sec,
+    lat, lng, ayanamsa: ayanamsa || 'N.C.Lahiri',
+    chartStyle: chartStyle || 'North Indian',
+    horaryNumber
+  });
 
   const ipAddress = req.ip || req.connection.remoteAddress;
 
@@ -207,7 +243,10 @@ router.post('/kundli/calculate', formSubmissionLimiter, async (req, res) => {
     });
   } catch (err) {
     console.error('Error logging kundli calculation:', err.message);
-    return res.status(500).json({ error: 'Failed to process astronomical calculation.' });
+    return res.json({
+      success: true,
+      analysis
+    });
   }
 });
 

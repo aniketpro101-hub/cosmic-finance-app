@@ -9,6 +9,7 @@ const db = require('../db/database');
 const CONSTANTS = require('../config/constants');
 
 const { getISTDate, getIndianHora } = require('../utils/indianTime');
+const { getComprehensivePanchang } = require('../services/panchangService');
 
 // Middleware to inject global template locals
 router.use((req, res, next) => {
@@ -16,8 +17,14 @@ router.use((req, res, next) => {
   res.locals.phone = CONSTANTS.PHONE_NUMBER;
   res.locals.whatsappMessage = CONSTANTS.WHATSAPP_PREFILLED_MESSAGE;
   res.locals.constants = CONSTANTS;
+  res.locals.founder = CONSTANTS.FOUNDER;
   res.locals.istNow = getISTDate();
   res.locals.currentHora = getIndianHora();
+  try {
+    res.locals.panchang = getComprehensivePanchang();
+  } catch (e) {
+    res.locals.panchang = null;
+  }
   next();
 });
 
@@ -59,7 +66,9 @@ router.get('/', (req, res) => {
     thoughts,
     extraScripts: [
       '/js/orbit.js',
-      '/js/market-data.js'
+      '/js/market-data.js',
+      '/js/panchang.js',
+      '/js/gann-chakra.js'
     ]
   });
 });
@@ -99,6 +108,27 @@ router.get(['/trading-kundli', '/kundli'], (req, res) => {
     title: CONSTANTS.SITEMAP.KUNDLI.title,
     description: 'Calculate your Vedic trading propensity, speculation yoga, and planetary archetypes.',
     extraScripts: ['/js/kundli-form.js']
+  });
+});
+
+// 4b. Gann's Square of 9 & Sarvatobhadra Chakra Interactive Terminal
+router.get(['/gann-square', '/gann-sarvatobhadra', '/sarvatobhadra'], (req, res) => {
+  renderWithLayout(res, 'gann-square', {
+    pageId: 'gann-square',
+    title: CONSTANTS.SITEMAP.GANN_SQUARE.title,
+    description: 'Interactive Gann Square of 9 price-time wheel & Vedic Sarvatobhadra Chakra Vedha raycast terminal. Master geometric market timing in Hindi & English.',
+    founder: CONSTANTS.FOUNDER,
+    extraScripts: ['/js/gann-chakra.js']
+  });
+});
+
+// 4c. Founder & Celebrity Astrologer Showcase Page
+router.get(['/founder', '/dr-ashish-patni', '/about-founder'], (req, res) => {
+  renderWithLayout(res, 'founder', {
+    pageId: 'founder',
+    title: CONSTANTS.SITEMAP.FOUNDER.title,
+    description: 'Dr. Ashish Patni — Renowned Celebrity Financial Astrologer, Numerologist & Founder of Bhavishyam. Discover his pioneer work in Vedic Market Timing, Corporate Astro-Vastu & Cosmic Finance.',
+    founder: CONSTANTS.FOUNDER
   });
 });
 

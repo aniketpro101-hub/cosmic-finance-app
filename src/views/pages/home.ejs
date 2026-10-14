@@ -7,8 +7,8 @@
           <span class="pulsing-star">✦</span>
           <span>AUTHENTIC GEOCENTRIC OBSERVATORY</span>
         </div>
-        <h1 class="hero-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem); margin-top: 6px; margin-bottom: 8px;">
-          Where Stars Meet <span class="text-gold">The Street</span>
+        <h1 class="hero-title" style="font-size: clamp(1.75rem, 5vw, 3.8rem); margin-top: 6px; margin-bottom: 8px;">
+          Where Stars Meet <span class="dynamic-street-wrapper text-gold"><span id="dynamicStreetText">Dalal Street</span></span>
         </h1>
         <p class="hero-subtext" style="margin: 0 auto 12px; max-width: 720px;">
           Decipher macro market sentiment through mathematical planetary ephemeris, real-time Indian index dynamics, and Vedic trading propensity analytics.
@@ -55,8 +55,8 @@
             <button class="btn-v2-pill btn-math-pill" id="btnToggleCalcDrawer" title="Inspect Ephemeris & Mathematical formulas">
               <span>📐</span> Calculation Math
             </button>
-            <span class="vedastro-telemetry-badge" id="vedastroTelemetryBadge" title="NASA JPL Swiss Ephemeris Telemetry Active (Lahiri Ayanamsha)">
-              <span class="vedastro-dot"></span>
+            <span class="jpl-telemetry-badge" id="jplTelemetryBadge" title="NASA JPL Swiss Ephemeris Telemetry Active (Lahiri Ayanamsha)">
+              <span class="jpl-dot"></span>
               <span>JPL DE440</span>
             </span>
             <span class="planetary-hour-badge" id="planetaryHourBadge">Hora: Calculating...</span>
@@ -117,17 +117,19 @@
               <span>⛶ Fit</span>
             </button>
           </div>
-          <div class="orbit-fallback-notice" id="orbitFallbackBadges" role="toolbar" aria-label="Navagraha Quick Selection">
-            <span class="orbit-planet-badge" data-planet="Sun">Sun ☉</span>
-            <span class="orbit-planet-badge" data-planet="Moon">Moon ☽</span>
-            <span class="orbit-planet-badge" data-planet="Mercury">Mercury ☿</span>
-            <span class="orbit-planet-badge" data-planet="Venus">Venus ♀</span>
-            <span class="orbit-planet-badge" data-planet="Mars">Mars ♂</span>
-            <span class="orbit-planet-badge" data-planet="Jupiter">Jupiter ♃</span>
-            <span class="orbit-planet-badge" data-planet="Saturn">Saturn ♄</span>
-            <span class="orbit-planet-badge" data-planet="Rahu">Rahu ☊</span>
-            <span class="orbit-planet-badge" data-planet="Ketu">Ketu ☋</span>
-          </div>
+        </div>
+
+        <!-- Dedicated Navagraha Quick Selection Strip (Cleanly positioned below 3D celestial canvas panel) -->
+        <div class="orbit-fallback-notice" id="orbitFallbackBadges" role="toolbar" aria-label="Navagraha Quick Selection">
+          <span class="orbit-planet-badge" data-planet="Sun">सूर्य ☉ (Sun)</span>
+          <span class="orbit-planet-badge" data-planet="Moon">चन्द्र ☽ (Moon)</span>
+          <span class="orbit-planet-badge" data-planet="Mercury">बुध ☿ (Mercury)</span>
+          <span class="orbit-planet-badge" data-planet="Venus">शुक्र ♀ (Venus)</span>
+          <span class="orbit-planet-badge" data-planet="Mars">मंगल ♂ (Mars)</span>
+          <span class="orbit-planet-badge" data-planet="Jupiter">गुरु ♃ (Jupiter)</span>
+          <span class="orbit-planet-badge" data-planet="Saturn">शनि ♄ (Saturn)</span>
+          <span class="orbit-planet-badge" data-planet="Rahu">राहु ☊ (Rahu)</span>
+          <span class="orbit-planet-badge" data-planet="Ketu">केतु ☋ (Ketu)</span>
         </div>
 
         <!-- 4D Time Machine Interactive Cockpit -->
@@ -423,7 +425,318 @@
   </section>
 
   <!-- ==============================================================
-       1B. 24-YEAR EMPIRICAL BACKTEST MATRIX (Bridging Finance & Ephemeris)
+       1B. LIVE BILINGUAL DAILY VEDIC PANCHANG (दैनिक पंचांग — हिन्दी डिफॉल्ट)
+       ============================================================== -->
+  <section class="daily-panchang-section" id="dailyPanchangSection">
+    <div class="container">
+      <div class="panchang-header-wrapper">
+        <div class="panchang-title-meta">
+          <div class="panchang-kicker">
+            <span class="pulsing-star">✦</span>
+            <span class="panchang-hi">दैनिक वैदिक पंचांग एवं वित्तीय मुहूर्त</span>
+            <span class="panchang-en hidden-lang">VEDIC MARKET CHRONOMETER</span>
+          </div>
+          <h2 class="panchang-main-heading">
+            <span class="panchang-hi">आज का वित्तीय पंचांग एवं शुभ-अशुभ मुहूर्त</span>
+            <span class="panchang-en hidden-lang">Today's Financial Panchang &amp; Muhurat Timing</span>
+          </h2>
+          <p class="panchang-sub-heading">
+            <span class="panchang-hi">मुंबई (BSE / NSE) सौर मेरिडियन द्वारा प्रमाणित &bull; <%= panchang ? panchang.gregorianDateFormatted : istNow.dateFormatted %> (<%= panchang ? panchang.hinduSamvat : 'विक्रम संवत २०८३' %>)</span>
+            <span class="panchang-en hidden-lang">Calibrated to Mumbai (BSE / NSE) Solar Meridian &bull; <%= panchang ? panchang.gregorianDateFormatted : istNow.dateFormatted %> (<%= panchang ? panchang.hinduSamvat : 'Vikram Samvat 2083' %>)</span>
+          </p>
+        </div>
+
+        <!-- Bilingual Switcher Controls (Hindi by default) -->
+        <div class="panchang-lang-toggle" role="group" aria-label="Panchang Language Switcher">
+          <button type="button" class="panchang-lang-btn active" data-lang="hi">🇮🇳 हिन्दी</button>
+          <button type="button" class="panchang-lang-btn" data-lang="en">🇬🇧 English</button>
+        </div>
+      </div>
+
+      <% if (panchang) { %>
+      <!-- Five Limbs of Panchang Grid -->
+      <div class="panchang-limbs-grid">
+        <!-- 1. Tithi -->
+        <div class="panchang-card">
+          <div class="p-card-top">
+            <span class="p-card-label panchang-hi">तिथि</span>
+            <span class="p-card-label panchang-en hidden-lang">TITHI</span>
+            <span class="p-badge"><span class="panchang-hi"><%= panchang.tithi.pakshaHi %></span><span class="panchang-en hidden-lang"><%= panchang.tithi.paksha %></span></span>
+          </div>
+          <div class="p-card-value">
+            <span class="panchang-hi"><%= panchang.tithi.nameHi %></span>
+            <span class="panchang-en hidden-lang"><%= panchang.tithi.name %></span>
+          </div>
+          <div class="p-card-meta">
+            <span class="panchang-hi">समाप्ति: <%= panchang.tithi.endingTime %></span>
+            <span class="panchang-en hidden-lang">Ends: <%= panchang.tithi.endingTime %></span>
+          </div>
+        </div>
+
+        <!-- 2. Vaar (Day) -->
+        <div class="panchang-card">
+          <div class="p-card-top">
+            <span class="p-card-label panchang-hi">वार (दिन)</span>
+            <span class="p-card-label panchang-en hidden-lang">VAAR (DAY)</span>
+            <span class="p-dot" style="background: <%= panchang.vaar.rulerColor %>"></span>
+          </div>
+          <div class="p-card-value">
+            <span class="panchang-hi"><%= panchang.vaar.nameHi %></span>
+            <span class="panchang-en hidden-lang"><%= panchang.vaar.name %></span>
+          </div>
+          <div class="p-card-meta">
+            <span class="panchang-hi">स्वामी: <strong><%= panchang.vaar.planetHi %></strong></span>
+            <span class="panchang-en hidden-lang">Lord: <strong><%= panchang.vaar.planet %></strong></span>
+          </div>
+        </div>
+
+        <!-- 3. Nakshatra -->
+        <div class="panchang-card">
+          <div class="p-card-top">
+            <span class="p-card-label panchang-hi">नक्षत्र</span>
+            <span class="p-card-label panchang-en hidden-lang">NAKSHATRA</span>
+            <span class="p-badge p-badge-star">#<%= panchang.nakshatra.number %></span>
+          </div>
+          <div class="p-card-value">
+            <span class="panchang-hi"><%= panchang.nakshatra.nameHi %></span>
+            <span class="panchang-en hidden-lang"><%= panchang.nakshatra.name %></span>
+          </div>
+          <div class="p-card-meta">
+            <span class="panchang-hi">स्वामी: <strong><%= panchang.nakshatra.rulerHi %></strong> &bull; <%= panchang.nakshatra.endingTime %></span>
+            <span class="panchang-en hidden-lang">Ruler: <strong><%= panchang.nakshatra.ruler %></strong> &bull; <%= panchang.nakshatra.endingTime %></span>
+          </div>
+        </div>
+
+        <!-- 4. Yoga -->
+        <div class="panchang-card">
+          <div class="p-card-top">
+            <span class="p-card-label panchang-hi">योग</span>
+            <span class="p-card-label panchang-en hidden-lang">YOGA</span>
+            <span class="p-badge <%= panchang.yoga.nature === 'Auspicious' ? 'p-badge-good' : 'p-badge-warn' %>">
+              <span class="panchang-hi"><%= panchang.yoga.natureHi %></span>
+              <span class="panchang-en hidden-lang"><%= panchang.yoga.nature %></span>
+            </span>
+          </div>
+          <div class="p-card-value">
+            <span class="panchang-hi"><%= panchang.yoga.nameHi %></span>
+            <span class="panchang-en hidden-lang"><%= panchang.yoga.name %></span>
+          </div>
+          <div class="p-card-meta">
+            <span class="panchang-hi">२७ नित्य योग क्रम</span>
+            <span class="panchang-en hidden-lang">27 Nitya Yoga Matrix</span>
+          </div>
+        </div>
+
+        <!-- 5. Karana -->
+        <div class="panchang-card">
+          <div class="p-card-top">
+            <span class="p-card-label panchang-hi">करण</span>
+            <span class="p-card-label panchang-en hidden-lang">KARANA</span>
+            <span class="p-badge <%= panchang.karana.nature === 'Good' ? 'p-badge-good' : 'p-badge-warn' %>">
+              <span class="panchang-hi"><%= panchang.karana.natureHi %></span>
+              <span class="panchang-en hidden-lang"><%= panchang.karana.nature %></span>
+            </span>
+          </div>
+          <div class="p-card-value">
+            <span class="panchang-hi"><%= panchang.karana.nameHi %></span>
+            <span class="panchang-en hidden-lang"><%= panchang.karana.name %></span>
+          </div>
+          <div class="p-card-meta">
+            <span class="panchang-hi">अर्ध-तिथि अवधि</span>
+            <span class="panchang-en hidden-lang">Half-Tithi Duration</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Critical Market Muhurat Timing Row (Rahu Kaal vs Abhijit Muhurat) -->
+      <div class="panchang-muhurat-row">
+        <!-- Rahu Kaal (Caution Window) -->
+        <div class="muhurat-timing-card danger-window" id="rahuKaalCard" data-start="<%= panchang.rahuKaal.start %>" data-end="<%= panchang.rahuKaal.end %>">
+          <div class="muhurat-card-top">
+            <div class="m-title-group">
+              <span class="m-icon icon-danger">⚠️</span>
+              <div>
+                <h3 class="m-card-title panchang-hi"><%= panchang.rahuKaal.labelHi %> (अशुभ / उच्च अस्थिरता काल)</h3>
+                <h3 class="m-card-title panchang-en hidden-lang"><%= panchang.rahuKaal.label %> (Inauspicious Window)</h3>
+              </div>
+            </div>
+            <span class="muhurat-badge badge-upcoming" id="rahuKaalStatusBadge">Calculating...</span>
+          </div>
+          <div class="muhurat-time-range mono-num">
+            <%= panchang.rahuKaal.start %> &ndash; <%= panchang.rahuKaal.end %> <span class="tz-label">IST</span>
+          </div>
+          <div class="muhurat-guidance-box">
+            <strong class="panchang-hi">वित्तीय बाजार प्रभाव:</strong>
+            <strong class="panchang-en hidden-lang">Financial Market Impact:</strong>
+            <p class="panchang-hi"><%= panchang.rahuKaal.marketCautionHi %></p>
+            <p class="panchang-en hidden-lang"><%= panchang.rahuKaal.marketCaution %></p>
+          </div>
+        </div>
+
+        <!-- Abhijit Muhurat (Auspicious Window) -->
+        <div class="muhurat-timing-card success-window" id="abhijitMuhuratCard" data-start="<%= panchang.abhijitMuhurat.start %>" data-end="<%= panchang.abhijitMuhurat.end %>">
+          <div class="muhurat-card-top">
+            <div class="m-title-group">
+              <span class="m-icon icon-success">✨</span>
+              <div>
+                <h3 class="m-card-title panchang-hi"><%= panchang.abhijitMuhurat.labelHi %> (अति शुभ / विजय काल)</h3>
+                <h3 class="m-card-title panchang-en hidden-lang"><%= panchang.abhijitMuhurat.label %> (Auspicious Window)</h3>
+              </div>
+            </div>
+            <span class="muhurat-badge badge-upcoming" id="abhijitStatusBadge">Calculating...</span>
+          </div>
+          <div class="muhurat-time-range mono-num">
+            <%= panchang.abhijitMuhurat.start %> &ndash; <%= panchang.abhijitMuhurat.end %> <span class="tz-label">IST</span>
+          </div>
+          <div class="muhurat-guidance-box">
+            <strong class="panchang-hi">वित्तीय बाजार अनुकूलता:</strong>
+            <strong class="panchang-en hidden-lang">Financial Market Advantage:</strong>
+            <p class="panchang-hi"><%= panchang.abhijitMuhurat.marketBenefitHi %></p>
+            <p class="panchang-en hidden-lang"><%= panchang.abhijitMuhurat.marketBenefit %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Solar & Lunar Ephemeris Strips + Market Direction Summary -->
+      <div class="panchang-summary-strip">
+        <div class="p-strip-item">
+          <span class="strip-label panchang-hi">सूर्योदय / सूर्यास्त (मुंबई):</span>
+          <span class="strip-label panchang-en hidden-lang">Sunrise / Sunset (Mumbai):</span>
+          <span class="strip-val mono-num">🌅 <%= panchang.sunRise %> &bull; 🌇 <%= panchang.sunSet %> IST</span>
+        </div>
+        <div class="p-strip-item">
+          <span class="strip-label panchang-hi">गोचर चंद्र राशि:</span>
+          <span class="strip-label panchang-en hidden-lang">Transit Moon Sign:</span>
+          <span class="strip-val">
+            <span class="panchang-hi">☽ <%= panchang.moonSign.nameHi %> (<%= panchang.moonSign.degree %>&deg;)</span>
+            <span class="panchang-en hidden-lang">☽ <%= panchang.moonSign.name %> (<%= panchang.moonSign.degree %>&deg;)</span>
+          </span>
+        </div>
+        <div class="p-strip-item">
+          <span class="strip-label panchang-hi">दैनिक दृष्टिकोण:</span>
+          <span class="strip-label panchang-en hidden-lang">Daily Stance:</span>
+          <span class="strip-val val-gold">
+            <span class="panchang-hi"><%= panchang.marketGuidance.summaryHi %></span>
+            <span class="panchang-en hidden-lang"><%= panchang.marketGuidance.summary %></span>
+          </span>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       1B. COSMIC MATHEMATICAL ENGINES: GANN SQUARE OF 9 & SARVATOBHADRA CHAKRA
+       (Interactive Cursor Movement Tracking & Raycast Diagrams)
+       ============================================================== -->
+  <section class="home-gann-sbc-section" id="homeGannSbcSection">
+    <div class="container">
+      <div class="section-top-bar">
+        <div>
+          <div class="instrument-kicker">
+            <span class="pulsing-star">✦</span>
+            <span class="gann-text-hi hidden-lang">ज्यामितीय मूल्य-समय विज्ञान एवं वैदिक वेध किरणें</span>
+            <span class="gann-text-en">GEOMETRIC PRICE-TIME HARMONICS &amp; VEDIC VEDHA</span>
+          </div>
+          <h2 class="instrument-title">
+            <span class="gann-text-hi hidden-lang">गैन का <span class="text-gold">स्क्वायर ऑफ़ 9</span> एवं <span class="text-violet">सर्वतोभद्र चक्र</span></span>
+            <span class="gann-text-en">Gann's <span class="text-gold">Square of 9</span> &amp; <span class="text-violet">Sarvatobhadra Chakra</span></span>
+          </h2>
+          <p class="section-desc-sub text-secondary text-sm mb-0">
+            <span class="gann-text-hi hidden-lang">कर्सर घुमाकर सजीव कोण किरण संधान एवं २८-नक्षत्र वेध का साक्षात अनुभव करें।</span>
+            <span class="gann-text-en">Move your cursor to track live harmonic angle rays and 28-Nakshatra Vedha laser piercing across market coordinates.</span>
+          </p>
+        </div>
+
+        <div class="header-right-actions">
+          <div class="bilingual-toggle-cluster">
+            <button type="button" class="gann-lang-btn" data-lang="hi">HI</button>
+            <button type="button" class="gann-lang-btn active" data-lang="en">EN</button>
+          </div>
+          <a href="/gann-square" class="btn btn-gold btn-pill">
+            <span class="gann-text-hi hidden-lang">विस्तृत टर्मिनल खोलें &rarr;</span>
+            <span class="gann-text-en">Open Full Laboratory &rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Dual Showcase Cards: Gann Square of 9 on Left, Sarvatobhadra Chakra on Right -->
+      <div class="home-diagrams-grid">
+        <!-- Card 1: Gann Square of 9 -->
+        <div class="home-diagram-card">
+          <div class="diagram-card-header">
+            <div class="d-title-group">
+              <span class="d-icon text-gold">🔯</span>
+              <div>
+                <h3 class="d-title">
+                  <span class="gann-text-hi hidden-lang">गैन का स्क्वायर ऑफ़ 9 (Square of 9)</span>
+                  <span class="gann-text-en">W.D. Gann's Square of 9 Wheel</span>
+                </h3>
+                <span class="d-meta">
+                  <span class="gann-text-hi hidden-lang">वर्गमूल चक्रीय कम्पन • कार्डिनल (०°-९०°-१८०°-२७०°) एवं ऑर्डिनल कोण</span>
+                  <span class="gann-text-en">Square Root Harmonics • Cardinal &amp; Ordinal Crosses</span>
+                </span>
+              </div>
+            </div>
+            <span class="live-cursor-tag">⚡ Live Cursor Raycast</span>
+          </div>
+
+          <div class="diagram-canvas-holder">
+            <canvas id="homeGannCanvas" class="home-diagram-canvas" width="460" height="460"></canvas>
+          </div>
+
+          <div class="diagram-footer-bar">
+            <div class="footer-readout" id="homeGannReadoutBox">
+              <span class="f-label">Live Harmonics:</span>
+              <strong class="f-val text-gold" id="homeGannReadoutVal">90° Target = ₹25,028 &bull; 180° = ₹25,186</strong>
+            </div>
+            <a href="/gann-square" class="btn btn-outline btn-xs">
+              <span class="gann-text-hi hidden-lang">गणना सारणी देखें &rarr;</span>
+              <span class="gann-text-en">Inspect Targets &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Sarvatobhadra Chakra -->
+        <div class="home-diagram-card">
+          <div class="diagram-card-header">
+            <div class="d-title-group">
+              <span class="d-icon text-violet">☸</span>
+              <div>
+                <h3 class="d-title">
+                  <span class="gann-text-hi hidden-lang">सर्वतोभद्र चक्र (Sarvatobhadra Chakra)</span>
+                  <span class="gann-text-en">Vedic Sarvatobhadra Chakra</span>
+                </h3>
+                <span class="d-meta">
+                  <span class="gann-text-hi hidden-lang">८१ कोष्ठ चक्रव्यूह • २८ नक्षत्र • सम्मुख, वाम व दक्षिण वेध लेज़र</span>
+                  <span class="gann-text-en">81-Kostha Matrix • 28 Nakshatras • Live Vedha Laser Rays</span>
+                </span>
+              </div>
+            </div>
+            <span class="live-cursor-tag">⚡ Live Vedha Tracking</span>
+          </div>
+
+          <div class="diagram-canvas-holder">
+            <canvas id="homeSarvatobhadraCanvas" class="home-diagram-canvas" width="460" height="460"></canvas>
+          </div>
+
+          <div class="diagram-footer-bar">
+            <div class="footer-readout" id="homeSbcReadoutBox">
+              <span class="f-label">Active Vedha:</span>
+              <strong class="f-val text-violet" id="homeSbcReadoutVal">Saturn &amp; Rahu in U.Bhadra &bull; Mars in Pushya</strong>
+            </div>
+            <a href="/gann-square" class="btn btn-outline btn-xs">
+              <span class="gann-text-hi hidden-lang">वेध संधान देखें &rarr;</span>
+              <span class="gann-text-en">Explore Vedha &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       1C. 24-YEAR EMPIRICAL BACKTEST MATRIX (Bridging Finance & Ephemeris)
        ============================================================== -->
   <section class="backtest-matrix-section" id="backtestMatrixSection">
     <div class="container">
@@ -627,6 +940,82 @@
     </div>
   </section>
 
+  <!-- ==============================================================
+       2B. CELEBRITY FINANCIAL ASTROLOGER SHOWCASE (Dr. Ashish Patni)
+       ============================================================== -->
+  <section class="celebrity-feature-section" id="celebrityFeatureSection">
+    <div class="container">
+      <div class="celebrity-feature-banner">
+        <div class="feature-banner-glow"></div>
+        <div class="feature-banner-grid">
+          <!-- Portrait with Royal Astrological Aura -->
+          <div class="feature-portrait-column">
+            <div class="feature-portrait-wrapper">
+              <div class="portrait-halo"></div>
+              <img src="<%= founder.photo %>" alt="<%= founder.name %> — Celebrity Financial Astrologer" class="feature-portrait-img" loading="lazy">
+              <div class="portrait-floating-chip">
+                <span class="chip-star">★</span>
+                <span>Celebrity Financial Astrologer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content & Accolades -->
+          <div class="feature-content-column">
+            <div class="feature-kicker-row">
+              <span class="feature-kicker-badge">CHIEF MARKET ASTROLOGER &amp; FOUNDER</span>
+              <a href="<%= founder.website %>" target="_blank" rel="noopener" class="founder-portal-link" title="Visit Dr. Ashish Patni's Official Portal Bhavishyam">
+                <span>🌐 <%= founder.websiteDisplay %></span>
+                <span class="link-arrow">&rarr;</span>
+              </a>
+            </div>
+
+            <h2 class="feature-name-title"><%= founder.name %> <span class="hon-badge"><%= founder.title %></span></h2>
+            <p class="feature-subtitle"><%= founder.tagline %></p>
+
+            <p class="feature-narrative"><%= founder.bio %></p>
+
+            <!-- Credibility Metric Badges -->
+            <div class="feature-stats-row">
+              <div class="f-stat-item">
+                <strong class="f-stat-num mono-num"><%= founder.stats.experience %></strong>
+                <span class="f-stat-desc">Vedic Market Research</span>
+              </div>
+              <div class="f-stat-item">
+                <strong class="f-stat-num mono-num"><%= founder.stats.clients %></strong>
+                <span class="f-stat-desc">HNIs &amp; Global Traders</span>
+              </div>
+              <div class="f-stat-item">
+                <strong class="f-stat-num mono-num"><%= founder.stats.countries %></strong>
+                <span class="f-stat-desc">Global Client Footprint</span>
+              </div>
+              <div class="f-stat-item">
+                <strong class="f-stat-num text-gold">Bhavishyam</strong>
+                <span class="f-stat-desc">Official Astrological Portal</span>
+              </div>
+            </div>
+
+            <!-- Call to Action Buttons -->
+            <div class="feature-cta-actions">
+              <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
+                <span class="wa-icon">💬</span>
+                <span>Consult Dr. Ashish Patni on WhatsApp</span>
+                <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="/trading-kundli" class="btn btn-gold btn-lg">
+                <span>Calculate Your Trading Kundli First</span>
+                <span class="btn-arrow">&rarr;</span>
+              </a>
+              <a href="<%= founder.website %>" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
+                <span>Visit Bhavishyam.com &rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Admin's Daily Cosmic Thoughts Feed -->
   <section class="daily-thoughts-feed-section section-rhythm">
     <div class="container">
@@ -768,20 +1157,48 @@
       </div>
 
       <div class="featured-articles-grid">
-        <!-- Article 1 -->
+        <!-- Article 1: Candlesticks & Ephemeris Fusion -->
         <a href="/articles/financial-astrology-basics-intro" class="featured-art-card">
-          <div class="art-banner">
+          <div class="art-banner art-banner-astro-tech">
             <div class="cosmic-canvas-stars"></div>
-            <svg class="saturn-vector" viewBox="0 0 160 100" fill="none">
-              <ellipse cx="80" cy="50" rx="26" ry="26" fill="#1b213b" stroke="#f5be48" stroke-width="1.2" stroke-opacity="0.7"/>
-              <ellipse cx="80" cy="50" rx="55" ry="16" transform="rotate(-20 80 50)" fill="none" stroke="#d49520" stroke-width="2" stroke-opacity="0.85"/>
-              <ellipse cx="80" cy="50" rx="46" ry="12" transform="rotate(-20 80 50)" fill="none" stroke="#ffe8a3" stroke-width="1" stroke-opacity="0.6"/>
-              <circle cx="25" cy="30" r="1.5" fill="#ffffff" opacity="0.8" />
-              <circle cx="50" cy="20" r="1" fill="#ffffff" opacity="0.6" />
-              <circle cx="120" cy="25" r="1.2" fill="#ffffff" opacity="0.7" />
-              <circle cx="140" cy="65" r="1" fill="#ffffff" opacity="0.5" />
-              <circle cx="35" cy="75" r="1.5" fill="#a78bfa" opacity="0.8" />
-              <line x1="25" y1="30" x2="50" y2="20" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
+            <svg class="art-feature-vector" viewBox="0 0 200 120" fill="none">
+              <defs>
+                <linearGradient id="artCandleGreen" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#34d399"/>
+                  <stop offset="100%" stop-color="#059669"/>
+                </linearGradient>
+                <linearGradient id="artCandleGold" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#fde047"/>
+                  <stop offset="100%" stop-color="#d97706"/>
+                </linearGradient>
+                <linearGradient id="artOrbitGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.2"/>
+                  <stop offset="50%" stop-color="#f5be48" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.3"/>
+                </linearGradient>
+              </defs>
+              <!-- Celestial Astrolabe Rings -->
+              <circle cx="100" cy="60" r="48" stroke="url(#artOrbitGrad)" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.7"/>
+              <ellipse cx="100" cy="60" rx="75" ry="24" transform="rotate(-15 100 60)" stroke="#f5be48" stroke-width="1.5" stroke-opacity="0.8"/>
+              <!-- Technical Candlesticks rising into Stars -->
+              <!-- Candle 1 (Bullish Green) -->
+              <line x1="45" y1="70" x2="45" y2="105" stroke="#34d399" stroke-width="1.2"/>
+              <rect x="40" y="76" width="10" height="22" rx="2" fill="url(#artCandleGreen)"/>
+              <!-- Candle 2 (Minor Dip Red/Amber) -->
+              <line x1="68" y1="62" x2="68" y2="98" stroke="#f87171" stroke-width="1.2"/>
+              <rect x="63" y="68" width="10" height="18" rx="2" fill="#ef4444" opacity="0.85"/>
+              <!-- Candle 3 (Breakout Gold) -->
+              <line x1="92" y1="38" x2="92" y2="88" stroke="#f5be48" stroke-width="1.5"/>
+              <rect x="87" y="46" width="10" height="30" rx="2" fill="url(#artCandleGold)"/>
+              <!-- Candle 4 (Super-Cycle Master Candle) -->
+              <line x1="116" y1="22" x2="116" y2="72" stroke="#34d399" stroke-width="1.5"/>
+              <rect x="111" y="28" width="10" height="32" rx="2" fill="url(#artCandleGreen)"/>
+              <!-- Trend Curve connecting to Star -->
+              <path d="M 45,87 Q 68,76 92,54 T 140,28" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="140" cy="28" r="4" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+              <!-- Financial & Cosmic Indicators -->
+              <text x="150" y="32" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#93c5fd" font-weight="bold">₹ NIFTY</text>
+              <text x="100" y="112" font-family="'IBM Plex Mono', monospace" font-size="8" fill="#f5be48" text-anchor="middle" opacity="0.8">0.001° Sidereal Precision</text>
             </svg>
           </div>
           <div class="art-content">
@@ -794,23 +1211,36 @@
           </div>
         </a>
 
-        <!-- Article 2 -->
+        <!-- Article 2: The 5th House of Speculation & Equity Wealth -->
         <a href="/articles/the-5th-house-speculation-in-trading-and-equities" class="featured-art-card">
-          <div class="art-banner">
+          <div class="art-banner art-banner-speculation">
             <div class="cosmic-canvas-stars"></div>
-            <svg class="saturn-vector" viewBox="0 0 160 100" fill="none">
-              <ellipse cx="105" cy="45" rx="24" ry="24" fill="#1c1f38" stroke="#a78bfa" stroke-width="1.2" stroke-opacity="0.8"/>
-              <ellipse cx="105" cy="45" rx="50" ry="15" transform="rotate(-25 105 45)" fill="none" stroke="#ffd572" stroke-width="2" stroke-opacity="0.85"/>
-              <circle cx="20" cy="40" r="1.5" fill="#ffffff" opacity="0.8" />
-              <circle cx="45" cy="30" r="1" fill="#ffffff" opacity="0.6" />
-              <circle cx="70" cy="60" r="1.2" fill="#ffffff" opacity="0.7" />
-              <circle cx="145" cy="25" r="1.5" fill="#ffffff" opacity="0.7" />
-              <line x1="20" y1="40" x2="45" y2="30" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
-              <line x1="45" y1="30" x2="70" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
+            <svg class="art-feature-vector" viewBox="0 0 200 120" fill="none">
+              <defs>
+                <radialGradient id="sunAura5" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/>
+                  <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#b45309" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <!-- Sacred 5th Bhava Diamond Triangle -->
+              <polygon points="100,14 165,65 100,108 35,65" fill="rgba(245, 190, 72, 0.08)" stroke="#f5be48" stroke-width="1.8"/>
+              <polygon points="100,24 152,65 100,100 48,65" fill="none" stroke="#ffd572" stroke-width="1" stroke-dasharray="2,3" opacity="0.7"/>
+              <!-- Center Radiant Surya Orb (5th Natural Ruler) -->
+              <circle cx="100" cy="65" r="22" fill="url(#sunAura5)"/>
+              <circle cx="100" cy="65" r="12" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+              <text x="100" y="69" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="800" fill="#451a03" text-anchor="middle">5</text>
+              <!-- Shower of Gold Coins (Dhana Varsha Arc) -->
+              <path d="M 50,45 Q 80,18 100,22 Q 135,28 155,75" fill="none" stroke="#fde047" stroke-width="1.6" stroke-dasharray="3,3" opacity="0.8"/>
+              <circle cx="68" cy="28" r="3.2" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+              <circle cx="118" cy="24" r="3.6" fill="#facc15" stroke="#a16207" stroke-width="1"/>
+              <circle cx="148" cy="52" r="3.2" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+              <!-- Kicker Labels -->
+              <text x="100" y="115" font-family="'IBM Plex Mono', monospace" font-size="8" fill="#ffd572" text-anchor="middle">5th Bhava • Purva Punya &amp; Stock Speculation</text>
             </svg>
           </div>
           <div class="art-content">
-            <span class="art-category-pill">BASICS</span>
+            <span class="art-category-pill">SPECULATION</span>
             <h3 class="art-card-title">The 5th House of Speculation: What It Traditionally Tells Traders</h3>
             <div class="art-card-meta">
               <span class="art-author">Cosmic Finance Team</span>
@@ -819,18 +1249,32 @@
           </div>
         </a>
 
-        <!-- Article 3 -->
+        <!-- Article 3: Mercury Retrograde Survival & Algorithmic Volatility -->
         <a href="/articles/mercury-retrograde-survival-guide-for-stock-traders" class="featured-art-card">
-          <div class="art-banner">
+          <div class="art-banner art-banner-mercury">
             <div class="cosmic-canvas-stars"></div>
-            <svg class="saturn-vector" viewBox="0 0 160 100" fill="none">
-              <ellipse cx="90" cy="50" rx="25" ry="25" fill="#1b213b" stroke="#f5be48" stroke-width="1.2" stroke-opacity="0.7"/>
-              <ellipse cx="90" cy="50" rx="52" ry="15" transform="rotate(-18 90 50)" fill="none" stroke="#d49520" stroke-width="2" stroke-opacity="0.85"/>
-              <circle cx="30" cy="25" r="1.5" fill="#ffffff" opacity="0.8" />
-              <circle cx="60" cy="35" r="1" fill="#ffffff" opacity="0.6" />
-              <circle cx="135" cy="40" r="1.2" fill="#ffffff" opacity="0.7" />
-              <circle cx="120" cy="75" r="1.5" fill="#a78bfa" opacity="0.8" />
-              <line x1="30" y1="25" x2="60" y2="35" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" stroke-dasharray="2,3"/>
+            <svg class="art-feature-vector" viewBox="0 0 200 120" fill="none">
+              <defs>
+                <radialGradient id="mercAura" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#a7f3d0" stop-opacity="0.9"/>
+                  <stop offset="60%" stop-color="#059669" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#047857" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <!-- Mercury Apparent Retrograde Epicycle Loop (Loop-the-Loop) -->
+              <path d="M 25,75 C 65,75 80,35 110,35 C 145,35 145,95 105,95 C 75,95 85,55 130,55 C 160,55 185,65 190,70" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Volatility High-Frequency Oscillator Wave -->
+              <path d="M 30,95 L 45,82 L 58,102 L 72,78 L 86,92 L 102,68 L 118,85 L 135,70 L 155,90 L 175,80" fill="none" stroke="#ef4444" stroke-width="1.3" opacity="0.6"/>
+              <!-- Mercury (Budha) Planet Body -->
+              <circle cx="105" cy="48" r="16" fill="url(#mercAura)"/>
+              <circle cx="105" cy="48" r="8" fill="#5ce6c0" stroke="#047857" stroke-width="1.5"/>
+              <!-- Retrograde ℞ Token -->
+              <g transform="translate(142, 32)">
+                <rect x="0" y="0" width="36" height="18" rx="9" fill="rgba(88, 28, 135, 0.9)" stroke="#c084fc" stroke-width="1"/>
+                <text x="18" y="13" font-family="'IBM Plex Mono', monospace" font-size="10" font-weight="bold" fill="#f5d0fe" text-anchor="middle">℞ Rx</text>
+              </g>
+              <text x="105" y="52" font-family="'Inter', sans-serif" font-size="10" font-weight="bold" fill="#064e3b" text-anchor="middle">☿</text>
+              <text x="100" y="115" font-family="'IBM Plex Mono', monospace" font-size="8" fill="#86efac" text-anchor="middle">Budha Vakri • 21-Day Volatility Regime</text>
             </svg>
           </div>
           <div class="art-content">

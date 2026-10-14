@@ -16,6 +16,15 @@ const seedDatabase = require('./src/db/seed');
 const { helmetConfig, generalLimiter } = require('./src/middleware/security');
 const { startMarketTelemetryWorker } = require('./src/services/marketData');
 
+// Process-level resilience against intermittent external API network dropouts
+process.on('uncaughtException', (err) => {
+  console.error('Unhandled process exception recovered:', err.message);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled promise rejection recovered:', reason);
+});
+
 // Seed starter tables if needed
 seedDatabase();
 startMarketTelemetryWorker();
@@ -70,6 +79,8 @@ app.get('/sitemap.xml', (req, res) => {
     '/market-data',
     '/weekly-outlook',
     '/trading-kundli',
+    '/gann-square',
+    '/founder',
     '/articles',
     '/submit-article',
     '/news',

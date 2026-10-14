@@ -1,0 +1,560 @@
+<div class="container section-rhythm gann-chamber-page">
+  <!-- Top Breadcrumb & Language Switcher Strip -->
+  <div class="page-top-utility-bar">
+    <div class="breadcrumb-trail">
+      <a href="/">Home</a> &bull; 
+      <a href="/market-data">Market Data</a> &bull; 
+      <span class="current">Gann's Square of 9 &amp; Sarvatobhadra Chakra</span>
+    </div>
+    
+    <div class="bilingual-toggle-cluster">
+      <span class="lang-icon">🌐</span>
+      <button type="button" class="gann-lang-btn" data-lang="hi">हिन्दी (HI)</button>
+      <button type="button" class="gann-lang-btn active" data-lang="en">English (EN)</button>
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <div class="page-title-block text-center mt-3">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span class="gann-text-hi hidden-lang">चक्रीय ज्यामिति एवं वैदिक वेध विज्ञान</span>
+      <span class="gann-text-en">MATHEMATICAL TIME-PRICE HARMONICS &amp; VEDIC VEDHA</span>
+    </div>
+
+    <h1 class="page-headline">
+      <span class="gann-text-hi hidden-lang">डब्लू.डी. गैन का <span class="text-gold">स्क्वायर ऑफ़ 9</span> एवं <span class="text-violet">सर्वतोभद्र चक्र</span></span>
+      <span class="gann-text-en">W.D. Gann's <span class="text-gold">Square of 9</span> &amp; <span class="text-violet">Sarvatobhadra Chakra</span></span>
+    </h1>
+
+    <p class="page-subtitle max-w-850 mx-auto">
+      <span class="gann-text-hi hidden-lang">
+        दलाल स्ट्रीट और प्राचीन भारतीय खगोलीय चक्रों को जोड़ने वाले गुप्त ज्यामितीय नियमों का साक्षात अनुभव करें। 
+        कर्सर मूवमेंट ट्रैकिंग, कोण गणना, वर्गमूल सिद्धांत एवं २८ नक्षत्र वेध किरणों का सजीव डिजिटल संधान।
+      </span>
+      <span class="gann-text-en">
+        Experience the profound geometric laws uniting modern Dalal Street price action with ancient Vedic celestial matrices. 
+        Featuring live cursor-tracked angle sweeps, square root vibration, and 28-Nakshatra Vedha laser raycasts.
+      </span>
+    </p>
+
+    <div class="trust-calculation-banner" style="max-width: 760px; margin: 16px auto;">
+      <span class="trust-icon">📐</span>
+      <span class="trust-text">
+        <span class="gann-text-hi hidden-lang"><strong>मूल सिद्धांत:</strong> "मूल्य और समय जब एक ही कोण पर मिलते हैं, बाजार में दिशा परिवर्तन निश्चित होता है।" — डब्लू.डी. गैन (१९०९)</span>
+        <span class="gann-text-en"><strong>Core Law:</strong> "When time and price square out on key angles, market trend reversals become mathematical certainties." — W.D. Gann (1909)</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODULE 1: W.D. GANN'S SQUARE OF 9 LIVE TERMINAL
+       ============================================================== -->
+  <section class="gann-engine-module mt-8">
+    <div class="module-header-box">
+      <div class="module-title-group">
+        <span class="module-symbol text-gold">🔯</span>
+        <div>
+          <h2 class="module-title">
+            <span class="gann-text-hi">१. गैन का स्क्वायर ऑफ़ 9 — मूल्य-समय चक्रव्यूह</span>
+            <span class="gann-text-en hidden-lang">1. W.D. Gann's Square of 9 — Price-Time Wheel</span>
+          </h2>
+          <span class="module-sub">
+            <span class="gann-text-hi">९x९ (८१ कोष्ठ) सर्पिलाकार ज्यामिति • वर्गमूल कोण गणना • कर्सर ट्रैकिंग</span>
+            <span class="gann-text-en hidden-lang">9x9 (81 Cells) Spiral Matrix • Square Root Harmonics • Live Cursor Tracking</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Live Price Input Bar -->
+      <div class="gann-input-control-bar">
+        <div class="input-wrap">
+          <label for="gannBasePriceInput">
+            <span class="gann-text-hi">आधार मूल्य (Base Price ₹):</span>
+            <span class="gann-text-en hidden-lang">Base Price (₹):</span>
+          </label>
+          <input type="number" id="gannBasePriceInput" class="form-control gann-price-input" value="24871" step="1" min="1">
+        </div>
+        <button type="button" class="btn btn-outline btn-xs" id="btnSyncLiveNifty">
+          <span>⚡ SYNC NIFTY (24,871)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 2-Column Grid: Canvas Wheel on Left, Live Inspector & Target Table on Right -->
+    <div class="gann-workspace-grid">
+      <!-- Left: Interactive Canvas Wheel with Cursor Movement Tracking -->
+      <div class="gann-canvas-card">
+        <div class="canvas-top-tags">
+          <span class="tag-cardinal">● Cardinal (0°, 90°, 180°, 270°)</span>
+          <span class="tag-ordinal">● Ordinal (45°, 135°, 225°, 315°)</span>
+          <span class="tag-trine">● Trine (120°, 240°)</span>
+        </div>
+
+        <div class="canvas-stage-wrapper">
+          <canvas id="fullGannCanvas" class="gann-matrix-canvas" width="560" height="560"></canvas>
+        </div>
+
+        <div class="canvas-footer-hint text-center">
+          <span class="hint-dot">✦</span>
+          <span class="gann-text-hi">कर्सर को किसी भी सेल या कोण पर ले जाएं — सजीव लेज़र रेखा एवं मूल्य स्तर प्रदर्शित होगा।</span>
+          <span class="gann-text-en hidden-lang">Move your cursor over any cell or angle — live laser raycast and harmonic targets update in real-time.</span>
+        </div>
+      </div>
+
+      <!-- Right: Live Raycast Inspector & Computed Target Table -->
+      <div class="gann-analytics-card">
+        <!-- Live Inspector Card -->
+        <div class="gann-inspector-box">
+          <div class="inspector-badge">
+            <span class="badge-dot pulse-gold"></span>
+            <span class="gann-text-hi">सक्रिय कोण संधान (LIVE RAY READOUT)</span>
+            <span class="gann-text-en hidden-lang">ACTIVE ANGLE RAY READOUT</span>
+          </div>
+
+          <div class="ins-main-row">
+            <div class="ins-col">
+              <span class="ins-label">Harmonic Angle:</span>
+              <strong class="ins-val-angle text-gold" id="gannInsAngle">90° Cardinal Square</strong>
+            </div>
+            <div class="ins-col">
+              <span class="ins-label">Target Resonance:</span>
+              <strong class="ins-val-price text-green" id="gannInsTarget">₹25,028.14</strong>
+            </div>
+          </div>
+
+          <div class="ins-formula-row">
+            <span class="formula-label">Gann Square Root Formula:</span>
+            <code class="formula-code" id="gannInsFormula">(√24871 + 0.50)² = ₹25,028.14</code>
+          </div>
+
+          <div class="ins-nature-note" id="gannInsNature">
+            ९०° कार्डिनल स्क्वायर ब्रेकआउट: प्रमुख इंट्राडे व स्विंग ट्रेंड निरंतरता का मुख्य ट्रिगर।
+          </div>
+        </div>
+
+        <!-- Dynamic Multi-Angle Targets Table -->
+        <div class="gann-targets-table-box mt-4">
+          <div class="table-title-row">
+            <h4>
+              <span class="gann-text-hi">गणितीय मूल्य-स्तर सारणी (Support &amp; Resistance)</span>
+              <span class="gann-text-en hidden-lang">Mathematical Support &amp; Resistance Table</span>
+            </h4>
+            <span class="table-sub-badge">Square Root Harmonics</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="cosmic-table gann-levels-table">
+              <thead>
+                <tr>
+                  <th>Angle (कोण)</th>
+                  <th>Harmonic Phase</th>
+                  <th>Resistance (प्रतिरोध)</th>
+                  <th>Support (समर्थन)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>45°</strong></td>
+                  <td><span class="pill-badge ordinal">1/8 Octave (लघु मोड़)</span></td>
+                  <td class="text-green mono-num" id="gannRes45">₹24,949.50</td>
+                  <td class="text-red mono-num" id="gannSup45">₹24,792.54</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td><strong>90°</strong></td>
+                  <td><span class="pill-badge cardinal">Cardinal Square (प्रमुख वर्ग)</span></td>
+                  <td class="text-green mono-num" id="gannRes90">₹25,028.14</td>
+                  <td class="text-red mono-num" id="gannSup90">₹24,714.22</td>
+                </tr>
+                <tr>
+                  <td><strong>120°</strong></td>
+                  <td><span class="pill-badge trine">Trine Harmony (त्रिकोण)</span></td>
+                  <td class="text-green mono-num" id="gannRes120">₹25,080.64</td>
+                  <td class="text-red mono-num" id="gannSup120">₹24,662.11</td>
+                </tr>
+                <tr>
+                  <td><strong>135°</strong></td>
+                  <td><span class="pill-badge ordinal">Fixed Cross (ऑर्डिनल)</span></td>
+                  <td class="text-green mono-num" id="gannRes135">₹25,106.91</td>
+                  <td class="text-red mono-num" id="gannSup135">₹24,636.08</td>
+                </tr>
+                <tr class="highlight-row major">
+                  <td><strong>180°</strong></td>
+                  <td><span class="pill-badge cardinal gold">Major Opposition (महा-रिवर्सल)</span></td>
+                  <td class="text-green mono-num" id="gannRes180">₹25,185.83</td>
+                  <td class="text-red mono-num" id="gannSup180">₹24,558.12</td>
+                </tr>
+                <tr>
+                  <td><strong>240°</strong></td>
+                  <td><span class="pill-badge trine">Trine Opposition (द्वितीय त्रिकोण)</span></td>
+                  <td class="text-green mono-num" id="gannRes240">₹25,291.31</td>
+                  <td class="text-red mono-num" id="gannSup240">₹24,454.49</td>
+                </tr>
+                <tr class="highlight-row">
+                  <td><strong>270°</strong></td>
+                  <td><span class="pill-badge cardinal">3/4 Square (तृतीय चतुर्थांश)</span></td>
+                  <td class="text-green mono-num" id="gannRes270">₹25,344.20</td>
+                  <td class="text-red mono-num" id="gannSup270">₹24,402.83</td>
+                </tr>
+                <tr class="master-cycle-row">
+                  <td><strong>360°</strong></td>
+                  <td><span class="pill-badge master-badge">Full Master Cycle (पूर्ण चक्र)</span></td>
+                  <td class="text-green mono-num" id="gannRes360">₹25,503.49</td>
+                  <td class="text-red mono-num" id="gannSup360">₹24,248.88</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deep Bilingual Explanation of Square of 9 -->
+    <div class="gann-knowledge-box mt-6">
+      <div class="knowledge-header">
+        <span class="k-icon">📜</span>
+        <div>
+          <h3>
+            <span class="gann-text-hi">गैन का स्क्वायर ऑफ़ 9: रहस्य, गणित एवं भारतीय बाजारों में उपयोग</span>
+            <span class="gann-text-en hidden-lang">Gann's Square of 9: The Geometry, Origin &amp; Stock Market Application</span>
+          </h3>
+          <span class="k-sub">The Esoteric Mathematics of Wall Street Legend W.D. Gann</span>
+        </div>
+      </div>
+
+      <div class="knowledge-body-grid">
+        <div class="k-col">
+          <h4 class="text-gold">
+            <span class="gann-text-hi">१. वर्गमूल सिद्धांत (Square Root Theory)</span>
+            <span class="gann-text-en hidden-lang">1. The Square Root Principle</span>
+          </h4>
+          <p class="gann-text-hi">
+            डब्लू.डी. गैन का मानना था कि स्टॉक मार्केट में कीमतें यादृच्छिक (random) नहीं चलतीं, बल्कि ज्यामितीय वर्गमूलों (Square Roots) के अनुसार कंपन करती हैं। 
+            जब हम किसी शेयर या इंडेक्स (जैसे निफ्टी) के मूल्य का वर्गमूल ($\sqrt{P}$) निकालते हैं और उसमें <strong>०.५ (९०°), १.० (१८०°), या २.० (३६०°)</strong> जोड़ते या घटाते हैं, तो प्राप्त होने वाला नया मूल्य उस चक्र का सटीक समर्थन (Support) या प्रतिरोध (Resistance) बनता है।
+          </p>
+          <p class="gann-text-en hidden-lang">
+            W.D. Gann discovered that asset prices do not move randomly; they vibrate along geometric square root progressions. 
+            By taking the square root of any price ($\sqrt{P}$) and incrementing by <strong>0.50 (90°), 1.0 (180°), or 2.0 (360°)</strong>, 
+            traders unlock mathematically verified pivot turning points where trend expansions and exhaustions occur.
+          </p>
+        </div>
+
+        <div class="k-col">
+          <h4 class="text-violet">
+            <span class="gann-text-hi">२. भारत यात्रा एवं वैदिक ज्यामिति का प्रभाव</span>
+            <span class="gann-text-en hidden-lang">2. The Ancient Indian Vedic Connection</span>
+          </h4>
+          <p class="gann-text-hi">
+            इतिहासकारों के अनुसार, १९०० के दशक की शुरुआत में गैन ने भारत की गुप्त यात्रा की थी। उन्होंने कोलकाता और मुंबई में प्राचीन मंदिर वास्तु, चक्रव्यूह तथा वैदिक खगोल-शास्त्र का गहरा अध्ययन किया। 
+            स्क्वायर ऑफ़ 9 का ढांचा हूबहू प्राचीन भारतीय <strong>यंत्रों और मंडलों</strong> से मेल खाता है, जहां केंद्र बिंदु (बिंदु/ब्रह्म) से ऊर्जा का विस्तार वृत्ताकार एवं कोणीय अक्षों पर होता है।
+          </p>
+          <p class="gann-text-en hidden-lang">
+            Market historians document that Gann traveled extensively through India in the early 1900s. In ancient temples and astronomical archives, he studied sacred geometric Mandalas, Chakravyuha formations, and Vedic astronomy. 
+            The Square of 9 wheel directly mirrors ancient Indian cosmological yantras, where numbers spiral outward from a central Singularity (*Bindu*) along cardinal and diagonal lines of force.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       MODULE 2: THE SARVATOBHADRA CHAKRA (सर्वतोभद्र चक्र)
+       ============================================================== -->
+  <section class="gann-engine-module mt-10">
+    <div class="module-header-box">
+      <div class="module-title-group">
+        <span class="module-symbol text-violet">☸</span>
+        <div>
+          <h2 class="module-title">
+            <span class="gann-text-hi">२. वैदिक सर्वतोभद्र चक्र — अष्टाविंशति नक्षत्र वेध संधान</span>
+            <span class="gann-text-en hidden-lang">2. Vedic Sarvatobhadra Chakra — 28-Nakshatra Vedha Raycast</span>
+          </h2>
+          <span class="module-sub">
+            <span class="gann-text-hi">८१ कोष्ठ चक्र • २८ नक्षत्र (अभिजित् सहित) • सम्मुख, वाम एवं दक्षिण वेध किरणें</span>
+            <span class="gann-text-en hidden-lang">81-Kostha Sacred Grid • 28 Nakshatras (including Abhijit) • Live Planetary Laser Rays</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="sbc-legend-cluster">
+        <span class="sbc-chip gold">☉ सूर्य (Sun)</span>
+        <span class="sbc-chip silver">☽ चन्द्र (Moon)</span>
+        <span class="sbc-chip red">♂ मंगल (Mars)</span>
+        <span class="sbc-chip cyan">☿ बुध (Mercury)</span>
+        <span class="sbc-chip yellow">♃ गुरु (Jupiter)</span>
+        <span class="sbc-chip pink">♀ शुक्र (Venus)</span>
+        <span class="sbc-chip blue">♄ शनि (Saturn)</span>
+        <span class="sbc-chip purple">☊ राहु (Rahu)</span>
+        <span class="sbc-chip orange">☋ केतु (Ketu)</span>
+      </div>
+    </div>
+
+    <!-- 2-Column Grid: 81-Kostha Matrix on Left, Live Vedha Analytics on Right -->
+    <div class="gann-workspace-grid">
+      <!-- Left: Interactive Sarvatobhadra Chakra 81-Kostha Matrix -->
+      <div class="gann-canvas-card">
+        <div class="canvas-top-tags">
+          <span class="tag-sammukha">━━━ सम्मुख वेध (Sammukha / Frontal Laser)</span>
+          <span class="tag-diagonal">···· वाम/दक्षिण वेध (Diagonal Rays)</span>
+        </div>
+
+        <div class="canvas-stage-wrapper">
+          <canvas id="fullSarvatobhadraCanvas" class="gann-matrix-canvas" width="580" height="580"></canvas>
+        </div>
+
+        <div class="canvas-footer-hint text-center">
+          <span class="hint-dot">✦</span>
+          <span class="gann-text-hi">किसी भी ग्रह या परिधि नक्षत्र पर कर्सर रखें — संपूर्ण ८१ कोष्ठों में वेध किरणें चमक उठेंगी।</span>
+          <span class="gann-text-en hidden-lang">Hover over any transiting planet or Nakshatra — luminous Vedha laser crosshairs illuminate connected vowels, signs, and target equities.</span>
+        </div>
+      </div>
+
+      <!-- Right: Live Vedha Inspector & Financial Vulnerability Analysis -->
+      <div class="gann-analytics-card">
+        <div class="gann-inspector-box sbc-inspector-box">
+          <div class="inspector-badge">
+            <span class="badge-dot pulse-red"></span>
+            <span class="gann-text-hi">सक्रिय वेध संधान (LIVE VEDHA TELEMETRY)</span>
+            <span class="gann-text-en hidden-lang">ACTIVE VEDHA TELEMETRY</span>
+          </div>
+
+          <div class="ins-main-row">
+            <div class="ins-col">
+              <span class="ins-label">Target Celestial Body / Kostha:</span>
+              <strong class="ins-val-angle text-violet" id="sbcInsName">Revati (Mercury Ruled)</strong>
+            </div>
+          </div>
+
+          <div class="ins-formula-row">
+            <span class="formula-label">Piercing Rays (वेध किरणें):</span>
+            <div class="vedha-readout-line" id="sbcInsVedha">
+              <strong>सम्मुख वेध:</strong> पूर्वाफाल्गुनी नक्षत्र पर सीधी किरण &bull; <strong>वाम/दक्षिण वेध:</strong> मीन एवं मिथुन राशि
+            </div>
+          </div>
+
+          <div class="ins-market-impact-card" id="sbcInsMarket">
+            ✨ शुभ ग्रह वेध: प्रौद्योगिकी (IT) एवं वित्तीय इक्विटी में संस्थागत पूंजी विस्तार के संकेत।
+          </div>
+        </div>
+
+        <!-- 4 Types of Classical Vedha Reference Guide -->
+        <div class="vedha-types-grid mt-4">
+          <div class="v-card">
+            <div class="v-card-top">
+              <span class="v-num">१</span>
+              <strong class="v-title">सम्मुख वेध (Sammukha)</strong>
+            </div>
+            <p class="v-desc">
+              <span class="gann-text-hi">सीधी सम्मुख रेखा जो केंद्र से होकर विपरीत नक्षत्र को भेदती है। यह सबसे शक्तिशाली व तीव्र असरकारी वेध माना जाता है।</span>
+              <span class="gann-text-en hidden-lang">Direct frontal vector cutting through the center to the opposite perimeter. The most potent and immediate market shockwave.</span>
+            </p>
+          </div>
+
+          <div class="v-card">
+            <div class="v-card-top">
+              <span class="v-num">२</span>
+              <strong class="v-title">वाम वेध (Vama Vedha)</strong>
+            </div>
+            <p class="v-desc">
+              <span class="gann-text-hi">बाईं ओर तिरछी जाने वाली वेध किरण। वक्री ग्रह जब वाम वेध करते हैं तो बाजारों में अप्रत्याशित उतार-चढ़ाव आता है।</span>
+              <span class="gann-text-en hidden-lang">Left diagonal piercing ray. Highly activated when retrograde planets (*Vakri Grahas*) traverse volatile signs.</span>
+            </p>
+          </div>
+
+          <div class="v-card">
+            <div class="v-card-top">
+              <span class="v-num">३</span>
+              <strong class="v-title">दक्षिण वेध (Dakshina)</strong>
+            </div>
+            <p class="v-desc">
+              <span class="gann-text-hi">दाईं ओर तिरछी जाने वाली वेध किरण। मार्गी गति में ग्रहों का दक्षिण वेध आगामी रुझान की दिशा तय करता है।</span>
+              <span class="gann-text-en hidden-lang">Right diagonal piercing ray. Direct-motion planets casting Dakshina rays establish sustained multi-week trends.</span>
+            </p>
+          </div>
+
+          <div class="v-card">
+            <div class="v-card-top">
+              <span class="v-num">४</span>
+              <strong class="v-title">कोण वेध (Kona Vedha)</strong>
+            </div>
+            <p class="v-desc">
+              <span class="gann-text-hi">चारों कोनों (ईशान, आग्नेय, नैऋत्य, वायव्य) के स्वरों पर पड़ने वाला वेध, जो वैश्विक आर्थिक नीतियों को प्रभावित करता है।</span>
+              <span class="gann-text-en hidden-lang">Corner raycasts piercing cardinal vowel anchors, historically influencing monetary policy and macro sovereign debt.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deep Vedic Scripture Commentary -->
+    <div class="gann-knowledge-box mt-6">
+      <div class="knowledge-header">
+        <span class="k-icon">🏛️</span>
+        <div>
+          <h3>
+            <span class="gann-text-hi">सर्वतोभद्र चक्र का शास्त्रीय प्रमाण एवं वित्तीय बाजारों में संधान</span>
+            <span class="gann-text-en hidden-lang">Classical Vedic Scripture &amp; Institutional Market Forecasting</span>
+          </h3>
+          <span class="k-sub">Brihat Parasara Hora Sastra, Mansagari &amp; Narapati Jayacharya Swarodaya</span>
+        </div>
+      </div>
+
+      <div class="knowledge-body-grid">
+        <div class="k-col">
+          <h4 class="text-gold">
+            <span class="gann-text-hi">सर्वतोभद्र का अर्थ: "चारों ओर से विजय"</span>
+            <span class="gann-text-en hidden-lang">Meaning of Sarvatobhadra: "All-Round Auspiciousness"</span>
+          </h4>
+          <p class="gann-text-hi">
+            वैदिक ग्रंथों में सर्वतोभद्र को <em>"सर्व चक्र शिरोमणि"</em> (सभी चक्रों का मुकुट) कहा गया है। इसमें २७ मुख्य नक्षत्रों के अतिरिक्त २८वां गुप्त नक्षत्र <strong>अभिजित्</strong> भी शामिल किया जाता है। 
+            जब कोई पापी ग्रह (शनि, राहु, मंगल) किसी देश या कंपनी के जन्म नक्षत्र पर सम्मुख वेध करता है, तो बिना किसी पूर्व चेतावनी के बाजार में तीव्र गिरावट आती है।
+          </p>
+          <p class="gann-text-en hidden-lang">
+            Revered in classical texts as *Sarva Chakra Shiromani* ("Crown Jewel of All Chakras"), the Sarvatobhadra uniquely integrates the 28th intercalary nakshatra **Abhijit**. 
+            When malefic transiting bodies (Saturn, Mars, Rahu) pierce the birth nakshatra or corporate initial letter (*Varna*) of an index, sudden sharp drawdowns occur without prior technical warning.
+          </p>
+        </div>
+
+        <div class="k-col">
+          <h4 class="text-violet">
+            <span class="gann-text-hi">शेयर व कमोडिटी बाजारों में वेध का व्यवहारिक नियम</span>
+            <span class="gann-text-en hidden-lang">Practical Trading Application in Indian Markets</span>
+          </h4>
+          <p class="gann-text-hi">
+            <strong>१. स्वर्ण (Gold / MCX):</strong> सूर्य अथवा गुरु का पुष्य, रोहिणी या विशाखा पर वेध होने से सोने की कीमतों में अप्रत्याशित तेजी देखी जाती है।<br>
+            <strong>२. निफ्टी बैंकिंग:</strong> शनि या राहु का पूर्वाभाद्रपद या अनुराधा पर सम्मुख वेध बैंकिंग इंडेक्स में तरलता संकुचन और दबाव पैदा करता है।
+          </p>
+          <p class="gann-text-en hidden-lang">
+            <strong>1. Bullion / MCX Gold:</strong> Solar or Jupiterian Vedha on Pushya, Rohini, or Vishakha correlates with parabolic rallies in precious metals.<br>
+            <strong>2. Nifty Bank:</strong> Saturn or Rahu casting direct Sammukha Vedha on Purva Bhadrapada or Anuradha triggers banking liquidity freezes and short-term panic selling.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       MODULE 3: HISTORICAL CASE STUDIES (THE PROOF)
+       ============================================================== -->
+  <section class="historical-cases-section mt-10">
+    <div class="section-center-head">
+      <span class="discipline-kicker">HISTORICAL VERIFICATION</span>
+      <h2 class="discipline-title">
+        <span class="gann-text-hi">ऐतिहासिक बाजार उदाहरण: जब गैन व चक्र ने मोड़ा इतिहास</span>
+        <span class="gann-text-en hidden-lang">Historical Case Studies: When Geometry &amp; Vedha Shaped Market History</span>
+      </h2>
+      <p class="discipline-sub">
+        Empirical proof from Indian and global stock market turning points.
+      </p>
+    </div>
+
+    <div class="cases-triple-grid">
+      <!-- Case 1 -->
+      <div class="case-card">
+        <div class="case-top">
+          <span class="case-year">2008</span>
+          <span class="case-tag tag-red">LEHMAN CRASH</span>
+        </div>
+        <h3 class="case-title">180° Gann Opposition &amp; Rahu Vedha</h3>
+        <p class="case-desc">
+          <span class="gann-text-hi">जनवरी २००८ में निफ्टी ६,३५७ के सर्वकालिक उच्च स्तर पर पहुंचा। यह २००३ के निम्न स्तर से ठीक १८०° का गैन वर्गमूल चक्र था, साथ ही राहु का मकर राशि से सम्मुख वेध पड़ रहा था। परिणाम: ६५% की तीव्र गिरावट।</span>
+          <span class="gann-text-en hidden-lang">In January 2008, Nifty topped at 6,357 — precisely 180° on the Gann Square of 9 from the 2003 base, compounded by Rahu's malefic Sammukha Vedha. Result: A 65% macro correction.</span>
+        </p>
+        <div class="case-metric">
+          <span>Geometric Signature:</span>
+          <strong>180° Degree Reversal</strong>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="case-card">
+        <div class="case-top">
+          <span class="case-year">2020</span>
+          <span class="case-tag tag-green">COVID BOTTOM</span>
+        </div>
+        <h3 class="case-title">360° Master Octave &amp; Guru Relief</h3>
+        <p class="case-desc">
+          <span class="gann-text-hi">२३ मार्च २०२० को निफ्टी ७,५११ पर रुका। यह स्तर २००८ के निचले स्तर से सटीक ३६०° पूर्ण गैन चक्र था। उसी दिन गुरु का उत्तराषाढ़ा में शुभ वेध शुरू हुआ, जिसने इतिहास की सबसे बड़ी तेजी को जन्म दिया।</span>
+          <span class="gann-text-en hidden-lang">On March 23, 2020, Nifty bottomed at 7,511 — exactly completing a 360° master octave cycle from the 2008 low. Jupiter's simultaneous benefic Vedha ignited a 150%+ multi-year bull market.</span>
+        </p>
+        <div class="case-metric">
+          <span>Geometric Signature:</span>
+          <strong>360° Master Harmonic</strong>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="case-card">
+        <div class="case-top">
+          <span class="case-year">2024</span>
+          <span class="case-tag tag-gold">NIFTY 25,000</span>
+        </div>
+        <h3 class="case-title">Cardinal 90° Consolidation Milestone</h3>
+        <p class="case-desc">
+          <span class="gann-text-hi">निफ्टी का २५,००० का ऐतिहासिक स्तर २०,००० के आधार से ठीक ९०° कार्डिनल स्क्वायर पर अवस्थित है। इस स्तर पर मूल्य ने अपेक्षित सामंजस्य बनाया और दीर्घकालिक तेजी की पुष्टि की।</span>
+          <span class="gann-text-en hidden-lang">Nifty crossing 25,000 matched the exact 90° Cardinal Square from the 20,000 accumulation base, confirming mathematical resistance before subsequent structural continuation.</span>
+        </p>
+        <div class="case-metric">
+          <span>Geometric Signature:</span>
+          <strong>90° Cardinal Square</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
+       MODULE 4: VIP CONSULTATION WITH DR. ASHISH PATNI
+       ============================================================== -->
+  <div class="celebrity-consultation-showcase mt-10">
+    <div class="consultation-showcase-grid">
+      <div class="showcase-photo-frame">
+        <img src="<%= founder.photo %>" alt="<%= founder.name %> — Celebrity Financial Astrologer" class="showcase-photo">
+        <div class="showcase-verified-tag">
+          <span class="star-icon">✦</span>
+          <span>Celebrity Market Astrologer</span>
+        </div>
+      </div>
+
+      <div class="showcase-details">
+        <div class="showcase-badge">EXCLUSIVE 1-ON-1 FINANCIAL PREDICTION</div>
+        <h3 class="showcase-doctor-name"><%= founder.name %></h3>
+        <div class="showcase-doctor-title">
+          <%= founder.honorific %> &bull; Founder, Bhavishyam (<a href="<%= founder.website %>" target="_blank" rel="noopener"><%= founder.websiteDisplay %></a>)
+        </div>
+
+        <p class="showcase-copy">
+          <span class="gann-text-hi">
+            क्या आप अपनी व्यक्तिगत जन्म कुंडली, गैन स्क्वायर ऑफ़ 9 के स्तरों और सर्वतोभद्र चक्र के वेध नियमों को अपने स्टॉक पोर्टफोलियो या एफएंडओ ट्रेडिंग पर लागू करना चाहते हैं? 
+            <strong>डॉ. आशीष पाटनी</strong> से सीधे परामर्श प्राप्त करें और जानें कि आगामी समय में कौन से ग्रह आपके लिए धन वर्षा का योग बना रहे हैं।
+          </span>
+          <span class="gann-text-en hidden-lang">
+            Looking to harmonize your personal Kundli, Gann Square of 9 mathematical levels, and Sarvatobhadra Chakra Vedha rays with your actual stock portfolio or derivatives strategy? 
+            Connect directly with <strong>Dr. Ashish Patni</strong> for personalized celestial market guidance.
+          </span>
+        </p>
+
+        <div class="showcase-highlights-row">
+          <span class="chip-gold">✓ Personal Gann Square Target Timing</span>
+          <span class="chip-gold">✓ Sarvatobhadra Stock Selection</span>
+          <span class="chip-gold">✓ F&amp;O Expiry Turning Points</span>
+        </div>
+
+        <div class="showcase-cta-group">
+          <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent('Namaste Dr. Ashish Patni ji, I am exploring Gann Square of 9 and Sarvatobhadra Chakra on Cosmic Finance. I would like to consult with you for my personal stock market prediction and mathematical timing guidance.') %>" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
+            <span class="wa-icon">💬</span>
+            <span class="gann-text-hi">डॉ. आशीष पाटनी से व्हाट्सएप पर परामर्श लें</span>
+            <span class="gann-text-en hidden-lang">Consult Dr. Ashish Patni on WhatsApp</span>
+          </a>
+          <a href="<%= founder.website %>" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
+            <span>Visit <%= founder.websiteDisplay %></span>
+            <span class="btn-arrow">&rarr;</span>
+          </a>
+        </div>
+
+        <div class="showcase-security-note">
+          🔒 100% Confidential Personal Guidance &bull; Trusted by Top Industrialists &amp; Traders across India
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

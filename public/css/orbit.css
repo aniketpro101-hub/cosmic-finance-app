@@ -222,6 +222,7 @@
   height: 100%;
   display: block;
   cursor: grab;
+  touch-action: none;
 }
 
 .canvas-3d-hint {
@@ -245,27 +246,26 @@
 }
 
 .orbit-fallback-notice {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: calc(100% - 200px);
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
-  gap: 6px;
+  gap: 8px;
   justify-content: center;
   align-items: center;
   pointer-events: auto;
-  z-index: 45;
-  background: rgba(6, 10, 26, 0.82);
+  z-index: 10;
+  background: rgba(6, 10, 26, 0.85);
   border: 1px solid rgba(245, 190, 72, 0.22);
   border-radius: 9999px;
-  padding: 3px 8px;
+  padding: 5px 14px;
+  margin: 12px auto 0 auto;
+  max-width: 100%;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   overflow-x: auto;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .orbit-fallback-notice::-webkit-scrollbar {
@@ -1110,6 +1110,318 @@
   border-color: #38bdf8;
   color: #fff;
   transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Mobile Precision Responsive Engine (Android 360px-412px & iOS 375px-430px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .orbit-canvas-wrapper {
+    height: 420px;
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-orbit-card {
+    padding: 12px 12px;
+    border-radius: 16px;
+  }
+
+  .orbit-card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+  }
+
+  .header-left-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .header-center-switch,
+  .header-right-badges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .header-center-switch .btn-v2-pill,
+  .header-right-badges .btn-v2-pill {
+    flex: 1 1 0;
+    justify-content: center;
+    text-align: center;
+    padding: 6px 10px;
+    font-size: 0.74rem;
+    white-space: nowrap;
+  }
+
+  .planetary-hour-badge {
+    padding: 3px 9px;
+    font-size: 0.68rem;
+  }
+
+  .orbit-canvas-wrapper {
+    height: 380px;
+    min-height: 350px;
+    border-radius: 14px;
+  }
+
+  /* Relocate Zoom HUD to top-right away from bottom planet pills */
+  .orbit-zoom-hud {
+    top: 8px;
+    right: 8px;
+    bottom: auto;
+    z-index: 50;
+    padding: 3px 6px;
+    gap: 4px;
+    background: rgba(8, 14, 38, 0.92);
+  }
+
+  .zoom-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 0.9rem;
+  }
+
+  .zoom-fit-btn {
+    height: 26px;
+    font-size: 0.68rem;
+    padding: 0 8px;
+  }
+
+  .zoom-level-pill {
+    min-width: 34px;
+    font-size: 0.68rem;
+    padding: 0 2px;
+  }
+
+  /* Compact hint on mobile */
+  .canvas-3d-hint {
+    top: 8px;
+    left: 8px;
+    max-width: calc(100% - 155px);
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Horizontal swipe ribbon for 9 planet badges sitting cleanly below 3D canvas panel */
+  .orbit-fallback-notice {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 10px 0 0 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 6px 10px;
+    gap: 6px;
+    border-radius: var(--radius-md);
+  }
+
+  .orbit-fallback-notice::-webkit-scrollbar {
+    display: none;
+  }
+
+  .orbit-planet-badge {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  /* Calculation Drawer on mobile */
+  .orbit-calc-drawer {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    max-height: 85%;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .calc-drawer-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* 4D Time Machine Cockpit on mobile */
+  .time-machine-cockpit {
+    padding: 14px 12px;
+    border-radius: 14px;
+    margin-top: 12px;
+  }
+
+  .time-machine-controls-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  #btnResetToLive {
+    padding: 5px 12px;
+    font-size: 0.74rem;
+    white-space: nowrap;
+  }
+
+  .tm-date-display {
+    margin-bottom: 4px;
+  }
+
+  .tm-label {
+    font-size: 0.74rem;
+  }
+
+  #tmCurrentDateLabel {
+    font-size: 0.95rem;
+    padding: 4px 10px;
+  }
+
+  /* Horizontal swipe strip for time presets */
+  .tm-presets-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 6px;
+    margin-bottom: 14px;
+    padding-bottom: 4px;
+  }
+
+  .tm-presets-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tm-preset-chip {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+
+  /* 2x2 Market stats grid */
+  .tm-market-readout-panel {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .tm-readout-stat {
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+
+  .tm-readout-stat .stat-name {
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+  }
+
+  .tm-readout-stat .stat-val {
+    font-size: 1.15rem !important;
+  }
+
+  .tm-readout-notes {
+    font-size: 0.72rem;
+    padding-top: 8px;
+    line-height: 1.45;
+  }
+
+  /* Detailed Inspector Drawer on mobile */
+  .orbit-info-drawer {
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 12px;
+  }
+
+  .inspect-glyph {
+    font-size: 1.8rem;
+  }
+
+  .inspect-market-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-orbit-card {
+    padding: 10px 8px;
+    border-radius: 14px;
+  }
+
+  .orbit-status-title {
+    font-size: 0.75rem;
+  }
+
+  .sse-live-indicator {
+    font-size: 0.65rem;
+    padding: 2px 7px;
+  }
+
+  .header-center-switch .btn-v2-pill,
+  .header-right-badges .btn-v2-pill {
+    padding: 5px 6px;
+    font-size: 0.7rem;
+  }
+
+  .vedastro-telemetry-badge {
+    display: none;
+  }
+
+  .orbit-canvas-wrapper {
+    height: 350px;
+    min-height: 330px;
+    border-radius: 12px;
+  }
+
+  .canvas-3d-hint {
+    display: none;
+  }
+
+  .tm-sub {
+    display: none;
+  }
+
+  .tm-readout-stat .stat-val {
+    font-size: 1.05rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .orbit-canvas-wrapper {
+    height: 330px;
+    min-height: 310px;
+  }
+
+  .header-center-switch .btn-v2-pill,
+  .header-right-badges .btn-v2-pill {
+    font-size: 0.66rem;
+    padding: 4px 5px;
+  }
+
+  .orbit-planet-badge {
+    padding: 3px 8px;
+    font-size: 0.68rem;
+  }
 }
 
 

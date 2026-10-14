@@ -29,46 +29,190 @@ document.addEventListener('DOMContentLoaded', () => {
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   if (overlay) overlay.addEventListener('click', closeDrawer);
 
-  // 2. Subtle Starfield Canvas Background (Lightweight)
+  // 2. Living Brahmand (Cosmic Galaxy) Canvas Background with Drifting Grahas & Wishing Stars
   const backdrop = document.getElementById('starsBackdrop');
   if (backdrop) {
     const canvas = document.createElement('canvas');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
     backdrop.appendChild(canvas);
 
     const ctx = canvas.getContext('2d');
+    let animId = null;
+    let brahmandTime = 0;
+
+    // A. Multi-layer Stars
+    const starCount = Math.min(Math.floor(window.innerWidth / 10), 130);
     const stars = [];
-    const starCount = Math.min(Math.floor(window.innerWidth / 14), 100);
+    const STAR_HUES = ['rgba(255, 255, 255,', 'rgba(250, 228, 181,', 'rgba(196, 181, 253,', 'rgba(186, 230, 253,'];
 
     for (let i = 0; i < starCount; i++) {
       stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.7 + 0.3,
-        speed: Math.random() * 0.02 + 0.005
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 1.8 + 0.4,
+        alpha: Math.random() * Math.PI * 2,
+        twinkleSpeed: Math.random() * 0.02 + 0.006,
+        driftX: (Math.random() - 0.5) * 0.08,
+        driftY: (Math.random() - 0.5) * 0.05,
+        hue: STAR_HUES[Math.floor(Math.random() * STAR_HUES.length)]
       });
     }
 
-    function renderStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // B. Subtle Background Celestial Grahas (Surya, Chandra, Guru)
+    const celestialGrahas = [
+      { name: 'Guru', x: width * 0.82, y: height * 0.22, radius: 9, color: '#f4c95d', glow: 'rgba(244, 201, 93, 0.2)', speedX: -0.04, speedY: 0.015, hasRing: true },
+      { name: 'Chandra', x: width * 0.14, y: height * 0.35, radius: 7, color: '#d9e4f5', glow: 'rgba(217, 228, 245, 0.25)', speedX: 0.03, speedY: 0.01, hasRing: false },
+      { name: 'Surya', x: width * 0.52, y: height * 0.78, radius: 11, color: '#ffb347', glow: 'rgba(255, 179, 71, 0.18)', speedX: -0.02, speedY: -0.02, hasRing: false }
+    ];
+
+    // C. Wishing Stars (Shooting Stars / Falling Tara)
+    const shootingStars = [];
+    function spawnShootingStar() {
+      if (document.hidden) return;
+      shootingStars.push({
+        x: Math.random() * width * 0.8,
+        y: Math.random() * height * 0.4,
+        length: Math.random() * 110 + 70,
+        speed: Math.random() * 8 + 6,
+        angle: (Math.PI / 180) * (Math.random() * 15 + 20), // 20°-35° gentle wish angle
+        alpha: 1,
+        fade: Math.random() * 0.018 + 0.012
+      });
+    }
+
+    // Schedule regular wishing stars every 5.5 to 8.5 seconds
+    setInterval(() => {
+      if (shootingStars.length < 2) spawnShootingStar();
+    }, 6500);
+    // Initial wishing star soon after load
+    setTimeout(spawnShootingStar, 1200);
+
+    // Pre-rendered offscreen nebula canvas for 60fps zero-allocation background
+    const nebCanvas = document.createElement('canvas');
+    nebCanvas.width = 640;
+    nebCanvas.height = 360;
+    const nebCtx = nebCanvas.getContext('2d');
+    function updateNebulaOffscreen() {
+      nebCtx.clearRect(0, 0, 640, 360);
+      const g1 = nebCtx.createRadialGradient(200, 140, 10, 200, 140, 300);
+      g1.addColorStop(0, 'rgba(109, 40, 217, 0.065)');
+      g1.addColorStop(0.6, 'rgba(30, 27, 75, 0.028)');
+      g1.addColorStop(1, 'transparent');
+      nebCtx.fillStyle = g1;
+      nebCtx.fillRect(0, 0, 640, 360);
+
+      const g2 = nebCtx.createRadialGradient(480, 230, 10, 480, 230, 280);
+      g2.addColorStop(0, 'rgba(212, 175, 55, 0.045)');
+      g2.addColorStop(0.5, 'rgba(13, 148, 136, 0.018)');
+      g2.addColorStop(1, 'transparent');
+      nebCtx.fillStyle = g2;
+      nebCtx.fillRect(0, 0, 640, 360);
+    }
+    updateNebulaOffscreen();
+
+    function renderBrahmand() {
+      brahmandTime += 0.01;
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Ethereal Nebulae Glow Clusters (GPU texture blit)
+      ctx.drawImage(nebCanvas, 0, 0, width, height);
+
+      // 2. Stars
       for (const s of stars) {
-        s.alpha += s.speed;
-        const currentAlpha = Math.abs(Math.sin(s.alpha));
-        ctx.fillStyle = `rgba(200, 215, 255, ${currentAlpha * 0.6})`;
+        s.alpha += s.twinkleSpeed;
+        s.x += s.driftX;
+        s.y += s.driftY;
+        if (s.x < 0) s.x = width;
+        if (s.x > width) s.x = 0;
+        if (s.y < 0) s.y = height;
+        if (s.y > height) s.y = 0;
+
+        const currentAlpha = 0.25 + 0.75 * Math.abs(Math.sin(s.alpha));
+        ctx.fillStyle = `${s.hue} ${currentAlpha * 0.75})`;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
         ctx.fill();
       }
-      requestAnimationFrame(renderStars);
+
+      // 3. Subtle Celestial Grahas (Planets)
+      for (const g of celestialGrahas) {
+        g.x += g.speedX;
+        g.y += g.speedY;
+        if (g.x < -40) g.x = width + 40;
+        if (g.x > width + 40) g.x = -40;
+        if (g.y < -40) g.y = height + 40;
+        if (g.y > height + 40) g.y = -40;
+
+        // Aura
+        const auraGrad = ctx.createRadialGradient(g.x, g.y, g.radius * 0.2, g.x, g.y, g.radius * 3.2);
+        auraGrad.addColorStop(0, g.glow);
+        auraGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = auraGrad;
+        ctx.beginPath();
+        ctx.arc(g.x, g.y, g.radius * 3.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Planet Body
+        ctx.beginPath();
+        ctx.arc(g.x, g.y, g.radius, 0, Math.PI * 2);
+        ctx.fillStyle = g.color;
+        ctx.globalAlpha = 0.75;
+        ctx.fill();
+
+        // Rings (for Guru)
+        if (g.hasRing) {
+          ctx.beginPath();
+          ctx.ellipse(g.x, g.y, g.radius * 2.2, g.radius * 0.65, Math.PI / 5, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(244, 201, 93, 0.45)';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1.0;
+      }
+
+      // 4. Wishing Stars (Falling Tara)
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const star = shootingStars[i];
+        star.x += Math.cos(star.angle) * star.speed;
+        star.y += Math.sin(star.angle) * star.speed;
+        star.alpha -= star.fade;
+
+        if (star.alpha <= 0 || star.x > width || star.y > height) {
+          shootingStars.splice(i, 1);
+          continue;
+        }
+
+        const tailX = star.x - Math.cos(star.angle) * star.length;
+        const tailY = star.y - Math.sin(star.angle) * star.length;
+
+        const starGrad = ctx.createLinearGradient(tailX, tailY, star.x, star.y);
+        starGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        starGrad.addColorStop(0.7, `rgba(254, 240, 138, ${star.alpha * 0.6})`);
+        starGrad.addColorStop(1, `rgba(255, 255, 255, ${star.alpha})`);
+
+        ctx.strokeStyle = starGrad;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(star.x, star.y);
+        ctx.stroke();
+
+        // Glowing Starhead
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      animId = requestAnimationFrame(renderBrahmand);
     }
 
-    renderStars();
+    renderBrahmand();
 
     window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     }, { passive: true });
   }
 
@@ -88,7 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resizeCursorCanvas, { passive: true });
 
     let lastMouseX = -100, lastMouseY = -100;
+    let livePointerX = -100, livePointerY = -100;
     let isHoveringInteractive = false;
+    let pointerFade = 0;
     const particles = [];
     let isLoopRunning = false;
 
@@ -110,23 +256,27 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.closePath();
     }
 
+    let lastTarget = null;
+
     function spawnParticle(x, y, isBurst = false, dirX = 0, dirY = 0) {
-      const angle = isBurst ? Math.random() * Math.PI * 2 : Math.atan2(dirY, dirX) + (Math.random() - 0.5) * 1.6;
-      const speed = isBurst ? (Math.random() * 4.0 + 1.5) : (Math.random() * 1.8 + 0.4);
-      const isStar = Math.random() > 0.4 || isBurst;
+      if (particles.length > 44) particles.splice(0, particles.length - 44);
+
+      const angle = isBurst ? Math.random() * Math.PI * 2 : Math.atan2(dirY, dirX) + (Math.random() - 0.5) * 1.5;
+      const speed = isBurst ? (Math.random() * 5.5 + 2.5) : (Math.random() * 2.2 + 0.8);
+      const isStar = Math.random() > 0.3 || isBurst;
       const color = STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)];
 
       particles.push({
         x: x + (Math.random() - 0.5) * 4,
         y: y + (Math.random() - 0.5) * 4,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 0.25,
+        vy: Math.sin(angle) * speed - 0.15,
         life: 1.0,
-        decay: isBurst ? (Math.random() * 0.035 + 0.02) : (Math.random() * 0.045 + 0.025),
-        size: isStar ? (Math.random() * 5.0 + 3.5) : (Math.random() * 2.5 + 1.2),
+        decay: isBurst ? (Math.random() * 0.045 + 0.025) : (Math.random() * 0.052 + 0.035),
+        size: isStar ? (Math.random() * 5.0 + 3.0) : (Math.random() * 2.5 + 1.0),
         innerSize: isStar ? (Math.random() * 1.6 + 0.8) : 0,
         rotation: Math.random() * Math.PI,
-        vRot: (Math.random() - 0.5) * 0.15,
+        vRot: (Math.random() - 0.5) * 0.3,
         color: color,
         isStar: isStar
       });
@@ -140,20 +290,38 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', (e) => {
       const currentX = e.clientX;
       const currentY = e.clientY;
+      livePointerX = currentX;
+      livePointerY = currentY;
+      pointerFade = 1.0;
+
+      // Cached target check (Zero layout thrashing)
+      if (e.target !== lastTarget) {
+        lastTarget = e.target;
+        isHoveringInteractive = !!(
+          lastTarget && lastTarget.closest && lastTarget.closest('a, button, input, select, textarea, label, [role="button"], .btn, .ticker-chip, .orbit-planet-badge, .filter-pill, .sync-card')
+        );
+      }
+
+      if (lastMouseX < 0) {
+        lastMouseX = currentX;
+        lastMouseY = currentY;
+        spawnParticle(currentX, currentY, false, 0, 0);
+        return;
+      }
+
       const dx = currentX - lastMouseX;
       const dy = currentY - lastMouseY;
       const dist = Math.hypot(dx, dy);
 
-      // Lightweight O(1) interactive target check (No layout thrashing / No getComputedStyle)
-      const target = e.target;
-      isHoveringInteractive = !!(
-        target && target.closest('a, button, input, select, textarea, label, [role="button"], .btn, .ticker-chip, .orbit-planet-badge, .filter-pill, .sync-card')
-      );
-
-      // Spawn smooth stardust comet sparkles when moving
-      if (dist >= 4 || lastMouseX < 0) {
-        const count = isHoveringInteractive ? 2 : (dist > 15 ? 2 : 1);
-        for (let i = 0; i < count; i++) {
+      // Fast, ultra-responsive continuous path interpolation
+      if (dist >= 3) {
+        const steps = Math.min(5, Math.max(1, Math.floor(dist / 14)));
+        for (let s = 1; s <= steps; s++) {
+          const ix = lastMouseX + (dx * s) / steps;
+          const iy = lastMouseY + (dy * s) / steps;
+          spawnParticle(ix, iy, false, -dx, -dy);
+        }
+        if (isHoveringInteractive) {
           spawnParticle(currentX, currentY, false, -dx, -dy);
         }
         lastMouseX = currentX;
@@ -163,23 +331,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('mousedown', (e) => {
       // Celestial Starburst on click
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 14; i++) {
         spawnParticle(e.clientX, e.clientY, true);
       }
     }, { passive: true });
 
+    window.addEventListener('mouseleave', () => {
+      pointerFade = 0;
+      lastMouseX = -100;
+      lastMouseY = -100;
+    });
+
+    let cursorAnimTime = 0;
+
     function renderCursorLoop() {
       cCtx.clearRect(0, 0, cWidth, cHeight);
+      cursorAnimTime += 0.05;
 
-      // Use hardware-accelerated additive blending for intense cosmic glow without GPU blur lag
+      // Hardware-accelerated additive blending
       cCtx.globalCompositeOperation = 'lighter';
 
+      // 1. Instantaneous Glowing Pointer Tip Sparkle (Zero delay, attached to current mouse)
+      if (pointerFade > 0.05 && livePointerX > 0) {
+        cCtx.globalAlpha = pointerFade * 0.85;
+        cCtx.fillStyle = isHoveringInteractive ? '#ffd572' : '#f5be48';
+        drawFourPointStar(cCtx, livePointerX, livePointerY, 6.5, 2.0, cursorAnimTime * 2);
+        cCtx.fill();
+
+        // Inner white nucleus
+        cCtx.fillStyle = '#ffffff';
+        cCtx.beginPath();
+        cCtx.arc(livePointerX, livePointerY, 1.8, 0, Math.PI * 2);
+        cCtx.fill();
+
+        pointerFade *= 0.94; // Gently fades when mouse stops
+      }
+
+      // 2. Trailing Stardust Particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vx *= 0.95;
-        p.vy *= 0.95;
+        p.vx *= 0.94;
+        p.vy *= 0.94;
         p.rotation += p.vRot;
         p.life -= p.decay;
 
@@ -188,7 +382,6 @@ document.addEventListener('DOMContentLoaded', () => {
           continue;
         }
 
-        cCtx.save();
         cCtx.globalAlpha = Math.max(0, Math.min(1, p.life));
         cCtx.fillStyle = p.color;
 
@@ -200,14 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
           cCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
           cCtx.fill();
         }
-        cCtx.restore();
       }
 
-      // Reset composite operation
+      cCtx.globalAlpha = 1.0;
       cCtx.globalCompositeOperation = 'source-over';
 
-      // Keep loop running only while particles are active (Sleep when idle to save 100% CPU/GPU)
-      if (particles.length > 0) {
+      if (particles.length > 0 || pointerFade > 0.05) {
         requestAnimationFrame(renderCursorLoop);
       } else {
         isLoopRunning = false;

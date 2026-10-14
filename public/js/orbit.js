@@ -39,25 +39,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 2. Master Astronomical State & Navigation ---
   let isLiveMode = true;
-  let activeSkyData = null;
+  const DEFAULT_NAVAGRAHA = {
+    Sun: { name: 'Sun', vedicName: 'Surya', glyph: '☉', color: '#ffb347', asset: 'Sovereign Debt & Gold', symbolLink: 'GOLD', significance: 'Primary vital market sentiment', longitude: 355.2, isRetrograde: false, rashi: { name: 'Pisces', vedic: 'Meena', index: 11, label: 'Pisces 25.2°' }, nakshatra: { label: 'Revati Pada 3' }, dignity: 'Neutral' },
+    Moon: { name: 'Moon', vedicName: 'Chandra', glyph: '☽', color: '#d9e4f5', asset: 'Nifty 50 Short-Term Vol', symbolLink: 'NIFTY', significance: 'Intraday emotional liquidity swings', longitude: 84.6, isRetrograde: false, rashi: { name: 'Gemini', vedic: 'Mithuna', index: 2, label: 'Gemini 24.6°' }, nakshatra: { label: 'Punarvasu Pada 2' }, dignity: 'Neutral' },
+    Mars: { name: 'Mars', vedicName: 'Mangala', glyph: '♂', color: '#ff5c5c', asset: 'Metals & Energy / Crude Oil', symbolLink: 'MCX', significance: 'Aggression, breakout momentum', longitude: 92.4, isRetrograde: false, rashi: { name: 'Cancer', vedic: 'Karka', index: 3, label: 'Cancer 2.4°' }, nakshatra: { label: 'Punarvasu Pada 4' }, dignity: 'Debilitated' },
+    Mercury: { name: 'Mercury', vedicName: 'Budha', glyph: '☿', color: '#5ce6c0', asset: 'IT Index & High-Frequency Algo', symbolLink: 'NIFTY', significance: 'Trading velocity and logic', longitude: 348.1, isRetrograde: false, rashi: { name: 'Pisces', vedic: 'Meena', index: 11, label: 'Pisces 18.1°' }, nakshatra: { label: 'Revati Pada 1' }, dignity: 'Debilitated' },
+    Jupiter: { name: 'Jupiter', vedicName: 'Guru', glyph: '♃', color: '#f4c95d', asset: 'Banking Index (Nifty Bank)', symbolLink: 'BANKNIFTY', significance: 'Capital expansion and institutional liquidity', longitude: 52.8, isRetrograde: false, rashi: { name: 'Taurus', vedic: 'Vrishabha', index: 1, label: 'Taurus 22.8°' }, nakshatra: { label: 'Rohini Pada 4' }, dignity: 'Friendly' },
+    Venus: { name: 'Venus', vedicName: 'Shukra', glyph: '♀', color: '#ffd6e8', asset: 'FMCG, Auto & Luxury Equities', symbolLink: 'SENSEX', significance: 'Consumer spending and wealth luxury', longitude: 14.5, isRetrograde: false, rashi: { name: 'Aries', vedic: 'Mesha', index: 0, label: 'Aries 14.5°' }, nakshatra: { label: 'Bharani Pada 1' }, dignity: 'Neutral' },
+    Saturn: { name: 'Saturn', vedicName: 'Shani', glyph: '♄', color: '#a4b4f0', asset: 'Infrastructure, PSUs & Real Estate', symbolLink: 'SENSEX', significance: 'Long-term structural valuation & discipline', longitude: 322.3, isRetrograde: false, rashi: { name: 'Aquarius', vedic: 'Kumbha', index: 10, label: 'Aquarius 22.3°' }, nakshatra: { label: 'Purva Bhadrapada Pada 1' }, dignity: 'Moolatrikona' },
+    Rahu: { name: 'Rahu', vedicName: 'Rahu', glyph: '☊', color: '#7a5cff', asset: 'Crypto (BTC) & Derivatives Volatility', symbolLink: 'BTC', significance: 'Unprecedented spikes and fear/greed', longitude: 344.2, isRetrograde: true, rashi: { name: 'Pisces', vedic: 'Meena', index: 11, label: 'Pisces 14.2°' }, nakshatra: { label: 'Uttara Bhadrapada Pada 4' }, dignity: 'Neutral' },
+    Ketu: { name: 'Ketu', vedicName: 'Ketu', glyph: '☋', color: '#d97706', asset: 'Defensive Gold Reserves', symbolLink: 'GOLD', significance: 'Market capitulation and deep liquidation', longitude: 164.2, isRetrograde: true, rashi: { name: 'Virgo', vedic: 'Kanya', index: 5, label: 'Virgo 14.2°' }, nakshatra: { label: 'Hasta Pada 2' }, dignity: 'Neutral' }
+  };
+  let activeSkyData = { planets: DEFAULT_NAVAGRAHA };
   let activeMarketData = null;
   let activeHoveredGraha = null;
   let selectedGraha = null;
 
-  // Vedic Rashis (12 signs, 30° each) with element colors & symbols
+  // Vedic Navagraha Hindi Nomenclature & Glyph mappings
+  const GRAHA_HINDI = {
+    Sun: { hindi: 'सूर्य', vedic: 'Surya', glyph: '☉' },
+    Moon: { hindi: 'चन्द्र', vedic: 'Chandra', glyph: '☽' },
+    Mars: { hindi: 'मंगल', vedic: 'Mangal', glyph: '♂' },
+    Mercury: { hindi: 'बुध', vedic: 'Budha', glyph: '☿' },
+    Jupiter: { hindi: 'गुरु', vedic: 'Guru', glyph: '♃' },
+    Venus: { hindi: 'शुक्र', vedic: 'Shukra', glyph: '♀' },
+    Saturn: { hindi: 'शनि', vedic: 'Shani', glyph: '♄' },
+    Rahu: { hindi: 'राहु', vedic: 'Rahu', glyph: '☊' },
+    Ketu: { hindi: 'केतु', vedic: 'Ketu', glyph: '☋' }
+  };
+
+  // Vedic Rashis (12 signs, 30° each) with Hindi fonts, element colors & symbols
   const RASHIS = [
-    { name: 'Aries', vedic: 'Mesha', symbol: '♈', sanskrit: 'मेष', element: '#f87171', nature: 'Fire' },
-    { name: 'Taurus', vedic: 'Vrishabha', symbol: '♉', sanskrit: 'वृषभ', element: '#34d399', nature: 'Earth' },
-    { name: 'Gemini', vedic: 'Mithuna', symbol: '♊', sanskrit: 'मिथुन', element: '#60a5fa', nature: 'Air' },
-    { name: 'Cancer', vedic: 'Karka', symbol: '♋', sanskrit: 'कर्क', element: '#818cf8', nature: 'Water' },
-    { name: 'Leo', vedic: 'Simha', symbol: '♌', sanskrit: 'सिंह', element: '#f87171', nature: 'Fire' },
+    { name: 'Aries', vedic: 'Mesh', symbol: '♈', sanskrit: 'मेष', element: '#f87171', nature: 'Fire' },
+    { name: 'Taurus', vedic: 'Vrishabh', symbol: '♉', sanskrit: 'वृषभ', element: '#34d399', nature: 'Earth' },
+    { name: 'Gemini', vedic: 'Mithun', symbol: '♊', sanskrit: 'मिथुन', element: '#60a5fa', nature: 'Air' },
+    { name: 'Cancer', vedic: 'Kark', symbol: '♋', sanskrit: 'कर्क', element: '#818cf8', nature: 'Water' },
+    { name: 'Leo', vedic: 'Singh', symbol: '♌', sanskrit: 'सिंह', element: '#f87171', nature: 'Fire' },
     { name: 'Virgo', vedic: 'Kanya', symbol: '♍', sanskrit: 'कन्या', element: '#34d399', nature: 'Earth' },
     { name: 'Libra', vedic: 'Tula', symbol: '♎', sanskrit: 'तुला', element: '#60a5fa', nature: 'Air' },
-    { name: 'Scorpio', vedic: 'Vrishchika', symbol: '♏', sanskrit: 'वृश्चिक', element: '#818cf8', nature: 'Water' },
+    { name: 'Scorpio', vedic: 'Vrishchik', symbol: '♏', sanskrit: 'वृश्चिक', element: '#818cf8', nature: 'Water' },
     { name: 'Sagittarius', vedic: 'Dhanu', symbol: '♐', sanskrit: 'धनु', element: '#f87171', nature: 'Fire' },
-    { name: 'Capricorn', vedic: 'Makara', symbol: '♑', sanskrit: 'मकर', element: '#34d399', nature: 'Earth' },
-    { name: 'Aquarius', vedic: 'Kumbha', symbol: '♒', sanskrit: 'कुम्भ', element: '#60a5fa', nature: 'Air' },
-    { name: 'Pisces', vedic: 'Meena', symbol: '♓', sanskrit: 'मीन', element: '#818cf8', nature: 'Water' }
+    { name: 'Capricorn', vedic: 'Makar', symbol: '♑', sanskrit: 'मकर', element: '#34d399', nature: 'Earth' },
+    { name: 'Aquarius', vedic: 'Kumbh', symbol: '♒', sanskrit: 'कुम्भ', element: '#60a5fa', nature: 'Air' },
+    { name: 'Pisces', vedic: 'Meen', symbol: '♓', sanskrit: 'मीन', element: '#818cf8', nature: 'Water' }
   ];
 
   // DOM Elements
@@ -85,13 +109,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const mBtc = document.getElementById('mBtcVal');
   const mobileTmDateLabel = document.getElementById('mobileTmDateLabel');
 
+  // Interactive On-Screen Zoom Controls (v2.0)
+  const btnZoomIn = document.getElementById('btnZoomIn');
+  const btnZoomOut = document.getElementById('btnZoomOut');
+  const btnZoomFit = document.getElementById('btnZoomFit');
+  const zoomLevelPill = document.getElementById('zoomLevelPill');
+
+  // Dynamic responsive camera distance calculation (fit on mobile Android/iPhone without clipping)
+  function getBaseCamDist() {
+    const w = window.innerWidth;
+    if (w <= 375) return 1320; // 360px - 375px: Samsung Galaxy A, iPhone SE, iPhone 12/13 mini
+    if (w <= 430) return 1200; // 390px - 430px: iPhone 12/13/14/15/16 Pro, Galaxy S23/S24
+    if (w <= 640) return 1020; // Phablets / Foldables
+    if (w <= 900) return 740;  // Tablets
+    return 500;                // Desktop
+  }
+
+  function updateZoomPill() {
+    try {
+      if (zoomLevelPill && typeof targetCamDist === 'number') {
+        const base = getBaseCamDist();
+        const pct = Math.round((base / targetCamDist) * 100);
+        zoomLevelPill.textContent = `${pct}%`;
+      }
+    } catch (e) {
+      // Safe no-op
+    }
+  }
+
   // --- 3. Desktop True 3D Geocentric Scene Engine ---
   let ctx3D = null;
   let width3D = 600, height3D = 460;
   let camPitch = 0.58; // Tilt angle (radians) ~33 deg for perfect 3D perspective
   let camYaw = -0.35;   // Rotation angle (radians)
-  let camDist = 500;   // Calibrated closer distance so the circle is BIG, prominent and fits canvas
-  let targetCamDist = 500;
+  let camDist = getBaseCamDist();   // Calibrated dynamically for device screen width
+  let targetCamDist = getBaseCamDist();
+  let userHasZoomed = false;
   let isDragging = false;
   let lastMouseX = 0, lastMouseY = 0;
   let targetPitch = 0.58, targetYaw = -0.35;
@@ -118,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Pre-generate 3D Starfield Particles for Deep Space Parallax
-  const STARS_COUNT = 160;
+  // Pre-generate 3D Starfield Particles for Deep Space Parallax (Optimized 70 points)
+  const STARS_COUNT = 70;
   const stars3D = [];
   for (let i = 0; i < STARS_COUNT; i++) {
     const theta = Math.random() * Math.PI * 2;
@@ -136,66 +189,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3D Celestial Financial Candlestick Horizon (Fusing The Sky with The Street)
-  const CANDLE_COUNT = 34;
-  const candleHorizon3D = [];
-
-  function generateCandleHorizon(mode = 'live') {
-    candleHorizon3D.length = 0;
-    let price = 100;
-    for (let i = 0; i < CANDLE_COUNT; i++) {
-      let delta = 0;
-      if (mode === 'lehman') {
-        delta = i < 8 ? (Math.random() - 0.42) * 4 : -Math.random() * 6 - 0.5;
-      } else if (mode === 'covid') {
-        delta = i < 14 ? -Math.random() * 7 - 0.5 : Math.random() * 8 + 0.8;
-      } else if (mode === 'election') {
-        delta = (i >= 12 && i <= 15) ? -9 : (i > 15 ? Math.random() * 8 + 1 : (Math.random() - 0.45) * 4);
-      } else if (mode === 'crypto') {
-        delta = i < 22 ? Math.random() * 7 + 0.5 : -Math.random() * 8 - 1;
-      } else {
-        // Live sidereal accumulation trend
-        delta = (Math.random() - 0.46) * 4.2;
-      }
-
-      const open = price;
-      const close = Math.max(30, open + delta);
-      const high = Math.max(open, close) + Math.random() * 2.8 + 0.6;
-      const low = Math.min(open, close) - (Math.random() * 2.8 + 0.6);
-      price = close;
-
-      // 3D curve positioning in space behind/below the central ecliptic plane
-      const t = (i / (CANDLE_COUNT - 1)) - 0.5; // -0.5 to 0.5
-      const wx = t * 760; // Spanning comfortably across the scene
-      const wy = 55 + Math.sin(t * Math.PI) * 40 - (close - 100) * 0.7; // Floating below/behind the rings
-      const wz = -110 + Math.cos(t * Math.PI) * 75;
-
-      candleHorizon3D.push({
-        wx, wy, wz,
-        open, high, low, close,
-        isBullish: close >= open
-      });
-    }
-  }
-
-  generateCandleHorizon('live');
+  let cachedBgGrad = null;
+  let isCanvasVisible = true;
 
   if (desktopCanvas) {
     ctx3D = desktopCanvas.getContext('2d');
 
+    // Pause rendering loop when canvas is off-screen (preserves full 60fps for page interactions)
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isCanvasVisible = entry.isIntersecting;
+        });
+      }, { threshold: 0.02 });
+      obs.observe(desktopCanvas);
+    }
+
     function setupDesktopDimensions() {
       const rect = desktopCanvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = rect.width > 50 ? rect.width : (desktopCanvas.parentElement ? desktopCanvas.parentElement.clientWidth : 1100);
-      const h = rect.height > 50 ? rect.height : 640;
-      width3D = w * dpr;
-      height3D = h * dpr;
+      const h = rect.height > 50 ? rect.height : (window.innerWidth <= 640 ? 380 : 640);
+      width3D = Math.round(w * dpr);
+      height3D = Math.round(h * dpr);
       desktopCanvas.width = width3D;
       desktopCanvas.height = height3D;
+
+      const cx = width3D / 2;
+      const cy = height3D / 2;
+      cachedBgGrad = ctx3D.createRadialGradient(cx, cy, 30, cx, cy, Math.max(width3D, height3D) * 0.75);
+      cachedBgGrad.addColorStop(0, '#0c122c');
+      cachedBgGrad.addColorStop(0.4, '#060a1a');
+      cachedBgGrad.addColorStop(1, '#03050d');
+
+      if (!userHasZoomed) {
+        targetCamDist = getBaseCamDist();
+      }
+      if (typeof updateZoomPill === 'function') updateZoomPill();
     }
 
     setupDesktopDimensions();
     window.addEventListener('resize', setupDesktopDimensions, { passive: true });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(setupDesktopDimensions, 100);
+    }, { passive: true });
 
     // 3D Camera Orbit Interactions (Mouse/Pointer Drag + Physics Easing)
     function onDragStart(e) {
@@ -205,6 +242,8 @@ document.addEventListener('DOMContentLoaded', () => {
       velYaw = 0;
       velPitch = 0;
       desktopCanvas.style.cursor = 'grabbing';
+      window.addEventListener('mousemove', onDragMove, { passive: true });
+      window.addEventListener('mouseup', onDragEnd);
     }
 
     function onDragMove(e) {
@@ -225,22 +264,37 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isDragging) {
         isDragging = false;
         if (desktopCanvas) desktopCanvas.style.cursor = 'grab';
+        window.removeEventListener('mousemove', onDragMove);
+        window.removeEventListener('mouseup', onDragEnd);
       }
     }
 
     desktopCanvas.addEventListener('mousedown', onDragStart);
-    window.addEventListener('mousemove', onDragMove);
-    window.addEventListener('mouseup', onDragEnd);
 
-    desktopCanvas.addEventListener('pointerdown', onDragStart);
-    window.addEventListener('pointermove', onDragMove);
-    window.addEventListener('pointerup', onDragEnd);
+    function onTouchStart(e) {
+      if (e.touches && e.touches.length === 1) {
+        onDragStart(e.touches[0]);
+        window.addEventListener('touchmove', onTouchMove, { passive: true });
+        window.addEventListener('touchend', onTouchEnd, { passive: true });
+      }
+    }
+    function onTouchMove(e) {
+      if (e.touches && e.touches.length === 1) onDragMove(e.touches[0]);
+    }
+    function onTouchEnd() {
+      onDragEnd();
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+    }
+    desktopCanvas.addEventListener('touchstart', onTouchStart, { passive: true });
 
     desktopCanvas.addEventListener('wheel', (e) => {
       e.preventDefault();
+      userHasZoomed = true;
       const zoomDelta = e.deltaY * 0.55;
       targetCamDist += zoomDelta;
-      targetCamDist = Math.max(420, Math.min(1150, targetCamDist));
+      const base = getBaseCamDist();
+      targetCamDist = Math.max(base * 0.55, Math.min(base * 1.8, targetCamDist));
       if (typeof updateZoomPill === 'function') updateZoomPill();
     }, { passive: false });
 
@@ -256,13 +310,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     desktopCanvas.addEventListener('touchmove', (e) => {
       if (e.touches && e.touches.length === 2 && touchStartDist) {
+        userHasZoomed = true;
         const dx = e.touches[0].clientX - e.touches[1].clientX;
         const dy = e.touches[0].clientY - e.touches[1].clientY;
         const dist = Math.sqrt(dx * dx + dy * dy);
         const diff = touchStartDist - dist;
         touchStartDist = dist;
         targetCamDist += diff * 1.5;
-        targetCamDist = Math.max(420, Math.min(1150, targetCamDist));
+        const base = getBaseCamDist();
+        targetCamDist = Math.max(base * 0.55, Math.min(base * 1.8, targetCamDist));
         if (typeof updateZoomPill === 'function') updateZoomPill();
       }
     }, { passive: true });
@@ -349,25 +405,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderDesktop3D() {
     if (!ctx3D) return;
-    monitorPerformance();
-
-    simTime += 0.016;
-
-    // Smooth camera distance zoom easing
-    camDist += (targetCamDist - camDist) * 0.14;
-
-    // Smooth inertia and physics damping
-    if (!isDragging) {
-      velYaw *= 0.94;
-      velPitch *= 0.94;
-      targetYaw += velYaw;
-      targetPitch += velPitch;
-
-      // Continuous dynamic celestial revolution
-      if (Math.abs(velYaw) < 0.0001 && !activeHoveredGraha) {
-        targetYaw += 0.0075; // Increased speed for fluid, majestic continuous orbital revolution
+    if (!isCanvasVisible) {
+      if (!prefersReducedMotion) {
+        animFrameId = requestAnimationFrame(renderDesktop3D);
       }
+      return;
     }
+    try {
+      monitorPerformance();
+
+      simTime += 0.016;
+
+      // Smooth camera distance zoom easing
+      camDist += (targetCamDist - camDist) * 0.14;
+
+      // Smooth inertia and physics damping
+      if (!isDragging) {
+        velYaw *= 0.94;
+        velPitch *= 0.94;
+        targetYaw += velYaw;
+        targetPitch += velPitch;
+
+        // Continuous dynamic celestial revolution
+        if (Math.abs(velYaw) < 0.0001 && !activeHoveredGraha) {
+          targetYaw += 0.0075; // Increased speed for fluid, majestic continuous orbital revolution
+        }
+      }
 
     camYaw += (targetYaw - camYaw) * 0.1;
     camPitch += (targetPitch - camPitch) * 0.1;
@@ -377,13 +440,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ctx3D.clearRect(0, 0, width3D, height3D);
 
-    // Deep luxury space background with subtle nebular radiance
-    const bgGrad = ctx3D.createRadialGradient(cx, cy, 30, cx, cy, Math.max(width3D, height3D) * 0.75);
-    bgGrad.addColorStop(0, '#0c122c');
-    bgGrad.addColorStop(0.4, '#060a1a');
-    bgGrad.addColorStop(1, '#03050d');
-    ctx3D.fillStyle = bgGrad;
-    ctx3D.fillRect(0, 0, width3D, height3D);
+    // Deep luxury space background with pre-cached gradient
+    if (cachedBgGrad) {
+      ctx3D.fillStyle = cachedBgGrad;
+      ctx3D.fillRect(0, 0, width3D, height3D);
+    }
 
     // Render 3D Parallax Starfield
     if (!isLowPerformance) {
@@ -400,46 +461,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       ctx3D.globalAlpha = 1.0;
     }
-
-    // --- 3D Celestial Financial Candlestick Horizon (Fusing Stars with Street) ---
-    candleHorizon3D.forEach(c => {
-      const p = project3D(c.wx, c.wy, c.wz, cx, cy);
-      if (!p.visible) return;
-
-      const sc = p.scale;
-      const cWidth = Math.max(3.5, 7.5 * sc);
-      const wickHigh = (c.high - Math.max(c.open, c.close)) * 2.4 * sc;
-      const wickLow = (Math.min(c.open, c.close) - c.low) * 2.4 * sc;
-      const bodyHeight = Math.max(3.5, Math.abs(c.close - c.open) * 2.4 * sc);
-
-      const color = c.isBullish ? 'rgba(99, 217, 165, 0.45)' : 'rgba(232, 123, 140, 0.45)';
-      const bodyFill = c.isBullish ? 'rgba(99, 217, 165, 0.24)' : 'rgba(232, 123, 140, 0.24)';
-
-      // Upper Wick
-      ctx3D.beginPath();
-      ctx3D.moveTo(p.x, p.y - bodyHeight / 2);
-      ctx3D.lineTo(p.x, p.y - bodyHeight / 2 - wickHigh);
-      ctx3D.strokeStyle = color;
-      ctx3D.lineWidth = 1;
-      ctx3D.stroke();
-
-      // Lower Wick
-      ctx3D.beginPath();
-      ctx3D.moveTo(p.x, p.y + bodyHeight / 2);
-      ctx3D.lineTo(p.x, p.y + bodyHeight / 2 + wickLow);
-      ctx3D.strokeStyle = color;
-      ctx3D.lineWidth = 1;
-      ctx3D.stroke();
-
-      // Candle Body
-      ctx3D.fillStyle = bodyFill;
-      ctx3D.strokeStyle = color;
-      ctx3D.lineWidth = 1.1;
-      ctx3D.beginPath();
-      ctx3D.rect(p.x - cWidth / 2, p.y - bodyHeight / 2, cWidth, bodyHeight);
-      ctx3D.fill();
-      ctx3D.stroke();
-    });
 
     // --- Geocentric Reference Tracks & Multi-Ring Concentric Astrolabe (v2.0) ---
     const activeOuterRadius = orbitMode === 'multiring' ? multiringRashiRadius : ringRadius;
@@ -459,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       grahaTracks.forEach(track => {
         ctx3D.beginPath();
-        const steps = isLowPerformance ? 36 : 64;
+        const steps = isLowPerformance ? 24 : 36;
         for (let s = 0; s <= steps; s++) {
           const rad = (s / steps) * Math.PI * 2;
           const p = project3D(Math.cos(rad) * track.r, 0, Math.sin(rad) * track.r, cx, cy);
@@ -509,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx3D.stroke();
 
     // 360 Graduation Ticks (Astronomical precision marks)
-    const tickStep = isLowPerformance ? 15 : 5;
+    const tickStep = isLowPerformance ? 15 : 10;
     for (let deg = 0; deg < 360; deg += tickStep) {
       const rad = (deg * Math.PI) / 180;
       const isMajor = deg % 30 === 0;
@@ -570,15 +591,15 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx3D.lineWidth = isAspectTarget ? 3.8 : 1.8;
       ctx3D.stroke();
 
-      // Rashi Label Placement
+      // Rashi Label Placement (Authentic Hindi Devanagari font)
       const midRad = (midDeg * Math.PI) / 180;
-      const pLabel = project3D(Math.cos(midRad) * (activeOuterRadius + 30), 0, Math.sin(midRad) * (activeOuterRadius + 30), cx, cy);
+      const pLabel = project3D(Math.cos(midRad) * (activeOuterRadius + 32), 0, Math.sin(midRad) * (activeOuterRadius + 32), cx, cy);
       if (pLabel.visible) {
         ctx3D.fillStyle = isAspectTarget ? '#ffe8a3' : rashi.element;
-        ctx3D.font = `bold ${Math.max(11, 14 * pLabel.scale)}px 'Cinzel', serif`;
+        ctx3D.font = `bold ${Math.max(12, 14 * pLabel.scale)}px 'Noto Sans Devanagari', 'Inter', sans-serif`;
         ctx3D.textAlign = 'center';
         ctx3D.textBaseline = 'middle';
-        ctx3D.fillText(`${rashi.symbol} ${rashi.name}`, pLabel.x, pLabel.y);
+        ctx3D.fillText(`${rashi.symbol} ${rashi.sanskrit}`, pLabel.x, pLabel.y);
       }
     }
 
@@ -627,21 +648,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Longitude meridian ellipse
       ctx3D.beginPath();
-      ctx3D.ellipse(earthProj.x, earthProj.y, Math.abs(Math.sin(rot)) * eRadius, eRadius, 0, 0, Math.PI * 2);
+      ctx3D.ellipse(earthProj.x, earthProj.y, Math.max(0.5, Math.abs(Math.sin(rot)) * eRadius), Math.max(0.5, eRadius), 0, 0, Math.PI * 2);
       ctx3D.stroke();
 
       // Latitude parallel
       ctx3D.beginPath();
-      ctx3D.ellipse(earthProj.x, earthProj.y, eRadius, eRadius * 0.35, 0, 0, Math.PI * 2);
+      ctx3D.ellipse(earthProj.x, earthProj.y, Math.max(0.5, eRadius), Math.max(0.5, eRadius * 0.35), 0, 0, Math.PI * 2);
       ctx3D.stroke();
       ctx3D.restore();
 
-      // Label Center Earth
+      // Label Center Earth in Hindi
       ctx3D.fillStyle = '#f8fafc';
-      ctx3D.font = `bold ${Math.max(11, 13 * earthProj.scale)}px 'Inter', sans-serif`;
+      ctx3D.font = `bold ${Math.max(12, 14 * earthProj.scale)}px 'Noto Sans Devanagari', 'Inter', sans-serif`;
       ctx3D.textAlign = 'center';
       ctx3D.textBaseline = 'middle';
-      ctx3D.fillText('🌍 Earth', earthProj.x, earthProj.y + eRadius + 18 * earthProj.scale);
+      ctx3D.fillText('🌍 पृथ्वी', earthProj.x, earthProj.y + eRadius + 18 * earthProj.scale);
     }
 
     // --- Render Navagraha Bodies with Custom 3D Volumetric Shading ---
@@ -753,7 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Shani's 3D Ring System
           ctx3D.save();
           ctx3D.beginPath();
-          ctx3D.ellipse(p.proj.x, p.proj.y, radius * 2.4, radius * 0.8, Math.PI / 6, 0, Math.PI * 2);
+          ctx3D.ellipse(p.proj.x, p.proj.y, Math.max(0.5, radius * 2.4), Math.max(0.5, radius * 0.8), Math.PI / 6, 0, Math.PI * 2);
           ctx3D.strokeStyle = 'rgba(245, 190, 72, 0.75)';
           ctx3D.lineWidth = 3.6 * p.proj.scale;
           ctx3D.stroke();
@@ -795,12 +816,18 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx3D.stroke();
         }
 
-        // Draw Planetary Vedic Glyph
+        // Draw Planetary Vedic Glyph & Hindi Name
+        const gHindi = GRAHA_HINDI[p.name] || { hindi: p.name, glyph: p.glyph };
         ctx3D.fillStyle = p.name === 'Sun' || p.name === 'Moon' ? '#040711' : '#ffffff';
         ctx3D.font = `bold ${Math.max(12, 16 * p.proj.scale)}px 'Inter', sans-serif`;
         ctx3D.textAlign = 'center';
         ctx3D.textBaseline = 'middle';
         ctx3D.fillText(p.glyph, p.proj.x, p.proj.y);
+
+        // Always display Hindi Graha name tag right below the planet
+        ctx3D.fillStyle = isHovered ? '#ffd572' : 'rgba(250, 228, 181, 0.95)';
+        ctx3D.font = `bold ${Math.max(10, 12 * p.proj.scale)}px 'Noto Sans Devanagari', 'Inter', sans-serif`;
+        ctx3D.fillText(gHindi.hindi, p.proj.x, p.proj.y + radius + 14 * p.proj.scale);
 
         // Hover Reticle (High-precision Caliper Ring)
         if (isHovered) {
@@ -813,10 +840,10 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx3D.stroke();
           ctx3D.restore();
 
-          // Coordinate readout tooltip on canvas
+          // Coordinate readout tooltip on canvas in Hindi
           ctx3D.fillStyle = '#ffe8a3';
-          ctx3D.font = `bold ${Math.max(11, 13 * p.proj.scale)}px 'IBM Plex Mono', monospace`;
-          ctx3D.fillText(`${p.name} • ${p.longitude}°`, p.proj.x, p.proj.y - radius - 16);
+          ctx3D.font = `bold ${Math.max(11, 13 * p.proj.scale)}px 'Noto Sans Devanagari', 'IBM Plex Mono', monospace`;
+          ctx3D.fillText(`${gHindi.hindi} • ${p.longitude}°`, p.proj.x, p.proj.y - radius - 16);
         }
 
         // Retrograde badge indicator (V2 Dedicated Neon Violet Token)
@@ -827,64 +854,89 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
+    } catch (err3D) {
+      // Gracefully recover frame from any canvas draw exception
+    }
 
     if (!prefersReducedMotion) {
       animFrameId = requestAnimationFrame(renderDesktop3D);
     }
   }
 
-  // --- 5. Desktop Hit-Testing & Hover Raycast ---
+  // --- 5. Unified Hit-Testing & Hover/Touch Raycast (Mobile & Desktop) ---
+  function findGrahaAtClientCoords(clientX, clientY) {
+    if (!activeSkyData || !activeSkyData.planets || !desktopCanvas) return null;
+
+    const rect = desktopCanvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const mx = (clientX - rect.left) * dpr;
+    const my = (clientY - rect.top) * dpr;
+
+    const cx = width3D / 2;
+    const cy = height3D / 2;
+
+    // Generous touch slop on mobile for easy finger tapping
+    const hitSlop = (window.innerWidth <= 640 ? 24 : 14) * dpr;
+
+    for (const p of Object.values(activeSkyData.planets)) {
+      const rad = (p.longitude * Math.PI) / 180;
+      const pRad = getGrahaRadius(p.name);
+      const wx = Math.cos(rad) * pRad;
+      const wz = Math.sin(rad) * pRad;
+      const proj = project3D(wx, 0, wz, cx, cy);
+      if (!proj.visible) continue;
+
+      const baseRadius = 18 * proj.scale;
+      const dx = mx - proj.x;
+      const dy = my - proj.y;
+      const maxDist = baseRadius + hitSlop;
+      if (dx * dx + dy * dy <= maxDist * maxDist) {
+        return p;
+      }
+    }
+    return null;
+  }
+
+  let pendingHoverX = -1, pendingHoverY = -1;
+  let hoverRafPending = false;
+
   if (desktopCanvas) {
     desktopCanvas.addEventListener('mousemove', (e) => {
-      if (!activeSkyData || !activeSkyData.planets) return;
-
-      const rect = desktopCanvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const mx = (e.clientX - rect.left) * dpr;
-      const my = (e.clientY - rect.top) * dpr;
-
-      const cx = width3D / 2;
-      const cy = height3D / 2;
-
-      let found = null;
-      for (const p of Object.values(activeSkyData.planets)) {
-        const rad = (p.longitude * Math.PI) / 180;
-        const pRad = getGrahaRadius(p.name);
-        const wx = Math.cos(rad) * pRad;
-        const wz = Math.sin(rad) * pRad;
-        const proj = project3D(wx, 0, wz, cx, cy);
-        if (!proj.visible) continue;
-
-        const baseRadius = 18 * proj.scale;
-        const dx = mx - proj.x;
-        const dy = my - proj.y;
-        if (Math.sqrt(dx * dx + dy * dy) <= baseRadius + 14) {
-          found = p;
-          break;
-        }
+      pendingHoverX = e.clientX;
+      pendingHoverY = e.clientY;
+      if (!hoverRafPending) {
+        hoverRafPending = true;
+        requestAnimationFrame(() => {
+          hoverRafPending = false;
+          if (pendingHoverX < 0) return;
+          const found = findGrahaAtClientCoords(pendingHoverX, pendingHoverY);
+          if (found !== activeHoveredGraha) {
+            activeHoveredGraha = found;
+            desktopCanvas.style.cursor = found ? 'pointer' : (isDragging ? 'grabbing' : 'grab');
+            updateInspector(found || selectedGraha);
+            highlightLinkedWidgets(found || selectedGraha);
+          }
+        });
       }
+    }, { passive: true });
 
-      if (found !== activeHoveredGraha) {
-        activeHoveredGraha = found;
-        desktopCanvas.style.cursor = found ? 'pointer' : (isDragging ? 'grabbing' : 'grab');
-        updateInspector(found);
-        highlightLinkedWidgets(found);
-      }
-    });
-
-    desktopCanvas.addEventListener('click', () => {
-      if (activeHoveredGraha) {
-        selectedGraha = activeHoveredGraha;
+    desktopCanvas.addEventListener('click', (e) => {
+      // Find directly at click/touch coordinates (critical for mobile tap selection)
+      const found = findGrahaAtClientCoords(e.clientX, e.clientY) || activeHoveredGraha;
+      if (found) {
+        selectedGraha = (selectedGraha && selectedGraha.name === found.name) ? null : found;
+        activeHoveredGraha = selectedGraha;
         updateInspector(selectedGraha);
         highlightLinkedWidgets(selectedGraha);
         // Sync active state on bottom badges
         document.querySelectorAll('.orbit-planet-badge').forEach(b => {
           const pName = b.getAttribute('data-planet');
-          b.classList.toggle('active', pName && pName.toLowerCase() === selectedGraha.name.toLowerCase());
+          b.classList.toggle('active', !!(selectedGraha && pName && pName.toLowerCase() === selectedGraha.name.toLowerCase()));
         });
       } else {
         // Deselect when clicking on empty canvas
         selectedGraha = null;
+        activeHoveredGraha = null;
         updateInspector(null);
         highlightLinkedWidgets(null);
         document.querySelectorAll('.orbit-planet-badge').forEach(b => b.classList.remove('active'));
@@ -981,10 +1033,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const lx = cx + Math.cos(midRad) * (mRadius + 18);
         const ly = cy + Math.sin(midRad) * (mRadius + 18);
         ctx2D.fillStyle = rashi.element;
-        ctx2D.font = 'bold 11px sans-serif';
+        ctx2D.font = "bold 10px 'Noto Sans Devanagari', 'Inter', sans-serif";
         ctx2D.textAlign = 'center';
         ctx2D.textBaseline = 'middle';
-        ctx2D.fillText(rashi.symbol, lx, ly);
+        ctx2D.fillText(`${rashi.symbol} ${rashi.sanskrit}`, lx, ly);
       }
 
       // Draw Planets on 2D Top-down wheel
@@ -1002,11 +1054,17 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx2D.lineWidth = 1.8;
           ctx2D.stroke();
 
+          const gHindi = GRAHA_HINDI[p.name] || { hindi: p.name, glyph: p.glyph };
           ctx2D.fillStyle = '#040711';
           ctx2D.font = 'bold 11px sans-serif';
           ctx2D.textAlign = 'center';
           ctx2D.textBaseline = 'middle';
           ctx2D.fillText(p.glyph, px, py);
+
+          // Planet Hindi Name label on mobile
+          ctx2D.fillStyle = 'rgba(250, 228, 181, 0.95)';
+          ctx2D.font = "bold 9px 'Noto Sans Devanagari', 'Inter', sans-serif";
+          ctx2D.fillText(gHindi.hindi, px, py + 18);
 
           if (p.isRetrograde && p.name !== 'Rahu' && p.name !== 'Ketu') {
             ctx2D.fillStyle = '#ef4444';
@@ -1121,7 +1179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- 9. Load Real Data from Backend Ephemeris (Cached VedAstro Engine) ---
+  // --- 9. Load Real Data from Backend Ephemeris (NASA JPL Sidereal Engine) ---
   async function loadLiveSky() {
     try {
       const res = await fetch('/api/ephemeris');
@@ -1137,7 +1195,7 @@ document.addEventListener('DOMContentLoaded', () => {
           statusDot.style.boxShadow = '0 0 8px var(--market-green-glow)';
         }
 
-        const vBadge = document.getElementById('vedastroTelemetryBadge');
+        const vBadge = document.getElementById('jplTelemetryBadge') || document.getElementById('vedastroTelemetryBadge');
         if (vBadge && data.telemetry) {
           vBadge.title = `Observatory Ephemeris: ${data.telemetry.provider}\nAyanamsa: ${data.telemetry.ayanamsa}\nMeridian: ${data.telemetry.coordinates}\nIST Sync: ${data.telemetry.syncTimestamp}`;
           vBadge.onclick = () => {
@@ -1151,7 +1209,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobileCanvas && ctx2D) {
           renderMobile2D();
         }
-        generateCandleHorizon('live');
       }
     } catch (e) {
       console.warn('Ephemeris load fallback active');
@@ -1169,13 +1226,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const snap = data.snapshot;
         activeSkyData = { planets: snap.planets };
         isLiveMode = false;
-
-        // Morph 3D Financial Candlestick Horizon to Epoch Market Structure
-        if (dateStr.includes('2008')) generateCandleHorizon('lehman');
-        else if (dateStr.includes('2020')) generateCandleHorizon('covid');
-        else if (dateStr.includes('2024')) generateCandleHorizon('election');
-        else if (dateStr.includes('2021')) generateCandleHorizon('crypto');
-        else generateCandleHorizon('live');
 
         // Update Observatory status
         if (modeLabel) modeLabel.textContent = `4D Archive: ${dateStr}`;
@@ -1302,22 +1352,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Interactive On-Screen Zoom Controls (v2.0)
-  const btnZoomIn = document.getElementById('btnZoomIn');
-  const btnZoomOut = document.getElementById('btnZoomOut');
-  const btnZoomFit = document.getElementById('btnZoomFit');
-  const zoomLevelPill = document.getElementById('zoomLevelPill');
-
-  function updateZoomPill() {
-    if (zoomLevelPill) {
-      const pct = Math.round((500 / targetCamDist) * 100);
-      zoomLevelPill.textContent = `${pct}%`;
-    }
-  }
-
   if (btnZoomIn) {
     btnZoomIn.addEventListener('click', (e) => {
       e.stopPropagation();
-      targetCamDist = Math.max(320, targetCamDist - 55);
+      userHasZoomed = true;
+      const base = getBaseCamDist();
+      const step = Math.round(base * 0.12);
+      targetCamDist = Math.max(base * 0.55, targetCamDist - step);
       updateZoomPill();
     });
   }
@@ -1325,7 +1366,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnZoomOut) {
     btnZoomOut.addEventListener('click', (e) => {
       e.stopPropagation();
-      targetCamDist = Math.min(880, targetCamDist + 55);
+      userHasZoomed = true;
+      const base = getBaseCamDist();
+      const step = Math.round(base * 0.12);
+      targetCamDist = Math.min(base * 1.8, targetCamDist + step);
       updateZoomPill();
     });
   }
@@ -1333,7 +1377,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnZoomFit) {
     btnZoomFit.addEventListener('click', (e) => {
       e.stopPropagation();
-      targetCamDist = 500;
+      userHasZoomed = false;
+      targetCamDist = getBaseCamDist();
       targetPitch = 0.58;
       targetYaw = -0.35;
       updateZoomPill();
@@ -1360,6 +1405,31 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   } catch (err) {
     console.debug('SSE initialization error in orbit.js:', err);
+  }
+
+  // Dynamic Headline Phrase Rotator: Where Stars Meet [Phrase without quotes]
+  const dynamicStreetEl = document.getElementById('dynamicStreetText');
+  if (dynamicStreetEl) {
+    const streetPhrases = [
+      'Dalal Street',
+      'Wall Street',
+      'Market Trends',
+      'Financial Destiny',
+      'Trading Profits',
+      'Wealth Creation'
+    ];
+    let phraseIndex = 0;
+    setInterval(() => {
+      dynamicStreetEl.style.opacity = '0';
+      dynamicStreetEl.style.transform = 'translateY(-8px)';
+      dynamicStreetEl.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      setTimeout(() => {
+        phraseIndex = (phraseIndex + 1) % streetPhrases.length;
+        dynamicStreetEl.textContent = streetPhrases[phraseIndex];
+        dynamicStreetEl.style.opacity = '1';
+        dynamicStreetEl.style.transform = 'translateY(0)';
+      }, 400);
+    }, 2800);
   }
 
   // Start 3D Render Loop

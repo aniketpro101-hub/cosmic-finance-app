@@ -2,50 +2,90 @@
   <header class="page-header text-center">
     <div class="cosmic-badge">
       <span class="pulsing-star">✦</span>
-      <span>VEDIC TRADING PROCLIVITY ENGINE</span>
+      <span>VEDIC FINANCIAL ASTROLOGY ENGINE</span>
     </div>
-    <h1 class="page-title">Know Your <span class="text-gold">Trading Kundli</span></h1>
+    <h1 class="page-title">Get Your Kundli by <span class="text-gold">Date of Birth</span></h1>
     <p class="page-subtitle">
-      Decode your innate psychological trading strengths, speculation yoga propensity, and asset-class alignment through classical Jyotish planetary physics.
+      Decode how astrological Grahas impact your personal financial destiny, stock market speculation instincts, and wealth-compounding propensities.
     </p>
   </header>
 
   <div class="kundli-funnel-wrapper" id="kundliFunnel">
-    <!-- Step 1: Input Form -->
+    <!-- Step 1: Input Form (Aligned with Classical Kundli Specifications) -->
     <div class="kundli-card" id="kundliFormCard">
       <div class="kundli-card-header">
         <h2>Enter Your Birth Coordinates</h2>
-        <p>Your birth details remain 100% confidential and encrypted using AES-256 standard.</p>
+        <p>Your birth details remain 100% confidential and encrypted under military-grade AES-256 standards.</p>
       </div>
 
       <form id="tradingKundliForm" class="cosmic-form" novalidate>
-        <div class="form-group">
-          <label for="fullName">Full Name <span class="required">*</span></label>
-          <input type="text" id="fullName" name="fullName" class="form-control" placeholder="e.g. Vikram Sharma" required>
-          <span class="field-error" id="nameError"></span>
+        <!-- Row 1: Name & Gender Toggle -->
+        <div class="form-row-split">
+          <div class="form-group flex-2">
+            <label for="fullName">Name <span class="required">*</span></label>
+            <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter Full Name" required>
+            <span class="field-error" id="nameError"></span>
+          </div>
+
+          <div class="form-group flex-1">
+            <label>Gender <span class="required">*</span></label>
+            <div class="gender-toggle-group">
+              <button type="button" class="gender-btn active" data-gender="Male" id="btnGenderMale">Male</button>
+              <button type="button" class="gender-btn" data-gender="Female" id="btnGenderFemale">Female</button>
+            </div>
+            <input type="hidden" id="genderInput" name="gender" value="Male">
+          </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group col-half">
-            <label for="dob">Date of Birth <span class="required">*</span></label>
-            <input type="date" id="dob" name="dob" class="form-control" required>
-            <span class="field-error" id="dobError"></span>
+        <!-- Row 2: Date of Birth (Day / Month / Year) -->
+        <div class="form-row-three">
+          <div class="form-group">
+            <label for="birthDay">Day <span class="required">*</span></label>
+            <input type="number" id="birthDay" name="day" class="form-control" placeholder="DD" min="1" max="31" required>
+            <span class="field-error" id="dayError"></span>
           </div>
-          <div class="form-group col-half">
-            <label for="tob">Time of Birth</label>
-            <input type="time" id="tob" name="tob" class="form-control" step="60">
-            <div class="checkbox-subgroup">
-              <label class="checkbox-inline">
-                <input type="checkbox" id="approxTime" name="approxTime">
-                <span>Approximate / Not completely certain</span>
-              </label>
+          <div class="form-group">
+            <label for="birthMonth">Month <span class="required">*</span></label>
+            <input type="number" id="birthMonth" name="month" class="form-control" placeholder="MM" min="1" max="12" required>
+            <span class="field-error" id="monthError"></span>
+          </div>
+          <div class="form-group">
+            <label for="birthYear">Year <span class="required">*</span></label>
+            <input type="number" id="birthYear" name="year" class="form-control" placeholder="YYYY" min="1930" max="2026" required>
+            <span class="field-error" id="yearError"></span>
+          </div>
+        </div>
+
+        <!-- Row 3: Time of Birth (Hrs / Min / Sec) -->
+        <div class="form-row-three">
+          <div class="form-group">
+            <label for="birthHrs">Hrs (0-23)</label>
+            <input type="number" id="birthHrs" name="hrs" class="form-control" placeholder="Hours" min="0" max="23" value="12">
+          </div>
+          <div class="form-group">
+            <label for="birthMin">Min (0-59)</label>
+            <input type="number" id="birthMin" name="min" class="form-control" placeholder="Minute" min="0" max="59" value="00">
+          </div>
+          <div class="form-group">
+            <label for="birthSec">Sec (0-59)</label>
+            <input type="number" id="birthSec" name="sec" class="form-control" placeholder="Second" min="0" max="59" value="00">
+          </div>
+        </div>
+
+        <!-- Row 4: Place of Birth + Quick Buttons -->
+        <div class="form-group">
+          <div class="label-with-actions">
+            <label for="pob">Place of Birth <span class="required">*</span></label>
+            <div class="quick-location-actions">
+              <button type="button" class="btn-quick-text" id="btnCurrentLocation">
+                <span>📍 CURRENT LOCATION</span>
+              </button>
+              <button type="button" class="btn-quick-text text-gold" id="btnSetNow">
+                <span>⚡ NOW</span>
+              </button>
             </div>
           </div>
-        </div>
-
-        <div class="form-group">
-          <label for="pob">Place of Birth (City, State) <span class="required">*</span></label>
-          <input type="text" id="pob" name="pob" class="form-control" list="indianCities" placeholder="e.g. Mumbai, Maharashtra" required>
+          <input type="text" id="pob" name="pob" class="form-control" list="indianCities" placeholder="e.g. Mumbai, Maharashtra" value="Mumbai, Maharashtra" required>
           <datalist id="indianCities">
             <option value="Mumbai, Maharashtra">
             <option value="Delhi, NCR">
@@ -65,18 +105,105 @@
           <span class="field-error" id="pobError"></span>
         </div>
 
-        <div class="form-group checkbox-group">
+        <!-- Advanced Settings Toggle Trigger -->
+        <div class="advanced-settings-bar">
+          <button type="button" class="btn-toggle-settings" id="btnToggleSettings">
+            <span id="settingsIcon">[+]</span> SETTINGS
+          </button>
+          <span class="settings-hint">GPS coordinates, Ayanamsha &amp; Chart Style</span>
+        </div>
+
+        <!-- Collapsible Advanced Settings Drawer -->
+        <div class="advanced-settings-drawer hidden" id="advancedSettingsDrawer">
+          <div class="advanced-settings-box">
+            <div class="adv-header">
+              <h3>Advanced Astronomical Settings</h3>
+              <span class="gps-badge">GPS Precision High</span>
+            </div>
+
+            <div class="form-row-three">
+              <div class="form-group">
+                <label for="longDeg">LongDeg</label>
+                <input type="number" id="longDeg" name="longDeg" class="form-control" placeholder="72" value="72">
+              </div>
+              <div class="form-group">
+                <label for="longMin">LongMin</label>
+                <input type="number" id="longMin" name="longMin" class="form-control" placeholder="52" value="52">
+              </div>
+              <div class="form-group">
+                <label for="longEW">LongEW</label>
+                <select id="longEW" name="longEW" class="form-control">
+                  <option value="E" selected>East (E)</option>
+                  <option value="W">West (W)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-three">
+              <div class="form-group">
+                <label for="latDeg">LatDeg</label>
+                <input type="number" id="latDeg" name="latDeg" class="form-control" placeholder="18" value="18">
+              </div>
+              <div class="form-group">
+                <label for="latMin">LatMin</label>
+                <input type="number" id="latMin" name="latMin" class="form-control" placeholder="58" value="58">
+              </div>
+              <div class="form-group">
+                <label for="latNS">LatNS</label>
+                <select id="latNS" name="latNS" class="form-control">
+                  <option value="N" selected>North (N)</option>
+                  <option value="S">South (S)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="timeZone">Time Zone</label>
+                <input type="text" id="timeZone" name="timeZone" class="form-control" value="+05:30 (Asia/Kolkata)">
+              </div>
+              <div class="form-group col-half">
+                <label for="ayanamsaSelect">Ayanamsa</label>
+                <select id="ayanamsaSelect" name="ayanamsa" class="form-control">
+                  <option value="N.C.Lahiri" selected>N.C. Lahiri (Chitra Paksha)</option>
+                  <option value="Raman">B.V. Raman</option>
+                  <option value="KP">KP (Krishnamurti Paddhati)</option>
+                  <option value="TrueChitra">True Chitra Sidereal</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="chartStyleSelect">Chart Style</label>
+                <select id="chartStyleSelect" name="chartStyle" class="form-control">
+                  <option value="North Indian" selected>North Indian (Diamond Chakra)</option>
+                  <option value="South Indian">South Indian (Square Box)</option>
+                </select>
+              </div>
+              <div class="form-group col-half">
+                <div class="label-with-actions">
+                  <label for="horaryNumber">KP Horary Number (1-249)</label>
+                  <button type="button" class="btn-text-link" id="btnRandomKP">Random KP Number</button>
+                </div>
+                <input type="number" id="horaryNumber" name="horaryNumber" class="form-control" placeholder="e.g. 170" min="1" max="249">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Submission -->
+        <div class="form-group checkbox-group" style="margin-top: 14px;">
           <label class="consent-label">
-            <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
-            <span>I consent to having my birth details calculated for educational trading astrological analysis in accordance with the <a href="/privacy" target="_blank">Privacy Policy</a>.</span>
+            <input type="checkbox" id="privacyConsent" name="privacyConsent" checked required>
+            <span>I consent to having my birth details calculated for Vedic financial astrological analysis under strict confidentiality.</span>
           </label>
           <span class="field-error" id="consentError"></span>
         </div>
 
-        <div class="form-actions">
-          <button type="submit" class="btn btn-gold btn-block btn-lg" id="btnCalculateKundli">
-            <span>Calculate Trading Kundli</span>
-            <span class="btn-icon">✧</span>
+        <div class="form-actions text-center" style="margin-top: 18px;">
+          <button type="submit" class="btn btn-show-kundli" id="btnCalculateKundli">
+            <span>SHOW KUNDLI</span>
           </button>
         </div>
       </form>
@@ -89,69 +216,233 @@
         <div class="orbit-ring ring-2"></div>
         <div class="celestial-core">✦</div>
       </div>
-      <h3>Calculating Planetary Ephemeris...</h3>
-      <p>Analyzing 2nd, 5th, and 11th houses against planetary positions</p>
+      <h3>Calculating Natal Ephemeris...</h3>
+      <p>Plotting 12 Bhavas, planetary dignities, and financial speculation yogas</p>
     </div>
 
-    <!-- Step 2: Instant Teaser Result (Hidden by default) -->
+    <!-- Step 2: Instant Impressive Kundli Display Result -->
     <div class="kundli-result-card" id="kundliResultCard" style="display: none;">
-      <div class="result-header">
-        <div class="result-badge">Personalized Jyotish Teaser</div>
-        <h2 id="resultUserName">Analysis for Vikram</h2>
-        <span class="result-timestamp">Calculated via Vedic Geocentric Ephemeris</span>
+      <!-- Result Top Header -->
+      <div class="result-header-luxury">
+        <div class="result-header-left">
+          <span class="result-badge-gold">✦ VEDIC FINANCIAL HOROSCOPE</span>
+          <h2 id="resultUserName">Analysis for Vikram</h2>
+          <div class="result-meta-line" id="resultMetaLine">
+            <span>📅 15-Jan-1994 &bull; 12:00 PM</span>
+            <span>📍 Mumbai, Maharashtra</span>
+            <span>🪐 Ascendant: Aries (Mesha)</span>
+          </div>
+        </div>
+        <div class="result-header-right">
+          <div class="chart-switch-pills">
+            <button type="button" class="chart-pill active" id="btnChartStyleNorth">North Indian</button>
+            <button type="button" class="chart-pill" id="btnChartStyleSouth">South Indian</button>
+          </div>
+        </div>
       </div>
 
-      <!-- Vedic Diamond Chakra Chart Visualization -->
-      <div class="vedic-chakra-visual">
-        <svg viewBox="0 0 300 300" class="chakra-svg" aria-label="Vedic Kundli Natal Chart">
-          <!-- Outer border -->
-          <rect x="10" y="10" width="280" height="280" fill="none" stroke="rgba(164, 180, 240, 0.25)" stroke-width="2"/>
-          <!-- Diagonals -->
-          <line x1="10" y1="10" x2="290" y2="290" stroke="rgba(164, 180, 240, 0.18)" stroke-width="1.5"/>
-          <line x1="290" y1="10" x2="10" y2="290" stroke="rgba(164, 180, 240, 0.18)" stroke-width="1.5"/>
-          <!-- Inner Diamond -->
-          <polygon points="150,10 290,150 150,290 10,150" fill="rgba(245, 190, 72, 0.08)" stroke="#f5be48" stroke-width="2"/>
-          
-          <!-- Key Bhavas Accents -->
-          <!-- 1st House (Lagna) Top Diamond Center -->
-          <text x="150" y="70" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="bold">1. Lagna</text>
-          <text x="150" y="90" text-anchor="middle" fill="#94a3b8" font-size="10" id="chartLagnaSign">Aries</text>
+      <!-- Main Visual Birth Chart Container -->
+      <div class="kundli-charts-row">
+        <!-- North Indian Diamond Chart -->
+        <div class="chakra-card-box" id="chartViewNorth">
+          <div class="chakra-title-bar">
+            <span>Lagna Kundli (D1 Rashi Chart)</span>
+            <span class="tag-gold">Geocentric Sidereal</span>
+          </div>
+          <div class="vedic-chakra-visual">
+            <svg viewBox="0 0 340 340" class="chakra-svg" id="northIndianChartSvg" aria-label="North Indian Vedic Kundli Chart">
+              <!-- Background -->
+              <rect x="10" y="10" width="320" height="320" fill="#070c22" stroke="rgba(245, 190, 72, 0.45)" stroke-width="2"/>
+              <!-- Diagonals -->
+              <line x1="10" y1="10" x2="330" y2="330" stroke="rgba(164, 180, 240, 0.35)" stroke-width="1.5"/>
+              <line x1="330" y1="10" x2="10" y2="330" stroke="rgba(164, 180, 240, 0.35)" stroke-width="1.5"/>
+              <!-- Central Diamond -->
+              <polygon points="170,10 330,170 170,330 10,170" fill="rgba(245, 190, 72, 0.06)" stroke="#f5be48" stroke-width="2"/>
 
-          <!-- 2nd House (Dhana/Wealth) Top Left Triangle -->
-          <text x="75" y="45" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="600">2. Dhana</text>
+              <!-- House 1 (Lagna) Top Center Diamond -->
+              <text x="170" y="36" class="chart-house-num">1</text>
+              <text x="170" y="58" class="chart-rashi-text" id="svgSign1">Mesha</text>
+              <g id="svgHousePlanets1" transform="translate(170, 85)"></g>
 
-          <!-- 5th House (Speculation Yoga) Bottom Left Triangle (Highlighted!) -->
-          <circle cx="75" cy="225" r="28" fill="rgba(245, 190, 72, 0.2)" stroke="#f5be48" stroke-dasharray="3,3"/>
-          <text x="75" y="222" text-anchor="middle" fill="#ffd572" font-size="11" font-weight="bold">5. Purva Punya</text>
-          <text x="75" y="238" text-anchor="middle" fill="#f5be48" font-size="9">(Speculation)</text>
+              <!-- House 2 (Dhana) Top Left Triangle -->
+              <text x="90" y="32" class="chart-house-num">2</text>
+              <text x="90" y="50" class="chart-rashi-text" id="svgSign2">Vrish</text>
+              <g id="svgHousePlanets2" transform="translate(90, 72)"></g>
 
-          <!-- 11th House (Labha/Gains) Bottom Right Triangle -->
-          <text x="225" y="225" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="600">11. Labha</text>
+              <!-- House 3 Left Top Triangle -->
+              <text x="45" y="85" class="chart-house-num">3</text>
+              <text x="45" y="105" class="chart-rashi-text" id="svgSign3">Mith</text>
+              <g id="svgHousePlanets3" transform="translate(45, 125)"></g>
 
-          <!-- Center Astrological Bindu -->
-          <circle cx="150" cy="150" r="5" fill="#f5be48" filter="drop-shadow(0 0 6px rgba(245, 190, 72, 0.8))"/>
-        </svg>
+              <!-- House 4 (Sukha) Left Center Diamond -->
+              <text x="85" y="165" class="chart-house-num">4</text>
+              <text x="85" y="185" class="chart-rashi-text" id="svgSign4">Kark</text>
+              <g id="svgHousePlanets4" transform="translate(85, 205)"></g>
+
+              <!-- House 5 (Speculation) Left Bottom Triangle -->
+              <circle cx="45" cy="255" r="24" fill="rgba(245, 190, 72, 0.2)" stroke="#f5be48" stroke-dasharray="3,3"/>
+              <text x="45" y="245" class="chart-house-num gold">5</text>
+              <text x="45" y="262" class="chart-rashi-text gold" id="svgSign5">Simh</text>
+              <g id="svgHousePlanets5" transform="translate(45, 280)"></g>
+
+              <!-- House 6 Bottom Left Triangle -->
+              <text x="90" y="300" class="chart-house-num">6</text>
+              <text x="90" y="318" class="chart-rashi-text" id="svgSign6">Kany</text>
+              <g id="svgHousePlanets6" transform="translate(90, 275)"></g>
+
+              <!-- House 7 Bottom Center Diamond -->
+              <text x="170" y="305" class="chart-house-num">7</text>
+              <text x="170" y="322" class="chart-rashi-text" id="svgSign7">Tula</text>
+              <g id="svgHousePlanets7" transform="translate(170, 255)"></g>
+
+              <!-- House 8 Bottom Right Triangle -->
+              <text x="250" y="300" class="chart-house-num">8</text>
+              <text x="250" y="318" class="chart-rashi-text" id="svgSign8">Vris</text>
+              <g id="svgHousePlanets8" transform="translate(250, 275)"></g>
+
+              <!-- House 9 (Bhagya) Right Bottom Triangle -->
+              <circle cx="295" cy="255" r="24" fill="rgba(167, 139, 250, 0.2)" stroke="#a78bfa" stroke-dasharray="3,3"/>
+              <text x="295" y="245" class="chart-house-num violet">9</text>
+              <text x="295" y="262" class="chart-rashi-text violet" id="svgSign9">Dhan</text>
+              <g id="svgHousePlanets9" transform="translate(295, 280)"></g>
+
+              <!-- House 10 Right Center Diamond -->
+              <text x="255" y="165" class="chart-house-num">10</text>
+              <text x="255" y="185" class="chart-rashi-text" id="svgSign10">Maka</text>
+              <g id="svgHousePlanets10" transform="translate(255, 205)"></g>
+
+              <!-- House 11 (Labha) Right Top Triangle -->
+              <circle cx="295" cy="85" r="24" fill="rgba(99, 217, 165, 0.2)" stroke="#63d9a5" stroke-dasharray="3,3"/>
+              <text x="295" y="75" class="chart-house-num green">11</text>
+              <text x="295" y="92" class="chart-rashi-text green" id="svgSign11">Kumb</text>
+              <g id="svgHousePlanets11" transform="translate(295, 115)"></g>
+
+              <!-- House 12 Top Right Triangle -->
+              <text x="250" y="32" class="chart-house-num">12</text>
+              <text x="250" y="50" class="chart-rashi-text" id="svgSign12">Meen</text>
+              <g id="svgHousePlanets12" transform="translate(250, 72)"></g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- South Indian Square Chart View (Toggleable) -->
+        <div class="chakra-card-box hidden" id="chartViewSouth">
+          <div class="chakra-title-bar">
+            <span>South Indian Natal Chart</span>
+            <span class="tag-gold">Fixed Sign Matrix</span>
+          </div>
+          <div class="south-indian-grid" id="southIndianGrid">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+        <!-- 4 Key Financial Houses Breakdown Card -->
+        <div class="financial-houses-panel">
+          <div class="panel-header-gold">
+            <span>🏛️ Four Pillars of Financial Astrology</span>
+            <span class="badge-gold-subtle">Wealth Matrix</span>
+          </div>
+
+          <div class="financial-pillars-list">
+            <!-- 2nd House -->
+            <div class="pillar-row">
+              <div class="pillar-label">
+                <span class="pillar-num gold">2nd</span>
+                <div>
+                  <strong>Dhana Bhava (Liquid Wealth)</strong>
+                  <span class="pillar-sign" id="h2SignDisplay">Taurus (Venus)</span>
+                </div>
+              </div>
+              <p class="pillar-impact" id="h2ImpactText">Liquid treasury, bank balances, capital compounding capacity.</p>
+            </div>
+
+            <!-- 5th House -->
+            <div class="pillar-row highlight-gold">
+              <div class="pillar-label">
+                <span class="pillar-num gold-glow">5th</span>
+                <div>
+                  <strong>Purva Punya &amp; Speculation (Stock Market)</strong>
+                  <span class="pillar-sign" id="h5SignDisplay">Leo (Sun)</span>
+                </div>
+              </div>
+              <p class="pillar-impact" id="h5ImpactText">Trading instinct, options/futures derivatives acumen, and equity swing intuition.</p>
+            </div>
+
+            <!-- 9th House -->
+            <div class="pillar-row">
+              <div class="pillar-label">
+                <span class="pillar-num violet">9th</span>
+                <div>
+                  <strong>Bhagya Bhava (Fortune &amp; Luck)</strong>
+                  <span class="pillar-sign" id="h9SignDisplay">Sagittarius (Jupiter)</span>
+                </div>
+              </div>
+              <p class="pillar-impact" id="h9ImpactText">Macro market tailwinds, windfall luck, and generational wealth timing.</p>
+            </div>
+
+            <!-- 11th House -->
+            <div class="pillar-row">
+              <div class="pillar-label">
+                <span class="pillar-num green">11th</span>
+                <div>
+                  <strong>Labha Bhava (Realized Gains &amp; Profits)</strong>
+                  <span class="pillar-sign" id="h11SignDisplay">Aquarius (Saturn)</span>
+                </div>
+              </div>
+              <p class="pillar-impact" id="h11ImpactText">Profit booking velocity, multi-bagger returns, and net worth expansion.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
+      <!-- Complete Planetary Positions Matrix Table -->
+      <div class="planetary-positions-card">
+        <div class="table-header-row">
+          <h3>Natal Planetary Longitudes &amp; Dignities</h3>
+          <span class="table-legend">Calculated via High-Precision Sidereal Ephemeris</span>
+        </div>
+        <div class="table-responsive">
+          <table class="cosmic-table" id="planetaryTable">
+            <thead>
+              <tr>
+                <th>Planet (Graha)</th>
+                <th>Glyph</th>
+                <th>Rashi (Sign)</th>
+                <th>Degree</th>
+                <th>Nakshatra</th>
+                <th>Pada</th>
+                <th>House</th>
+                <th>Motion</th>
+                <th>Dignity</th>
+              </tr>
+            </thead>
+            <tbody id="planetaryTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Speculation & Trading Personality Summary -->
       <div class="result-metrics-grid">
         <div class="result-metric-box">
           <span class="metric-label">Speculation Yoga (5th Bhava)</span>
           <span class="metric-value highlight" id="speculationScore">Strong (Uchha)</span>
-          <p class="metric-desc">Benefic aspect on the 5th lord indicates natural instinct for disciplined calculation over irrational impulse.</p>
+          <p class="metric-desc" id="speculationDesc">Benefic aspect on the 5th lord indicates natural instinct for disciplined calculation over irrational impulse.</p>
         </div>
         <div class="result-metric-box">
           <span class="metric-label">Trading Personality Archetype</span>
           <span class="metric-value" id="personalityArchetype">Calculated Strategist</span>
-          <p class="metric-desc">Thrives in structured setups; gains compound through swing timeframe patience rather than intraday scalping.</p>
+          <p class="metric-desc" id="personalityDesc">Thrives in structured setups; gains compound through swing timeframe patience rather than intraday scalping.</p>
         </div>
         <div class="result-metric-box">
           <span class="metric-label">Harmonized Asset Class</span>
-          <span class="metric-value" id="favoredAsset">Bullion & Sovereign Debt</span>
+          <span class="metric-value" id="favoredAsset">Bullion &amp; Sovereign Debt</span>
           <p class="metric-desc">Jupiterian and Solar planetary placements favor steady wealth accrual in metals and capital preservation vehicles.</p>
         </div>
       </div>
 
-      <!-- Phase 10: Real Computed Vimshottari Mahadasha & Antardasha Timeline -->
+      <!-- Vimshottari Mahadasha & Antardasha Timeline -->
       <div class="result-metric-box dasha-breakdown-card" id="dashaBreakdownBox">
         <div class="dasha-header">
           <span class="metric-label">Active Planetary Timing (Vimshottari Dasha Engine)</span>
@@ -171,57 +462,66 @@
             <p class="tier-desc">Governs emotional temperament, risk calibration, and short-term liquidity rotations.</p>
           </div>
         </div>
-        <div class="calculation-honesty-note">
-          <span>⚖️ <strong>Calculated, Not Predicted:</strong> Computed strictly from natal Chandra sidereal longitude using 120-year Vimshottari mathematical cycle.</span>
-        </div>
       </div>
 
-      <!-- Authentic Vedic Wealth Yogas & Speculation Placements (VedAstro Swiss Ephemeris Engine) -->
-      <div class="result-metric-box dhana-yogas-card" id="dhanaYogasBox" style="display: none;">
+      <!-- Detected Classical Dhana & Wealth Yogas -->
+      <div class="result-metric-box dhana-yogas-card" id="dhanaYogasBox">
         <div class="dasha-header">
           <div>
-            <span class="metric-label">Classical Dhana & Speculative Yogas</span>
-            <div class="dhana-subtitle">Vedic wealth and trading propensity rules detected from Brihat Parasara Hora Sastra</div>
+            <span class="metric-label">Classical Dhana &amp; Speculative Wealth Yogas</span>
+            <div class="dhana-subtitle">Classical wealth combinations detected from Brihat Parasara Hora Sastra &amp; Saravali</div>
           </div>
-          <span class="dasha-badge" id="vedastroVerifiedBadge">🛰️ NASA JPL Swiss Ephemeris</span>
+          <span class="dasha-badge">✦ Classical Vedic Rules</span>
         </div>
         <div class="dhana-yogas-grid" id="dhanaYogasList">
           <!-- Populated dynamically via kundli-form.js -->
         </div>
-        <div class="calculation-honesty-note">
-          <span>⚖️ <strong>Mathematical Transparency:</strong> Calculations evaluated against 110+ classical Parashari rules via VedAstro Swiss Ephemeris Engine (Lahiri Sidereal).</span>
-        </div>
       </div>
 
-      <!-- Conversion Point: WhatsApp & Call Request -->
-      <div class="consultation-conversion-box">
-        <div class="conversion-header">
-          <h3>Unlock Your Complete In-Depth Trading Kundli & Planetary Timing</h3>
-          <p>Schedule a personal 1-on-1 confidential astrological review with our principal astrologer.</p>
-        </div>
-
-        <div class="consultation-action-buttons">
-          <a href="#" id="kundliWhatsAppLink" class="btn btn-gold btn-lg" target="_blank" rel="noopener">
-            <span>Discuss My Kundli on WhatsApp</span>
-            <span class="btn-icon">💬</span>
-          </a>
-          <button type="button" class="btn btn-outline btn-lg" id="btnRequestCall">
-            <span>Request Direct Phone Call</span>
-          </button>
-        </div>
-
-        <!-- Call Request Sub-Form (Expandable) -->
-        <div class="call-request-drawer" id="callRequestDrawer" style="display: none;">
-          <h4>Provide Contact Number for Call Request:</h4>
-          <form id="callRequestForm" class="call-form">
-            <div class="input-with-button">
-              <input type="tel" id="userPhone" class="form-control" placeholder="+91 9876543210" required>
-              <button type="submit" class="btn btn-gold">Confirm Call Request</button>
+      <!-- ==============================================================
+           LARGER-THAN-LIFE CELEBRITY CONSULTATION CARD: DR. ASHISH PATNI
+           ============================================================== -->
+      <div class="celebrity-consultation-showcase" id="drAshishConsultationCard">
+        <div class="consultation-showcase-grid">
+          <div class="showcase-photo-frame">
+            <img src="/images/dr-ashish-patni.jpg" alt="Dr. Ashish Patni — Celebrity Financial Astrologer" class="showcase-photo">
+            <div class="showcase-verified-tag">
+              <span class="star-icon">✦</span>
+              <span>Celebrity Market Astrologer</span>
             </div>
-            <p class="call-note">We will contact you during standard business hours. Phone numbers are stored encrypted.</p>
-          </form>
-          <div class="call-success-msg" id="callSuccessMsg" style="display: none;">
-            ✅ Call request received! Our consultation desk will contact you soon.
+          </div>
+
+          <div class="showcase-details">
+            <div class="showcase-badge">EXCLUSIVE 1-ON-1 FINANCIAL PREDICTION</div>
+            <h3 class="showcase-doctor-name">Dr. Ashish Patni</h3>
+            <div class="showcase-doctor-title">
+              Celebrity Financial Astrologer &bull; Founder, Bhavishyam (<a href="https://www.bhavishyam.com" target="_blank" rel="noopener">www.bhavishyam.com</a>)
+            </div>
+
+            <p class="showcase-copy">
+              Your Kundli indicates unique astrological timing patterns for wealth creation and market speculation. For a personalized, high-precision forecast regarding your <strong>stock portfolio timing, derivatives suitability, favorable sectors, and wealth dashas</strong>, connect directly with <strong>Dr. Ashish Patni</strong>.
+            </p>
+
+            <div class="showcase-highlights-row">
+              <span class="chip-gold">✓ Personal Stock Market Timing</span>
+              <span class="chip-gold">✓ F&amp;O &amp; Speculation Guidance</span>
+              <span class="chip-gold">✓ Wealth Dasha Milestones</span>
+            </div>
+
+            <div class="showcase-cta-group">
+              <a href="#" id="kundliWhatsAppLink" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
+                <span class="wa-icon">💬</span>
+                <span>Get Financial Prediction from Dr. Ashish Patni</span>
+              </a>
+              <a href="https://www.bhavishyam.com" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
+                <span>Visit www.bhavishyam.com</span>
+                <span class="btn-arrow">&rarr;</span>
+              </a>
+            </div>
+
+            <div class="showcase-security-note">
+              🔒 100% Confidential Personal Guidance &bull; Trusted by Top Industrialists &amp; Traders across India
+            </div>
           </div>
         </div>
       </div>
