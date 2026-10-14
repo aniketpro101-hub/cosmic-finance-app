@@ -264,6 +264,19 @@
 }
 .btn-block { width: 100%; display: flex; }
 
+.cta-mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .cta-full {
+    display: none;
+  }
+  .cta-mobile {
+    display: inline;
+  }
+}
+
 /* 3. Cards & Panels */
 .article-card, .news-card, .feed-card, .market-panel-card, .channel-card, .form-card, .legal-document-card {
   background: var(--space-bg-card);
@@ -628,8 +641,8 @@
 
 .footer-bottom {
   border-top: 1px solid var(--space-border-subtle);
-  padding: var(--space-4) 0;
-  font-size: var(--text-xs);
+  padding: 14px 0;
+  font-size: 0.74rem;
   color: var(--text-muted);
 }
 
@@ -637,6 +650,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 /* 9. Kundli Funnel Components */
@@ -4209,6 +4224,7 @@
   border-radius: var(--radius-2xl);
   padding: 44px 36px;
   position: relative;
+  overflow: hidden;
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.12);
 }
 
@@ -4876,24 +4892,111 @@
     grid-template-columns: 1fr;
   }
 
-  .feature-banner-banner {
-    padding: 24px 18px;
+  /* Celebrity Founder Banner on Homepage */
+  .celebrity-feature-banner {
+    padding: 22px 14px;
+    border-radius: var(--radius-xl);
+  }
+
+  .feature-portrait-wrapper {
+    width: 240px;
+    margin: 0 auto 12px;
+  }
+
+  .portrait-floating-chip {
+    position: static;
+    transform: none;
+    margin: 8px auto 0;
+    width: fit-content;
+    max-width: 95%;
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .feature-kicker-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .feature-name-title {
+    font-size: 1.45rem;
+    text-align: center;
+  }
+
+  .feature-subtitle {
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .feature-narrative {
+    text-align: center;
+    font-size: 0.84rem;
+    line-height: 1.5;
   }
 
   .feature-stats-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .f-stat-item {
+    padding: 10px 8px;
+    text-align: center;
+  }
+
+  .f-stat-num {
+    font-size: 1.25rem;
+  }
+
+  .f-stat-desc {
+    font-size: 0.7rem;
+  }
+
+  .feature-cta-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
   }
 
   .feature-cta-actions .btn {
     width: 100%;
     justify-content: center;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 0.86rem;
   }
 
   .muhurat-time-range {
     font-size: 1.25rem;
   }
 
-  /* Diagram Footer Bars: Live data displayed cleanly below diagram panels on mobile */
+  /* Homepage Diagram Cards: clean alignment & readout below diagram panels */
+  .home-diagram-card {
+    padding: 14px 10px;
+    border-radius: var(--radius-lg);
+  }
+
+  .diagram-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .d-title-group {
+    width: 100%;
+  }
+
+  .live-cursor-tag {
+    align-self: flex-start;
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+
   .diagram-footer-bar {
     flex-direction: column;
     align-items: stretch;
@@ -4917,9 +5020,30 @@
     justify-content: center;
   }
 
+  /* Backtest Matrix on Mobile */
+  .matrix-card {
+    padding: 18px 14px;
+  }
+
+  .matrix-card-top {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .matrix-meta-row {
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  .matrix-card-link {
+    width: 100%;
+    justify-content: center;
+    padding-top: 6px;
+  }
+
   /* Dedicated Gann Engine Module */
   .gann-engine-module {
-    padding: 16px 12px;
+    padding: 16px 10px;
     border-radius: var(--radius-lg);
   }
 
@@ -4930,9 +5054,20 @@
   }
 
   .gann-input-control-bar {
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
-    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .gann-input-control-bar .input-wrap {
     justify-content: space-between;
+    width: 100%;
+  }
+
+  .gann-input-control-bar #btnSyncLiveNifty {
+    width: 100%;
+    justify-content: center;
   }
 
   .ins-main-row {
@@ -4940,11 +5075,340 @@
     gap: 10px;
   }
 
+  .gann-canvas-card {
+    padding: 12px 6px;
+  }
+
+  .vedha-types-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sbc-planets-live-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .page-top-utility-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .bilingual-toggle-cluster {
+    width: 100%;
+    display: flex;
+  }
+
+  .bilingual-toggle-cluster .gann-lang-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Founder Page Mobile Adjustments */
+  .founder-cta-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .founder-cta-row .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .abdc-cta-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .abdc-cta-row .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .awards-grid-8 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .founder-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* Articles & Search Filter Bar */
+  .articles-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .articles-filter-bar .search-box {
+    width: 100%;
+  }
+
+  .articles-filter-bar .search-box input {
+    width: 100%;
+  }
+
+  .single-article-wrapper {
+    padding: 18px 14px;
+  }
+
+  /* Kundli Result Mobile Header */
+  .result-header-luxury {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .result-header-left, .result-header-right {
+    width: 100%;
+    text-align: center;
+  }
+
+  .chart-switch-pills {
+    justify-content: center;
+  }
+
+  .result-meta-line {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+
+  .gender-toggle-group {
+    width: 100%;
+    display: flex;
+  }
+
+  .gender-toggle-group .gender-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .btn-show-kundli {
+    width: 100%;
+  }
+
   /* Market dashboard */
   .market-dashboard-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
+  /* General Forms & Inputs */
+  .form-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-actions {
+    width: 100%;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Market Data & Heatmap */
+  .sector-heatmap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .samvat-meta-strip {
+    grid-template-columns: 1fr;
+  }
+
+  /* Weekly Outlook */
+  .outlook-card {
+    padding: 18px 14px;
+  }
+
+  .outlook-footer {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .outlook-footer .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* About Page Founder Card & Grid */
+  .celebrity-founder-card {
+    padding: 20px 14px;
+  }
+
+  .founder-card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .founder-image-col {
+    width: 100%;
+  }
+
+  .founder-photo-frame {
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .photo-verified-badge {
+    position: static;
+    transform: none;
+    margin: 8px auto 0;
+    width: fit-content;
+  }
+
+  .founder-credentials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .founder-action-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .founder-action-row .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Contact Page Grid */
+  .contact-channels-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Trust calculation banner */
+  .trust-calculation-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
+
+/* Base Desktop Styles for About Page Founder Card */
+.celebrity-founder-card {
+  background: var(--space-bg-card);
+  border: 1px solid var(--space-border-glow);
+  border-radius: var(--radius-xl);
+  padding: var(--space-7);
+  box-shadow: var(--shadow-card);
+}
+
+.founder-card-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.founder-image-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.founder-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 2px solid rgba(245, 190, 72, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.founder-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.photo-verified-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(6, 10, 26, 0.92);
+  border: 1px solid var(--gold-500);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  color: var(--gold-300);
+  font-weight: 600;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+
+.founder-website-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.founder-website-pill .website-link {
+  color: var(--gold-400);
+  font-weight: 600;
+}
+
+.founder-credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.cred-chip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(14, 21, 50, 0.5);
+  border: 1px solid var(--space-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 0.8rem;
+}
+
+.cred-chip strong {
+  display: block;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.cred-chip span {
+  color: var(--text-muted);
+  font-size: 0.74rem;
+}
+
+.founder-action-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+/* Universal Table Responsiveness */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 420px) {
@@ -7312,10 +7776,10 @@
 }
 
 /* ==============================================================
-   31. RoasBodhi.in Attribution Styling (Footer & Master)
+   31. RoasBodhi.in Attribution Styling (Compact, Elegant & Compatible)
    ============================================================== */
 .roasbodhi-attribution {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -7323,51 +7787,54 @@
 .roasbodhi-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 7px 16px;
+  gap: 5px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
-  background: rgba(14, 21, 46, 0.85);
-  border: 1px solid rgba(245, 190, 72, 0.35);
+  background: rgba(12, 18, 40, 0.65);
+  border: 1px solid rgba(245, 190, 72, 0.22);
   text-decoration: none;
-  transition: all 0.25s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
 }
 
 .roasbodhi-badge:hover {
-  background: rgba(22, 33, 72, 0.95);
-  border-color: rgba(245, 190, 72, 0.7);
-  box-shadow: 0 4px 18px rgba(245, 190, 72, 0.2);
-  transform: translateY(-2px);
+  background: rgba(18, 28, 62, 0.9);
+  border-color: rgba(245, 190, 72, 0.5);
+  box-shadow: 0 2px 10px rgba(245, 190, 72, 0.15);
+  transform: translateY(-1px);
 }
 
 .roasbodhi-text {
-  font-size: 0.78rem;
-  color: #cbd5e1;
-  font-weight: 500;
-  display: flex;
+  font-size: 0.68rem;
+  color: #94a3b8;
+  font-weight: 400;
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
+  letter-spacing: 0.01em;
 }
 
 .heart-pulse {
   display: inline-block;
   color: #ef4444;
-  animation: heartPulse 1.8s ease-in-out infinite;
+  font-size: 0.68rem;
+  animation: heartPulse 2s ease-in-out infinite;
 }
 
 @keyframes heartPulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.22); }
+  50% { transform: scale(1.18); }
 }
 
 .roasbodhi-brand {
-  font-family: var(--font-heading);
-  font-size: 0.84rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--gold-400);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
   letter-spacing: 0.02em;
 }
 
@@ -7376,13 +7843,50 @@
 }
 
 .roasbodhi-arrow {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   color: var(--gold-400);
-  transition: transform 0.2s ease;
+  opacity: 0.75;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .roasbodhi-badge:hover .roasbodhi-arrow {
-  transform: translate(2px, -2px);
+  transform: translate(1px, -1px);
   color: #fae4b5;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .footer-bottom {
+    padding: 14px 0 18px;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .footer-bottom-inner .copyright,
+  .footer-bottom-inner .secure-badge {
+    font-size: 0.67rem;
+    line-height: 1.4;
+    text-align: center;
+    margin: 0;
+  }
+
+  .roasbodhi-badge {
+    padding: 2.5px 8px;
+    gap: 4px;
+  }
+
+  .roasbodhi-text {
+    font-size: 0.64rem;
+  }
+
+  .roasbodhi-brand {
+    font-size: 0.66rem;
+  }
 }

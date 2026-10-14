@@ -100,9 +100,6 @@
           </div>
 
           <canvas id="orbitCanvas" width="1200" height="640" aria-label="Interactive 3D Geocentric Zodiac Wheel"></canvas>
-          <div class="canvas-3d-hint">
-            <span>🖱️ Drag to Rotate 3D View • Scroll to Zoom • Hover Planet for Coordinates &amp; Market Telemetry</span>
-          </div>
 
           <!-- Floating Interactive Zoom HUD Overlay (v2.0) -->
           <div class="orbit-zoom-hud" id="orbitZoomHud" aria-label="Observatory Zoom Controls">
@@ -117,6 +114,12 @@
               <span>⛶ Fit</span>
             </button>
           </div>
+        </div>
+
+        <!-- 3D Viewport Controls & Telemetry Hint (Cleanly positioned below 3D canvas panel) -->
+        <div class="canvas-3d-hint" id="canvas3dHint">
+          <span class="hint-desktop">🖱️ Drag to Rotate 3D View &bull; Scroll to Zoom &bull; Hover Planet for Coordinates &amp; Market Telemetry</span>
+          <span class="hint-mobile">👆 Drag to Rotate 3D View &bull; Pinch to Zoom &bull; Tap Planet for Live Telemetry</span>
         </div>
 
         <!-- Dedicated Navagraha Quick Selection Strip (Cleanly positioned below 3D celestial canvas panel) -->

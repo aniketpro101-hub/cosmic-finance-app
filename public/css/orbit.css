@@ -226,23 +226,34 @@
 }
 
 .canvas-3d-hint {
-  position: absolute;
-  top: 10px;
-  left: 12px;
-  background: rgba(6, 10, 26, 0.88);
-  border: 1px solid rgba(245, 190, 72, 0.35);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto 0;
+  width: fit-content;
+  max-width: 95%;
+  background: rgba(6, 10, 26, 0.85);
+  border: 1px solid rgba(245, 190, 72, 0.28);
   border-radius: var(--radius-full);
-  padding: 4px 12px;
-  font-size: 0.72rem;
+  padding: 5px 16px;
+  font-size: 0.74rem;
   color: var(--gold-300);
   pointer-events: none;
   backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
   gap: 8px;
-  letter-spacing: 0.03em;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.02em;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
   font-family: var(--font-display);
+  text-align: center;
+}
+
+.hint-desktop {
+  display: inline;
+}
+
+.hint-mobile {
+  display: none;
 }
 
 .orbit-fallback-notice {
@@ -1203,16 +1214,22 @@
     padding: 0 2px;
   }
 
-  /* Compact hint on mobile */
+  /* Hint sits cleanly below the 3D celestial canvas panel without any overlay obstruction */
   .canvas-3d-hint {
-    top: 8px;
-    left: 8px;
-    max-width: calc(100% - 155px);
-    font-size: 0.65rem;
-    padding: 3px 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin: 8px auto 0;
+    padding: 4px 12px;
+    font-size: 0.68rem;
+    max-width: 96%;
+    width: fit-content;
+    white-space: normal;
+  }
+
+  .hint-desktop {
+    display: none;
+  }
+
+  .hint-mobile {
+    display: inline;
   }
 
   /* Horizontal swipe ribbon for 9 planet badges sitting cleanly below 3D canvas panel */
@@ -1362,6 +1379,74 @@
   }
 }
 
+@media (max-width: 640px) {
+  .hero-orbit-card {
+    padding: 12px 10px;
+  }
+
+  .orbit-card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+
+  .header-left-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-center-switch {
+    width: 100%;
+  }
+
+  .header-center-switch .btn-v2-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header-right-badges {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* Time Machine Controls */
+  .time-machine-controls-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tm-scrub-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .tm-date-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .tm-slider-wrap {
+    width: 100%;
+  }
+
+  .tm-slider-wrap input[type="range"] {
+    width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-orbit-card {
     padding: 10px 8px;
@@ -1394,15 +1479,40 @@
   }
 
   .canvas-3d-hint {
-    display: none;
+    display: flex;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    margin: 6px auto 0;
   }
 
   .tm-sub {
     display: none;
   }
 
+  .tm-market-readout-panel {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .tm-readout-stat {
+    padding: 6px 8px;
+  }
+
+  .tm-readout-stat .stat-name {
+    font-size: 0.62rem;
+  }
+
   .tm-readout-stat .stat-val {
-    font-size: 1.05rem !important;
+    font-size: 0.95rem !important;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 380px) {
+  .tm-market-readout-panel {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }
 
