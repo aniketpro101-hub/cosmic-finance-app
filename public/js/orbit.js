@@ -118,11 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Dynamic responsive camera distance calculation (fit on mobile Android/iPhone without clipping)
   function getBaseCamDist() {
     const w = window.innerWidth;
-    if (w <= 375) return 1320; // 360px - 375px: Samsung Galaxy A, iPhone SE, iPhone 12/13 mini
-    if (w <= 430) return 1200; // 390px - 430px: iPhone 12/13/14/15/16 Pro, Galaxy S23/S24
-    if (w <= 640) return 1020; // Phablets / Foldables
-    if (w <= 900) return 740;  // Tablets
-    return 500;                // Desktop
+    if (w <= 375) return 1300; // 360px - 375px: Samsung Galaxy A, iPhone SE, iPhone 12/13 mini
+    if (w <= 430) return 1180; // 390px - 430px: iPhone 12/13/14/15/16 Pro, Galaxy S23/S24
+    if (w <= 640) return 1040; // Phablets / Foldables
+    if (w <= 900) return 820;  // Tablets
+    if (w <= 1200) return 720; // Small Laptops / Screens
+    return 660;                // Desktop (Full HD / 4K)
   }
 
   function updateZoomPill() {
@@ -138,18 +139,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 3. Desktop True 3D Geocentric Scene Engine ---
+  let orbitMode = 'multiring'; // 'multiring' (v2 concentric paths) or 'classic' (v1 single wheel)
+  const ringRadius = 260;
+  const multiringRashiRadius = 345;
+
   let ctx3D = null;
   let width3D = 600, height3D = 460;
-  let camPitch = 0.58; // Tilt angle (radians) ~33 deg for perfect 3D perspective
+  let camPitch = 0.46; // Tilt angle (radians) ~26.4 deg for majestic 3D perspective without distortion
   let camYaw = -0.35;   // Rotation angle (radians)
   let camDist = getBaseCamDist();   // Calibrated dynamically for device screen width
   let targetCamDist = getBaseCamDist();
   let userHasZoomed = false;
   let isDragging = false;
   let lastMouseX = 0, lastMouseY = 0;
-  let targetPitch = 0.58, targetYaw = -0.35;
+  let targetPitch = 0.46, targetYaw = -0.35;
   let velYaw = 0, velPitch = 0;
   let animFrameId = null;
+
+  // Exact perspective-corrected visual center: eliminates top void and centers wheel vertically
+  function getSceneCenter() {
+    const cx = width3D / 2;
+    const R_outer = (orbitMode === 'multiring' ? multiringRashiRadius : ringRadius) + 38;
+    const sinP = Math.sin(camPitch);
+    const cosP = Math.cos(camPitch);
+    const dTop = (540 * sinP * R_outer) / Math.max(40, camDist + R_outer * cosP);
+    const dBottom = (540 * sinP * R_outer) / Math.max(40, camDist - R_outer * cosP);
+    const perspectiveYOffset = (dBottom - dTop) * 0.5;
+    const clampedOffset = Math.max(-height3D * 0.4, Math.min(height3D * 0.4, perspectiveYOffset));
+    const cy = (height3D / 2) - clampedOffset;
+    return { cx, cy };
+  }
 
   // Performance Monitoring & Graceful Degradation Budget
   let frameCount = 0;
@@ -209,14 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const rect = desktopCanvas.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = rect.width > 50 ? rect.width : (desktopCanvas.parentElement ? desktopCanvas.parentElement.clientWidth : 1100);
-      const h = rect.height > 50 ? rect.height : (window.innerWidth <= 640 ? 380 : 640);
+      const h = rect.height > 50 ? rect.height : (window.innerWidth <= 640 ? 380 : 500);
       width3D = Math.round(w * dpr);
       height3D = Math.round(h * dpr);
       desktopCanvas.width = width3D;
       desktopCanvas.height = height3D;
 
-      const cx = width3D / 2;
-      const cy = height3D / 2;
+      const { cx, cy } = getSceneCenter();
       cachedBgGrad = ctx3D.createRadialGradient(cx, cy, 30, cx, cy, Math.max(width3D, height3D) * 0.75);
       cachedBgGrad.addColorStop(0, '#0c122c');
       cachedBgGrad.addColorStop(0.4, '#060a1a');
@@ -270,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     desktopCanvas.addEventListener('mousedown', onDragStart);
+    desktopCanvas.addEventListener('pointerdown', onDragStart);
 
     function onTouchStart(e) {
       if (e.touches && e.touches.length === 1) {
@@ -380,9 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 4. Render Master 3D Astrolabe Ecliptic Scene ---
-  let orbitMode = 'multiring'; // 'multiring' (v2 concentric paths) or 'classic' (v1 single wheel)
-  const ringRadius = 260;
-  const multiringRashiRadius = 345;
 
   function getGrahaRadius(planetName) {
     if (orbitMode !== 'multiring') return ringRadius;
@@ -435,8 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
     camYaw += (targetYaw - camYaw) * 0.1;
     camPitch += (targetPitch - camPitch) * 0.1;
 
-    const cx = width3D / 2;
-    const cy = height3D / 2;
+    const { cx, cy } = getSceneCenter();
 
     ctx3D.clearRect(0, 0, width3D, height3D);
 
@@ -872,8 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mx = (clientX - rect.left) * dpr;
     const my = (clientY - rect.top) * dpr;
 
-    const cx = width3D / 2;
-    const cy = height3D / 2;
+    const { cx, cy } = getSceneCenter();
 
     // Generous touch slop on mobile for easy finger tapping
     const hitSlop = (window.innerWidth <= 640 ? 24 : 14) * dpr;
@@ -1379,7 +1393,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       userHasZoomed = false;
       targetCamDist = getBaseCamDist();
-      targetPitch = 0.58;
+      targetPitch = 0.46;
       targetYaw = -0.35;
       updateZoomPill();
     });
