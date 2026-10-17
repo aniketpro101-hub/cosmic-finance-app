@@ -2,11 +2,11 @@
   <header class="page-header text-center">
     <div class="cosmic-badge">
       <span class="pulsing-star">✦</span>
-      <span>DIRECT DESK COMMUNICATION</span>
+      <span>VIP PERSONAL GUIDANCE &amp; CONSULTATION</span>
     </div>
-    <h1 class="page-title">Personal <span class="text-gold">Consultation & Contact</span></h1>
+    <h1 class="page-title">Personal Guidance with <span class="text-gold">Dr. Ashish Patni</span></h1>
     <p class="page-subtitle">
-      Connect directly with our Vedic financial astrology researchers via WhatsApp, phone, or direct inquiry.
+      Connect directly for 1-on-1 confidential astrological and numerological consultations exploring multi-asset cycles, individual horoscope wealth houses, and personal Vimshottari Mahadasha timing.
     </p>
   </header>
 
@@ -14,25 +14,25 @@
     <!-- WhatsApp Direct Card -->
     <div class="channel-card highlight-gold">
       <div class="channel-icon">💬</div>
-      <h2>Instant WhatsApp Chat</h2>
-      <p class="channel-phone">+91 8888888888</p>
+      <h2>VIP WhatsApp Consultation</h2>
+      <p class="channel-phone">+<%= founder.whatsappNumber %></p>
       <p class="channel-desc">
-        Fastest response time for 1-on-1 Trading Kundli reviews, planetary transit inquiries, and booking details.
+        Direct channel to Dr. Ashish Patni's desk for 1-on-1 Birth Coordinates review, name-numerology alignment, and multi-asset financial cycle timings.
       </p>
-      <a href="https://wa.me/918888888888?text=<%= encodeURIComponent(whatsappMessage) %>" class="btn btn-gold btn-block btn-lg" target="_blank" rel="noopener">
-        Open WhatsApp Chat &rarr;
+      <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" class="btn btn-gold btn-block btn-lg" target="_blank" rel="noopener">
+        Open VIP WhatsApp &rarr;
       </a>
     </div>
 
     <!-- Phone Call Card -->
     <div class="channel-card">
       <div class="channel-icon">📞</div>
-      <h2>Telephone Consultation</h2>
-      <p class="channel-phone">+91 8888888888</p>
+      <h2>Telephone Consultation Desk</h2>
+      <p class="channel-phone"><%= phone %></p>
       <p class="channel-desc">
-        Available Monday to Saturday: 10:00 AM – 6:30 PM IST. Direct telephone discussion for in-depth chart readings.
+        Available Monday to Saturday: 10:00 AM – 6:30 PM IST. Direct telephone discussion for comprehensive birth coordinates and corporate guidance.
       </p>
-      <a href="tel:+918888888888" class="btn btn-outline btn-block btn-lg">
+      <a href="tel:<%= phone.replace(/\s+/g, '') %>" class="btn btn-outline btn-block btn-lg">
         Call Desk Directly &rarr;
       </a>
     </div>

@@ -172,9 +172,26 @@ router.post('/leads/status', requireAdminAuth, (req, res) => {
 });
 
 // 7. GET News Management
+const { getNewsSyncStatus, syncAllNews } = require('../services/newsService');
+
 router.get('/news', requireAdminAuth, (req, res) => {
   const newsList = db.prepare("SELECT * FROM news ORDER BY published_at DESC").all();
-  res.render('admin/news', { adminPath: CONSTANTS.ADMIN_PATH, newsList });
+  const syncStatus = getNewsSyncStatus();
+  res.render('admin/news', {
+    adminPath: CONSTANTS.ADMIN_PATH,
+    newsList,
+    syncStatus,
+    synced: req.query.synced === 'true'
+  });
+});
+
+router.post('/news/sync', requireAdminAuth, async (req, res) => {
+  try {
+    await syncAllNews();
+    res.redirect(`${CONSTANTS.ADMIN_PATH}/news?synced=true`);
+  } catch (err) {
+    res.redirect(`${CONSTANTS.ADMIN_PATH}/news?error=sync_failed`);
+  }
 });
 
 router.post('/news', requireAdminAuth, (req, res) => {

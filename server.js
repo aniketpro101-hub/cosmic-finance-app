@@ -15,26 +15,47 @@ const db = require('./src/db/database');
 const seedDatabase = require('./src/db/seed');
 const { helmetConfig, generalLimiter } = require('./src/middleware/security');
 const { startMarketTelemetryWorker } = require('./src/services/marketData');
+const { startNewsScheduler } = require('./src/services/newsService');
 
 // Process-level resilience against intermittent external API network dropouts
 process.on('uncaughtException', (err) => {
-  console.error('Unhandled process exception recovered:', err.message);
+  console.error('Unhandled process exception recovered:', err.stack || err.message);
 });
 
 process.on('unhandledRejection', (reason) => {
   console.error('Unhandled promise rejection recovered:', reason);
 });
 
+process.on('exit', (code) => {
+  console.log(`[Process] Server exiting with code: ${code}`);
+});
+
+process.on('SIGINT', () => {
+  console.log('[Process] Received SIGINT');
+});
+
+process.on('SIGTERM', () => {
+  console.log('[Process] Received SIGTERM');
+});
+
 // Seed starter tables if needed
 seedDatabase();
 startMarketTelemetryWorker();
+startNewsScheduler();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Compression, Security Headers & Rate Limiting
+// Compression & Security Headers
 app.use(compression());
 app.use(helmetConfig);
+
+// Serve Static Assets (Bypasses rate limiting)
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: process.env.NODE_ENV === 'production' ? '1d' : '0'
+}));
+
+// Rate Limiter for Application Routes & APIs
 app.use(generalLimiter);
 
 // Body Parsing & Cookies
@@ -59,11 +80,6 @@ app.use(session({
 // View Engine (EJS)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
-
-// Serve Static Assets
-app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: process.env.NODE_ENV === 'production' ? '1d' : '0'
-}));
 
 // SEO: robots.txt (Explicitly hide the admin route!)
 app.get('/robots.txt', (req, res) => {

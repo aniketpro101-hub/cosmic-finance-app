@@ -1,0 +1,291 @@
+<div class="page-container container section-rhythm">
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb-nav mb-4" aria-label="Breadcrumb">
+    <a href="/">Observatory</a>
+    <span class="breadcrumb-sep">&gt;</span>
+    <a href="/chronicles">Market Chronicles</a>
+    <span class="breadcrumb-sep">&gt;</span>
+    <span class="current"><%= chronicle.name %></span>
+  </nav>
+
+  <!-- Chronicle Hero Banner -->
+  <header class="chronicle-detail-hero <%= chronicle.isUnbrokenLegend ? 'hero-unbroken-legend' : '' %>">
+    <div class="chronicle-hero-grid">
+      <!-- Visual Column -->
+      <div class="c-hero-image-col">
+        <div class="c-hero-image-wrap">
+          <img 
+            src="<%= chronicle.image %>" 
+            alt="<%= chronicle.name %> — <%= chronicle.moniker %>" 
+            class="c-hero-main-img"
+            onerror="this.src='/images/dr_ashish_patni_executive.png'"
+          >
+          <div class="c-hero-badge-float">
+            <span><%= chronicle.category %></span>
+          </div>
+        </div>
+        <div class="c-hero-asset-tag">
+          <span>Asset Class:</span>
+          <strong class="text-gold"><%= chronicle.assetClass %></strong>
+        </div>
+      </div>
+
+      <!-- Content Column -->
+      <div class="c-hero-info-col">
+        <div class="c-hero-meta-row">
+          <% if (chronicle.isUnbrokenLegend) { %>
+            <span class="pill-badge unbroken-gold-pill">★ THE UNBROKEN LEGEND</span>
+          <% } %>
+          <span class="pill-badge gold"><%= chronicle.era %></span>
+          <span class="pill-badge cyan">Vedic Financial Case Study</span>
+        </div>
+
+        <% if (chronicle.isUnbrokenLegend) { %>
+          <div class="legend-unbroken-hero-badge">
+            <span class="pulsing-star">✦</span>
+            <span>THE UNBROKEN LEGEND — THE TITAN WHO MASTERED TIME</span>
+          </div>
+        <% } %>
+
+        <h1 class="c-hero-title"><%= chronicle.name %></h1>
+        <div class="c-hero-subtitle text-gold"><%= chronicle.moniker %></div>
+
+        <blockquote class="c-hero-quote">
+          "<%= chronicle.tagline %>"
+        </blockquote>
+
+        <!-- Dual Quantum Financial Metrics -->
+        <div class="c-metrics-banner">
+          <div class="metric-box">
+            <span class="m-lbl">Peak Controlled Wealth</span>
+            <strong class="m-val text-green"><%= chronicle.peakNetWorth %></strong>
+          </div>
+          <div class="metric-box">
+            <% if (chronicle.isUnbrokenLegend) { %>
+              <span class="m-lbl">Capital Preservation Track Record</span>
+              <strong class="m-val text-gold"><%= chronicle.fallQuantum %></strong>
+            <% } else { %>
+              <span class="m-lbl">Exposure / Loss Quantum</span>
+              <strong class="m-val text-red"><%= chronicle.fallQuantum %></strong>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- The Astrological & Numerological Blueprint Box -->
+  <section class="c-blueprint-section mt-8">
+    <div class="cosmic-badge mb-2">
+      <span class="pulsing-star">✦</span>
+      <span>THE COSMIC FINGERPRINT</span>
+    </div>
+    <h2 class="section-title text-gold">Vedic &amp; Numerological Blueprint</h2>
+    <p class="section-subtitle">
+      Mathematical and celestial breakdown of planetary yogas, transit triggers, and name vibrations that governed <%= chronicle.name %>’s cycle.
+    </p>
+
+    <div class="c-blueprint-grid">
+      <div class="blueprint-card">
+        <div class="b-card-head">
+          <span class="b-icon">🪐</span>
+          <strong>Lagna (Ascendant)</strong>
+        </div>
+        <div class="b-card-val"><%= chronicle.astrologicalBlueprint.ascendant %></div>
+      </div>
+
+      <div class="blueprint-card">
+        <div class="b-card-head">
+          <span class="b-icon">☀️</span>
+          <strong>Sun Sign &amp; Nakshatra</strong>
+        </div>
+        <div class="b-card-val"><%= chronicle.astrologicalBlueprint.sunSign %></div>
+      </div>
+
+      <div class="blueprint-card">
+        <div class="b-card-head">
+          <span class="b-icon">🌙</span>
+          <strong>Moon Sign &amp; Mind (Manas)</strong>
+        </div>
+        <div class="b-card-val"><%= chronicle.astrologicalBlueprint.moonSign %></div>
+      </div>
+
+      <div class="blueprint-card highlight-gold">
+        <div class="b-card-head">
+          <span class="b-icon">👑</span>
+          <strong>Ascending Dhana Yoga</strong>
+        </div>
+        <div class="b-card-val"><%= chronicle.astrologicalBlueprint.wealthYoga %></div>
+      </div>
+
+      <% if (chronicle.isUnbrokenLegend) { %>
+        <div class="blueprint-card highlight-emerald">
+          <div class="b-card-head">
+            <span class="b-icon">🛡️</span>
+            <strong>The Planetary Shield &amp; Discipline</strong>
+          </div>
+          <div class="b-card-val"><%= chronicle.astrologicalBlueprint.fallTrigger %></div>
+        </div>
+      <% } else { %>
+        <div class="blueprint-card highlight-red">
+          <div class="b-card-head">
+            <span class="b-icon">⚡</span>
+            <strong>The Planetary Fall Trigger</strong>
+          </div>
+          <div class="b-card-val"><%= chronicle.astrologicalBlueprint.fallTrigger %></div>
+        </div>
+      <% } %>
+
+      <div class="blueprint-card">
+        <div class="b-card-head">
+          <span class="b-icon">🔢</span>
+          <strong>Name &amp; Birth Numerology</strong>
+        </div>
+        <div class="b-card-val"><%= chronicle.astrologicalBlueprint.compoundNumerology %></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Executive Overview -->
+  <section class="c-editorial-overview mt-8">
+    <div class="editorial-card">
+      <h3 class="editorial-title">Executive Historical Summary</h3>
+      <p class="editorial-text"><%= chronicle.executiveSummary %></p>
+    </div>
+  </section>
+
+  <!-- The 4 Phases of The Cosmic Arc -->
+  <section class="c-phases-section mt-8">
+    <div class="cosmic-badge mb-2">
+      <span class="pulsing-star">✦</span>
+      <span>THE FOUR COSMIC PHASES</span>
+    </div>
+    <h2 class="section-title">
+      <% if (chronicle.isUnbrokenLegend) { %>
+        Anatomy of the <span class="text-gold">Unbroken Arc of Compounding</span>
+      <% } else { %>
+        Anatomy of the <span class="text-gold">Rise &amp; Fall</span>
+      <% } %>
+    </h2>
+
+    <div class="phases-timeline-wrapper mt-6">
+      <div class="timeline-progress-track" aria-hidden="true">
+        <div class="timeline-progress-bar"></div>
+      </div>
+      <div class="phases-timeline">
+        <% chronicle.phases.forEach(function(phase, idx) { %>
+          <div class="phase-card" data-phase="<%= idx + 1 %>">
+            <div class="phase-number-indicator">
+              <span class="phase-roman"><%= ['I', 'II', 'III', 'IV'][idx] %></span>
+            </div>
+            <div class="phase-content">
+              <h3 class="phase-heading"><%= phase.title %></h3>
+              <p class="phase-body"><%= phase.content %></p>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dr. Ashish Patni Expert Analytical Commentary -->
+  <section class="dr-ashish-commentary-section mt-10">
+    <div class="commentary-card">
+      <div class="commentary-header">
+        <div class="c-author-photo-wrap">
+          <img src="<%= founder.photo %>" alt="<%= founder.name %>" class="c-author-photo">
+          <span class="c-verified-icon">✓</span>
+        </div>
+        <div>
+          <span class="c-author-badge">CHIEF ANALYTICAL OPINION</span>
+          <h3 class="c-author-name"><%= founder.name %>, Ph.D.</h3>
+          <span class="c-author-title">Founder, Bhavishyam &bull; Master of Astro-Financial Geometry</span>
+        </div>
+      </div>
+
+      <div class="commentary-body">
+        <p class="commentary-text">
+          "<%= chronicle.drAshishAnalysis %>"
+        </p>
+      </div>
+
+      <!-- 3 Universal Capital Rules -->
+      <div class="commentary-rules-box">
+        <h4>⚖️ Essential Wealth Preservation Rules from this Case Study:</h4>
+        <ul class="rules-list">
+          <% chronicle.keyLessons.forEach(function(lesson) { %>
+            <li><span class="rule-bullet">✦</span> <span><%= lesson %></span></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Direct Personal Consultation Bridge -->
+  <section class="c-consult-bridge-section mt-10">
+    <div class="locked-specifications-card">
+      <div class="locked-card-grid">
+        <div class="locked-photo-col">
+          <div class="locked-avatar-wrap">
+            <img src="<%= founder.photo %>" alt="<%= founder.name %>" class="locked-avatar-img">
+          </div>
+          <div class="mt-2 text-center">
+            <strong class="text-gold" style="font-size: 0.92rem; display: block;"><%= founder.name %></strong>
+            <span style="font-size: 0.72rem; color: #94a3b8;">Celebrity Astrologer</span>
+          </div>
+        </div>
+
+        <div class="locked-content-col">
+          <h3>Understand Your Personal Planetary Cycles Before Risking Capital</h3>
+          <p class="locked-subhead">
+            Are you entering an unexamined Rahu phase or approaching a Saturnian restructuring transit?
+          </p>
+          <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 12px;">
+            History proves that market crashes are not random; they mirror celestial macro alignments. Before committing capital to high-risk investments, consult with Dr. Ashish Patni to decode your 2nd, 5th, and 11th wealth houses, your active Dasha period, and your personal auspicious Muhurat.
+          </p>
+          <div class="locked-perks-list">
+            <div class="locked-perk-item"><span class="chk">✓</span> Personal 5th House (Speculation Yoga) Diagnosis</div>
+            <div class="locked-perk-item"><span class="chk">✓</span> Active Vimshottari Mahadasha &amp; Antardasha Audit</div>
+            <div class="locked-perk-item"><span class="chk">✓</span> Name-Numerology Compatibility Assessment</div>
+            <div class="locked-perk-item"><span class="chk">✓</span> High-Risk Eclipse &amp; Transit Protection Windows</div>
+          </div>
+        </div>
+
+        <div class="locked-action-col">
+          <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent('Namaste Dr. Ashish Patni ji, I have read the case study on ' + chronicle.name + ' (' + chronicle.moniker + ') on Cosmic Finance. I would like to consult with you for my personal horoscope wealth houses, Dasha analysis, and financial cycle timing guidance.') %>" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
+            <span>💬 Consult on WhatsApp</span>
+            <span>&rarr;</span>
+          </a>
+          <span style="font-size: 0.75rem; color: #94a3b8;">100% Confidential Personal Guidance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Chronicles Navigation -->
+  <% if (related && related.length) { %>
+    <section class="related-chronicles-section mt-12">
+      <div class="section-center-head mb-6">
+        <span class="discipline-kicker">MORE CASE STUDIES</span>
+        <h2 class="section-title-sm">Explore More <span class="text-gold">Market Chronicles</span></h2>
+      </div>
+
+      <div class="related-cards-grid">
+        <% related.forEach(function(rel) { %>
+          <div class="related-chronicle-card">
+            <div class="rel-media">
+              <img src="<%= rel.image %>" alt="<%= rel.name %>" class="rel-img" loading="lazy" onerror="this.src='/images/dr_ashish_patni_executive.png'">
+              <span class="rel-tag"><%= rel.category %></span>
+            </div>
+            <div class="rel-body">
+              <h3 class="rel-title"><a href="/chronicles/<%= rel.slug %>"><%= rel.name %></a></h3>
+              <div class="rel-era text-gold"><%= rel.era %></div>
+              <p class="rel-tagline">"<%= rel.tagline.slice(0, 100) %>..."</p>
+              <a href="/chronicles/<%= rel.slug %>" class="rel-link">Read Blueprint &rarr;</a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+  <% } %>
+</div>

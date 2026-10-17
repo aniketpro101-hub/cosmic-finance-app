@@ -52,6 +52,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let activeAnalysisData = null;
 
+  // Dynamic Bot Protection Challenge (Human Number Calculation)
+  let botNum1 = Math.floor(Math.random() * 8) + 2; // 2 to 9
+  let botNum2 = Math.floor(Math.random() * 7) + 1; // 1 to 7
+  let botExpectedAnswer = botNum1 + botNum2;
+
+  const botMathQuestionEls = document.querySelectorAll('.bot-math-question');
+  botMathQuestionEls.forEach(el => {
+    el.textContent = `${botNum1} + ${botNum2} = ?`;
+  });
+
+  const botMathInputs = document.querySelectorAll('.bot-math-input');
+  const botStatusEls = document.querySelectorAll('.bot-status-indicator');
+
+  botMathInputs.forEach(inp => {
+    inp.addEventListener('input', () => {
+      const val = parseInt(inp.value.trim(), 10);
+      if (val === botExpectedAnswer) {
+        botStatusEls.forEach(st => {
+          st.textContent = '✓ Verified Real Human';
+          st.className = 'bot-status-indicator verified';
+        });
+      } else {
+        botStatusEls.forEach(st => {
+          st.textContent = 'Enter calculation result';
+          st.className = 'bot-status-indicator';
+        });
+      }
+    });
+  });
+
   // 1. Gender Selection Toggle
   if (btnGenderMale && btnGenderFemale && genderInput) {
     btnGenderMale.addEventListener('click', () => {
@@ -111,18 +141,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Advanced Settings Toggle
-  const advBar = document.querySelector('.advanced-settings-bar');
-  if (advBar && advancedSettingsDrawer) {
-    advBar.addEventListener('click', (e) => {
-      // Don't double trigger if clicking button inside bar
-      const isHidden = advancedSettingsDrawer.classList.contains('hidden');
-      advancedSettingsDrawer.classList.toggle('hidden');
-      if (settingsIcon) {
-        settingsIcon.textContent = isHidden ? '[-]' : '[+]';
+  // Initialize all advanced settings drawers to strictly hidden by default everywhere
+  document.querySelectorAll('.advanced-settings-drawer').forEach(drawer => {
+    drawer.classList.add('hidden');
+    drawer.style.display = 'none';
+  });
+
+  // 4. Advanced Settings Toggle ([+] SETTINGS starts minimized by default)
+  const toggleButtons = document.querySelectorAll('.btn-toggle-settings, .compact-settings-btn, #btnToggleSettings');
+  toggleButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const formScope = btn.closest('form') || btn.closest('.front-coordinates-card') || document;
+      const targetDrawer = formScope.querySelector('.advanced-settings-drawer') || document.getElementById('advancedSettingsDrawer');
+      const targetIcon = btn.querySelector('.toggle-symbol') || btn.querySelector('#settingsIcon') || document.getElementById('settingsIcon');
+      const targetText = btn.querySelector('.toggle-text');
+
+      if (targetDrawer) {
+        const isHidden = targetDrawer.classList.contains('hidden') || targetDrawer.style.display === 'none';
+        if (isHidden) {
+          targetDrawer.classList.remove('hidden');
+          targetDrawer.style.display = 'block';
+          btn.setAttribute('aria-expanded', 'true');
+          if (targetIcon) targetIcon.textContent = '−';
+          if (targetText) targetText.textContent = 'Hide Settings';
+          else if (!btn.querySelector('.toggle-symbol')) btn.innerHTML = '<span id="settingsIcon">[-]</span> HIDE SETTINGS';
+        } else {
+          targetDrawer.classList.add('hidden');
+          targetDrawer.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+          if (targetIcon) targetIcon.textContent = '+';
+          if (targetText) targetText.textContent = 'Settings (GPS, Ayanamsha)';
+          else if (!btn.querySelector('.toggle-symbol')) btn.innerHTML = '<span id="settingsIcon">[+]</span> SETTINGS';
+        }
       }
     });
-  }
+  });
 
   // 5. Random KP Horary Number (1-249)
   if (btnRandomKP && horaryInput) {
@@ -149,23 +204,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Form Submission
-  if (form) {
-    form.addEventListener('submit', async (e) => {
+  // 7. Form Submission Handler
+  const activeForms = document.querySelectorAll('#tradingKundliForm, #homeCoordinatesForm');
+  activeForms.forEach(curForm => {
+    curForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const fullName = fullNameInput ? fullNameInput.value.trim() : 'Trader';
-      const gender = genderInput ? genderInput.value : 'Male';
-      const day = birthDay ? parseInt(birthDay.value, 10) : 15;
-      const month = birthMonth ? parseInt(birthMonth.value, 10) : 1;
-      const year = birthYear ? parseInt(birthYear.value, 10) : 1994;
-      const hrs = birthHrs ? parseInt(birthHrs.value, 10) : 12;
-      const min = birthMin ? parseInt(birthMin.value, 10) : 0;
-      const sec = birthSec ? parseInt(birthSec.value, 10) : 0;
-      const pob = pobInput ? pobInput.value.trim() : 'Mumbai, Maharashtra';
+      // Bot protection check
+      const botInp = curForm.querySelector('.bot-math-input') || document.querySelector('.bot-math-input');
+      if (botInp) {
+        const val = parseInt(botInp.value.trim(), 10);
+        if (val !== botExpectedAnswer) {
+          alert(`Security Verification: Please solve the human math calculation (${botNum1} + ${botNum2} = ?) correctly to continue.`);
+          botInp.focus();
+          return;
+        }
+      }
+
+      const curNameInp = curForm.querySelector('#fullName') || fullNameInput;
+      const curGenderInp = curForm.querySelector('#genderInput') || genderInput;
+      const curDay = curForm.querySelector('#birthDay') || birthDay;
+      const curMonth = curForm.querySelector('#birthMonth') || birthMonth;
+      const curYear = curForm.querySelector('#birthYear') || birthYear;
+      const curHrs = curForm.querySelector('#birthHrs') || birthHrs;
+      const curMin = curForm.querySelector('#birthMin') || birthMin;
+      const curSec = curForm.querySelector('#birthSec') || birthSec;
+      const curPob = curForm.querySelector('#pob') || pobInput;
+
+      const fullName = curNameInp ? curNameInp.value.trim() : 'Trader';
+      const gender = curGenderInp ? curGenderInp.value : 'Male';
+      const day = curDay ? parseInt(curDay.value, 10) : 15;
+      const month = curMonth ? parseInt(curMonth.value, 10) : 1;
+      const year = curYear ? parseInt(curYear.value, 10) : 1994;
+      const hrs = curHrs ? parseInt(curHrs.value, 10) : 12;
+      const min = curMin ? parseInt(curMin.value, 10) : 0;
+      const sec = curSec ? parseInt(curSec.value, 10) : 0;
+      const pob = curPob ? curPob.value.trim() : 'Mumbai, Maharashtra';
 
       if (!fullName) {
-        alert('Please enter your Name.');
+        alert('Please enter your Full Name.');
         return;
       }
 
@@ -179,8 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const horaryNumber = horaryInput ? parseInt(horaryInput.value, 10) : null;
 
       // Animate Loading Ceremony
-      formCard.style.display = 'none';
-      processingState.style.display = 'flex';
+      if (formCard) formCard.style.display = 'none';
+      if (processingState) processingState.style.display = 'flex';
 
       try {
         const payload = {
@@ -203,30 +280,44 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
 
         setTimeout(() => {
-          processingState.style.display = 'none';
+          if (processingState) processingState.style.display = 'none';
 
           if (data.success && data.analysis) {
             activeAnalysisData = data.analysis;
             renderKundliResults(data.analysis);
-            resultCard.style.display = 'block';
-            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (resultCard) {
+              resultCard.style.display = 'block';
+              resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
           } else {
-            formCard.style.display = 'block';
+            if (formCard) formCard.style.display = 'block';
             alert(data.error || 'Unable to calculate Kundli. Please verify details.');
           }
-        }, 1100);
+        }, 900);
 
       } catch (err) {
-        processingState.style.display = 'none';
-        formCard.style.display = 'block';
+        if (processingState) processingState.style.display = 'none';
+        if (formCard) formCard.style.display = 'block';
         alert('Error connecting to astrological calculation engine.');
       }
     });
-  }
+  });
 
   // 8. Master Render Function for Full Kundli Results
   function renderKundliResults(analysis) {
     if (!analysis) return;
+
+    // Personalize Locked VIP Consultation Card
+    const lockedTargetText = document.getElementById('lockedConsultantNotice');
+    if (lockedTargetText) {
+      lockedTargetText.textContent = `To unlock full personalized specification, Vimshottari Mahadasha timing, name-numerology compatibility and transit remedies for ${analysis.fullName}, please consult VIP Astrologer Dr. Ashish Patni.`;
+    }
+
+    const lockedWaBtn = document.getElementById('lockedWhatsAppCta');
+    if (lockedWaBtn) {
+      const msg = `Namaste Dr. Ashish Patni ji, I have calculated my Birth Coordinates for ${analysis.fullName} (DOB: ${analysis.dob}, Lagna: ${analysis.lagna.signName}) on Cosmic Finance and wish to consult you for my full personalized financial and multi-asset guidance.`;
+      lockedWaBtn.href = `https://wa.me/919039610001?text=${encodeURIComponent(msg)}`;
+    }
 
     // Header metadata
     if (resultUserName) resultUserName.textContent = `Vedic Financial Kundli for ${analysis.fullName}`;

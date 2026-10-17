@@ -20,9 +20,9 @@ function seedDatabase() {
     insertMarket.run('NIFTY', 'NIFTY 50', 'index', 22514.80, 132.40, 0.59, 22550.00, 22410.20, 'Open');
     insertMarket.run('SENSEX', 'SENSEX', 'index', 74228.60, 398.20, 0.54, 74340.00, 73950.10, 'Open');
     insertMarket.run('BANKNIFTY', 'BANK NIFTY', 'index', 48490.15, -85.30, -0.18, 48620.00, 48310.00, 'Open');
-    insertMarket.run('GOLD', 'GOLD (MCX 24K)', 'commodity', 71850.00, 410.00, 0.57, 72050.00, 71420.00, 'Open');
+    insertMarket.run('GOLD', 'GOLD (24K Bullion)', 'commodity', 71850.00, 410.00, 0.57, 72050.00, 71420.00, 'Open');
+    insertMarket.run('SILVER', 'SILVER (Fine 999)', 'commodity', 84500.00, 620.00, 0.74, 85100.00, 83800.00, 'Open');
     insertMarket.run('BTC', 'BITCOIN (USD)', 'crypto', 67820.00, 1420.00, 2.14, 68400.00, 66100.00, 'Open');
-    insertMarket.run('ETH', 'ETHEREUM (USD)', 'crypto', 3540.00, 88.50, 2.56, 3590.00, 3420.00, 'Open');
   }
 
   // 2. Seed Initial Daily Thoughts if empty

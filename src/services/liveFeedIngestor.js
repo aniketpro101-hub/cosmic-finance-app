@@ -8,6 +8,20 @@
  */
 
 const db = require('../db/database');
+const { getISTDate } = require('../utils/indianTime');
+
+// Initialize persistent quota ledger for GoldAPI.io (strictly protects 100 req/mo cap)
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS gold_api_quota (
+    date_str TEXT PRIMARY KEY,
+    gold_calls INTEGER DEFAULT 0,
+    silver_calls INTEGER DEFAULT 0,
+    last_gold_at DATETIME,
+    last_silver_at DATETIME,
+    last_gold_price REAL,
+    last_silver_price REAL
+  )
+`).run();
 
 let nseCookie = '';
 let nseCookieExpiry = 0;
@@ -19,9 +33,15 @@ const feedHealthState = {
   nse: { status: 'Initializing', lastSuccess: null, latencyMs: 0 },
   binance: { status: 'Initializing', lastSuccess: null, latencyMs: 0 },
   yahoo: { status: 'Initializing', lastSuccess: null, latencyMs: 0 },
+  goldapi: {
+    status: process.env.GOLDAPI_KEY ? 'Configured (Active)' : 'Optional (No Key)',
+    lastSuccess: null,
+    callsToday: { gold: 0, silver: 0 },
+    monthlyTotal: 0
+  },
   finnhub: { status: process.env.FINNHUB_API_KEY ? 'Configured' : 'Optional (No Key)', lastSuccess: null },
   lastSyncTimestamp: null,
-  activeSymbols: ['NIFTY', 'SENSEX', 'BANKNIFTY', 'GOLD', 'BTC', 'ETH']
+  activeSymbols: ['NIFTY', 'SENSEX', 'BANKNIFTY', 'GOLD', 'SILVER', 'BTC']
 };
 
 /**
@@ -64,76 +84,138 @@ let consecutiveNSEFailures = 0;
 let nseCircuitTrippedUntil = 0;
 
 /**
+ * Direct Yahoo Finance Chart Relay for NIFTY 50 (^NSEI) and BANK NIFTY (^NSEBANK)
+ * High-speed fallback when NSE website sessions fail, rate-limit, or are blocked.
+ */
+async function fetchYahooIndianIndices() {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+
+    const [resNifty, resBank] = await Promise.all([
+      fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEI?interval=1d', {
+        headers: { 'User-Agent': USER_AGENT },
+        signal: controller.signal
+      }),
+      fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEBANK?interval=1d', {
+        headers: { 'User-Agent': USER_AGENT },
+        signal: controller.signal
+      })
+    ]);
+    clearTimeout(timeout);
+
+    const niftyJson = resNifty.ok ? await resNifty.json() : null;
+    const bankJson = resBank.ok ? await resBank.json() : null;
+
+    const nMeta = niftyJson?.chart?.result?.[0]?.meta;
+    const bMeta = bankJson?.chart?.result?.[0]?.meta;
+
+    const nifty = nMeta && nMeta.regularMarketPrice ? {
+      price: parseFloat(nMeta.regularMarketPrice.toFixed(2)),
+      change: parseFloat((nMeta.fulldayChange || (nMeta.regularMarketPrice - (nMeta.chartPreviousClose || nMeta.regularMarketPrice))).toFixed(2)),
+      changePercent: parseFloat((nMeta.regularMarketChangePercent || nMeta.fulldayChangePercent || 0).toFixed(2)),
+      high: parseFloat((nMeta.regularMarketDayHigh || nMeta.regularMarketPrice).toFixed(2)),
+      low: parseFloat((nMeta.regularMarketDayLow || nMeta.regularMarketPrice).toFixed(2))
+    } : null;
+
+    const bankNifty = bMeta && bMeta.regularMarketPrice ? {
+      price: parseFloat(bMeta.regularMarketPrice.toFixed(2)),
+      change: parseFloat((bMeta.fulldayChange || (bMeta.regularMarketPrice - (bMeta.chartPreviousClose || bMeta.regularMarketPrice))).toFixed(2)),
+      changePercent: parseFloat((bMeta.regularMarketChangePercent || bMeta.fulldayChangePercent || 0).toFixed(2)),
+      high: parseFloat((bMeta.regularMarketDayHigh || bMeta.regularMarketPrice).toFixed(2)),
+      low: parseFloat((bMeta.regularMarketDayLow || bMeta.regularMarketPrice).toFixed(2))
+    } : null;
+
+    return { nifty, bankNifty };
+  } catch (err) {
+    return { nifty: null, bankNifty: null };
+  }
+}
+
+/**
  * Fetch official live NSE Indices (NIFTY 50, BANK NIFTY, NIFTY IT, etc.)
+ * Primary: Official NSE India session
+ * Resilient Instant Fallback: Yahoo Finance Indian Indices Relay
  */
 async function fetchNSEIndices() {
   const startTime = Date.now();
   const now = Date.now();
 
-  // If circuit is tripped, avoid hammering upstream and serve cached last close
-  if (now < nseCircuitTrippedUntil) {
-    feedHealthState.nse.status = 'Circuit Breaker Open (Serving Last Close)';
-    return null;
-  }
+  // If circuit is not tripped, try official NSE scraper first
+  if (now >= nseCircuitTrippedUntil) {
+    try {
+      const cookie = await getNSESessionCookie();
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 7000);
 
-  try {
-    const cookie = await getNSESessionCookie();
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 7000);
+      const res = await fetch('https://www.nseindia.com/api/allIndices', {
+        headers: {
+          'User-Agent': USER_AGENT,
+          'Accept': 'application/json, text/plain, */*',
+          'Referer': 'https://www.nseindia.com/market-data/live-market-indices',
+          'Cookie': cookie || ''
+        },
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
 
-    const res = await fetch('https://www.nseindia.com/api/allIndices', {
-      headers: {
-        'User-Agent': USER_AGENT,
-        'Accept': 'application/json, text/plain, */*',
-        'Referer': 'https://www.nseindia.com/market-data/live-market-indices',
-        'Cookie': cookie || ''
-      },
-      signal: controller.signal
-    });
-    clearTimeout(timeout);
-
-    if (res.ok) {
-      const json = await res.json();
-      if (json && Array.isArray(json.data)) {
-        consecutiveNSEFailures = 0; // Reset circuit breaker
-        const nifty = json.data.find(i => i.index === 'NIFTY 50');
-        const bankNifty = json.data.find(i => i.index === 'NIFTY BANK');
-        feedHealthState.nse = {
-          status: 'Connected (Live)',
-          lastSuccess: new Date().toISOString(),
-          latencyMs: Date.now() - startTime
-        };
-        return {
-          nifty: nifty ? {
-            price: Number(nifty.last),
-            change: Number(nifty.variation),
-            changePercent: Number(nifty.percentChange),
-            high: Number(nifty.high),
-            low: Number(nifty.low)
-          } : null,
-          bankNifty: bankNifty ? {
-            price: Number(bankNifty.last),
-            change: Number(bankNifty.variation),
-            changePercent: Number(bankNifty.percentChange),
-            high: Number(bankNifty.high),
-            low: Number(bankNifty.low)
-          } : null,
-          allIndices: json.data
-        };
+      if (res.ok) {
+        const json = await res.json();
+        if (json && Array.isArray(json.data)) {
+          consecutiveNSEFailures = 0; // Reset circuit breaker
+          const nifty = json.data.find(i => i.index === 'NIFTY 50');
+          const bankNifty = json.data.find(i => i.index === 'NIFTY BANK');
+          feedHealthState.nse = {
+            status: 'Connected (NSE India Direct)',
+            lastSuccess: new Date().toISOString(),
+            latencyMs: Date.now() - startTime
+          };
+          return {
+            nifty: nifty ? {
+              price: Number(nifty.last),
+              change: Number(nifty.variation),
+              changePercent: Number(nifty.percentChange),
+              high: Number(nifty.high),
+              low: Number(nifty.low)
+            } : null,
+            bankNifty: bankNifty ? {
+              price: Number(bankNifty.last),
+              change: Number(bankNifty.variation),
+              changePercent: Number(bankNifty.percentChange),
+              high: Number(bankNifty.high),
+              low: Number(bankNifty.low)
+            } : null,
+            allIndices: json.data
+          };
+        }
+      } else {
+        consecutiveNSEFailures++;
       }
-    } else {
+    } catch (err) {
       consecutiveNSEFailures++;
     }
-  } catch (err) {
-    consecutiveNSEFailures++;
+
+    if (consecutiveNSEFailures >= 3) {
+      nseCircuitTrippedUntil = Date.now() + 5 * 60 * 1000; // 5 min trip
+    }
   }
 
-  if (consecutiveNSEFailures >= 3) {
-    nseCircuitTrippedUntil = Date.now() + 5 * 60 * 1000; // 5 min trip
-    feedHealthState.nse.status = 'Circuit Tripped (Stale: Last Close Retained)';
-  } else {
-    feedHealthState.nse.status = 'Standby (Cached)';
+  // Resilient Instant Fallback: Query Yahoo Finance Indian Indices Relay
+  const yahooIndian = await fetchYahooIndianIndices();
+  if (yahooIndian && (yahooIndian.nifty || yahooIndian.bankNifty)) {
+    feedHealthState.nse = {
+      status: 'Connected (Yahoo Indian Indices Relay)',
+      lastSuccess: new Date().toISOString(),
+      latencyMs: Date.now() - startTime
+    };
+    return {
+      nifty: yahooIndian.nifty,
+      bankNifty: yahooIndian.bankNifty,
+      allIndices: []
+    };
   }
+
+  feedHealthState.nse.status = 'Standby (Cached)';
   return null;
 }
 
@@ -226,18 +308,22 @@ async function fetchCryptoData() {
  */
 async function fetchSensexAndGold() {
   const startTime = Date.now();
-  const result = { sensex: null, gold: null };
+  const result = { sensex: null, gold: null, silver: null };
 
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
 
-    const [resSensex, resGold] = await Promise.all([
+    const [resSensex, resGold, resSilver] = await Promise.all([
       fetch('https://query1.finance.yahoo.com/v8/finance/chart/%5EBSESN?interval=1d', {
         headers: { 'User-Agent': USER_AGENT },
         signal: controller.signal
       }),
       fetch('https://query1.finance.yahoo.com/v8/finance/chart/GC=F?interval=1d', {
+        headers: { 'User-Agent': USER_AGENT },
+        signal: controller.signal
+      }),
+      fetch('https://query1.finance.yahoo.com/v8/finance/chart/SI=F?interval=1d', {
         headers: { 'User-Agent': USER_AGENT },
         signal: controller.signal
       })
@@ -284,6 +370,28 @@ async function fetchSensexAndGold() {
       }
     }
 
+    if (resSilver.ok) {
+      const data = await resSilver.json();
+      const meta = data?.chart?.result?.[0]?.meta;
+      if (meta && meta.regularMarketPrice) {
+        const usdPerOz = meta.regularMarketPrice;
+        const prevUsd = meta.chartPreviousClose || usdPerOz;
+        // Standard MCX 1kg Silver conversion: (USD/oz / 31.1035) * 1000 * 87.5 * 1.06
+        const approxMcxPer1Kg = Math.round((usdPerOz / 31.1035) * 1000 * 87.5 * 1.06);
+        const prevMcxPer1Kg = Math.round((prevUsd / 31.1035) * 1000 * 87.5 * 1.06);
+        const chg = approxMcxPer1Kg - prevMcxPer1Kg;
+        const chgPct = (chg / (prevMcxPer1Kg || 1)) * 100;
+
+        result.silver = {
+          price: approxMcxPer1Kg,
+          change: chg,
+          changePercent: parseFloat(chgPct.toFixed(2)),
+          high: Math.round(approxMcxPer1Kg * 1.008),
+          low: Math.round(approxMcxPer1Kg * 0.992)
+        };
+      }
+    }
+
     feedHealthState.yahoo = {
       status: 'Connected (Yahoo Chart Feed)',
       lastSuccess: new Date().toISOString(),
@@ -325,14 +433,153 @@ async function fetchFinnhubOptional() {
 }
 
 /**
+ * Official GoldAPI.io Spot Pricing with Daily Quota Protection
+ * User Configuration: Exactly 2 Gold calls + 1 Silver call per day
+ * (Max 93 requests/month vs 100 limit, leaving buffer)
+ * Slot 1 (Morning ~09:00+ IST): Gold #1 + Silver #1
+ * Slot 2 (Evening ~17:00+ IST): Gold #2
+ */
+async function fetchGoldAPIQuotes() {
+  const apiKey = process.env.GOLDAPI_KEY;
+  if (!apiKey) return null;
+
+  const ist = getISTDate();
+  const todayStr = ist.dateIso;
+  const currentMonthPrefix = todayStr.substring(0, 7);
+
+  let row = db.prepare('SELECT * FROM gold_api_quota WHERE date_str = ?').get(todayStr);
+  if (!row) {
+    db.prepare('INSERT INTO gold_api_quota (date_str, gold_calls, silver_calls) VALUES (?, 0, 0)').run(todayStr);
+    row = { date_str: todayStr, gold_calls: 0, silver_calls: 0, last_gold_price: null, last_silver_price: null };
+  }
+
+  const monthStats = db.prepare(`
+    SELECT SUM(gold_calls) as total_gold, SUM(silver_calls) as total_silver 
+    FROM gold_api_quota 
+    WHERE date_str LIKE ?
+  `).get(`${currentMonthPrefix}%`);
+
+  const monthlyTotal = (monthStats?.total_gold || 0) + (monthStats?.total_silver || 0);
+  feedHealthState.goldapi = {
+    status: monthlyTotal >= 95 ? 'Monthly Quota Buffer Active (95/100 reached — Serving Cached)' : 'Active (Scheduled 2 Gold/1 Silver Daily)',
+    callsToday: { gold: row.gold_calls, silver: row.silver_calls },
+    monthlyTotal: monthlyTotal,
+    lastSuccess: row.last_gold_at || null
+  };
+
+  if (monthlyTotal >= 95) {
+    return null;
+  }
+
+  const result = { gold: null, silver: null };
+
+  const canCallGold = (row.gold_calls < 1) || (row.gold_calls === 1 && ist.hours >= 17);
+  const canCallSilver = (row.silver_calls < 1 && ist.hours >= 9);
+
+  if (canCallGold) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch('https://www.goldapi.io/api/price/XAU/INR', {
+        headers: {
+          'x-access-token': apiKey,
+          'Content-Type': 'application/json'
+        },
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const json = await res.json();
+        const pricePerGram = json.price_per_unit?.gram || json.melt_price_per_gram?.['24k'] || (json.price / 31.1035);
+        const price10g = Math.round(pricePerGram * 10);
+        const prev10g = json.prev_close_price ? Math.round((json.prev_close_price / 31.1035) * 10) : price10g;
+        const change10g = price10g - prev10g;
+        const changePct = json.change_percent ? parseFloat(json.change_percent.toFixed(2)) : 0;
+        const high10g = json.high_price ? Math.round((json.high_price / 31.1035) * 10) : price10g;
+        const low10g = json.low_price ? Math.round((json.low_price / 31.1035) * 10) : price10g;
+
+        result.gold = {
+          price: price10g,
+          change: change10g,
+          changePercent: changePct,
+          high: high10g,
+          low: low10g
+        };
+
+        db.prepare(`
+          UPDATE gold_api_quota
+          SET gold_calls = gold_calls + 1, last_gold_at = CURRENT_TIMESTAMP, last_gold_price = ?
+          WHERE date_str = ?
+        `).run(price10g, todayStr);
+
+        feedHealthState.goldapi.status = 'Connected (GoldAPI.io 24K Live)';
+        feedHealthState.goldapi.lastSuccess = new Date().toISOString();
+        feedHealthState.goldapi.callsToday.gold = row.gold_calls + 1;
+        feedHealthState.goldapi.monthlyTotal = monthlyTotal + 1;
+      }
+    } catch (err) {
+      console.warn('GoldAPI XAU fetch failed, serving cached/COMEX fallback:', err.message);
+    }
+  }
+
+  if (canCallSilver) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch('https://www.goldapi.io/api/price/XAG/INR', {
+        headers: {
+          'x-access-token': apiKey,
+          'Content-Type': 'application/json'
+        },
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const json = await res.json();
+        const pricePerKg = Math.round(json.price_per_unit?.kilogram || (json.price_per_unit?.gram * 1000) || ((json.price / 31.1035) * 1000));
+        const prevKg = json.prev_close_price ? Math.round((json.prev_close_price / 31.1035) * 1000) : pricePerKg;
+        const changeKg = pricePerKg - prevKg;
+        const changePct = json.change_percent ? parseFloat(json.change_percent.toFixed(2)) : 0;
+        const highKg = json.high_price ? Math.round((json.high_price / 31.1035) * 1000) : pricePerKg;
+        const lowKg = json.low_price ? Math.round((json.low_price / 31.1035) * 1000) : pricePerKg;
+
+        result.silver = {
+          price: pricePerKg,
+          change: changeKg,
+          changePercent: changePct,
+          high: highKg,
+          low: lowKg
+        };
+
+        db.prepare(`
+          UPDATE gold_api_quota
+          SET silver_calls = silver_calls + 1, last_silver_at = CURRENT_TIMESTAMP, last_silver_price = ?
+          WHERE date_str = ?
+        `).run(pricePerKg, todayStr);
+
+        feedHealthState.goldapi.callsToday.silver = row.silver_calls + 1;
+        feedHealthState.goldapi.monthlyTotal = feedHealthState.goldapi.monthlyTotal + 1;
+      }
+    } catch (err) {
+      console.warn('GoldAPI XAG fetch failed:', err.message);
+    }
+  }
+
+  return result;
+}
+
+/**
  * Execute a synchronized live feed ingestion pass and write to SQLite market_cache
  */
 async function syncLiveMarketFeeds() {
   try {
-    const [nseData, cryptoData, extraData] = await Promise.all([
+    const [nseData, cryptoData, extraData, goldApiData] = await Promise.all([
       fetchNSEIndices(),
       fetchCryptoData(),
-      fetchSensexAndGold()
+      fetchSensexAndGold(),
+      fetchGoldAPIQuotes()
     ]);
 
     // Optional Finnhub call
@@ -347,7 +594,7 @@ async function syncLiveMarketFeeds() {
     `);
 
     db.transaction(() => {
-      // 1. NIFTY 50 from official NSE
+      // 1. NIFTY 50 from official NSE or Yahoo Relay
       if (nseData && nseData.nifty) {
         updateStmt.run(
           nseData.nifty.price,
@@ -359,7 +606,7 @@ async function syncLiveMarketFeeds() {
         );
       }
 
-      // 2. BANK NIFTY from official NSE
+      // 2. BANK NIFTY from official NSE or Yahoo Relay
       if (nseData && nseData.bankNifty) {
         updateStmt.run(
           nseData.bankNifty.price,
@@ -391,8 +638,17 @@ async function syncLiveMarketFeeds() {
         }
       }
 
-      // 4. GOLD from Bullion / Yahoo
-      if (extraData && extraData.gold) {
+      // 4. GOLD from GoldAPI.io primary or Bullion/Yahoo fallback
+      if (goldApiData && goldApiData.gold) {
+        updateStmt.run(
+          goldApiData.gold.price,
+          goldApiData.gold.change,
+          goldApiData.gold.changePercent,
+          goldApiData.gold.high,
+          goldApiData.gold.low,
+          'GOLD'
+        );
+      } else if (extraData && extraData.gold) {
         updateStmt.run(
           extraData.gold.price,
           extraData.gold.change,
@@ -400,6 +656,31 @@ async function syncLiveMarketFeeds() {
           extraData.gold.high,
           extraData.gold.low,
           'GOLD'
+        );
+      }
+
+      // 4b. SILVER from GoldAPI.io primary or Yahoo SI=F fallback (upsert into market_cache)
+      const silverSource = (goldApiData && goldApiData.silver) ? goldApiData.silver : (extraData && extraData.silver ? extraData.silver : null);
+      if (silverSource) {
+        db.prepare(`
+          INSERT INTO market_cache (symbol, name, asset_type, current_price, change_amount, change_percent, high, low, market_status, last_updated)
+          VALUES ('SILVER', 'SILVER (Fine 999)', 'commodity', ?, ?, ?, ?, ?, 'Open', CURRENT_TIMESTAMP)
+          ON CONFLICT(symbol) DO UPDATE SET
+            name = 'SILVER (Fine 999)',
+            asset_type = 'commodity',
+            current_price = excluded.current_price,
+            change_amount = excluded.change_amount,
+            change_percent = excluded.change_percent,
+            high = excluded.high,
+            low = excluded.low,
+            market_status = 'Open',
+            last_updated = CURRENT_TIMESTAMP
+        `).run(
+          silverSource.price,
+          silverSource.change,
+          silverSource.changePercent,
+          silverSource.high,
+          silverSource.low
         );
       }
 
@@ -415,17 +696,8 @@ async function syncLiveMarketFeeds() {
         );
       }
 
-      // 6. ETHEREUM from Binance / CoinGecko
-      if (cryptoData && cryptoData.eth) {
-        updateStmt.run(
-          cryptoData.eth.price,
-          cryptoData.eth.change,
-          cryptoData.eth.changePercent,
-          cryptoData.eth.high,
-          cryptoData.eth.low,
-          'ETH'
-        );
-      }
+      // Ensure Ethereum is purged from market_cache
+      db.prepare("DELETE FROM market_cache WHERE symbol = 'ETH'").run();
     })();
 
     feedHealthState.lastSyncTimestamp = new Date().toISOString();
@@ -442,8 +714,10 @@ function getLiveFeedsHealth() {
 
 module.exports = {
   fetchNSEIndices,
+  fetchYahooIndianIndices,
   fetchCryptoData,
   fetchSensexAndGold,
+  fetchGoldAPIQuotes,
   syncLiveMarketFeeds,
   getLiveFeedsHealth
 };

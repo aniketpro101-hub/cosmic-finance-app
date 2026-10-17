@@ -21,48 +21,74 @@
   --space-border-subtle: rgba(168, 165, 196, 0.12);
   --space-border-glow: rgba(157, 130, 240, 0.35);
 
-  /* 2. The Dual-Accent Color Logic (The Core Brand Concept) */
-  /* Gold Accent (#f2c879, scale: --gold-300 to --gold-700) */
-  /* Represents "The Street" / Earthly Wealth / Live Market Data */
+  /* 2. The Multi-Chromatic Jewel Palette (Breaking Monotone into Premium Luxury) */
+  /* Solar Radiant Gold: Earthly Wealth & Surya Light */
   --gold-300: #fae4b5;
   --gold-400: #f6d697;
-  --gold-500: #f2c879;
+  --gold-500: #f5be48;
   --gold-600: #d4a753;
   --gold-700: #ad8234;
-  --gold-glow: rgba(242, 200, 121, 0.32);
+  --gold-glow: rgba(245, 190, 72, 0.42);
 
-  /* Violet Accent (#9d82f0, scale: --violet-300 to --violet-600) */
-  /* Represents "The Sky" / Cosmic Insight / Astrology */
+  /* Violet & Amethyst: Cosmic Insight & Shani-Rahu Deep Space */
   --violet-300: #c5b4f6;
   --violet-400: #ad94f3;
   --violet-500: #9d82f0;
   --violet-600: #7d60da;
-  --violet-glow: rgba(157, 130, 240, 0.35);
+  --violet-glow: rgba(157, 130, 240, 0.38);
+
+  /* Emerald Mercury: Commerce, Calculation & Auspicious Growth */
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --emerald-glow: rgba(16, 185, 129, 0.36);
+
+  /* Sapphire Jupiter: Divine Wisdom, Institutional Expansion & Dharma */
+  --sapphire-300: #7dd3fc;
+  --sapphire-400: #38bdf8;
+  --sapphire-500: #0ea5e9;
+  --sapphire-600: #0284c7;
+  --sapphire-glow: rgba(56, 189, 248, 0.36);
+
+  /* Ruby Lotus (Lakshmi): Prosperity, Energy & Mars Multi-Asset Spark */
+  --ruby-400: #fb7185;
+  --ruby-500: #f43f5e;
+  --ruby-600: #e11d48;
+  --ruby-glow: rgba(244, 63, 94, 0.35);
+
+  /* Multi-Chromatic Iridescent Gradients */
+  --grad-aurora: linear-gradient(135deg, rgba(245, 190, 72, 0.18) 0%, rgba(157, 130, 240, 0.16) 45%, rgba(16, 185, 129, 0.16) 100%);
+  --grad-cosmic-card: linear-gradient(145deg, rgba(16, 22, 50, 0.85) 0%, rgba(10, 14, 32, 0.92) 100%);
+  --grad-gold-emerald: linear-gradient(135deg, #f5be48 0%, #10b981 100%);
+  --grad-gold-sapphire: linear-gradient(135deg, #f5be48 0%, #38bdf8 100%);
+  --grad-gold-ruby: linear-gradient(135deg, #ffd700 0%, #f43f5e 100%);
+  --border-iridescent: linear-gradient(135deg, rgba(245, 190, 72, 0.5) 0%, rgba(157, 130, 240, 0.35) 50%, rgba(16, 185, 129, 0.45) 100%);
 
   /* 3. Market Movements & Legibility */
-  --success-400: #63d9a5; /* Positive / Gains */
-  --negative-400: #e87b8c; /* Negative / Losses */
+  --success-400: #34d399; /* Positive / Gains */
+  --negative-400: #f87171; /* Negative / Losses */
   --market-green: var(--success-400);
-  --market-green-glow: rgba(99, 217, 165, 0.28);
+  --market-green-glow: rgba(52, 211, 153, 0.3);
   --market-red: var(--negative-400);
-  --market-red-glow: rgba(232, 123, 140, 0.28);
+  --market-red-glow: rgba(248, 113, 113, 0.3);
 
   /* 4. Text Tones */
-  --text-primary: #ecebf4;   /* Soft starlight silver, never harsh pure white */
-  --text-secondary: #a8a5c4; /* Secondary prose and interface text */
-  --text-dim: #8f8db0;       /* Captions / hints */
+  --text-primary: #f8fafc;   /* Ultra-crisp starlight white */
+  --text-secondary: #cbd5e1; /* Clear readable prose */
+  --text-dim: #94a3b8;       /* Captions / hints */
   --text-muted: var(--text-dim);
   --text-gold: var(--gold-500);
   --text-violet: var(--violet-400);
+  --text-emerald: var(--emerald-400);
+  --text-sapphire: var(--sapphire-400);
 
   /* 5. Typography Families */
-  /* Space Grotesk (500, 600, 700): Display / Observatory - Headlines (h1-h4), prominent button labels, kicker tags */
   --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-
-  /* Inter (400, 500, 600) + Noto Sans Devanagari (400, 500) Indic Fallback: Body / Interface */
   --font-body: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hindi-display: 'Noto Serif Devanagari', 'Tiro Devanagari Hindi', 'Martel', serif;
+  --font-hindi-body: 'Noto Sans Devanagari', 'Noto Serif Devanagari', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* IBM Plex Mono (400, 500): Precision Data / Instrument - Every numeric value, price, percentage, tick, coordinate */
   --font-mono: 'IBM Plex Mono', monospace;

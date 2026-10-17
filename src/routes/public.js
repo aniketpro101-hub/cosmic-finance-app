@@ -10,6 +10,7 @@ const CONSTANTS = require('../config/constants');
 
 const { getISTDate, getIndianHora } = require('../utils/indianTime');
 const { getComprehensivePanchang } = require('../services/panchangService');
+const chroniclesService = require('../services/chroniclesService');
 
 // Middleware to inject global template locals
 router.use((req, res, next) => {
@@ -18,6 +19,10 @@ router.use((req, res, next) => {
   res.locals.whatsappMessage = CONSTANTS.WHATSAPP_PREFILLED_MESSAGE;
   res.locals.constants = CONSTANTS;
   res.locals.founder = CONSTANTS.FOUNDER;
+  res.locals.multiAssetStatement = CONSTANTS.MULTI_ASSET_STATEMENT;
+  res.locals.hindiQuotes = CONSTANTS.HINDI_QUOTES;
+  res.locals.multiAssetClasses = CONSTANTS.MULTI_ASSET_CLASSES;
+  res.locals.hostUrl = `${req.protocol}://${req.get('host')}`;
   res.locals.istNow = getISTDate();
   res.locals.currentHora = getIndianHora();
   try {
@@ -59,16 +64,22 @@ router.get('/', (req, res) => {
     console.error('Error fetching thoughts:', e.message);
   }
 
+  // Featured Market Chronicles for Homepage (Harshad Mehta, Rakesh Jhunjhunwala Legend, Jesse Livermore, Vijay Mallya)
+  const featuredSlugs = ['harshad-mehta-1992', 'rakesh-jhunjhunwala-legend', 'jesse-livermore-1929', 'vijay-mallya-2012'];
+  const featuredChronicles = featuredSlugs.map(s => chroniclesService.getBySlug(s)).filter(Boolean);
+
   renderWithLayout(res, 'home', {
     pageId: 'home',
     title: CONSTANTS.SITEMAP.HOME.title,
     description: 'Explore financial astrology macro commentary alongside live Indian equity indices, gold, and crypto.',
     thoughts,
+    featuredChronicles,
     extraScripts: [
       '/js/orbit.js',
       '/js/market-data.js',
       '/js/panchang.js',
-      '/js/gann-chakra.js'
+      '/js/gann-chakra.js',
+      '/js/kundli-form.js'
     ]
   });
 });
@@ -132,6 +143,53 @@ router.get(['/founder', '/dr-ashish-patni', '/about-founder'], (req, res) => {
   });
 });
 
+// 4d. Market Chronicles: Titans, Legends & Turning Points
+router.get(['/chronicles', '/market-chronicles', '/rise-and-fall'], (req, res) => {
+  const category = req.query.category || null;
+  const chronicles = chroniclesService.getAll(category);
+  const categories = chroniclesService.getCategories();
+
+  renderWithLayout(res, 'chronicles', {
+    pageId: 'chronicles',
+    title: 'Market Chronicles: Titans, Legends & Turning Points — Astrological Case Studies | Cosmic Finance',
+    description: 'Explore the astronomical, Vedic, and numerological mechanics behind the meteoric rises, dramatic turning points, and unbroken legends of Dalal Street and Wall Street.',
+    chronicles,
+    categories,
+    activeCategory: category || 'all',
+    founder: CONSTANTS.FOUNDER
+  });
+});
+
+// 4e. Single Chronicle Case Study Detail
+router.get(['/chronicles/:slug', '/market-chronicles/:slug', '/rise-and-fall/:slug'], (req, res) => {
+  const { slug } = req.params;
+  const chronicle = chroniclesService.getBySlug(slug);
+
+  if (!chronicle) {
+    return res.status(404).render('layouts/main', {
+      pageId: '404',
+      title: 'Case Study Not Found | Cosmic Finance',
+      currentPath: req.path,
+      phone: CONSTANTS.PHONE_NUMBER,
+      whatsappMessage: CONSTANTS.WHATSAPP_PREFILLED_MESSAGE,
+      constants: CONSTANTS,
+      founder: CONSTANTS.FOUNDER,
+      body: '<div class="container py-12 text-center"><h1>Case Study Not Found</h1><p class="text-secondary">The requested Market Chronicle could not be located.</p><a href="/chronicles" class="btn btn-gold mt-4">Return to Market Chronicles</a></div>'
+    });
+  }
+
+  const related = chroniclesService.getRelated(slug, 3);
+
+  renderWithLayout(res, 'chronicle-detail', {
+    pageId: 'chronicle-detail',
+    title: `${chronicle.name} (${chronicle.era}) — Astrological Case Study | Cosmic Finance`,
+    description: `${chronicle.moniker}: ${chronicle.tagline}`,
+    chronicle,
+    related,
+    founder: CONSTANTS.FOUNDER
+  });
+});
+
 // 5. Articles Listing
 router.get('/articles', (req, res) => {
   let articles = [];
@@ -186,20 +244,63 @@ router.get('/submit-article', (req, res) => {
   });
 });
 
-// 8. News
+// 8. News Radar
+const { getCachedMarketTelemetry } = require('../services/marketData');
+const { getNewsSyncStatus } = require('../services/newsService');
+
 router.get('/news', (req, res) => {
   let newsItems = [];
+  let categoryCounts = { all: 0, Equities: 0, Bullion: 0, Macro: 0, Global: 0, 'Astro-Market': 0 };
+  const requestedCategory = req.query.category || 'all';
+
   try {
-    newsItems = db.prepare('SELECT * FROM news WHERE is_published = 1 ORDER BY published_at DESC').all();
+    let query = 'SELECT * FROM news WHERE is_published = 1';
+    const params = [];
+
+    if (requestedCategory && requestedCategory !== 'all') {
+      query += ' AND category = ?';
+      params.push(requestedCategory);
+    }
+
+    query += ' ORDER BY published_at DESC LIMIT 100';
+    newsItems = db.prepare(query).all(...params);
+
+    // Compute category counts for tab badges
+    const allCounts = db.prepare('SELECT category, COUNT(*) as cnt FROM news WHERE is_published = 1 GROUP BY category').all();
+    let totalAll = 0;
+    allCounts.forEach(c => {
+      if (categoryCounts[c.category] !== undefined) {
+        categoryCounts[c.category] = c.cnt;
+      }
+      totalAll += c.cnt;
+    });
+    categoryCounts.all = totalAll;
   } catch (e) {
     console.error('Error fetching news:', e.message);
   }
 
+  // Retrieve cached market benchmarks for top ticker banner
+  let marketBenchmarks = [];
+  try {
+    const telemetry = getCachedMarketTelemetry();
+    if (telemetry && telemetry.data) {
+      marketBenchmarks = telemetry.data.filter(d => ['NIFTY', 'SENSEX', 'GOLD', 'SILVER', 'BTC'].includes(d.symbol));
+    }
+  } catch (err) {
+    // Graceful fallback
+  }
+
+  const syncStatus = getNewsSyncStatus();
+
   renderWithLayout(res, 'news', {
     pageId: 'news',
-    title: CONSTANTS.SITEMAP.NEWS.title,
-    description: 'Curated financial news and planetary ingress developments.',
-    newsItems
+    title: 'Market & Cosmic News Radar | Real-Time Intelligence & Ingress Telemetry',
+    description: 'Real-time syndicated financial dispatches, Dalal Street market movements, bullion prices, and planetary ingress developments.',
+    newsItems,
+    activeCategory: requestedCategory,
+    categoryCounts,
+    marketBenchmarks,
+    syncStatus
   });
 });
 

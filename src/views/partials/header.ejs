@@ -1,11 +1,12 @@
 <header class="site-header" id="siteHeader">
-  <div class="header-container container">
+  <div class="header-container">
     <!-- Continuous Shooting Star (Wishing Star) Animation -->
     <div class="header-shooting-star-track" aria-hidden="true">
       <div class="header-wishing-star"></div>
     </div>
 
-    <a href="/" class="brand-logo" id="brandLogo">
+    <!-- Sacred Lakshmi + Brand Logo -->
+    <a href="/" class="brand-logo" id="brandLogo" aria-label="Cosmic Finance Observatory Home">
       <span class="logo-symbol">✦</span>
       <span class="logo-word-cosmic">Cosmic</span>
       <span class="logo-lakshmi-emblem" title="Maa Lakshmi — Divine Wealth & Aishwarya Blessing">
@@ -34,26 +35,35 @@
       <span class="logo-word-finance text-gold">Finance</span>
     </a>
 
-    <!-- Desktop Navigation (Strictly NO login/signup links) -->
+    <!-- Desktop Navigation (Responsive, balanced, strictly no login/signup) -->
     <nav class="desktop-nav" id="desktopNav" aria-label="Main Navigation">
       <ul class="nav-list">
-        <li><a href="/market-data" class="nav-link <%= currentPath === '/market-data' ? 'active' : '' %>">Live Data</a></li>
+        <li><a href="/market-data" class="nav-link <%= currentPath === '/market-data' ? 'active' : '' %>">Live Markets</a></li>
         <li><a href="/weekly-outlook" class="nav-link <%= currentPath === '/weekly-outlook' ? 'active' : '' %>">Weekly Outlook</a></li>
         <li><a href="/gann-square" class="nav-link <%= currentPath === '/gann-square' ? 'active' : '' %>">Gann &amp; Chakra</a></li>
-        <li><a href="/founder" class="nav-link <%= currentPath === '/founder' ? 'active' : '' %>">Founder</a></li>
-        <li><a href="/articles" class="nav-link <%= currentPath.startsWith('/articles') ? 'active' : '' %>">Articles</a></li>
-        <li><a href="/news" class="nav-link <%= currentPath === '/news' ? 'active' : '' %>">News</a></li>
-        <li><a href="/trading-kundli" class="nav-link <%= currentPath === '/trading-kundli' || currentPath === '/kundli' ? 'active' : '' %>">Know Your Kundli</a></li>
+        <li><a href="/chronicles" class="nav-link <%= currentPath.startsWith('/chronicles') || currentPath.startsWith('/rise-and-fall') || currentPath.startsWith('/market-chronicles') ? 'active' : '' %>">Chronicles</a></li>
+        <li><a href="/news" class="nav-link <%= currentPath.startsWith('/news') ? 'active' : '' %>">News</a></li>
+        <li><a href="/founder" class="nav-link <%= currentPath === '/founder' ? 'active' : '' %>">Dr. Ashish Patni</a></li>
+        <li><a href="/articles" class="nav-link <%= currentPath.startsWith('/articles') ? 'active' : '' %>">Research</a></li>
+        <li><a href="/contact" class="nav-link <%= currentPath === '/contact' ? 'active' : '' %>">Consultation</a></li>
       </ul>
     </nav>
 
+    <!-- Header Actions (Sound chime, CTA, and responsive mobile toggle) -->
     <div class="header-actions">
+      <!-- Ambient Vedic Micro-Sound Toggle -->
+      <button class="btn-sound-toggle" id="btnSoundToggle" aria-label="Toggle Ambient Vedic Sound" title="Sound: Muted (Click to enable harmonic chimes)">
+        <span id="soundIcon">🔇</span>
+      </button>
+
+      <!-- Primary High-Conversion Action Button -->
       <a href="/trading-kundli" class="btn btn-gold btn-header-cta" id="headerKundliCta">
-        Decode Your Chart
+        <span class="cta-sparkle">✨</span>
+        <span class="cta-label">Birth Coordinates</span>
       </a>
 
       <!-- Mobile Hamburger Button -->
-      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="mobileDrawer">
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
         <span class="hamburger-bar"></span>
@@ -61,8 +71,8 @@
     </div>
   </div>
 
-  <!-- Mobile Drawer Navigation -->
-  <div class="mobile-drawer" id="mobileDrawer">
+  <!-- Mobile Drawer Navigation (Ultra-Luxury Astronomical Architecture) -->
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation" aria-hidden="true">
     <div class="mobile-drawer-header">
       <div class="brand-logo">
         <span class="logo-symbol">✦</span>
@@ -77,37 +87,166 @@
         </span>
         <span class="logo-word-finance text-gold">Finance</span>
       </div>
-      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close Menu">&times;</button>
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
-    <div class="mobile-quick-pills">
-      <a href="/market-data" class="quick-pill">📊 Live Data</a>
-      <a href="/weekly-outlook" class="quick-pill">🪐 Outlook</a>
-      <a href="/trading-kundli" class="quick-pill highlight">✨ Free Kundli</a>
-    </div>
-    <nav class="mobile-nav">
-      <ul class="mobile-nav-list">
-        <li><a href="/" class="mobile-nav-link <%= currentPath === '/' ? 'active' : '' %>">🌌 Observatory (Home)</a></li>
-        <li><a href="/market-data" class="mobile-nav-link <%= currentPath === '/market-data' ? 'active' : '' %>">📈 Live Market Pulse</a></li>
-        <li><a href="/weekly-outlook" class="mobile-nav-link <%= currentPath === '/weekly-outlook' ? 'active' : '' %>">📜 Weekly Macro Outlook</a></li>
-        <li><a href="/patterns" class="mobile-nav-link <%= currentPath.startsWith('/patterns') ? 'active' : '' %>">📐 Historical Patterns</a></li>
-        <li><a href="/gann-square" class="mobile-nav-link <%= currentPath === '/gann-square' ? 'active' : '' %>">🔯 Gann Square &amp; Sarvatobhadra</a></li>
-        <li><a href="/founder" class="mobile-nav-link <%= currentPath === '/founder' ? 'active' : '' %>">👑 Founder (Dr. Ashish Patni)</a></li>
-        <li><a href="/track-record" class="mobile-nav-link <%= currentPath === '/track-record' ? 'active' : '' %>">🎯 Public Track Record</a></li>
-        <li><a href="/trading-kundli" class="mobile-nav-link <%= currentPath === '/trading-kundli' ? 'active' : '' %>">🔮 Know Your Trading Kundli</a></li>
-        <li><a href="/articles" class="mobile-nav-link <%= currentPath.startsWith('/articles') ? 'active' : '' %>">📚 Financial Astrology Articles</a></li>
-        <li><a href="/news" class="mobile-nav-link <%= currentPath === '/news' ? 'active' : '' %>">📰 Curated Cosmic News</a></li>
-        <li><a href="/about" class="mobile-nav-link <%= currentPath === '/about' ? 'active' : '' %>">🪐 About Cosmic Finance</a></li>
-        <li><a href="/contact" class="mobile-nav-link <%= currentPath === '/contact' ? 'active' : '' %>">📞 WhatsApp & Consultation</a></li>
-      </ul>
-    </nav>
-    <div class="mobile-drawer-footer">
-      <div class="mobile-consultation-bar">
-        <a href="https://wa.me/918888888888?text=<%= encodeURIComponent(whatsappMessage) %>" class="btn btn-gold btn-block" target="_blank" rel="noopener">
-          Chat on WhatsApp
+
+    <!-- Scrollable Drawer Body with Custom Slim Scrollbar -->
+    <div class="mobile-drawer-body">
+      <!-- High-Conversion Primary CTA Card -->
+      <div class="drawer-kundli-cta-wrap">
+        <a href="/trading-kundli" class="drawer-kundli-card">
+          <div class="drawer-kundli-badge">RECOMMENDED TOOL</div>
+          <div class="drawer-kundli-main">
+            <span class="drawer-kundli-icon">✨</span>
+            <div class="drawer-kundli-meta">
+              <strong>Trading Kundli Calculator</strong>
+              <span>Vedic Speculation &amp; Wealth Yogas</span>
+            </div>
+            <span class="drawer-kundli-arrow">&rarr;</span>
+          </div>
         </a>
       </div>
-      <p class="mobile-disclaimer-note">Non-advisory educational platform. SEBI non-registered.</p>
+
+      <!-- Quick Action Pills Row -->
+      <div class="drawer-pills-row">
+        <a href="/founder" class="drawer-pill-chip">
+          <span class="pill-chip-icon">👑</span>
+          <span>Dr. Ashish Patni</span>
+        </a>
+        <a href="/market-data" class="drawer-pill-chip">
+          <span class="pill-chip-icon">📈</span>
+          <span>Live Markets</span>
+        </a>
+      </div>
+
+      <!-- Categorized Navigation -->
+      <nav class="mobile-nav">
+        <!-- Group 1: Observatory & Telemetry -->
+        <div class="drawer-nav-group">
+          <span class="drawer-group-label">OBSERVATORY &amp; MARKETS</span>
+          <ul class="mobile-nav-list">
+            <li>
+              <a href="/" class="mobile-nav-link <%= currentPath === '/' ? 'active' : '' %>">
+                <span class="nav-item-icon">🌌</span>
+                <span class="nav-item-label">Cosmic Sky (Home)</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/market-data" class="mobile-nav-link <%= currentPath === '/market-data' ? 'active' : '' %>">
+                <span class="nav-item-icon">📊</span>
+                <span class="nav-item-label">Live Market Dashboard</span>
+                <span class="nav-badge-live">LIVE</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/weekly-outlook" class="mobile-nav-link <%= currentPath === '/weekly-outlook' ? 'active' : '' %>">
+                <span class="nav-item-icon">📜</span>
+                <span class="nav-item-label">Weekly Macro Outlook</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/gann-square" class="mobile-nav-link <%= currentPath === '/gann-square' ? 'active' : '' %>">
+                <span class="nav-item-icon">🔯</span>
+                <span class="nav-item-label">Gann Square &amp; Chakra</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 2: Empirical Research & Track Record -->
+        <div class="drawer-nav-group">
+          <span class="drawer-group-label">RESEARCH &amp; TRACK RECORD</span>
+          <ul class="mobile-nav-list">
+            <li>
+              <a href="/chronicles" class="mobile-nav-link <%= currentPath.startsWith('/chronicles') || currentPath.startsWith('/rise-and-fall') || currentPath.startsWith('/market-chronicles') ? 'active' : '' %>">
+                <span class="nav-item-icon">🏛️</span>
+                <span class="nav-item-label">Market Chronicles</span>
+                <span class="nav-badge-gold">NEW</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/patterns" class="mobile-nav-link <%= currentPath.startsWith('/patterns') ? 'active' : '' %>">
+                <span class="nav-item-icon">📐</span>
+                <span class="nav-item-label">24-Yr Historical Patterns</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/track-record" class="mobile-nav-link <%= currentPath === '/track-record' ? 'active' : '' %>">
+                <span class="nav-item-icon">🎯</span>
+                <span class="nav-item-label">Public Track Record</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/articles" class="mobile-nav-link <%= currentPath.startsWith('/articles') ? 'active' : '' %>">
+                <span class="nav-item-icon">📚</span>
+                <span class="nav-item-label">Educational Articles</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/news" class="mobile-nav-link <%= currentPath === '/news' ? 'active' : '' %>">
+                <span class="nav-item-icon">📰</span>
+                <span class="nav-item-label">Curated Financial News</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 3: Guidance & About -->
+        <div class="drawer-nav-group">
+          <span class="drawer-group-label">FOUNDER &amp; CONSULTATION</span>
+          <ul class="mobile-nav-list">
+            <li>
+              <a href="/founder" class="mobile-nav-link <%= currentPath === '/founder' ? 'active' : '' %>">
+                <span class="nav-item-icon">👑</span>
+                <span class="nav-item-label">Dr. Ashish Patni</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/about" class="mobile-nav-link <%= currentPath === '/about' ? 'active' : '' %>">
+                <span class="nav-item-icon">🪐</span>
+                <span class="nav-item-label">About &amp; Methodology</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+            <li>
+              <a href="/contact" class="mobile-nav-link <%= currentPath === '/contact' ? 'active' : '' %>">
+                <span class="nav-item-icon">📞</span>
+                <span class="nav-item-label">Book VIP Consultation</span>
+                <span class="nav-item-chevron">&rsaquo;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Bottom WhatsApp VIP Box -->
+      <div class="mobile-drawer-footer">
+        <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" class="drawer-whatsapp-btn" target="_blank" rel="noopener">
+          <span class="wa-bubble">💬</span>
+          <div class="wa-text-group">
+            <span class="wa-label">Consult Dr. Ashish Patni on WhatsApp</span>
+            <span class="wa-number">+<%= founder.whatsappNumber %></span>
+          </div>
+          <span class="wa-arrow">&rarr;</span>
+        </a>
+        <p class="mobile-disclaimer-note">Educational and cyclical research only. SEBI non-registered.</p>
+      </div>
     </div>
-  </div>
+  </aside>
   <div class="drawer-overlay" id="drawerOverlay"></div>
 </header>

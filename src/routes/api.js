@@ -311,4 +311,62 @@ router.post('/articles/submit', formSubmissionLimiter, (req, res) => {
   }
 });
 
+// 5. News Intelligence API Endpoints
+const { syncAllNews, getNewsSyncStatus } = require('../services/newsService');
+
+router.get('/news', (req, res) => {
+  try {
+    const { category, q, limit = 50 } = req.query;
+    let query = 'SELECT * FROM news WHERE is_published = 1';
+    const params = [];
+
+    if (category && category !== 'all') {
+      query += ' AND category = ?';
+      params.push(category);
+    }
+
+    if (q) {
+      query += ' AND (title LIKE ? OR summary LIKE ? OR source_name LIKE ?)';
+      params.push(`%${q}%`, `%${q}%`, `%${q}%`);
+    }
+
+    query += ' ORDER BY published_at DESC LIMIT ?';
+    params.push(Math.min(parseInt(limit, 10) || 50, 100));
+
+    const newsItems = db.prepare(query).all(...params);
+    return res.json({
+      status: 'success',
+      count: newsItems.length,
+      news: newsItems
+    });
+  } catch (err) {
+    console.error('Error fetching news API:', err.message);
+    return res.status(500).json({ error: 'Failed to retrieve news feed.' });
+  }
+});
+
+router.get('/news/status', (req, res) => {
+  try {
+    return res.json({
+      status: 'success',
+      ...getNewsSyncStatus()
+    });
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to retrieve news sync status.' });
+  }
+});
+
+router.post('/news/sync', async (req, res) => {
+  try {
+    const result = await syncAllNews();
+    return res.json({
+      status: 'success',
+      message: `News synchronization complete. Fetched: ${result.articlesFetched}, Newly Inserted: ${result.articlesInserted}`,
+      data: result
+    });
+  } catch (err) {
+    return res.status(500).json({ error: 'News synchronization failed: ' + err.message });
+  }
+});
+
 module.exports = router;

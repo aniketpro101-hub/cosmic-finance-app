@@ -157,8 +157,8 @@ function evaluateTradingKundli({
         marketSignificance = 'Fixed property, physical bullion vaults, real estate, and portfolio comfort.';
         break;
       case 5:
-        bhavaName = 'Purva Punya (Speculation / Stock Market)';
-        marketSignificance = 'Intuitive stock selection, derivatives (Futures & Options), risk intelligence, and market timing instinct.';
+        bhavaName = 'Purva Punya (Speculation / Multi-Asset Allocation)';
+        marketSignificance = 'Intuitive asset allocation, multi-market risk intelligence, capital timing, and speculation acumen.';
         break;
       case 6:
         bhavaName = 'Shatru (Debt / Margin / Competition)';
@@ -296,7 +296,7 @@ function evaluateTradingKundli({
     `🪐 Lagna: ${lagnaSignName.split(' ')[0]} (${lagnaLord})\n` +
     `📊 Speculation Yoga (5th Bhava): ${specBadge}\n` +
     `⏳ Active Dasha: ${dashaInfo.activeMahadasha.lord} Mahadasha (${dashaInfo.activeAntardasha.lord} Antardasha)\n\n` +
-    `I would like to consult with you for my personalized Financial Astrology Stock Market Prediction and wealth timing guidance.`
+    `I would like to consult with you for my personalized Financial Astrology & Numerology Multi-Asset guidance and timing analysis.`
   );
 
   const drAshishWhatsAppUrl = `https://wa.me/${CONSTANTS.WHATSAPP_NUMBER_RAW}?text=${prefilledConsultText}`;

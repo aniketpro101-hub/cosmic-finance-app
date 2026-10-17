@@ -1,68 +1,382 @@
 <div class="page-container container section-rhythm">
-  <header class="page-header text-center">
-    <div class="cosmic-badge">
-      <span class="pulsing-star">✦</span>
-      <span>CURATED RADAR</span>
+  <!-- Live Market Benchmarks Ticker Strip -->
+  <% if (typeof marketBenchmarks !== 'undefined' && marketBenchmarks && marketBenchmarks.length) { %>
+    <div class="news-ticker-strip">
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.05em; padding-right: 8px; border-right: 1px solid var(--space-border-subtle);">
+        <span class="pulsing-star" style="font-size: 0.8rem;">●</span> <span class="news-text-en">LIVE BENCHMARKS</span><span class="news-text-hi" style="display:none;">लाइव मार्केट बेंचमार्क</span>
+      </div>
+      <% marketBenchmarks.forEach(function(bm) { %>
+        <div class="news-ticker-chip">
+          <span style="font-weight: 700; color: var(--text-primary);"><%= bm.symbol %></span>
+          <span><%= bm.priceFormatted %></span>
+          <span class="<%= bm.isPositive ? 'delta-positive' : 'delta-negative' %>">
+            <%= bm.changeFormatted %>
+          </span>
+        </div>
+      <% }); %>
     </div>
-    <h1 class="page-title">Market & Cosmic <span class="text-gold">News</span></h1>
-    <p class="page-subtitle">
-      Selected Indian market milestones, macroeconomic developments, and planetary ingress news curated for context.
+  <% } %>
+
+  <!-- Header Section -->
+  <header class="page-header text-center mb-8">
+    <div class="cosmic-badge mb-3">
+      <span class="pulsing-star">✦</span>
+      <span class="news-text-en">BILINGUAL CURATED RADAR</span>
+      <span class="news-text-hi" style="display:none;">द्विभाषी लाइव मार्केट रडार</span>
+    </div>
+    <h1 class="page-title">
+      <span class="news-text-en">Market & Cosmic <span class="text-gold">Intelligence</span></span>
+      <span class="news-text-hi" style="display:none;">बाज़ार एवं कॉस्मिक <span class="text-gold">लाइव समाचार</span></span>
+    </h1>
+    <p class="page-subtitle max-w-2xl mx-auto">
+      <span class="news-text-en">Curated live financial dispatches across Dalal Street, RBI policies, bullion rates, and planetary cycle resonance in mixed Hindi & English.</span>
+      <span class="news-text-hi" style="display:none;">दलाल स्ट्रीट, मौद्रिक नीतियों, सोने-चांदी के भाव और ग्रहों के गोचर चक्र का हिन्दी व अंग्रेजी में मिश्रित लाइव प्रसारण।</span>
     </p>
+
+    <!-- Source Telemetry Pill -->
+    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--space-border-subtle); padding: 6px 14px; border-radius: var(--radius-full); font-size: 0.78rem; color: var(--text-muted); margin-top: 14px; flex-wrap: wrap; justify-content: center;">
+      <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80;"></span>
+      <span>Live Feeds: Google News RSS (EN + HI) &bull; Moneycontrol &bull; Livemint &bull; Jagran &bull; ET &bull; Finnhub</span>
+      <% if (typeof syncStatus !== 'undefined' && syncStatus && syncStatus.lastSyncTime) { %>
+        <span style="color: var(--text-secondary);">&bull; Synced <%= new Date(syncStatus.lastSyncTime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) %> IST</span>
+      <% } %>
+    </div>
   </header>
 
+  <!-- News Controls & Filtering Toolbar -->
+  <div class="news-controls-container">
+    <div class="news-toolbar-header">
+      <!-- Category Filter Pills -->
+      <div class="news-category-pills">
+        <% 
+          const cats = [
+            { key: 'all', labelEn: '✦ All Intelligence', labelHi: '✦ संपूर्ण समाचार', count: categoryCounts?.all || (typeof newsItems !== 'undefined' ? newsItems.length : 0) },
+            { key: 'Equities', labelEn: '📈 Indian Equities', labelHi: '📈 शेयर बाज़ार', count: categoryCounts?.Equities || 0 },
+            { key: 'Bullion', labelEn: '🟡 Bullion & Metals', labelHi: '🟡 सोना व चांदी', count: categoryCounts?.Bullion || 0 },
+            { key: 'Macro', labelEn: '🌐 Macro & Economy', labelHi: '🌐 अर्थव्यवस्था व नीतियां', count: categoryCounts?.Macro || 0 },
+            { key: 'Global', labelEn: '🌍 Global Markets', labelHi: '🌍 वैश्विक बाज़ार', count: categoryCounts?.Global || 0 },
+            { key: 'Astro-Market', labelEn: '🪐 Astro Cycles', labelHi: '🪐 ज्योतिषीय चक्र', count: categoryCounts?.['Astro-Market'] || 0 }
+          ];
+        %>
+        <% cats.forEach(function(cat) { %>
+          <button type="button" class="news-pill-btn <%= (typeof activeCategory !== 'undefined' && activeCategory === cat.key) ? 'active' : '' %>" data-filter="<%= cat.key %>">
+            <span class="news-text-en"><%= cat.labelEn %></span>
+            <span class="news-text-hi" style="display:none;"><%= cat.labelHi %></span>
+            <span class="news-pill-count"><%= cat.count %></span>
+          </button>
+        <% }); %>
+      </div>
+
+      <!-- Feed Language Mode Switcher: Mixed (Default) | English | Hindi -->
+      <div class="news-lang-toggle" id="newsLangToggle">
+        <button type="button" class="lang-btn active" data-lang="mixed" title="Show natural bilingual mix of English and Hindi">
+          <span>🌐 Mixed (दोनों)</span>
+        </button>
+        <button type="button" class="lang-btn" data-lang="en" title="View all in English">
+          <span>🇬🇧 English</span>
+        </button>
+        <button type="button" class="lang-btn" data-lang="hi" title="सभी समाचार केवल हिन्दी में देखें">
+          <span>🇮🇳 केवल हिन्दी</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="news-search-bar">
+      <span class="news-search-icon">🔍</span>
+      <input type="text" id="newsSearchInput" class="news-search-input" placeholder="Search dispatches in English or Hindi (e.g. Nifty, सोना, RBI, सेंसेक्स, Livemint)..." autocomplete="off">
+    </div>
+  </div>
+
+  <!-- News Items Grid -->
   <div class="news-master-grid" id="newsGrid">
     <% if (typeof newsItems !== 'undefined' && newsItems.length) { %>
-      <% newsItems.forEach(function(item) { %>
-        <article class="news-card">
+      <% newsItems.forEach(function(item) { 
+          const cat = item.category || 'Macro';
+          const catNormalized = cat.toLowerCase().replace(/[^a-z0-9]/g, '-');
+          const nativeLang = item.lang || (item.title_hi && /[\u0900-\u097F]/.test(item.title) ? 'hi' : 'en');
+          
+          let resonanceEn = '';
+          let resonanceHi = '';
+          if (cat === 'Bullion') {
+            resonanceEn = '✦ Celestial Correlation: Sun & Jupiter Bullion Alignment';
+            resonanceHi = '✦ खगोलीय प्रभाव: सूर्य व गुरु का बुलियन संरेखण';
+          } else if (cat === 'Equities') {
+            resonanceEn = '✦ Celestial Correlation: Mercury Dalal Street Momentum';
+            resonanceHi = '✦ खगोलीय प्रभाव: बुध का दलाल स्ट्रीट मोमेंटम चक्र';
+          } else if (cat === 'Macro') {
+            resonanceEn = '✦ Celestial Correlation: Jupiter Sovereign Liquidity';
+            resonanceHi = '✦ खगोलीय प्रभाव: बृहस्पति संप्रभु तरलता व नीतियां';
+          } else if (cat === 'Astro-Market') {
+            resonanceEn = '✦ Primary Astro Signal: Navagraha Planetary Ingress';
+            resonanceHi = '✦ मुख्य ज्योतिषीय संकेत: नवग्रह राशि गोचर प्रभाव';
+          }
+      %>
+        <article class="news-card" 
+          data-category="<%= cat %>" 
+          data-native-lang="<%= nativeLang %>"
+          data-title-en="<%= (item.title || '').toLowerCase() %>" 
+          data-summary-en="<%= (item.summary || '').toLowerCase() %>" 
+          data-title-hi="<%= (item.title_hi || item.title || '').toLowerCase() %>" 
+          data-summary-hi="<%= (item.summary_hi || item.summary || '').toLowerCase() %>" 
+          data-source="<%= (item.source_name || '').toLowerCase() %>">
+          
           <div class="news-card-header">
-            <span class="news-tag <%= item.category ? item.category.toLowerCase() : 'macro' %>"><%= item.category || 'Macro' %></span>
-            <time class="news-date"><%= new Date(item.published_at || item.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) %></time>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="news-tag <%= catNormalized %>"><%= cat %></span>
+              <span class="news-lang-pill <%= nativeLang === 'hi' ? 'lang-hi' : 'lang-en' %>">
+                <%= nativeLang === 'hi' ? '🇮🇳 हिन्दी' : '🇬🇧 EN' %>
+              </span>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button type="button" class="card-flip-btn" title="Toggle language for this story">
+                ⇄ <span class="card-flip-label"><%= nativeLang === 'hi' ? 'English' : 'हिन्दी' %></span>
+              </button>
+              <time class="news-date" datetime="<%= item.published_at || item.created_at %>">
+                <%= new Date(item.published_at || item.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+              </time>
+            </div>
           </div>
+
+          <% if (resonanceEn) { %>
+            <div class="news-resonance-badge">
+              <span class="card-content-en" style="<%= nativeLang === 'hi' ? 'display:none;' : '' %>"><%= resonanceEn %></span>
+              <span class="card-content-hi" style="<%= nativeLang === 'hi' ? 'display:inline;' : 'display:none;' %>"><%= resonanceHi %></span>
+            </div>
+          <% } %>
+
           <h2 class="news-title">
-            <a href="<%= item.source_url %>" target="_blank" rel="noopener"><%= item.title %></a>
+            <a href="<%= item.source_url %>" target="_blank" rel="noopener noreferrer">
+              <span class="card-content-en" style="<%= nativeLang === 'hi' ? 'display:none;' : '' %>"><%= item.title %></span>
+              <span class="card-content-hi" style="<%= nativeLang === 'hi' ? 'display:inline;' : 'display:none;' %>"><%= item.title_hi || item.title %></span>
+            </a>
           </h2>
-          <p class="news-summary"><%= item.summary %></p>
+
+          <p class="news-summary">
+            <span class="card-content-en" style="<%= nativeLang === 'hi' ? 'display:none;' : '' %>"><%= item.summary %></span>
+            <span class="card-content-hi" style="<%= nativeLang === 'hi' ? 'display:inline;' : 'display:none;' %>"><%= item.summary_hi || item.summary %></span>
+          </p>
+
           <div class="news-footer">
-            <span class="news-source">Source: <strong><%= item.source_name %></strong></span>
-            <a href="<%= item.source_url %>" target="_blank" rel="noopener" class="source-link">Visit Source &rarr;</a>
+            <span class="news-source">
+              <span style="opacity: 0.7;">Source:</span> <strong><%= item.source_name %></strong>
+            </span>
+            <a href="<%= item.source_url %>" target="_blank" rel="noopener noreferrer" class="source-link">
+              <span class="card-content-en" style="<%= nativeLang === 'hi' ? 'display:none;' : '' %>">Read on <%= item.source_name %> &rarr;</span>
+              <span class="card-content-hi" style="<%= nativeLang === 'hi' ? 'display:inline;' : 'display:none;' %>"><%= item.source_name %> पर पढ़ें &rarr;</span>
+            </a>
           </div>
         </article>
       <% }); %>
     <% } else { %>
-      <!-- Starter news item -->
-      <article class="news-card">
-        <div class="news-card-header">
-          <span class="news-tag macro">Macro Equities</span>
-          <time class="news-date">Today</time>
-        </div>
-        <h2 class="news-title">
-          <a href="#">RBI Monetary Policy Committee Maintains Stance on Growth-Inflation Balance</a>
-        </h2>
-        <p class="news-summary">
-          Central banking committee highlights domestic liquidity resilience while monitoring global geopolitical developments and crude price shifts.
-        </p>
-        <div class="news-footer">
-          <span class="news-source">Source: <strong>Economic Bureau</strong></span>
-          <a href="#" class="source-link">External Dispatch &rarr;</a>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <div class="news-card-header">
-          <span class="news-tag astro-market">Astro-Market</span>
-          <time class="news-date">Yesterday</time>
-        </div>
-        <h2 class="news-title">
-          <a href="#">Rare Triple Planetary Conjunction Occurring in Spring Equinox Alignment</a>
-        </h2>
-        <p class="news-summary">
-          Astrological observers note historical parallels with shift in commodity inflation cycles and precious metal accumulation patterns.
-        </p>
-        <div class="news-footer">
-          <span class="news-source">Source: <strong>Cosmic Finance Desk</strong></span>
-          <a href="#" class="source-link">Observatory Report &rarr;</a>
-        </div>
-      </article>
+      <div class="col-span-full text-center py-12" style="grid-column: 1 / -1; padding: 48px 20px;">
+        <div class="cosmic-badge mb-3">SYNCHRONIZING RADAR</div>
+        <h3>No dispatches found in this category yet.</h3>
+        <p class="text-secondary mt-2">The background intelligence engine continuously aggregates fresh stories every 2 hours.</p>
+        <a href="/news" class="btn btn-gold btn-sm mt-4">Reset Filter</a>
+      </div>
     <% } %>
   </div>
+
+  <!-- Search No Results State (Initially Hidden) -->
+  <div id="noResultsNotice" class="text-center py-12" style="display: none; grid-column: 1 / -1; padding: 48px 20px; background: var(--space-bg-card); border: 1px dashed var(--space-border-subtle); border-radius: var(--radius-lg); margin-top: var(--space-6);">
+    <p style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 8px;">
+      <span class="news-text-en">No intelligence dispatches matched your search query.</span>
+      <span class="news-text-hi" style="display:none;">आपकी खोज से कोई समाचार मेल नहीं खाया।</span>
+    </p>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+      <span class="news-text-en">Try adjusting keywords or selecting "All Intelligence".</span>
+      <span class="news-text-hi" style="display:none;">कीवर्ड बदलें या "संपूर्ण समाचार" चुनें।</span>
+    </p>
+    <button type="button" id="clearSearchBtn" class="btn btn-gold btn-sm">Clear Filter</button>
+  </div>
+
+  <!-- Legal & Fair Use Regulatory Compliance Footer -->
+  <footer class="news-compliance-box">
+    <span style="font-size: 1.25rem; color: var(--gold-400); flex-shrink: 0;">⚖️</span>
+    <div>
+      <span class="news-text-en">
+        <strong>Editorial Attribution & Fair-Use Compliance:</strong>
+        All dispatches, headlines, and brief summary excerpts are syndicated via official public RSS feeds and authenticated journalistic news APIs strictly for contextual financial research and astrological cycle analysis under Fair Use principles. Full copyright, trademarks, and unabridged articles belong exclusively to the original publishing organizations. Clicking any dispatch routes directly to the original publisher's canonical URL.
+      </span>
+      <span class="news-text-hi" style="display:none;">
+        <strong>संपादकीय आभार एवं फेयर-यूज़ अनुपालन:</strong>
+        सभी समाचार शीर्षक एवं संक्षिप्त सारांश आधिकारिक सार्वजनिक RSS फीड्स तथा प्रमाणित पत्रकारिता API के माध्यम से केवल वित्तीय शोध एवं ज्योतिषीय चक्र विश्लेषण हेतु फेयर-यूज़ के अंतर्गत संकलित किए जाते हैं। संपूर्ण कॉपीराइट, ट्रेडमार्क और विस्तृत लेख मूल प्रकाशक संस्थानों के पास सुरक्षित हैं। किसी भी समाचार पर क्लिक करने पर सीधे मूल प्रकाशक का आधिकारिक वेबपेज खुलता है।
+      </span>
+    </div>
+  </footer>
 </div>
+
+<!-- Client-Side Live Filter, Language Switcher & Card Flip Logic -->
+<script>
+  (function() {
+    const searchInput = document.getElementById('newsSearchInput');
+    const filterBtns = document.querySelectorAll('.news-pill-btn');
+    const langBtns = document.querySelectorAll('.news-lang-toggle .lang-btn');
+    const cards = document.querySelectorAll('.news-card');
+    const noResults = document.getElementById('noResultsNotice');
+    const clearBtn = document.getElementById('clearSearchBtn');
+
+    let currentCategory = '<%= typeof activeCategory !== "undefined" ? activeCategory : "all" %>';
+    let searchQuery = '';
+    let currentMode = localStorage.getItem('cosmic_news_mode') || 'mixed'; // 'mixed' | 'en' | 'hi'
+
+    function updateLanguageView(mode) {
+      currentMode = mode;
+      localStorage.setItem('cosmic_news_mode', mode);
+
+      // Update lang buttons
+      langBtns.forEach(btn => {
+        if (btn.getAttribute('data-lang') === mode) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+
+      // Update Header Text & Search Placeholder
+      const enSpans = document.querySelectorAll('.news-text-en');
+      const hiSpans = document.querySelectorAll('.news-text-hi');
+
+      if (mode === 'hi') {
+        enSpans.forEach(el => el.style.display = 'none');
+        hiSpans.forEach(el => el.style.display = 'inline');
+        if (searchInput) searchInput.placeholder = 'शीर्षक, कीवर्ड या प्रकाशक द्वारा खोजें (जैसे निफ्टी, सोना, आरबीआई, लाइवमिंट)...';
+      } else {
+        hiSpans.forEach(el => el.style.display = 'none');
+        enSpans.forEach(el => el.style.display = 'inline');
+        if (searchInput) searchInput.placeholder = 'Search dispatches in English or Hindi (e.g. Nifty, सोना, RBI, सेंसेक्स, Livemint)...';
+      }
+
+      // Update Each Card Content according to mode
+      cards.forEach(card => {
+        const nativeLang = card.getAttribute('data-native-lang') || 'en';
+        const enContents = card.querySelectorAll('.card-content-en');
+        const hiContents = card.querySelectorAll('.card-content-hi');
+        const flipLabel = card.querySelector('.card-flip-label');
+
+        let showHindi = false;
+        if (mode === 'hi') {
+          showHindi = true;
+        } else if (mode === 'en') {
+          showHindi = false;
+        } else {
+          // 'mixed' mode: native Hindi articles show in Hindi, native English in English!
+          showHindi = (nativeLang === 'hi');
+        }
+
+        if (showHindi) {
+          enContents.forEach(el => el.style.display = 'none');
+          hiContents.forEach(el => el.style.display = 'inline');
+          if (flipLabel) flipLabel.textContent = 'English';
+        } else {
+          hiContents.forEach(el => el.style.display = 'none');
+          enContents.forEach(el => el.style.display = 'inline');
+          if (flipLabel) flipLabel.textContent = 'हिन्दी';
+        }
+      });
+
+      filterCards();
+    }
+
+    // Individual Card Flip Button
+    cards.forEach(card => {
+      const flipBtn = card.querySelector('.card-flip-btn');
+      if (flipBtn) {
+        flipBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const enContents = card.querySelectorAll('.card-content-en');
+          const hiContents = card.querySelectorAll('.card-content-hi');
+          const flipLabel = card.querySelector('.card-flip-label');
+
+          const isCurrentlyHindi = hiContents[0] && hiContents[0].style.display !== 'none';
+
+          if (isCurrentlyHindi) {
+            // Flip to English
+            hiContents.forEach(el => el.style.display = 'none');
+            enContents.forEach(el => el.style.display = 'inline');
+            if (flipLabel) flipLabel.textContent = 'हिन्दी';
+          } else {
+            // Flip to Hindi
+            enContents.forEach(el => el.style.display = 'none');
+            hiContents.forEach(el => el.style.display = 'inline');
+            if (flipLabel) flipLabel.textContent = 'English';
+          }
+        });
+      }
+    });
+
+    function filterCards() {
+      let visibleCount = 0;
+      const q = searchQuery.toLowerCase().trim();
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const titleEn = card.getAttribute('data-title-en') || '';
+        const summaryEn = card.getAttribute('data-summary-en') || '';
+        const titleHi = card.getAttribute('data-title-hi') || '';
+        const summaryHi = card.getAttribute('data-summary-hi') || '';
+        const source = card.getAttribute('data-source') || '';
+
+        const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+        const matchesQuery = !q || titleEn.includes(q) || summaryEn.includes(q) || titleHi.includes(q) || summaryHi.includes(q) || source.includes(q);
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        noResults.style.display = (visibleCount === 0 && cards.length > 0) ? 'block' : 'none';
+      }
+    }
+
+    // Mode Toggle Click (Mixed | English | Hindi)
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const selectedMode = this.getAttribute('data-lang');
+        updateLanguageView(selectedMode);
+      });
+    });
+
+    // Category Filter Click
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentCategory = this.getAttribute('data-filter');
+        filterCards();
+      });
+    });
+
+    // Search Input
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        searchQuery = this.value;
+        filterCards();
+      });
+    }
+
+    // Clear Search
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function() {
+        if (searchInput) searchInput.value = '';
+        searchQuery = '';
+        currentCategory = 'all';
+        filterBtns.forEach(b => {
+          if (b.getAttribute('data-filter') === 'all') b.classList.add('active');
+          else b.classList.remove('active');
+        });
+        filterCards();
+      });
+    }
+
+    // Initialize with saved mode (default: 'mixed')
+    updateLanguageView(currentMode);
+  })();
+</script>

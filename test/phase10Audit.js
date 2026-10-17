@@ -171,7 +171,7 @@ async function runPhase10Audit() {
   record(23, 'All new visual elements strictly adhere to Phase 1 Design Tokens', usesTokens, 'Tokens --gold-*, --space-*, --font-* uniformly applied');
 
   // 24. Live HTTP Endpoint Verification (Re-testing Phases 0-9 & Phase 10)
-  const TEST_PORT = parseInt(process.env.PORT, 10) || 9090;
+  const TEST_PORT = parseInt(process.env.PORT, 10) || 9095;
   const endpointsToTest = [
     { url: `http://localhost:${TEST_PORT}/`, expected: 200, name: 'Homepage (Phase 0, 1, 2, 10)' },
     { url: `http://localhost:${TEST_PORT}/market-data`, expected: 200, name: 'Live Market Data (Phase 3, 10)' },

@@ -235,6 +235,22 @@
     { name: 'Ketu', hi: 'केतु', glyph: '☋', nakshatra: 'Hasta', color: '#fb923c', nature: 'Malefic' }
   ];
 
+  function normalizeNakName(name) {
+    if (!name) return '';
+    return name.toLowerCase()
+      .replace(/^purva\s+/i, 'p.')
+      .replace(/^uttara\s+/i, 'u.')
+      .replace(/pada.*$/i, '')
+      .replace(/[\s\-_.]/g, '');
+  }
+
+  function isNakshatraMatch(a, b) {
+    if (!a || !b) return false;
+    const na = normalizeNakName(a);
+    const nb = normalizeNakName(b);
+    return na === nb || na.includes(nb) || nb.includes(na);
+  }
+
   // --- 4. Interactive Canvas Controller: Gann's Square of 9 ---
   function initGannWheel(canvasId, options = {}) {
     const canvas = document.getElementById(canvasId);
@@ -527,7 +543,7 @@
           const inner = SBC_INNER_CONTENT[`${c},${r}`];
 
           // Check if transiting planet is here
-          const planetHere = nakshatra ? SBC_PLANETS.filter(p => p.nakshatra.toLowerCase() === nakshatra.name.toLowerCase() || (p.nakshatra === 'U.Bhadra' && nakshatra.name === 'U.Bhadra')) : [];
+          const planetHere = nakshatra ? SBC_PLANETS.filter(p => isNakshatraMatch(p.nakshatra, nakshatra.name)) : [];
 
           // Cell Background
           if (isCorner) {
@@ -691,6 +707,12 @@
 
     window.addEventListener('resize', resize);
     resize();
+
+    return {
+      redraw: () => {
+        queueSbcDraw();
+      }
+    };
   }
 
   // Updates the live Sarvatobhadra Vedha inspector panel
@@ -816,11 +838,11 @@
 
     // 2. Initialize Wheels on Dedicated Page
     const fullGann = initGannWheel('fullGannCanvas', { basePrice: 24871 });
-    initSarvatobhadra('fullSarvatobhadraCanvas');
+    const fullSbc = initSarvatobhadra('fullSarvatobhadraCanvas');
 
     // 3. Initialize Wheels on Homepage Widget
     const homeGann = initGannWheel('homeGannCanvas', { basePrice: 24871 });
-    initSarvatobhadra('homeSarvatobhadraCanvas');
+    const homeSbc = initSarvatobhadra('homeSarvatobhadraCanvas');
 
     // 4. Live Price Input Recalculator
     const gannPriceInput = document.getElementById('gannBasePriceInput');
@@ -834,21 +856,6 @@
           if (homeGann) homeGann.setBasePrice(val);
           updateTargetTable(val);
         }
-      });
-    }
-
-    if (btnSyncLiveNifty && gannPriceInput) {
-      btnSyncLiveNifty.addEventListener('click', () => {
-        // Fetch current live Nifty price from page if available or default
-        const niftyEl = document.querySelector('.instrument-card[data-symbol="NIFTY"] .inst-price');
-        let liveVal = 24871;
-        if (niftyEl) {
-          liveVal = parseFloat(niftyEl.textContent.replace(/,/g, '')) || 24871;
-        }
-        gannPriceInput.value = liveVal;
-        if (fullGann) fullGann.setBasePrice(liveVal);
-        if (homeGann) homeGann.setBasePrice(liveVal);
-        updateTargetTable(liveVal);
       });
     }
 
@@ -869,7 +876,59 @@
       });
     }
 
-    // Initial table populate
+    // 5. Automatic Real-Time Market & Ephemeris Data Synchronization
+    async function syncRealNiftyPrice() {
+      try {
+        const res = await fetch('/api/market-data');
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.data) {
+            const nifty = json.data.find(d => d.symbol === 'NIFTY');
+            if (nifty && nifty.price > 0) {
+              const liveVal = parseFloat(nifty.price);
+              if (gannPriceInput) gannPriceInput.value = liveVal;
+              if (fullGann) fullGann.setBasePrice(liveVal);
+              if (homeGann) homeGann.setBasePrice(liveVal);
+              updateTargetTable(liveVal);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Gann market data sync idle:', err.message);
+      }
+    }
+
+    async function syncRealEphemeris() {
+      try {
+        const res = await fetch('/api/ephemeris');
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.ephemeris) {
+            Object.keys(json.ephemeris).forEach(pKey => {
+              const pData = json.ephemeris[pKey];
+              const planetEntry = SBC_PLANETS.find(p => p.name.toLowerCase() === pKey.toLowerCase());
+              if (planetEntry && pData.nakshatra && pData.nakshatra.name) {
+                planetEntry.nakshatra = pData.nakshatra.name;
+              }
+            });
+            if (fullSbc && fullSbc.redraw) fullSbc.redraw();
+            if (homeSbc && homeSbc.redraw) homeSbc.redraw();
+          }
+        }
+      } catch (err) {
+        console.warn('Sarvatobhadra ephemeris sync idle:', err.message);
+      }
+    }
+
+    if (btnSyncLiveNifty) {
+      btnSyncLiveNifty.addEventListener('click', () => {
+        syncRealNiftyPrice();
+      });
+    }
+
+    // Initial populate & real data synchronizations
     updateTargetTable(24871);
+    syncRealNiftyPrice();
+    syncRealEphemeris();
   });
 })();

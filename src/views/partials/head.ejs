@@ -1,37 +1,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><%= title || 'Cosmic Finance — Where Stars Meet The Street' %></title>
-<meta name="description" content="<%= description || 'Where Stars Meet The Street. Blending macro financial astrology with live Indian market indices, gold, and crypto data.' %>">
-<meta name="keywords" content="financial astrology, Indian stock market, NIFTY 50 astro cycles, gold planetary cycles, trading kundli, vedic trading">
-<meta name="robots" content="index, follow">
+<title><%= title || 'Cosmic Finance — Vedic Multi-Asset Astrology & Personal Guidance | Dr. Ashish Patni' %></title>
+<meta name="description" content="<%= description || 'Cosmic Finance explores planetary transits, Nakshatras, Vedic astrology, numerology, and historical patterns across equities, precious metals, energy, commodities, real estate, and digital assets. Personal guidance by Dr. Ashish Patni.' %>">
+<meta name="keywords" content="financial astrology, multi asset class cycles, Vedic astrology numerology, Dr. Ashish Patni, Bhavishyam, trading kundli, birth coordinates astrology, gold planetary cycles, crude oil astrology, real estate astrology, name numerology, personal horoscope finance, SEBI compliant astrological research">
+<meta name="author" content="Dr. Ashish Patni">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
 <!-- Canonical & OpenGraph -->
-<link rel="canonical" href="http://localhost:3000<%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
+<link rel="canonical" href="<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %><%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
 <meta property="og:site_name" content="Cosmic Finance">
 <meta property="og:title" content="<%= title || 'Cosmic Finance — Where Stars Meet The Street' %>">
-<meta property="og:description" content="<%= description || 'Where Stars Meet The Street. Blending macro financial astrology with live Indian market indices, gold, and crypto data.' %>">
+<meta property="og:description" content="<%= description || 'Cosmic Finance explores the relationship between planetary transits, Vedic astrology, numerology and multi-asset patterns with personal guidance by Dr. Ashish Patni.' %>">
 <meta property="og:type" content="<%= typeof article !== 'undefined' ? 'article' : 'website' %>">
+<meta property="og:url" content="<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %><%= typeof currentPath !== 'undefined' ? currentPath : '' %>">
+<meta property="og:image" content="<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/images/dr_ashish_patni_executive.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<%= title || 'Cosmic Finance' %>">
-<meta name="twitter:description" content="<%= description || 'Where Stars Meet The Street.' %>">
+<meta name="twitter:description" content="<%= description || 'Where Stars Meet The Street — Multi-Asset Planetary Cycle Research.' %>">
+<meta name="twitter:image" content="<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/images/dr_ashish_patni_executive.png">
 
 <!-- Offline Self-Hosted High Performance Typography (Zero CDN Latency, Zero CLS, 100% Privacy) -->
 <link rel="stylesheet" href="/css/fonts.css">
 
-<!-- Fallback Google Fonts CDN -->
+<!-- Google Fonts CDN: Latin + Devanagari Hindi Expressive Typography -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Martel:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
 
 <!-- Core Stylesheets -->
-<link rel="stylesheet" href="/css/tokens.css?v=3.6">
-<link rel="stylesheet" href="/css/base.css?v=3.6">
-<link rel="stylesheet" href="/css/layout.css?v=3.6">
-<link rel="stylesheet" href="/css/components.css?v=3.6">
-<link rel="stylesheet" href="/css/orbit.css?v=3.6">
-<link rel="stylesheet" href="/css/hero-variants.css?v=3.6">
+<link rel="stylesheet" href="/css/tokens.css?v=4.0">
+<link rel="stylesheet" href="/css/base.css?v=4.0">
+<link rel="stylesheet" href="/css/layout.css?v=4.0">
+<link rel="stylesheet" href="/css/components.css?v=4.0">
+<link rel="stylesheet" href="/css/orbit.css?v=4.0">
+<link rel="stylesheet" href="/css/hero-variants.css?v=4.0">
 
-<!-- Critical Instant Layout Styles — Prevent Any Stale Cache Layout Breakage -->
+<!-- Critical Instant Layout & Mobile Viewport Styles -->
 <style>
   .cta-mobile { display: none !important; }
   @media (max-width: 640px) {
@@ -43,18 +47,52 @@
   }
 </style>
 
-<!-- Structured Data JSON-LD -->
+<!-- Structured Data JSON-LD (Search Engine Optimization & Authority Signals) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Cosmic Finance",
-  "url": "http://localhost:3000",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "http://localhost:3000/articles?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/#website",
+      "url": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>",
+      "name": "Cosmic Finance",
+      "description": "Exploration of planetary transits, Nakshatras, Vedic astrology, numerology, and historical patterns across multiple asset classes.",
+      "publisher": {
+        "@id": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/#person",
+      "name": "Dr. Ashish Patni",
+      "honorificPrefix": "Dr.",
+      "jobTitle": "Celebrity Financial Astrologer & Master Numerologist",
+      "description": "Pioneer of Vedic Multi-Asset Planetary Cycle Timing, corporate consultant, and founder of Bhavishyam.",
+      "url": "https://www.bhavishyam.com",
+      "image": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/images/dr_ashish_patni_executive.png",
+      "sameAs": [
+        "https://www.bhavishyam.com",
+        "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/founder"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "name": "Cosmic Finance & Bhavishyam Personal Guidance",
+      "founder": {
+        "@id": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/#person"
+      },
+      "url": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>",
+      "telephone": "<%= phone %>",
+      "priceRange": "$$",
+      "serviceType": [
+        "Multi-Asset Financial Astrology Guidance",
+        "Personal Horoscope Wealth Analysis",
+        "Name & Business Numerology",
+        "Kundli Birth Coordinates Evaluation"
+      ]
+    }
+  ]
 }
 </script>
 <% if (typeof article !== 'undefined' && article) { %>
@@ -70,7 +108,11 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Cosmic Finance"
+    "name": "Cosmic Finance",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "<%= typeof hostUrl !== 'undefined' ? hostUrl : '' %>/images/dr_ashish_patni_executive.png"
+    }
   },
   "datePublished": "<%= article.published_at || article.created_at %>"
 }

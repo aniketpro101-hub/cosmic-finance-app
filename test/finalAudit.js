@@ -8,7 +8,7 @@ const db = require('../src/db/database');
 const CONSTANTS = require('../src/config/constants');
 const { decrypt } = require('../src/services/crypto');
 
-const TEST_PORT = parseInt(process.env.PORT, 10) || 9090;
+const TEST_PORT = parseInt(process.env.PORT, 10) || 9095;
 
 function get(path, headers = {}) {
   return new Promise((resolve, reject) => {

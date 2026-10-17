@@ -2,11 +2,11 @@
   <header class="page-header text-center">
     <div class="cosmic-badge">
       <span class="pulsing-star">✦</span>
-      <span>VEDIC FINANCIAL ASTROLOGY ENGINE</span>
+      <span>VEDIC MULTI-ASSET ASTRONOMY &amp; NUMEROLOGY</span>
     </div>
-    <h1 class="page-title">Get Your Kundli by <span class="text-gold">Date of Birth</span></h1>
+    <h1 class="page-title">Enter Your <span class="text-gold">Birth Coordinates</span></h1>
     <p class="page-subtitle">
-      Decode how astrological Grahas impact your personal financial destiny, stock market speculation instincts, and wealth-compounding propensities.
+      Decode how planetary transits, Nakshatra movements, and Vedic numerology impact your personal financial destiny, speculation instincts, and wealth cycles across multi-asset classes.
     </p>
   </header>
 
@@ -22,7 +22,7 @@
         <!-- Row 1: Name & Gender Toggle -->
         <div class="form-row-split">
           <div class="form-group flex-2">
-            <label for="fullName">Name <span class="required">*</span></label>
+            <label for="fullName">Full Name <span class="required">*</span></label>
             <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter Full Name" required>
             <span class="field-error" id="nameError"></span>
           </div>
@@ -41,17 +41,17 @@
         <div class="form-row-three">
           <div class="form-group">
             <label for="birthDay">Day <span class="required">*</span></label>
-            <input type="number" id="birthDay" name="day" class="form-control" placeholder="DD" min="1" max="31" required>
+            <input type="number" id="birthDay" name="day" class="form-control" placeholder="DD" min="1" max="31" value="15" required>
             <span class="field-error" id="dayError"></span>
           </div>
           <div class="form-group">
             <label for="birthMonth">Month <span class="required">*</span></label>
-            <input type="number" id="birthMonth" name="month" class="form-control" placeholder="MM" min="1" max="12" required>
+            <input type="number" id="birthMonth" name="month" class="form-control" placeholder="MM" min="1" max="12" value="1" required>
             <span class="field-error" id="monthError"></span>
           </div>
           <div class="form-group">
             <label for="birthYear">Year <span class="required">*</span></label>
-            <input type="number" id="birthYear" name="year" class="form-control" placeholder="YYYY" min="1930" max="2026" required>
+            <input type="number" id="birthYear" name="year" class="form-control" placeholder="YYYY" min="1930" max="2026" value="1995" required>
             <span class="field-error" id="yearError"></span>
           </div>
         </div>
@@ -105,16 +105,32 @@
           <span class="field-error" id="pobError"></span>
         </div>
 
-        <!-- Advanced Settings Toggle Trigger -->
-        <div class="advanced-settings-bar">
-          <button type="button" class="btn-toggle-settings" id="btnToggleSettings">
-            <span id="settingsIcon">[+]</span> SETTINGS
-          </button>
-          <span class="settings-hint">GPS coordinates, Ayanamsha &amp; Chart Style</span>
+        <!-- BOT PROTECTION SECURITY VERIFICATION (Number Calculation Challenge) -->
+        <div class="bot-protection-box">
+          <div class="bot-challenge-info">
+            <span class="bot-shield-icon">🛡️</span>
+            <div class="bot-challenge-text">
+              <strong>Human Security Verification</strong>
+              <span>Solve the quick calculation to generate your chart (prevents automated bot abuse):</span>
+            </div>
+          </div>
+          <div class="bot-math-cluster">
+            <span class="bot-math-question mono-num">7 + 5 = ?</span>
+            <input type="number" class="bot-math-input" placeholder="Sum" required aria-label="Security math check">
+            <span class="bot-status-indicator">Verification Required</span>
+          </div>
         </div>
 
-        <!-- Collapsible Advanced Settings Drawer -->
-        <div class="advanced-settings-drawer hidden" id="advancedSettingsDrawer">
+        <!-- Advanced Settings Toggle Trigger (Starts Minimized by Default) -->
+        <div class="advanced-settings-bar">
+          <button type="button" class="btn-toggle-settings" id="btnToggleSettings" aria-expanded="false">
+            <span id="settingsIcon">[+]</span> SETTINGS
+          </button>
+          <span class="settings-hint">GPS coordinates, Ayanamsha &amp; Chart Style (Optional)</span>
+        </div>
+
+        <!-- Collapsible Advanced Settings Drawer (Hidden by default everywhere) -->
+        <div class="advanced-settings-drawer hidden" id="advancedSettingsDrawer" style="display: none;">
           <div class="advanced-settings-box">
             <div class="adv-header">
               <h3>Advanced Astronomical Settings</h3>
@@ -361,11 +377,11 @@
               <div class="pillar-label">
                 <span class="pillar-num gold-glow">5th</span>
                 <div>
-                  <strong>Purva Punya &amp; Speculation (Stock Market)</strong>
+                  <strong>Purva Punya &amp; Speculation (Multi-Asset Allocation)</strong>
                   <span class="pillar-sign" id="h5SignDisplay">Leo (Sun)</span>
                 </div>
               </div>
-              <p class="pillar-impact" id="h5ImpactText">Trading instinct, options/futures derivatives acumen, and equity swing intuition.</p>
+              <p class="pillar-impact" id="h5ImpactText">Financial instinct, multi-asset allocation acumen, and timing intuition.</p>
             </div>
 
             <!-- 9th House -->
@@ -484,34 +500,35 @@
       <div class="celebrity-consultation-showcase" id="drAshishConsultationCard">
         <div class="consultation-showcase-grid">
           <div class="showcase-photo-frame">
-            <img src="/images/dr-ashish-patni.jpg" alt="Dr. Ashish Patni — Celebrity Financial Astrologer" class="showcase-photo">
+            <img src="/images/dr_ashish_patni_executive.png" alt="Dr. Ashish Patni — Celebrity Financial Astrologer &amp; Master Numerologist" class="showcase-photo">
             <div class="showcase-verified-tag">
               <span class="star-icon">✦</span>
-              <span>Celebrity Market Astrologer</span>
+              <span>VIP Financial Astrologer &amp; Numerologist</span>
             </div>
           </div>
 
           <div class="showcase-details">
-            <div class="showcase-badge">EXCLUSIVE 1-ON-1 FINANCIAL PREDICTION</div>
+            <div class="showcase-badge">EXCLUSIVE 1-ON-1 PERSONAL GUIDANCE</div>
             <h3 class="showcase-doctor-name">Dr. Ashish Patni</h3>
             <div class="showcase-doctor-title">
-              Celebrity Financial Astrologer &bull; Founder, Bhavishyam (<a href="https://www.bhavishyam.com" target="_blank" rel="noopener">www.bhavishyam.com</a>)
+              Celebrity Financial Astrologer &bull; Master Numerologist &bull; Founder, Bhavishyam (<a href="https://www.bhavishyam.com" target="_blank" rel="noopener">www.bhavishyam.com</a>)
             </div>
 
             <p class="showcase-copy">
-              Your Kundli indicates unique astrological timing patterns for wealth creation and market speculation. For a personalized, high-precision forecast regarding your <strong>stock portfolio timing, derivatives suitability, favorable sectors, and wealth dashas</strong>, connect directly with <strong>Dr. Ashish Patni</strong>.
+              Your birth coordinates reveal traditional Vedic astrological alignments and wealth yogas. For complete personalized guidance regarding your <strong>multi-asset financial cycles, name numerology harmony, personal Mahadasha timing, and specific transit remedies</strong>, consult directly with <strong>Dr. Ashish Patni</strong>.
             </p>
 
             <div class="showcase-highlights-row">
-              <span class="chip-gold">✓ Personal Stock Market Timing</span>
-              <span class="chip-gold">✓ F&amp;O &amp; Speculation Guidance</span>
-              <span class="chip-gold">✓ Wealth Dasha Milestones</span>
+              <span class="chip-gold">✓ Multi-Asset Planetary Timing</span>
+              <span class="chip-gold">✓ Personal Horoscope Wealth Houses</span>
+              <span class="chip-gold">✓ Name &amp; Business Numerology</span>
+              <span class="chip-gold">✓ Vimshottari Dasha Remedies</span>
             </div>
 
             <div class="showcase-cta-group">
-              <a href="#" id="kundliWhatsAppLink" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
+              <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" id="kundliWhatsAppLink" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
                 <span class="wa-icon">💬</span>
-                <span>Get Financial Prediction from Dr. Ashish Patni</span>
+                <span>Consult VIP Astrologer Dr. Ashish Patni on WhatsApp</span>
               </a>
               <a href="https://www.bhavishyam.com" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
                 <span>Visit www.bhavishyam.com</span>
@@ -520,7 +537,7 @@
             </div>
 
             <div class="showcase-security-note">
-              🔒 100% Confidential Personal Guidance &bull; Trusted by Top Industrialists &amp; Traders across India
+              🔒 100% Confidential Personal Consultation &bull; Trusted by Top Industrialists, Family Offices &amp; Traders Globally
             </div>
           </div>
         </div>

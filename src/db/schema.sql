@@ -53,6 +53,9 @@ CREATE TABLE IF NOT EXISTS news (
   source_url TEXT NOT NULL,
   category TEXT DEFAULT 'Macro', -- 'Macro' | 'Astro-Market' | 'Gold' | 'Crypto'
   image_url TEXT,
+  title_hi TEXT,
+  summary_hi TEXT,
+  lang TEXT DEFAULT 'en', -- 'en' | 'hi'
   is_published INTEGER DEFAULT 1,
   published_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP

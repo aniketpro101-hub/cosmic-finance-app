@@ -26,8 +26,15 @@ function formatIndianNumber(num) {
 // Fetch current cached telemetry
 function getCachedMarketTelemetry() {
   const marketStatus = getMarketStatus();
-  const rows = db.prepare('SELECT * FROM market_cache').all();
+  const rawRows = db.prepare("SELECT * FROM market_cache WHERE symbol != 'ETH'").all();
   const feedsHealth = getLiveFeedsHealth();
+
+  const symbolOrder = ['NIFTY', 'SENSEX', 'BANKNIFTY', 'GOLD', 'SILVER', 'BTC'];
+  const rows = rawRows.sort((a, b) => {
+    const idxA = symbolOrder.indexOf(a.symbol);
+    const idxB = symbolOrder.indexOf(b.symbol);
+    return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+  });
 
   const formatted = rows.map(r => {
     // If Indian equity and market closed, mark status accordingly
@@ -76,8 +83,8 @@ function refreshMarketCache() {
 
     db.transaction(() => {
       rows.forEach(r => {
-        // If market is closed and this is an equity index, preserve authentic last close price
-        if (!isMarketOpen && r.asset_type === 'index') {
+        // If market is closed and this is an equity index or domestic commodity bullion, preserve authentic last close/spot price
+        if (!isMarketOpen && (r.asset_type === 'index' || r.asset_type === 'commodity')) {
           return;
         }
 
@@ -142,7 +149,7 @@ function getSectorHeatmapData() {
       influence: 'Analytical clearing, telecommunications, software product exports, and fintech automation.'
     },
     {
-      sector: 'Gold (MCX) & Bullion Reserves',
+      sector: 'Gold (24K Bullion) & Bullion Reserves',
       rulerGraha: 'Jupiter & Venus',
       grahaKey: 'Jupiter',
       dignity: planets.Jupiter ? planets.Jupiter.dignity : 'Exalted',

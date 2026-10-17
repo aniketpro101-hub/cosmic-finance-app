@@ -3,7 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Mobile Drawer Navigation Toggle
+  // 1. Mobile Drawer Navigation Toggle (With Accessible State & Auto-Close)
   const toggleBtn = document.getElementById('mobileMenuToggle');
   const drawer = document.getElementById('mobileDrawer');
   const closeBtn = document.getElementById('mobileDrawerClose');
@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (drawer && overlay) {
       drawer.classList.add('open');
       overlay.classList.add('active');
+      drawer.setAttribute('aria-hidden', 'false');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
   }
@@ -21,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (drawer && overlay) {
       drawer.classList.remove('open');
       overlay.classList.remove('active');
+      drawer.setAttribute('aria-hidden', 'true');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
   }
@@ -28,6 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
   if (toggleBtn) toggleBtn.addEventListener('click', openDrawer);
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   if (overlay) overlay.addEventListener('click', closeDrawer);
+
+  // Auto-close drawer when clicking on any navigation link inside
+  if (drawer) {
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+  }
+
+  // Close on Escape key press
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  });
+
+  // Automatically close mobile drawer if window resized to desktop (>1200px)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1200 && drawer && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  });
 
   // 2. Living Brahmand (Cosmic Galaxy) Canvas Background with Drifting Grahas & Wishing Stars
   const backdrop = document.getElementById('starsBackdrop');
@@ -570,6 +597,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (floatTitle) floatTitle.textContent = h.label || `${h.planet}'s hour ${h.horaNumber || ''}`;
         if (floatGlyph) floatGlyph.textContent = h.glyph;
         if (floatSub) floatSub.innerHTML = `<span>${h.sunrise || '06:33'} &#8599; ${h.sunset || '18:24'} &#8600; next ${h.nextGlyph || ''} ${h.nextPlanet || ''} &middot; IST</span>`;
+
+        // Dynamic Hora Palette Tinting
+        const horaColors = {
+          'Sun': '#f5be48',
+          'Moon': '#e0f2fe',
+          'Mars': '#f87171',
+          'Mercury': '#34d399',
+          'Jupiter': '#fbbf24',
+          'Venus': '#f472b6',
+          'Saturn': '#818cf8'
+        };
+        const activeColor = horaColors[h.planet] || '#f5be48';
+        document.documentElement.style.setProperty('--current-hora-color', activeColor);
+        document.body.setAttribute('data-hora-planet', h.planet);
       }
     } catch (e) {
       // Graceful fallback to static SSR

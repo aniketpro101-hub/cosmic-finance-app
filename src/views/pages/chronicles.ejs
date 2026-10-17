@@ -1,0 +1,206 @@
+<div class="page-container container section-rhythm">
+  <!-- Page Header -->
+  <header class="page-header text-center">
+    <div class="cosmic-badge">
+      <span class="pulsing-star">✦</span>
+      <span>CELESTIAL ARCHIVES &amp; MARKET CHRONICLES</span>
+    </div>
+    <h1 class="page-title">
+      Market Chronicles: <span class="text-gold">Titans, Legends &amp; Turning Points</span>
+    </h1>
+    <p class="page-subtitle" style="max-width: 820px; margin: 0 auto;">
+      Astronomical, Vedic, and numerological case studies of history’s greatest fortunes, speculative manias, and unbroken legends across multi-asset classes.
+    </p>
+
+    <!-- Core Principle Trust Banner -->
+    <div class="trust-calculation-banner" style="max-width: 760px; margin: var(--space-4) auto 0;">
+      <span class="trust-icon">⚖️</span>
+      <span class="trust-text">
+        <strong>The Law of Kāla Chakra:</strong> "Talent and leverage can multiply wealth rapidly under Rahu's illusion, but only planetary alignment, ethical foundations, and Saturnian patience preserve it across cycles."
+      </span>
+    </div>
+  </header>
+
+  <!-- Filter & Search Controls -->
+  <div class="chronicles-filter-bar mt-8">
+    <div class="category-pills" id="chronicleFilterPills">
+      <button class="filter-pill active" data-filter="all">All Chronicles (<%= chronicles.length %>)</button>
+      <button class="filter-pill" data-filter="Indian Speculators">🇮🇳 Indian Speculators</button>
+      <button class="filter-pill" data-filter="Wall Street Legends">🏛️ Wall Street Legends</button>
+      <button class="filter-pill" data-filter="Precious Metals &amp; Commodities">🪙 Bullion &amp; Commodities</button>
+      <button class="filter-pill" data-filter="Derivatives &amp; Arbitrage">⚡ Derivatives &amp; Arbitrage</button>
+      <button class="filter-pill" data-filter="Digital &amp; Crypto">🌐 Digital &amp; Crypto</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="chronicleSearchInput" class="form-control" placeholder="Search titan, legend, planet, or market cycle...">
+    </div>
+  </div>
+
+  <!-- Master Chronicles Grid -->
+  <div class="chronicles-master-grid mt-8" id="chroniclesGrid">
+    <% if (chronicles && chronicles.length) { %>
+      <% chronicles.forEach(function(item) { %>
+        <article class="chronicle-card <%= item.isUnbrokenLegend ? 'unbroken-legend-card' : '' %>" data-category="<%= item.category %>" data-keywords="<%= item.name %> <%= item.moniker %> <%= item.assetClass %> <%= item.astrologicalBlueprint.fallTrigger %> <%= item.astrologicalBlueprint.wealthYoga %> <%= item.isUnbrokenLegend ? 'legend unbroken titan' : '' %>">
+          <!-- Card Media Wrap -->
+          <div class="chronicle-media-wrap">
+            <img 
+              src="<%= item.image %>" 
+              alt="<%= item.name %> — <%= item.moniker %>"
+              class="chronicle-card-img"
+              loading="lazy"
+              onerror="this.src='/images/dr_ashish_patni_executive.png'"
+            >
+            <div class="chronicle-badge-overlay">
+              <% if (item.isUnbrokenLegend) { %>
+                <span class="c-legend-badge">★ THE UNBROKEN LEGEND</span>
+              <% } else { %>
+                <span class="c-era-badge"><%= item.era %></span>
+                <span class="c-category-badge"><%= item.category %></span>
+              <% } %>
+            </div>
+            <div class="chronicle-asset-pill">
+              <span><%= item.assetClass %></span>
+            </div>
+          </div>
+
+          <!-- Card Body Content -->
+          <div class="chronicle-card-body">
+            <h2 class="chronicle-card-title">
+              <a href="/chronicles/<%= item.slug %>"><%= item.name %></a>
+            </h2>
+            <div class="chronicle-moniker <%= item.isUnbrokenLegend ? 'text-gold' : '' %>"><%= item.moniker %></div>
+
+            <p class="chronicle-tagline">
+              "<%= item.tagline %>"
+            </p>
+
+            <!-- Astrological Matrix Preview Strip -->
+            <div class="chronicle-astro-preview">
+              <div class="astro-p-row">
+                <span class="p-kicker">🪐 Planetary Yoga:</span>
+                <span class="p-desc text-gold"><%= item.astrologicalBlueprint.wealthYoga %></span>
+              </div>
+              <div class="astro-p-row">
+                <% if (item.isUnbrokenLegend) { %>
+                  <span class="p-kicker">🛡️ Planetary Shield:</span>
+                  <span class="p-desc text-green"><%= item.astrologicalBlueprint.fallTrigger %></span>
+                <% } else { %>
+                  <span class="p-kicker">⚡ Fall Trigger:</span>
+                  <span class="p-desc text-red"><%= item.astrologicalBlueprint.fallTrigger %></span>
+                <% } %>
+              </div>
+            </div>
+
+            <!-- Financial Impact Dual Matrix -->
+            <div class="chronicle-quantum-grid">
+              <div class="quantum-item">
+                <span class="q-label">Peak Asset Valuation</span>
+                <strong class="q-val text-green"><%= item.peakNetWorth %></strong>
+              </div>
+              <div class="quantum-item">
+                <% if (item.isUnbrokenLegend) { %>
+                  <span class="q-label">Capital Preservation</span>
+                  <strong class="q-val text-gold">100% Unbroken Record</strong>
+                <% } else { %>
+                  <span class="q-label">Exposure / Dissolution</span>
+                  <strong class="q-val text-red"><%= item.fallQuantum %></strong>
+                <% } %>
+              </div>
+            </div>
+
+            <!-- Card Action Footer -->
+            <div class="chronicle-card-footer">
+              <span class="astro-tag">📜 <%= item.isUnbrokenLegend ? 'Legend Astrological Study' : 'Vedic Case Study' %></span>
+              <a href="/chronicles/<%= item.slug %>" class="btn btn-outline btn-xs chronicle-read-btn <%= item.isUnbrokenLegend ? 'btn-legend-gold' : '' %>">
+                <span>Explore Astrological Blueprint</span>
+                <span class="btn-arrow">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      <% }); %>
+    <% } %>
+  </div>
+
+  <!-- Bottom Guidance Consultation Callout -->
+  <div class="locked-specifications-card mt-12">
+    <div class="locked-card-grid">
+      <div class="locked-photo-col">
+        <div class="locked-avatar-wrap">
+          <img src="<%= founder.photo %>" alt="<%= founder.name %>" class="locked-avatar-img">
+        </div>
+        <div class="mt-2 text-center">
+          <strong class="text-gold" style="font-size: 0.9rem; display: block;"><%= founder.name %></strong>
+          <span style="font-size: 0.72rem; color: #94a3b8;">Ph.D. &bull; Master Numerologist</span>
+        </div>
+      </div>
+
+      <div class="locked-content-col">
+        <h3>Are You Trading During a Rahu Illusion or Saturnian Audit?</h3>
+        <p class="locked-subhead">Every investor has favorable expansion periods and high-risk preservation cycles.</p>
+        <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 12px;">
+          As historical market titans proved, intellect without astronomical timing invites severe drawdowns. Discover your active Mahadasha, your 5th house of speculation yoga, and your personal auspicious Muhurats with Dr. Ashish Patni.
+        </p>
+        <div class="locked-perks-list">
+          <div class="locked-perk-item"><span class="chk">✓</span> Personal 2nd &amp; 11th Wealth House Analysis</div>
+          <div class="locked-perk-item"><span class="chk">✓</span> Active Vimshottari Mahadasha Audit</div>
+          <div class="locked-perk-item"><span class="chk">✓</span> Name-Numerology Compound Compatibility</div>
+          <div class="locked-perk-item"><span class="chk">✓</span> High-Risk Transit &amp; Eclipse Warning Windows</div>
+        </div>
+      </div>
+
+      <div class="locked-action-col">
+        <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent('Namaste Dr. Ashish Patni ji, I am exploring the Market Chronicles on Cosmic Finance. I would like to consult with you for my personal horoscope wealth houses, Dasha analysis, and timing guidance.') %>" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
+          <span>💬 Consult Dr. Ashish Patni</span>
+          <span>&rarr;</span>
+        </a>
+        <span style="font-size: 0.75rem; color: #94a3b8;">100% Confidential Personal Consultation</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Inline Filtering Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const pills = document.querySelectorAll('#chronicleFilterPills .filter-pill');
+  const cards = document.querySelectorAll('.chronicle-card');
+  const searchInput = document.getElementById('chronicleSearchInput');
+
+  let activeFilter = 'all';
+  let searchTerm = '';
+
+  function filterCards() {
+    cards.forEach(card => {
+      const category = card.getAttribute('data-category');
+      const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+      const title = card.querySelector('.chronicle-card-title').textContent.toLowerCase();
+      
+      const matchesCategory = (activeFilter === 'all') || (category.toLowerCase() === activeFilter.toLowerCase());
+      const matchesSearch = !searchTerm || keywords.includes(searchTerm) || title.includes(searchTerm);
+
+      if (matchesCategory && matchesSearch) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeFilter = pill.getAttribute('data-filter');
+      filterCards();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchTerm = e.target.value.trim().toLowerCase();
+      filterCards();
+    });
+  }
+});
+</script>

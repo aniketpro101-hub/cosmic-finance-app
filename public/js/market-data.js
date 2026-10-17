@@ -6,6 +6,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const clock = document.getElementById('lastUpdatedClock');
 
+  const prevPrices = {};
+
   function updateDisplay(telemetry) {
     if (!telemetry || !telemetry.data) return;
 
@@ -15,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     telemetry.data.forEach(item => {
+      const prevPrice = prevPrices[item.symbol];
+      const isTickUp = prevPrice !== undefined ? (item.price >= prevPrice) : item.isPositive;
+      const flashClass = isTickUp ? 'tick-flash-up' : 'tick-flash-down';
+
       // 1. Update Homepage Pulse Strips
       const chip = document.querySelector(`.ticker-chip[data-symbol="${item.symbol}"]`);
       if (chip) {
@@ -23,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (priceEl && priceEl.textContent !== item.priceFormatted) {
           priceEl.textContent = item.priceFormatted;
-          chip.classList.add('ticker-tick-flash');
-          setTimeout(() => chip.classList.remove('ticker-tick-flash'), 1000);
+          chip.classList.remove('tick-flash-up', 'tick-flash-down', 'ticker-tick-flash');
+          chip.classList.add(flashClass);
+          setTimeout(() => chip.classList.remove('tick-flash-up', 'tick-flash-down', 'ticker-tick-flash'), 1000);
         }
 
         if (changeEl) {
@@ -43,23 +50,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (instPrice) {
           let targetDisplay = item.priceFormatted;
           if (item.symbol === 'GOLD') {
-            // Gold per gram in INR
-            const perGram = Math.round(item.price / 10);
-            targetDisplay = `${perGram.toLocaleString('en-IN')} <span class="inst-unit">/g</span>`;
+            // Gold per 10g in INR
+            const per10g = Math.round(item.price);
+            targetDisplay = `${per10g.toLocaleString('en-IN')} <span class="inst-unit">/10g</span>`;
+          } else if (item.symbol === 'SILVER') {
+            // Silver per 1kg in INR
+            const perKg = Math.round(item.price);
+            targetDisplay = `${perKg.toLocaleString('en-IN')} <span class="inst-unit">/1kg</span>`;
           } else if (item.symbol === 'BTC') {
             // Bitcoin converted to INR in Lakhs
-            const inLakhs = ((item.price * 86.5) / 100000).toFixed(2);
-            targetDisplay = `&#8377;${inLakhs}L`;
-          } else if (item.symbol === 'ETH') {
-            // Ethereum converted to INR in Lakhs
             const inLakhs = ((item.price * 86.5) / 100000).toFixed(2);
             targetDisplay = `&#8377;${inLakhs}L`;
           }
 
           if (instPrice.innerHTML.trim() !== targetDisplay.trim()) {
             instPrice.innerHTML = targetDisplay;
-            card.classList.add('ticker-tick-flash');
-            setTimeout(() => card.classList.remove('ticker-tick-flash'), 900);
+            card.classList.remove('tick-flash-up', 'tick-flash-down', 'ticker-tick-flash');
+            card.classList.add(flashClass);
+            setTimeout(() => card.classList.remove('tick-flash-up', 'tick-flash-down', 'ticker-tick-flash'), 900);
           }
         }
 
@@ -69,6 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
           instBadge.className = `inst-badge ${item.isPositive ? 'badge-up' : 'badge-down'}`;
           card.classList.remove('positive', 'negative');
           card.classList.add(item.isPositive ? 'positive' : 'negative');
+
+          // Dynamically sync sparkline stroke and pulse dot colors
+          const sparkDot = card.querySelector('.spark-dot');
+          if (sparkDot) {
+            sparkDot.classList.remove('pulse-green', 'pulse-red');
+            sparkDot.classList.add(item.isPositive ? 'pulse-green' : 'pulse-red');
+            sparkDot.setAttribute('stroke', item.isPositive ? '#34d399' : '#f87171');
+          }
+          const sparkPath = card.querySelector('.spark-svg path[stroke]');
+          if (sparkPath) {
+            sparkPath.setAttribute('stroke', item.isPositive ? '#34d399' : '#f87171');
+          }
         }
 
         if (instTime) {
@@ -98,8 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (priceSpan && priceSpan.textContent !== item.priceFormatted) {
           priceSpan.textContent = item.priceFormatted;
-          priceSpan.classList.add('ticker-tick-flash');
-          setTimeout(() => priceSpan.classList.remove('ticker-tick-flash'), 900);
+          priceSpan.classList.remove('tick-flash-up', 'tick-flash-down', 'ticker-tick-flash');
+          priceSpan.classList.add(flashClass);
+          setTimeout(() => priceSpan.classList.remove('tick-flash-up', 'tick-flash-down', 'ticker-tick-flash'), 900);
         }
 
         if (changeSpan) {
@@ -107,6 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
           changeSpan.className = `asset-change ${item.isPositive ? 'positive' : 'negative'}`;
         }
       }
+
+      // Record current price for subsequent tick delta direction comparison
+      prevPrices[item.symbol] = item.price;
     });
   }
 
