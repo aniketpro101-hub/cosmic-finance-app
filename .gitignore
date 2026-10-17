@@ -3,7 +3,8 @@ node_modules/
 .env.local
 .env.*.local
 *.log
-data/
+/data/
+!src/data/
 *.sqlite
 *.sqlite3
 *.db

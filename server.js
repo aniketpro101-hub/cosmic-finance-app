@@ -163,8 +163,8 @@ app.use((err, req, res, next) => {
 
 // Start Server
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`🌌 Cosmic Finance Observatory is active on http://localhost:${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🌌 Cosmic Finance Observatory is active on http://0.0.0.0:${PORT}`);
     console.log(`🔒 Hidden Admin gateway mounted at ${CONSTANTS.ADMIN_PATH}`);
   });
 }
