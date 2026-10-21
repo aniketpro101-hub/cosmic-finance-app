@@ -122,6 +122,15 @@ router.get(['/trading-kundli', '/kundli'], (req, res) => {
   });
 });
 
+// 4a. Client Kundli Forensic Audit & Architectural Comparison
+router.get(['/kundli-comparison', '/kundli-audit', '/chart-audit'], (req, res) => {
+  renderWithLayout(res, 'kundli-comparison', {
+    pageId: 'kundli-comparison',
+    title: 'Vedic Kundli Forensic Audit & Comparison | Cosmic Finance',
+    description: 'Side-by-side forensic analysis: Demystifying esoteric mandalas vs. canonical Parashari Vedic astrological calculations powered by Cosmic Finance.'
+  });
+});
+
 // 4b. Gann's Square of 9 & Sarvatobhadra Chakra Interactive Terminal
 router.get(['/gann-square', '/gann-sarvatobhadra', '/sarvatobhadra'], (req, res) => {
   renderWithLayout(res, 'gann-square', {
