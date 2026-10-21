@@ -1,847 +1,1255 @@
-<div class="kundli-comparison-wrapper">
-  <!-- Hero Section -->
-  <section class="comparison-hero text-center py-5">
-    <div class="container">
-      <div class="cosmic-badge mb-3">ASTROLOGICAL FORENSIC AUDIT</div>
-      <h1 class="page-title text-gold mb-3">Vedic Kundli Architecture &amp; Verification</h1>
-      <p class="page-subtitle max-w-800 mx-auto text-muted">
-        A rigorous comparative analysis: Why conventional symbolic mandalas cause confusion, and how the 
-        <strong class="text-gold">Cosmic Finance Classical Jyotish Engine</strong> restores 100% mathematical accuracy using canonical Parashari principles.
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>वैदिक कुंडली सत्यापन एवं प्रमाणिक तुलनात्मक रिपोर्ट | Cosmic Finance</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --cf-crimson: #881337;
+      --cf-crimson-dark: #4c0519;
+      --cf-gold: #b45309;
+      --cf-gold-light: #f59e0b;
+      --cf-gold-bg: #fef3c7;
+      --cf-emerald: #047857;
+      --cf-emerald-bg: #ecfdf5;
+      --cf-rose: #be123c;
+      --cf-rose-bg: #fff1f2;
+      --cf-slate-dark: #0f172a;
+      --cf-slate-body: #334155;
+      --cf-slate-muted: #64748b;
+      --cf-bg-page: #f1f5f9;
+      --cf-card-bg: #ffffff;
+      --cf-border: #e2e8f0;
+      --cf-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+      --cf-shadow-lg: 0 10px 30px -4px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--cf-bg-page);
+      color: var(--cf-slate-body);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Bilingual Toggle State */
+    body[data-lang="hi"] .lang-en { display: none !important; }
+    body[data-lang="hi"] .lang-hi { display: inline; }
+    body[data-lang="hi"] div.lang-hi,
+    body[data-lang="hi"] p.lang-hi,
+    body[data-lang="hi"] ul.lang-hi,
+    body[data-lang="hi"] li.lang-hi,
+    body[data-lang="hi"] section.lang-hi { display: block !important; }
+
+    body[data-lang="en"] .lang-hi { display: none !important; }
+    body[data-lang="en"] .lang-en { display: inline; }
+    body[data-lang="en"] div.lang-en,
+    body[data-lang="en"] p.lang-en,
+    body[data-lang="en"] ul.lang-en,
+    body[data-lang="en"] li.lang-en,
+    body[data-lang="en"] section.lang-en { display: block !important; }
+
+    /* Top Sticky Control Bar */
+    .top-control-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 10px 0;
+    }
+    .brand-mark {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      color: var(--cf-crimson);
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-mark span.badge-doc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      background: var(--cf-gold-bg);
+      color: var(--cf-gold);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    /* Language Switcher Buttons */
+    .lang-switcher {
+      display: inline-flex;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 30px;
+      padding: 3px;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cf-slate-muted);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lang-btn.active {
+      background: var(--cf-crimson);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(136, 19, 55, 0.3);
+    }
+
+    /* Jump Pills */
+    .jump-pill {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--cf-slate-body);
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .jump-pill:hover {
+      background: var(--cf-crimson);
+      color: #ffffff;
+      border-color: var(--cf-crimson);
+    }
+
+    /* Document Header */
+    .doc-header-card {
+      background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+      border: 1px solid #fed7aa;
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: var(--cf-shadow);
+      margin-top: 24px;
+      margin-bottom: 32px;
+      border-top: 5px solid var(--cf-gold);
+    }
+    .doc-title {
+      font-family: 'Tiro Devanagari Hindi', 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--cf-crimson-dark);
+      margin-bottom: 10px;
+    }
+    .doc-subtitle {
+      font-size: 1.05rem;
+      color: var(--cf-slate-body);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Case Section */
+    .case-container {
+      background: var(--cf-card-bg);
+      border: 1px solid var(--cf-border);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: var(--cf-shadow);
+      margin-bottom: 48px;
+      scroll-margin-top: 80px;
+    }
+    .case-header-bar {
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+    }
+    .case-title {
+      font-family: 'Tiro Devanagari Hindi', 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--cf-crimson);
+      margin-bottom: 6px;
+    }
+    .badge-case-num {
+      background: var(--cf-gold-bg);
+      color: var(--cf-gold);
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .verdict-box {
+      background: var(--cf-emerald-bg);
+      border: 1px solid #a7f3d0;
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: inline-block;
+      text-align: right;
+    }
+    .verdict-box small {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--cf-emerald);
+      text-transform: uppercase;
+      display: block;
+    }
+    .verdict-box strong {
+      font-size: 1.15rem;
+      color: #064e3b;
+    }
+
+    /* 50/50 Comparison Cards */
+    .comparison-card {
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--cf-shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .comparison-card:hover {
+      box-shadow: var(--cf-shadow-lg);
+    }
+    .comparison-card.card-old {
+      border-top: 4px solid var(--cf-rose);
+    }
+    .comparison-card.card-new {
+      border-top: 4px solid var(--cf-emerald);
+    }
+
+    .card-top-title {
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .card-old .card-top-title {
+      background: #fff5f5;
+      color: #991b1b;
+    }
+    .card-new .card-top-title {
+      background: #f0fdf4;
+      color: #166534;
+    }
+    .card-badge {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    .card-old .card-badge {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .card-new .card-badge {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .chart-display-box {
+      background: #ffffff;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #f1f5f9;
+      min-height: 480px;
+    }
+    .chart-display-box img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .card-text-body {
+      padding: 22px;
+      flex-grow: 1;
+    }
+    .card-text-body h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .card-old .card-text-body h4 {
+      color: #991b1b;
+    }
+    .card-new .card-text-body h4 {
+      color: #166534;
+    }
+
+    .analysis-points {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+    .analysis-points li {
+      margin-bottom: 12px;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--cf-slate-body);
+    }
+    .analysis-points li strong {
+      color: var(--cf-slate-dark);
+    }
+
+    /* Planetary Table */
+    .table-container {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+    .table-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--cf-slate-dark);
+      margin-bottom: 14px;
+    }
+    .custom-table {
+      margin-bottom: 0;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .custom-table th {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 14px;
+      border-bottom: 1px solid #cbd5e1;
+    }
+    .custom-table td {
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .custom-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    /* Badges in Table */
+    .badge-bhava {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+    .badge-dignity-good {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .badge-dignity-warn {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    /* 4 Foundational Axioms */
+    .axiom-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      height: 100%;
+      border-left: 4px solid var(--cf-gold);
+    }
+    .axiom-num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--cf-gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .axiom-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cf-slate-dark);
+      margin-bottom: 6px;
+    }
+    .axiom-desc {
+      font-size: 0.88rem;
+      color: var(--cf-slate-body);
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* Print Styles */
+    @media print {
+      .top-control-bar { display: none !important; }
+      body { background: #ffffff !important; }
+      .case-container { box-shadow: none !important; border: 1px solid #cbd5e1 !important; page-break-after: always; }
+      .comparison-card { box-shadow: none !important; }
+    }
+  </style>
+</head>
+
+<body data-lang="hi">
+
+  <!-- Top Sticky Navigation & Language Control Bar -->
+  <header class="top-control-bar">
+    <div class="container-fluid px-lg-5 d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <!-- Brand & Document Tag -->
+      <div class="brand-mark">
+        <span>COSMIC FINANCE</span>
+        <span class="badge-doc">
+          <span class="lang-hi">प्रामाणिक कुंडली सत्यापन रिपोर्ट</span>
+          <span class="lang-en">Client Forensic Audit Report</span>
+        </span>
+      </div>
+
+      <!-- Jump Pills for 3 Clients -->
+      <div class="d-none d-md-flex align-items-center gap-2">
+        <a href="#case-vrishabh" class="jump-pill">
+          <span class="lang-hi">1. वृषभ जिनेंद्र (दिल्ली)</span>
+          <span class="lang-en">1. Vrishabh Jinendra (Delhi)</span>
+        </a>
+        <a href="#case-akkriti" class="jump-pill">
+          <span class="lang-hi">2. आकृति गुप्ता (छिंदवाड़ा)</span>
+          <span class="lang-en">2. Akkriti Gupta (Chhindwara)</span>
+        </a>
+        <a href="#case-anurag" class="jump-pill">
+          <span class="lang-hi">3. अनुराग राठी (रायपुर)</span>
+          <span class="lang-en">3. Anurag Rathi (Raipur)</span>
+        </a>
+      </div>
+
+      <!-- Action Buttons: Language Switcher & Print -->
+      <div class="d-flex align-items-center gap-2">
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" id="btnLangHi" onclick="switchLanguage('hi')">🇮🇳 हिंदी (डिफ़ॉल्ट)</button>
+          <button type="button" class="lang-btn" id="btnLangEn" onclick="switchLanguage('en')">🇬🇧 English</button>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3" onclick="window.print()" title="Print / Save PDF">
+          🖨️ <span class="lang-hi">प्रिंट / PDF</span><span class="lang-en">Print / PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-fluid px-lg-5 py-4">
+
+    <!-- Document Main Title Banner -->
+    <div class="doc-header-card text-center">
+      <div class="badge-case-num mb-2">
+        <span class="lang-hi">वैदिक ज्योतिष अनुसंधान एवं तुलनात्मक प्रमाण</span>
+        <span class="lang-en">ASTROLOGICAL FORENSIC VERIFICATION</span>
+      </div>
+      <h1 class="doc-title">
+        <span class="lang-hi">वैदिक कुंडली सत्यापन एवं प्रामाणिक तुलनात्मक रिपोर्ट</span>
+        <span class="lang-en">Vedic Kundli Forensic Verification &amp; Comparison</span>
+      </h1>
+      <p class="doc-subtitle">
+        <span class="lang-hi">
+          पारंपरिक <strong>मंडल यंत्र (काष्ठ चार्ट)</strong> और <strong>कॉस्मिक फाइनेंस की शुद्ध वैदिक गणना</strong> का निष्पक्ष, प्रत्यक्ष तुलनात्मक विश्लेषण — जातक के वास्तविक उदित लग्न, शुभ धन योग और वित्तीय कुंडली की सत्यता।
+        </span>
+        <span class="lang-en">
+          An objective, side-by-side comparative analysis between conventional <strong>symbolic mandalas (wood yantras)</strong> and the <strong>Cosmic Finance Classical Jyotish Engine</strong> — verifying the true rising horizon, planetary dignities, and authentic financial Bhavas.
+        </span>
       </p>
-
-      <!-- Client Selection Tabs -->
-      <div class="client-tabs-bar mt-4 d-flex justify-content-center flex-wrap gap-3">
-        <button class="btn client-tab-btn active" data-client="vrishabh">
-          <span class="tab-avatar">♈</span>
-          <span class="tab-text">
-            <strong>Vrishabh Jinendra</strong>
-            <small>29 Nov 1999 • Delhi</small>
-          </span>
-        </button>
-        <button class="btn client-tab-btn" data-client="akkriti">
-          <span class="tab-avatar">♏</span>
-          <span class="tab-text">
-            <strong>Akkriti Gupta</strong>
-            <small>24 Oct 2009 • Chhindwara</small>
-          </span>
-        </button>
-        <button class="btn client-tab-btn" data-client="anurag">
-          <span class="tab-avatar">♋</span>
-          <span class="tab-text">
-            <strong>Anurag Rathi</strong>
-            <small>10 Oct 1986 • Raipur</small>
-          </span>
-        </button>
-      </div>
     </div>
-  </section>
 
-  <!-- Client Comparison Containers -->
-  <section class="comparison-body py-4">
-    <div class="container">
-
-      <!-- ==================== CASE 1: VRISHABH JINENDRA ==================== -->
-      <div class="client-panel active" id="panel-vrishabh">
-        <!-- Overview Header Card -->
-        <div class="audit-summary-card mb-4">
-          <div class="row align-items-center">
-            <div class="col-lg-8">
-              <span class="badge-status badge-warning mb-2">CASE STUDY 01: RISING HORIZON ALIGNMENT</span>
-              <h2 class="text-gold h3 mb-2">Vrishabh Jinendra</h2>
-              <p class="mb-1 text-light"><strong>Birth Credentials:</strong> 29 November 1999 | 14:50:00 IST (2:50 PM) | Delhi, India (28.61° N, 77.21° E)</p>
-              <p class="mb-0 text-muted"><strong>Panchanga:</strong> Krishna Paksha Ashtami | Moon: Leo (Simha) 05° 40' | Star: Magha (Pada 2) | Day: Monday</p>
-            </div>
-            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-              <div class="verdict-pill">
-                <span class="verdict-label">AUDIT VERDICT</span>
-                <span class="verdict-value text-emerald">Lagna: Pisces (Meena 12)</span>
-              </div>
-            </div>
+    <!-- ==================================================================== -->
+    <!-- ==================== CASE 1: VRISHABH JINENDRA ==================== -->
+    <!-- ==================================================================== -->
+    <section class="case-container" id="case-vrishabh">
+      <!-- Case Header -->
+      <div class="case-header-bar d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+          <span class="badge-case-num">
+            <span class="lang-hi">केस स्टडी 01 &bull; मीन लग्न व उच्च का मंगल</span>
+            <span class="lang-en">CASE STUDY 01 &bull; PISCES HORIZON &amp; EXALTED MARS</span>
+          </span>
+          <h2 class="case-title">
+            <span class="lang-hi">वृषभ जिनेंद्र</span>
+            <span class="lang-en">Vrishabh Jinendra</span>
+          </h2>
+          <div class="small text-muted">
+            <span class="lang-hi"><strong>जन्म विवरण:</strong> 29 नवंबर 1999 | समय: 14:50 (दोपहर 2:50 बजे IST) | स्थान: नई दिल्ली (28.61° N, 77.21° E)</span>
+            <span class="lang-en"><strong>Birth Details:</strong> 29 November 1999 | Time: 14:50 IST (2:50 PM) | Place: New Delhi, India (28.61° N, 77.21° E)</span>
+          </div>
+          <div class="small text-muted">
+            <span class="lang-hi"><strong>पंचांग:</strong> कृष्ण पक्ष अष्टमी | चंद्र राशि: सिंह (05° 40') | नक्षत्र: मघा (चरण 2) | वार: सोमवार</span>
+            <span class="lang-en"><strong>Panchanga:</strong> Krishna Ashtami | Moon: Leo (05° 40') | Star: Magha (Pada 2) | Day: Monday</span>
           </div>
         </div>
-
-        <!-- Side-by-Side Visual Showcase -->
-        <div class="row g-4 mb-5">
-          <!-- Left: Old Client Chart -->
-          <div class="col-lg-6">
-            <div class="chart-showcase-card old-chart-card h-100">
-              <div class="card-header-bar d-flex justify-content-between align-items-center">
-                <span class="chart-tag tag-old">❌ CLIENT'S PROVIDED CHART (BHAVISHYAM)</span>
-                <span class="chart-type-tag">Esoteric Mandala</span>
-              </div>
-              <div class="chart-image-wrap text-center p-3">
-                <img src="/images/clients/vrishabh_jinendra_mandala.png" alt="Bhavishyam Mandala - Vrishabh Jinendra" class="img-fluid rounded chart-img shadow-lg">
-              </div>
-              <div class="card-analysis-body p-4">
-                <h4 class="text-danger h5 mb-3">Architectural Limitations &amp; Misunderstandings:</h4>
-                <ul class="analysis-list">
-                  <li>
-                    <strong>Chandra Rashi in Center:</strong> The central circle displays <code>सिंह मघा</code> (Leo / Magha), leading clients to mistakenly assume Leo is their 1st house (Lagna).
-                  </li>
-                  <li>
-                    <strong>Non-Standard Circular Layout:</strong> Uses symbolic lotus petals with numbers (12, 3, 6, 9) representing Kendra boundaries rather than distinct, readable Parashari house compartments.
-                  </li>
-                  <li>
-                    <strong>Missing Exact Planetary Longitudes:</strong> Does not provide degrees or minutes for the 9 Grahas, making it impossible to calculate true strength, combustion, or Vimshottari timing.
-                  </li>
-                  <li>
-                    <strong>Unusable for Financial Astrology:</strong> Wealth houses (2nd &amp; 11th) and speculation house (5th) cannot be identified without an explicit eastern rising Ascendant.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Cosmic Finance Authentic Kundli -->
-          <div class="col-lg-6">
-            <div class="chart-showcase-card new-chart-card h-100">
-              <div class="card-header-bar d-flex justify-content-between align-items-center">
-                <span class="chart-tag tag-new">✔ COSMIC FINANCE AUTHENTIC KUNDLI</span>
-                <span class="chart-type-tag">Canonical Parashari D1</span>
-              </div>
-              <div class="chart-image-wrap text-center p-3">
-                <img src="/images/clients/vrishabh_jinendra_true_kundli.png" alt="Cosmic Finance True Kundli - Vrishabh Jinendra" class="img-fluid rounded chart-img shadow-lg">
-              </div>
-              <div class="card-analysis-body p-4">
-                <h4 class="text-gold h5 mb-3">Why Cosmic Finance is 100% Mathematically Correct:</h4>
-                <ul class="analysis-list">
-                  <li>
-                    <strong>True Rising Horizon (Lagna):</strong> At 14:50 IST in Delhi, the eastern horizon was precisely at <strong>27° 19' Pisces (Meena 12)</strong>. House 1 is placed at the top diamond.
-                  </li>
-                  <li>
-                    <strong>Ruchaka &amp; Dhana Powerhouse:</strong> Mars is placed in the <strong>11th House of Gains (Capricorn) at 08° 52' [Peak Exaltation / Uchcha]</strong> conjunct Ketu, forming a massive wealth-generating yoga.
-                  </li>
-                  <li>
-                    <strong>Lagna Lord in 2nd House:</strong> Jupiter [Retrograde] sits in the 2nd House of liquid wealth with Saturn, indicating long-term capital compounding and disciplined asset mastery.
-                  </li>
-                  <li>
-                    <strong>Complete Vedic Metrics:</strong> Exact degrees, Nakshatra Padas, retrograde (Vakri) status, and active Dasha period (Sun-Mercury) explicitly calibrated.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Comparative Planetary Breakdown Table -->
-        <div class="breakdown-card p-4 mb-5">
-          <h3 class="text-gold h4 mb-3">Planetary Forensic Alignment Table</h3>
-          <p class="text-muted small mb-4">Comparing symbolic positions in the client's provided mandala against the true astronomical houses calculated by Cosmic Finance:</p>
-          <div class="table-responsive">
-            <table class="table table-cosmic align-middle">
-              <thead>
-                <tr>
-                  <th>Planet (Graha)</th>
-                  <th>Zodiac Sign</th>
-                  <th>Bhavishyam Mandala Placement</th>
-                  <th>Cosmic Finance True House</th>
-                  <th>Dignity &amp; Financial Impact</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong class="text-gold">Lagna (Ascendant)</strong></td>
-                  <td>Pisces (Meena 12)</td>
-                  <td>Symbolic 12 at top petal</td>
-                  <td><span class="badge bg-primary">1st House (Tanu)</span></td>
-                  <td>Ruled by Jupiter; philosophical &amp; strategic vision</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-warning">Jupiter (Guru) [R]</strong></td>
-                  <td>Aries (Mesha 1)</td>
-                  <td>Grouped with Saturn at top box</td>
-                  <td><span class="badge bg-gold">2nd House (Dhana)</span></td>
-                  <td>Lagna Lord in wealth house; exceptional asset accumulation</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-purple">Saturn (Shani) [R]</strong></td>
-                  <td>Aries (Mesha 1)</td>
-                  <td>Grouped with Jupiter at top box</td>
-                  <td><span class="badge bg-gold">2nd House (Dhana)</span></td>
-                  <td>Debilitated &amp; Retrograde; enforces intense discipline with savings</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-danger">Mars (Mangal)</strong></td>
-                  <td>Capricorn (Makara 10)</td>
-                  <td>Grouped with Ketu at top-right</td>
-                  <td><span class="badge bg-success">11th House (Labha)</span></td>
-                  <td><strong>EXALTED (Uchcha)</strong>; peak risk resilience &amp; large enterprise windfalls</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-silver">Moon (Chandra)</strong></td>
-                  <td>Leo (Simha 5)</td>
-                  <td>Placed in center circle (Magha)</td>
-                  <td><span class="badge bg-secondary">6th House (Shatru)</span></td>
-                  <td>Janma Rashi; strong determination to overcome market volatility</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-pink">Venus (Shukra)</strong></td>
-                  <td>Virgo (Kanya 6)</td>
-                  <td>Placed in bottom box</td>
-                  <td><span class="badge bg-danger">7th House (Kalatra)</span></td>
-                  <td>Debilitated (Neecha); analytical approach to business contracts</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-emerald">Mercury (Budh)</strong></td>
-                  <td>Libra (Tula 7)</td>
-                  <td>Placed in bottom-right box</td>
-                  <td><span class="badge bg-secondary">8th House (Randhra)</span></td>
-                  <td>Analytical intelligence applied to hidden data, forensic finance, and risk</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-amber">Sun (Surya)</strong></td>
-                  <td>Scorpio (Vrishchika 8)</td>
-                  <td>Placed in right box</td>
-                  <td><span class="badge bg-info">9th House (Bhagya)</span></td>
-                  <td>6th Lord in 9th House; authority, reputation, and competitive edge</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-violet">Rahu [R]</strong></td>
-                  <td>Cancer (Karka 4)</td>
-                  <td>Placed in left box</td>
-                  <td><span class="badge bg-warning">5th House (Buddhi)</span></td>
-                  <td>Unconventional speculation acumen; tech &amp; high-beta investment inclinations</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-light">Ketu [R]</strong></td>
-                  <td>Capricorn (Makara 10)</td>
-                  <td>Grouped with Mars at top-right</td>
-                  <td><span class="badge bg-success">11th House (Labha)</span></td>
-                  <td>Conjunct Exalted Mars in 11th; sudden breakthroughs and unconventional networks</td>
-                </tr>
-              </tbody>
-            </table>
+        <div>
+          <div class="verdict-box">
+            <small>
+              <span class="lang-hi">खगोलीय सत्यापन निर्णय</span>
+              <span class="lang-en">ASTRONOMICAL AUDIT VERDICT</span>
+            </small>
+            <strong>
+              <span class="lang-hi">वास्तविक लग्न: मीन (12) @ 27° 20'</span>
+              <span class="lang-en">True Lagna: Pisces (12) @ 27° 20'</span>
+            </strong>
           </div>
         </div>
       </div>
 
-
-      <!-- ==================== CASE 2: AKKRITI GUPTA ==================== -->
-      <div class="client-panel" id="panel-akkriti">
-        <!-- Overview Header Card -->
-        <div class="audit-summary-card mb-4">
-          <div class="row align-items-center">
-            <div class="col-lg-8">
-              <span class="badge-status badge-warning mb-2">CASE STUDY 02: SCORPIO HORIZON &amp; WEALTH AXIS</span>
-              <h2 class="text-gold h3 mb-2">Akkriti Gupta</h2>
-              <p class="mb-1 text-light"><strong>Birth Credentials:</strong> 24 October 2009 | 09:20:00 AM IST | Chhindwara, MP (22.06° N, 78.94° E)</p>
-              <p class="mb-0 text-muted"><strong>Panchanga:</strong> Shukla Paksha Shashthi | Moon: Sagittarius (Dhanu) 16° 07' | Star: Purvashadha (Pada 1) | Day: Saturday</p>
+      <!-- 50/50 Side-by-Side Visuals -->
+      <div class="row g-4 align-items-stretch">
+        <!-- Left: Old Provided Mandala -->
+        <div class="col-lg-6">
+          <div class="comparison-card card-old">
+            <div class="card-top-title">
+              <span>
+                <span class="lang-hi">❌ आपके द्वारा प्रदान किया गया मंडल चार्ट</span>
+                <span class="lang-en">❌ Client's Provided Mandala Chart</span>
+              </span>
+              <span class="card-badge">
+                <span class="lang-hi">काष्ठ यंत्र / प्रतीक</span>
+                <span class="lang-en">Symbolic Mandala</span>
+              </span>
             </div>
-            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-              <div class="verdict-pill">
-                <span class="verdict-label">AUDIT VERDICT</span>
-                <span class="verdict-value text-emerald">Lagna: Scorpio (Vrishchika 8)</span>
-              </div>
+            <div class="chart-display-box">
+              <img src="/images/clients/vrishabh_jinendra_mandala.png" alt="Provided Mandala - Vrishabh Jinendra" class="shadow-sm">
             </div>
-          </div>
-        </div>
-
-        <!-- Side-by-Side Visual Showcase -->
-        <div class="row g-4 mb-5">
-          <!-- Left: Old Client Chart -->
-          <div class="col-lg-6">
-            <div class="chart-showcase-card old-chart-card h-100">
-              <div class="card-header-bar d-flex justify-content-between align-items-center">
-                <span class="chart-tag tag-old">❌ CLIENT'S PROVIDED CHART (BHAVISHYAM)</span>
-                <span class="chart-type-tag">Wood / Kasht Yantra</span>
-              </div>
-              <div class="chart-image-wrap text-center p-3">
-                <img src="/images/clients/akkriti_gupta_mandala.png" alt="Bhavishyam Mandala - Akkriti Gupta" class="img-fluid rounded chart-img shadow-lg">
-              </div>
-              <div class="card-analysis-body p-4">
-                <h4 class="text-danger h5 mb-3">Architectural Limitations &amp; Misunderstandings:</h4>
-                <ul class="analysis-list">
-                  <li>
-                    <strong>Moon Sign Misinterpreted as Lagna:</strong> Center circle displays <code>धनु पूर्वाषाढ़ा 1</code> (Sagittarius / Purvashadha 1), which is the Moon sign, NOT the rising Ascendant.
-                  </li>
-                  <li>
-                    <strong>Petal Numbering System (8, 11, 2, 5):</strong> The numbers on the petals actually signify the Kendra signs from Scorpio (8), but without standard Parashari diamond boundaries, clients misread their houses.
-                  </li>
-                  <li>
-                    <strong>Clusters Without Degrees:</strong> Groups <code>शनि शुक्र बुध</code> in one box without longitudes. Mercury is actually Exalted (22° Virgo) while Venus is Debilitated (17° Virgo) in the 11th House, forming a powerful Neecha-Bhanga Raja Yoga that cannot be seen in the mandala.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Cosmic Finance Authentic Kundli -->
-          <div class="col-lg-6">
-            <div class="chart-showcase-card new-chart-card h-100">
-              <div class="card-header-bar d-flex justify-content-between align-items-center">
-                <span class="chart-tag tag-new">✔ COSMIC FINANCE AUTHENTIC KUNDLI</span>
-                <span class="chart-type-tag">Canonical Parashari D1</span>
-              </div>
-              <div class="chart-image-wrap text-center p-3">
-                <img src="/images/clients/akkriti_gupta_true_kundli.png" alt="Cosmic Finance True Kundli - Akkriti Gupta" class="img-fluid rounded chart-img shadow-lg">
-              </div>
-              <div class="card-analysis-body p-4">
-                <h4 class="text-gold h5 mb-3">Why Cosmic Finance is 100% Mathematically Correct:</h4>
-                <ul class="analysis-list">
-                  <li>
-                    <strong>True Rising Horizon (Lagna):</strong> At 09:20 AM in Chhindwara, the rising constellation was <strong>13° 04' Scorpio (Vrishchika 8)</strong>, ruled by Mars.
-                  </li>
-                  <li>
-                    <strong>11th House Exalted Mercury (Neecha-Bhanga):</strong> House 11 (Virgo) hosts Exalted Mercury (22° 48') conjunct Venus (17° 13'), canceling Venus's debility and conferring exceptional business/commercial acumen.
-                  </li>
-                  <li>
-                    <strong>Moon in 2nd House of Wealth:</strong> Moon sits in Sagittarius (16° 07') in the 2nd House of Liquid Reserves, signaling intuitive financial intelligence.
-                  </li>
-                  <li>
-                    <strong>Precise Navagraha Degrees:</strong> Every planet is mapped with true topocentric coordinates, nakshatra padas, and exact houses.
-                  </li>
-                </ul>
-              </div>
+            <div class="card-text-body">
+              <h4>
+                <span class="lang-hi">पुराने मंडल चार्ट की कमियां एवं भ्रांतियां:</span>
+                <span class="lang-en">Architectural Limitations &amp; Misunderstandings:</span>
+              </h4>
+              <ul class="analysis-points">
+                <li>
+                  <span class="lang-hi"><strong>चंद्र राशि को केंद्र में रखना:</strong> पुराने चार्ट के मध्य वृत्त (सेंटर) में <code>सिंह मघा</code> लिखा है। इससे जातक को यह भ्रम हो जाता है कि उसका लग्न सिंह (पहला घर) है, जबकि यह केवल चंद्र राशि है।</span>
+                  <span class="lang-en"><strong>Moon Sign in Center:</strong> The central circle displays <code>Leo Magha</code>, leading clients to mistakenly assume Leo is their 1st House (Lagna), whereas it is solely the emotional Moon sign.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>भावों (घरों) का अभाव:</strong> यह वृत्ताकार कमल पंखुड़ियों वाला यंत्र है जिसमें भावों के मानक पारशरी खाने नहीं हैं। शीर्ष पर 12 और चारों ओर 3, 6, 9 लिखे हैं जो केवल राशियों के संकेत हैं, घर नहीं।</span>
+                  <span class="lang-en"><strong>Non-Standard Circular Layout:</strong> Uses circular petals with boundary numbers (12, 3, 6, 9) representing signs rather than distinct, readable Parashari house compartments.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>ग्रहों के अंश (Degrees) गायब:</strong> किसी भी ग्रह के अंश (डिग्री व मिनट) नहीं दिए गए हैं। बिना अंश के यह पता लगाना असंभव है कि ग्रह किस अवस्था (बाल, युवा, वृद्ध) में है या अस्त है।</span>
+                  <span class="lang-en"><strong>Missing Planetary Longitudes:</strong> Omits degrees and minutes, making it impossible to evaluate true planetary combustion, strength, or Vimshottari timing.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>आर्थिक ज्योतिष में अनुपयोगी:</strong> धन भाव (दूसरा व ग्यारहवां) और सट्टा/निवेश भाव (पांचवां) कौन सा है, यह जाने बिना सही वित्तीय मार्गदर्शन संभव नहीं है।</span>
+                  <span class="lang-en"><strong>Unusable for Financial Astrology:</strong> Wealth houses (2nd &amp; 11th) and speculation house (5th) cannot be identified without an explicit eastern rising Ascendant.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <!-- Comparative Planetary Breakdown Table -->
-        <div class="breakdown-card p-4 mb-5">
-          <h3 class="text-gold h4 mb-3">Planetary Forensic Alignment Table (Akkriti Gupta)</h3>
-          <div class="table-responsive">
-            <table class="table table-cosmic align-middle">
-              <thead>
-                <tr>
-                  <th>Planet (Graha)</th>
-                  <th>Zodiac Sign</th>
-                  <th>Bhavishyam Mandala Placement</th>
-                  <th>Cosmic Finance True House</th>
-                  <th>Dignity &amp; Financial Impact</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong class="text-gold">Lagna (Ascendant)</strong></td>
-                  <td>Scorpio (Vrishchika 8)</td>
-                  <td>Symbolic 8 at top petal</td>
-                  <td><span class="badge bg-primary">1st House (Tanu)</span></td>
-                  <td>Ruled by Mars; dynamic, resolute, and insightful</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-silver">Moon (Chandra)</strong></td>
-                  <td>Sagittarius (Dhanu 9)</td>
-                  <td>Center circle (Purvashadha 1)</td>
-                  <td><span class="badge bg-gold">2nd House (Dhana)</span></td>
-                  <td>9th Lord in 2nd House (Dhana Yoga); steady expansion of liquid wealth</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-warning">Jupiter [R][Deb]</strong></td>
-                  <td>Capricorn (Makara 10)</td>
-                  <td>Grouped with Rahu at left box</td>
-                  <td><span class="badge bg-secondary">3rd House (Sahaja)</span></td>
-                  <td>Retrograde in 3rd; unconventional enterprise and tactical courage</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-violet">Rahu [R]</strong></td>
-                  <td>Capricorn (Makara 10)</td>
-                  <td>Grouped with Jupiter at left box</td>
-                  <td><span class="badge bg-secondary">3rd House (Sahaja)</span></td>
-                  <td>Guru-Chandal influence in 3rd; bold technological execution</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-danger">Mars [R][Deb]</strong></td>
-                  <td>Cancer (Karka 4)</td>
-                  <td>Grouped with Ketu at bottom-right</td>
-                  <td><span class="badge bg-info">9th House (Bhagya)</span></td>
-                  <td>Lagna Lord in 9th (Bhagya Sthana); strong higher-order destiny trajectory</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-purple">Saturn (Shani)</strong></td>
-                  <td>Leo (Simha 5)</td>
-                  <td>Grouped with Venus &amp; Mercury at right</td>
-                  <td><span class="badge bg-primary">10th House (Karma)</span></td>
-                  <td>4th Lord in 10th; disciplined, structured institutional career trajectory</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-emerald">Mercury (Budh)</strong></td>
-                  <td>Virgo (Kanya 6)</td>
-                  <td>Grouped at right box</td>
-                  <td><span class="badge bg-success">11th House (Labha)</span></td>
-                  <td><strong>EXALTED (Uchcha)</strong>; commercial genius and network monetization</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-pink">Venus (Shukra)</strong></td>
-                  <td>Virgo (Kanya 6)</td>
-                  <td>Grouped at right box</td>
-                  <td><span class="badge bg-success">11th House (Labha)</span></td>
-                  <td><strong>Neecha-Bhanga Raja Yoga</strong> (debility canceled by Exalted Mercury)</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-amber">Sun (Surya)</strong></td>
-                  <td>Libra (Tula 7)</td>
-                  <td>Placed in top-right box</td>
-                  <td><span class="badge bg-danger">12th House (Vyaya)</span></td>
-                  <td>10th Lord in 12th; foreign transactions, institutional ties, and privacy</td>
-                </tr>
-              </tbody>
-            </table>
+        <!-- Right: Cosmic Finance True Kundli -->
+        <div class="col-lg-6">
+          <div class="comparison-card card-new">
+            <div class="card-top-title">
+              <span>
+                <span class="lang-hi">✔ कॉस्मिक फाइनेंस प्रामाणिक वैदिक कुंडली</span>
+                <span class="lang-en">✔ Cosmic Finance Authentic Vedic Kundli</span>
+              </span>
+              <span class="card-badge">
+                <span class="lang-hi">मानक पारशरी D1 चार्ट</span>
+                <span class="lang-en">Canonical Parashari D1</span>
+              </span>
+            </div>
+            <div class="chart-display-box">
+              <img src="/images/clients/vrishabh_white_chart.png" alt="Cosmic Finance Authentic Kundli - Vrishabh Jinendra" class="shadow-sm">
+            </div>
+            <div class="card-text-body">
+              <h4>
+                <span class="lang-hi">कॉस्मिक फाइनेंस की गणना 100% सही क्यों है:</span>
+                <span class="lang-en">Why Cosmic Finance is 100% Mathematically Correct:</span>
+              </h4>
+              <ul class="analysis-points">
+                <li>
+                  <span class="lang-hi"><strong>वास्तविक उदित लग्न (मीन 12):</strong> 29 नवंबर 1999 को दोपहर 2:50 बजे दिल्ली के पूर्वी क्षितिज पर <strong>मीन राशि (12) 27° 20'</strong> उदित हो रही थी। इसलिए कुंडली के शीर्ष (पहले घर) में 12 नंबर की राशि आती है।</span>
+                  <span class="lang-en"><strong>True Rising Horizon (Lagna):</strong> At 14:50 IST in Delhi, the eastern horizon was precisely at <strong>27° 20' Pisces (Meena 12)</strong>. House 1 is placed in the top diamond.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>11वें लाभ भाव में उच्च का मंगल (रुचक व धन योग):</strong> आपके 11वें लाभ भाव (मकर राशि 10) में मंगल <strong>08° 52' पर परम उच्च (Exalted)</strong> होकर केतु के साथ बैठा है। यह जीवन में बड़े व्यापारिक लाभ और अचानक धन प्राप्ति का प्रबल योग बनाता है।</span>
+                  <span class="lang-en"><strong>11th House Exalted Mars (Ruchaka &amp; Dhana Powerhouse):</strong> Mars is placed in the <strong>11th House of Gains (Capricorn) at 08° 52' [Peak Exaltation / Uchcha]</strong> conjunct Ketu, forming a powerhouse wealth-generating yoga.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>लग्न स्वामी गुरु दूसरे धन भाव में:</strong> लग्न का स्वामी बृहस्पति (वक्री) मेष राशि में शनि के साथ दूसरे धन भाव में स्थित है, जो दीर्घकालिक संपत्ति संचय और स्थिर पूंजी निर्माण को दर्शाता है।</span>
+                  <span class="lang-en"><strong>Lagna Lord in 2nd House:</strong> Jupiter [Retrograde] sits in the 2nd House of liquid wealth with Saturn, indicating long-term capital compounding and disciplined asset mastery.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>पूर्ण वैदिक प्रामाणिकता:</strong> शुद्ध श्वेत पृष्ठ पर पारंपरिक लाल रेखाओं के साथ प्रत्येक ग्रह का सटीक अंश, नक्षत्र, नक्षत्र-चरण और वक्री स्थिति स्पष्ट रूप से दर्शायी गई है।</span>
+                  <span class="lang-en"><strong>Crystal-Clear Readability:</strong> High-resolution white parchment presentation with bold traditional crimson grid lines, exact degrees, Nakshatras, and planetary dignities.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Planetary Comparison Table -->
+      <div class="table-container">
+        <div class="table-title">
+          <span class="lang-hi">ग्रह स्थिति तुलनात्मक तालिका &bull; वृषभ जिनेंद्र</span>
+          <span class="lang-en">Planetary Forensic Alignment Table &bull; Vrishabh Jinendra</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table custom-table align-middle">
+            <thead>
+              <tr>
+                <th><span class="lang-hi">ग्रह (Graha)</span><span class="lang-en">Planet</span></th>
+                <th><span class="lang-hi">राशि एवं अंश (Sign &amp; Degree)</span><span class="lang-en">Zodiac Sign &amp; Degree</span></th>
+                <th><span class="lang-hi">पुराने चार्ट में स्थान</span><span class="lang-en">Mandala Placement</span></th>
+                <th><span class="lang-hi">कॉस्मिक फाइनेंस वास्तविक भाव</span><span class="lang-en">True House (Bhava)</span></th>
+                <th><span class="lang-hi">प्रभाव एवं वित्तीय महत्व</span><span class="lang-en">Dignity &amp; Financial Impact</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>लग्न (Lagna)</strong></td>
+                <td>मीन (Pisces 12) 27° 20'</td>
+                <td>शीर्ष पर 12 का अंक</td>
+                <td><span class="badge-bhava">1st भाव (तनु)</span></td>
+                <td><span class="lang-hi">स्वामी गुरु; दार्शनिक सोच, दूरदर्शी व्यापारिक रणनीति</span><span class="lang-en">Ruled by Jupiter; philosophical &amp; strategic vision</span></td>
+              </tr>
+              <tr>
+                <td><strong>गुरु (Jupiter) [R]</strong></td>
+                <td>मेष (Aries 1) 01° 56'</td>
+                <td>ऊपरी बॉक्स में शनि के साथ</td>
+                <td><span class="badge-bhava">2nd भाव (धन)</span></td>
+                <td><span class="badge-dignity-good">लग्नेश धन भाव में</span> <span class="lang-hi">दीर्घकालिक पूंजी संचय व वृद्धि</span><span class="lang-en">Lagna Lord in 2nd; exceptional compounding of wealth</span></td>
+              </tr>
+              <tr>
+                <td><strong>शनि (Saturn) [R]</strong></td>
+                <td>मेष (Aries 1) 18° 05'</td>
+                <td>ऊपरी बॉक्स में गुरु के साथ</td>
+                <td><span class="badge-bhava">2nd भाव (धन)</span></td>
+                <td><span class="badge-dignity-warn">नीच व वक्री</span> <span class="lang-hi">बचत और वित्तीय अनुशासन की कड़ी परीक्षा</span><span class="lang-en">Debilitated &amp; Retrograde; enforces intense discipline</span></td>
+              </tr>
+              <tr>
+                <td><strong>मंगल (Mars)</strong></td>
+                <td>मकर (Capricorn 10) 08° 52'</td>
+                <td>ऊपर दाईं ओर केतु के साथ</td>
+                <td><span class="badge-bhava">11th भाव (लाभ)</span></td>
+                <td><span class="badge-dignity-good">परम उच्च (Uchcha)</span> <span class="lang-hi">रुचक योग; व्यापार व निवेश में बड़ा लाभ</span><span class="lang-en">EXALTED; Ruchaka Yoga, peak risk resilience &amp; windfalls</span></td>
+              </tr>
+              <tr>
+                <td><strong>चंद्रमा (Moon)</strong></td>
+                <td>सिंह (Leo 5) 05° 40'</td>
+                <td>मध्य वृत्त में (मघा नक्षत्र)</td>
+                <td><span class="badge-bhava">6th भाव (शत्रु/प्रतिस्पर्धा)</span></td>
+                <td><span class="lang-hi">जन्म राशि; बाजार के उतार-चढ़ाव से लड़ने की मानसिक शक्ति</span><span class="lang-en">Janma Rashi; determination to overcome market volatility</span></td>
+              </tr>
+              <tr>
+                <td><strong>शुक्र (Venus)</strong></td>
+                <td>कन्या (Virgo 6) 28° 35'</td>
+                <td>निचले बॉक्स में</td>
+                <td><span class="badge-bhava">7th भाव (साझेदारी)</span></td>
+                <td><span class="badge-dignity-warn">नीच (Neecha)</span> <span class="lang-hi">व्यापारिक अनुबंधों में अत्यधिक सतर्कता</span><span class="lang-en">Debilitated; analytical approach to business contracts</span></td>
+              </tr>
+              <tr>
+                <td><strong>बुध (Mercury)</strong></td>
+                <td>तुला (Libra 7) 23° 14'</td>
+                <td>निचले दाईं ओर के बॉक्स में</td>
+                <td><span class="badge-bhava">8th भाव (गूढ़ शोध)</span></td>
+                <td><span class="lang-hi">आर्थिक डेटा, चार्ट एनालिसिस व शोध की तीव्र बुद्धि</span><span class="lang-en">Analytical acumen applied to forensic finance &amp; data</span></td>
+              </tr>
+              <tr>
+                <td><strong>सूर्य (Sun)</strong></td>
+                <td>वृश्चिक (Scorpio 8) 12° 51'</td>
+                <td>दाईं ओर के बॉक्स में</td>
+                <td><span class="badge-bhava">9th भाव (भाग्य)</span></td>
+                <td><span class="lang-hi">6th लॉर्ड 9th में; प्रतिस्पर्धा में विजय व प्रतिष्ठा</span><span class="lang-en">6th Lord in 9th; authority and competitive edge</span></td>
+              </tr>
+              <tr>
+                <td><strong>राहु (Rahu) [R]</strong></td>
+                <td>कर्क (Cancer 4) 12° 57'</td>
+                <td>बाईं ओर के बॉक्स में</td>
+                <td><span class="badge-bhava">5th भाव (बुद्धि/सट्टा)</span></td>
+                <td><span class="lang-hi">अपरंपरागत निवेश और तकनीक आधारित ट्रेडिंग का रुझान</span><span class="lang-en">Unconventional speculation acumen; tech &amp; high-beta instinct</span></td>
+              </tr>
+              <tr>
+                <td><strong>केतु (Ketu) [R]</strong></td>
+                <td>मकर (Capricorn 10) 12° 57'</td>
+                <td>ऊपर दाईं ओर मंगल के साथ</td>
+                <td><span class="badge-bhava">11th भाव (लाभ)</span></td>
+                <td><span class="lang-hi">उच्च के मंगल के साथ युति; अचानक वित्तीय सफलताएं</span><span class="lang-en">Conjunct Exalted Mars in 11th; sudden breakthroughs</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-      <!-- ==================== CASE 3: ANURAG RATHI ==================== -->
-      <div class="client-panel" id="panel-anurag">
-        <!-- Overview Header Card -->
-        <div class="audit-summary-card mb-4">
-          <div class="row align-items-center">
-            <div class="col-lg-8">
-              <span class="badge-status badge-warning mb-2">CASE STUDY 03: CANCER HORIZON &amp; MALAVYA YOGA</span>
-              <h2 class="text-gold h3 mb-2">Anurag Rathi</h2>
-              <p class="mb-1 text-light"><strong>Birth Credentials:</strong> 10 October 1986 | 02:02:00 AM IST | Raipur, CG (21.25° N, 81.63° E)</p>
-              <p class="mb-0 text-muted"><strong>Panchanga:</strong> Shukla Paksha Saptami | Moon: Sagittarius (Dhanu) 12° 47' | Star: Mula (Pada 4) | Day: Friday</p>
+
+    <!-- ==================================================================== -->
+    <!-- ==================== CASE 2: AKKRITI GUPTA ========================= -->
+    <!-- ==================================================================== -->
+    <section class="case-container" id="case-akkriti">
+      <!-- Case Header -->
+      <div class="case-header-bar d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+          <span class="badge-case-num">
+            <span class="lang-hi">केस स्टडी 02 &bull; वृश्चिक लग्न व नीच-भंग राजयोग</span>
+            <span class="lang-en">CASE STUDY 02 &bull; SCORPIO HORIZON &amp; NEECHA-BHANGA RAJA YOGA</span>
+          </span>
+          <h2 class="case-title">
+            <span class="lang-hi">आकृति गुप्ता</span>
+            <span class="lang-en">Akkriti Gupta</span>
+          </h2>
+          <div class="small text-muted">
+            <span class="lang-hi"><strong>जन्म विवरण:</strong> 24 अक्टूबर 2009 | समय: 09:20 AM IST (सुबह 9:20 बजे) | स्थान: छिंदवाड़ा, म.प्र. (22.06° N, 78.94° E)</span>
+            <span class="lang-en"><strong>Birth Details:</strong> 24 October 2009 | Time: 09:20 AM IST | Place: Chhindwara, MP, India (22.06° N, 78.94° E)</span>
+          </div>
+          <div class="small text-muted">
+            <span class="lang-hi"><strong>पंचांग:</strong> शुक्ल पक्ष षष्ठी | चंद्र राशि: धनु (16° 07') | नक्षत्र: पूर्वाषाढ़ा (चरण 1) | वार: शनिवार</span>
+            <span class="lang-en"><strong>Panchanga:</strong> Shukla Shashthi | Moon: Sagittarius (16° 07') | Star: Purvashadha (Pada 1) | Day: Saturday</span>
+          </div>
+        </div>
+        <div>
+          <div class="verdict-box">
+            <small>
+              <span class="lang-hi">खगोलीय सत्यापन निर्णय</span>
+              <span class="lang-en">ASTRONOMICAL AUDIT VERDICT</span>
+            </small>
+            <strong>
+              <span class="lang-hi">वास्तविक लग्न: वृश्चिक (8) @ 13° 04'</span>
+              <span class="lang-en">True Lagna: Scorpio (8) @ 13° 04'</span>
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 50/50 Side-by-Side Visuals -->
+      <div class="row g-4 align-items-stretch">
+        <!-- Left: Old Provided Mandala -->
+        <div class="col-lg-6">
+          <div class="comparison-card card-old">
+            <div class="card-top-title">
+              <span>
+                <span class="lang-hi">❌ आपके द्वारा प्रदान किया गया मंडल चार्ट</span>
+                <span class="lang-en">❌ Client's Provided Mandala Chart</span>
+              </span>
+              <span class="card-badge">
+                <span class="lang-hi">काष्ठ यंत्र / प्रतीक</span>
+                <span class="lang-en">Symbolic Mandala</span>
+              </span>
             </div>
-            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-              <div class="verdict-pill">
-                <span class="verdict-label">AUDIT VERDICT</span>
-                <span class="verdict-value text-emerald">Lagna: Cancer (Karka 4)</span>
-              </div>
+            <div class="chart-display-box">
+              <img src="/images/clients/akkriti_gupta_mandala.png" alt="Provided Mandala - Akkriti Gupta" class="shadow-sm">
+            </div>
+            <div class="card-text-body">
+              <h4>
+                <span class="lang-hi">पुराने मंडल चार्ट की कमियां एवं भ्रांतियां:</span>
+                <span class="lang-en">Architectural Limitations &amp; Misunderstandings:</span>
+              </h4>
+              <ul class="analysis-points">
+                <li>
+                  <span class="lang-hi"><strong>चंद्र राशि केंद्र में:</strong> मध्य वृत्त में <code>धनु पूर्वाषाढ़ा 1</code> लिखा है, जिससे जातक धनु लग्न मान लेता है। जबकि धनु केवल चंद्रमा की स्थिति है, वास्तविक उदित लग्न वृश्चिक (8) है।</span>
+                  <span class="lang-en"><strong>Moon Sign in Center:</strong> Center circle displays <code>Sagittarius Purvashadha 1</code>, misleading the client into assuming Sagittarius Lagna, whereas rising Lagna is Scorpio (8).</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>पंखुड़ी संख्याओं का भ्रम (8, 11, 2, 5):</strong> पंखुड़ियों पर 8, 11, 2, 5 लिखे हैं जो केंद्र राशियों के नंबर हैं, लेकिन बिना भाव विभाजन के यह समझना कठिन है कि कौन सा घर कहां है।</span>
+                  <span class="lang-en"><strong>Petal Numbering System (8, 11, 2, 5):</strong> The numbers signify Kendra signs from Scorpio, but without standard Parashari diamond boundaries, houses are easily misread.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>बिना डिग्री के ग्रहों का जमावड़ा:</strong> <code>शनि शुक्र बुध</code> को एक बॉक्स में बिना अंश लिख दिया गया। यह नहीं दिखता कि बुध 22° पर उच्च का है और शुक्र के साथ मिलकर राजयोग बना रहा है।</span>
+                  <span class="lang-en"><strong>Clusters Without Degrees:</strong> Groups <code>Saturn Venus Mercury</code> without longitudes, obscuring Mercury's exaltation and Venus's debility cancellation.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <!-- Side-by-Side Visual Showcase -->
-        <div class="row g-4 mb-5">
-          <!-- Left: Old Client Chart -->
-          <div class="col-lg-6">
-            <div class="chart-showcase-card old-chart-card h-100">
-              <div class="card-header-bar d-flex justify-content-between align-items-center">
-                <span class="chart-tag tag-old">❌ CLIENT'S PROVIDED CHART (BHAVISHYAM)</span>
-                <span class="chart-type-tag">Wood / Kasht Yantra</span>
-              </div>
-              <div class="chart-image-wrap text-center p-3">
-                <img src="/images/clients/anurag_rathi_mandala.png" alt="Bhavishyam Mandala - Anurag Rathi" class="img-fluid rounded chart-img shadow-lg">
-              </div>
-              <div class="card-analysis-body p-4">
-                <h4 class="text-danger h5 mb-3">Architectural Limitations &amp; Misunderstandings:</h4>
-                <ul class="analysis-list">
-                  <li>
-                    <strong>Moon Sign Misplaced in Center:</strong> Center circle displays <code>धनु मूला 4</code> (Sagittarius / Mula 4), obscuring the native's true emotional and financial Ascendant.
-                  </li>
-                  <li>
-                    <strong>Obscured Malavya Mahapurusha Yoga:</strong> Venus sits in its <strong>Own Sign (Libra 24° 40') in Kendra (4th House)</strong>. The mandala fails to identify this supreme Mahapurusha Yoga for prime property and asset wealth.
-                  </li>
-                  <li>
-                    <strong>Obscured Ruchaka Yoga in 7th:</strong> Mars is <strong>Exalted in Capricorn (11° 26')</strong> directly opposite Lagna in the 7th House, forming a dominant Ruchaka Yoga that is completely hidden in the mandala.
-                  </li>
-                </ul>
-              </div>
+        <!-- Right: Cosmic Finance True Kundli -->
+        <div class="col-lg-6">
+          <div class="comparison-card card-new">
+            <div class="card-top-title">
+              <span>
+                <span class="lang-hi">✔ कॉस्मिक फाइनेंस प्रामाणिक वैदिक कुंडली</span>
+                <span class="lang-en">✔ Cosmic Finance Authentic Vedic Kundli</span>
+              </span>
+              <span class="card-badge">
+                <span class="lang-hi">मानक पारशरी D1 चार्ट</span>
+                <span class="lang-en">Canonical Parashari D1</span>
+              </span>
+            </div>
+            <div class="chart-display-box">
+              <img src="/images/clients/akkriti_white_chart.png" alt="Cosmic Finance Authentic Kundli - Akkriti Gupta" class="shadow-sm">
+            </div>
+            <div class="card-text-body">
+              <h4>
+                <span class="lang-hi">कॉस्मिक फाइनेंस की गणना 100% सही क्यों है:</span>
+                <span class="lang-en">Why Cosmic Finance is 100% Mathematically Correct:</span>
+              </h4>
+              <ul class="analysis-points">
+                <li>
+                  <span class="lang-hi"><strong>वास्तविक उदित लग्न (वृश्चिक 8):</strong> छिंदवाड़ा में सुबह 9:20 बजे पूर्वी क्षितिज पर <strong>वृश्चिक राशि (8) 13° 04'</strong> उदित हो रही थी। लग्न का स्वामी मंगल है।</span>
+                  <span class="lang-en"><strong>True Rising Horizon (Lagna):</strong> At 09:20 AM in Chhindwara, the rising constellation was <strong>13° 04' Scorpio (Vrishchika 8)</strong>, ruled by Mars.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>11वें भाव में उच्च का बुध व नीच-भंग राजयोग:</strong> 11वें लाभ भाव (कन्या राशि) में बुध <strong>22° 48' पर उच्च (Exalted)</strong> होकर शुक्र (17° 13') के साथ बैठा है। उच्च बुध के कारण शुक्र की नीचता समाप्त होकर अत्यंत प्रबल <strong>नीच-भंग राजयोग</strong> बन गया है।</span>
+                  <span class="lang-en"><strong>11th House Exalted Mercury (Neecha-Bhanga):</strong> House 11 hosts Exalted Mercury (22° 48') conjunct Venus (17° 13'), canceling Venus's debility and conferring exceptional business/commercial acumen.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>चंद्रमा दूसरे धन भाव में (धन योग):</strong> 9वें भाग्य भाव का स्वामी चंद्रमा दूसरे धन भाव (धनु राशि) में बैठा है, जो पैतृक व संचित धन के निरंतर विस्तार का योग बनाता है।</span>
+                  <span class="lang-en"><strong>Moon in 2nd House of Wealth:</strong> Moon sits in Sagittarius (16° 07') in the 2nd House of Liquid Reserves, forming a Dhana Yoga for steady asset expansion.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>10वें कर्म भाव में शनि:</strong> 4थे भाव का स्वामी शनि 10वें राज्य भाव में बैठकर दीर्घकालिक संस्थागत कार्यप्रणाली और अनुशासित करियर प्रदान करता है।</span>
+                  <span class="lang-en"><strong>Saturn in 10th House:</strong> 4th Lord in 10th granting disciplined, long-term institutional authority and structured career trajectory.</span>
+                </li>
+              </ul>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Right: Cosmic Finance Authentic Kundli -->
-          <div class="col-lg-6">
-            <div class="chart-showcase-card new-chart-card h-100">
-              <div class="card-header-bar d-flex justify-content-between align-items-center">
-                <span class="chart-tag tag-new">✔ COSMIC FINANCE AUTHENTIC KUNDLI</span>
-                <span class="chart-type-tag">Canonical Parashari D1</span>
-              </div>
-              <div class="chart-image-wrap text-center p-3">
-                <img src="/images/clients/anurag_rathi_true_kundli.png" alt="Cosmic Finance True Kundli - Anurag Rathi" class="img-fluid rounded chart-img shadow-lg">
-              </div>
-              <div class="card-analysis-body p-4">
-                <h4 class="text-gold h5 mb-3">Why Cosmic Finance is 100% Mathematically Correct:</h4>
-                <ul class="analysis-list">
-                  <li>
-                    <strong>True Rising Horizon (Lagna):</strong> At 02:02 AM in Raipur, the eastern horizon was at <strong>18° 59' Cancer (Karka 4)</strong>, ruled by the Moon.
-                  </li>
-                  <li>
-                    <strong>Dual Pancha Mahapurusha Yogas:</strong>
+      <!-- Planetary Comparison Table -->
+      <div class="table-container">
+        <div class="table-title">
+          <span class="lang-hi">ग्रह स्थिति तुलनात्मक तालिका &bull; आकृति गुप्ता</span>
+          <span class="lang-en">Planetary Forensic Alignment Table &bull; Akkriti Gupta</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table custom-table align-middle">
+            <thead>
+              <tr>
+                <th><span class="lang-hi">ग्रह (Graha)</span><span class="lang-en">Planet</span></th>
+                <th><span class="lang-hi">राशि एवं अंश (Sign &amp; Degree)</span><span class="lang-en">Zodiac Sign &amp; Degree</span></th>
+                <th><span class="lang-hi">पुराने चार्ट में स्थान</span><span class="lang-en">Mandala Placement</span></th>
+                <th><span class="lang-hi">कॉस्मिक फाइनेंस वास्तविक भाव</span><span class="lang-en">True House (Bhava)</span></th>
+                <th><span class="lang-hi">प्रभाव एवं वित्तीय महत्व</span><span class="lang-en">Dignity &amp; Financial Impact</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>लग्न (Lagna)</strong></td>
+                <td>वृश्चिक (Scorpio 8) 13° 04'</td>
+                <td>शीर्ष पर 8 का अंक</td>
+                <td><span class="badge-bhava">1st भाव (तनु)</span></td>
+                <td><span class="lang-hi">स्वामी मंगल; गहन खोजी बुद्धि, दृढ़ निश्चयी और साहसी</span><span class="lang-en">Ruled by Mars; dynamic, resolute, and deeply insightful</span></td>
+              </tr>
+              <tr>
+                <td><strong>चंद्रमा (Moon)</strong></td>
+                <td>धनु (Sagittarius 9) 16° 07'</td>
+                <td>मध्य वृत्त में (पूर्वाषाढ़ा 1)</td>
+                <td><span class="badge-bhava">2nd भाव (धन)</span></td>
+                <td><span class="badge-dignity-good">धन योग (9th लॉर्ड 2nd में)</span> <span class="lang-hi">तरल पूंजी व संचित धन का निरंतर आगमन</span><span class="lang-en">9th Lord in 2nd (Dhana Yoga); steady expansion of liquid wealth</span></td>
+              </tr>
+              <tr>
+                <td><strong>गुरु (Jupiter) [R]</strong></td>
+                <td>मकर (Capricorn 10) 27° 47'</td>
+                <td>बाईं ओर राहु के साथ</td>
+                <td><span class="badge-bhava">3rd भाव (पराक्रम)</span></td>
+                <td><span class="badge-dignity-warn">नीच व वक्री</span> <span class="lang-hi">अपरंपरागत व्यापारिक पहल और तकनीक में रुचि</span><span class="lang-en">Debilitated &amp; Retrograde; unconventional commercial ventures</span></td>
+              </tr>
+              <tr>
+                <td><strong>राहु (Rahu) [R]</strong></td>
+                <td>मकर (Capricorn 10) 01° 17'</td>
+                <td>बाईं ओर गुरु के साथ</td>
+                <td><span class="badge-bhava">3rd भाव (पराक्रम)</span></td>
+                <td><span class="lang-hi">3rd भाव का राहु; व्यापारिक निर्णयों में असाधारण साहस</span><span class="lang-en">3rd House courage; bold execution in ventures</span></td>
+              </tr>
+              <tr>
+                <td><strong>मंगल (Mars) [R]</strong></td>
+                <td>कर्क (Cancer 4) 00° 03'</td>
+                <td>निचले दाईं ओर केतु के साथ</td>
+                <td><span class="badge-bhava">9th भाव (भाग्य)</span></td>
+                <td><span class="lang-hi">लग्नेश 9वें भाग्य भाव में; जीवन में भाग्य का निरंतर साथ</span><span class="lang-en">Lagna Lord in 9th (Bhagya Sthana); strong higher destiny</span></td>
+              </tr>
+              <tr>
+                <td><strong>शनि (Saturn)</strong></td>
+                <td>सिंह (Leo 5) 29° 37'</td>
+                <td>दाईं ओर के बॉक्स में</td>
+                <td><span class="badge-bhava">10th भाव (कर्म)</span></td>
+                <td><span class="lang-hi">4th लॉर्ड 10th में; अनुशासित कार्यक्षेत्र व कॉर्पोरेट प्रतिष्ठा</span><span class="lang-en">4th Lord in 10th; structured career &amp; institutional authority</span></td>
+              </tr>
+              <tr>
+                <td><strong>बुध (Mercury)</strong></td>
+                <td>कन्या (Virgo 6) 22° 48'</td>
+                <td>दाईं ओर शुक्र के साथ</td>
+                <td><span class="badge-bhava">11th भाव (लाभ)</span></td>
+                <td><span class="badge-dignity-good">परम उच्च (Uchcha)</span> <span class="lang-hi">व्यापारिक प्रतिभा, वाणिज्य व नेटवर्क से भारी लाभ</span><span class="lang-en">EXALTED; commercial genius and network monetization</span></td>
+              </tr>
+              <tr>
+                <td><strong>शुक्र (Venus)</strong></td>
+                <td>कन्या (Virgo 6) 17° 13'</td>
+                <td>दाईं ओर बुध के साथ</td>
+                <td><span class="badge-bhava">11th भाव (लाभ)</span></td>
+                <td><span class="badge-dignity-good">नीच-भंग राजयोग</span> <span class="lang-hi">उच्च बुध के साथ होने से महालक्ष्मी योग फल</span><span class="lang-en">Neecha-Bhanga Raja Yoga; debility canceled by Exalted Mercury</span></td>
+              </tr>
+              <tr>
+                <td><strong>सूर्य (Sun)</strong></td>
+                <td>तुला (Libra 7) 06° 53'</td>
+                <td>ऊपरी दाईं ओर के बॉक्स में</td>
+                <td><span class="badge-bhava">12th भाव (व्यय/विदेश)</span></td>
+                <td><span class="badge-dignity-warn">नीच (Neecha)</span> <span class="lang-hi">विदेशी संपर्क, संस्थागत संबंध व गोपनीय कार्य</span><span class="lang-en">Debilitated; foreign transactions and institutional ties</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================================================================== -->
+    <!-- ==================== CASE 3: ANURAG RATHI ========================== -->
+    <!-- ==================================================================== -->
+    <section class="case-container" id="case-anurag">
+      <!-- Case Header -->
+      <div class="case-header-bar d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+          <span class="badge-case-num">
+            <span class="lang-hi">केस स्टडी 03 &bull; कर्क लग्न व दोहरा पंच महापुरुष योग</span>
+            <span class="lang-en">CASE STUDY 03 &bull; CANCER HORIZON &amp; DUAL MAHAPURUSHA YOGAS</span>
+          </span>
+          <h2 class="case-title">
+            <span class="lang-hi">अनुराग राठी</span>
+            <span class="lang-en">Anurag Rathi</span>
+          </h2>
+          <div class="small text-muted">
+            <span class="lang-hi"><strong>जन्म विवरण:</strong> 10 अक्टूबर 1986 | समय: 02:02 AM IST (मध्यरात्रि 2:02 बजे) | स्थान: रायपुर, छत्तीसगढ़ (21.25° N, 81.63° E)</span>
+            <span class="lang-en"><strong>Birth Details:</strong> 10 October 1986 | Time: 02:02 AM IST | Place: Raipur, CG, India (21.25° N, 81.63° E)</span>
+          </div>
+          <div class="small text-muted">
+            <span class="lang-hi"><strong>पंचांग:</strong> शुक्ल पक्ष सप्तमी | चंद्र राशि: धनु (12° 47') | नक्षत्र: मूला (चरण 4) | वार: शुक्रवार</span>
+            <span class="lang-en"><strong>Panchanga:</strong> Shukla Saptami | Moon: Sagittarius (12° 47') | Star: Mula (Pada 4) | Day: Friday</span>
+          </div>
+        </div>
+        <div>
+          <div class="verdict-box">
+            <small>
+              <span class="lang-hi">खगोलीय सत्यापन निर्णय</span>
+              <span class="lang-en">ASTRONOMICAL AUDIT VERDICT</span>
+            </small>
+            <strong>
+              <span class="lang-hi">वास्तविक लग्न: कर्क (4) @ 18° 59'</span>
+              <span class="lang-en">True Lagna: Cancer (4) @ 18° 59'</span>
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 50/50 Side-by-Side Visuals -->
+      <div class="row g-4 align-items-stretch">
+        <!-- Left: Old Provided Mandala -->
+        <div class="col-lg-6">
+          <div class="comparison-card card-old">
+            <div class="card-top-title">
+              <span>
+                <span class="lang-hi">❌ आपके द्वारा प्रदान किया गया मंडल चार्ट</span>
+                <span class="lang-en">❌ Client's Provided Mandala Chart</span>
+              </span>
+              <span class="card-badge">
+                <span class="lang-hi">काष्ठ यंत्र / प्रतीक</span>
+                <span class="lang-en">Symbolic Mandala</span>
+              </span>
+            </div>
+            <div class="chart-display-box">
+              <img src="/images/clients/anurag_rathi_mandala.png" alt="Provided Mandala - Anurag Rathi" class="shadow-sm">
+            </div>
+            <div class="card-text-body">
+              <h4>
+                <span class="lang-hi">पुराने मंडल चार्ट की कमियां एवं भ्रांतियां:</span>
+                <span class="lang-en">Architectural Limitations &amp; Misunderstandings:</span>
+              </h4>
+              <ul class="analysis-points">
+                <li>
+                  <span class="lang-hi"><strong>चंद्र राशि केंद्र में रखकर लग्न छिपाया:</strong> केंद्र वृत्त में <code>धनु मूला 4</code> लिखा है, जिससे जातक वास्तविक कर्क लग्न के बजाय स्वयं को धनु लग्न समझ बैठता है।</span>
+                  <span class="lang-en"><strong>Moon Sign in Center:</strong> Center displays <code>Sagittarius Mula 4</code>, completely obscuring the native's true emotional and physical Ascendant (Cancer).</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>मालव्य महापुरुष योग पूरी तरह छिपा:</strong> 4थे सुख भाव में शुक्र अपनी <strong>स्वराशि तुला (24° 40')</strong> में बैठा है। यह अचल संपत्ति और लक्जरी का अत्यंत शुभ मालव्य योग है जो मंडल में बिल्कुल नहीं दिखता।</span>
+                  <span class="lang-en"><strong>Obscured Malavya Mahapurusha Yoga:</strong> Venus sits in its <strong>Own Sign (Libra 24° 40') in Kendra (4th House)</strong>. The mandala fails to identify this supreme yoga for prime property.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>7वें भाव का उच्च मंगल (रुचक योग) गायब:</strong> लग्न के ठीक सामने 7वें केंद्र भाव में मंगल <strong>मकर राशि (11° 26') पर उच्च (Exalted)</strong> होकर बैठा है। यह व्यापारिक विजय का रुचक योग है जो पुराने चार्ट में नहीं दिखता।</span>
+                  <span class="lang-en"><strong>Obscured Ruchaka Yoga in 7th:</strong> Mars is <strong>Exalted in Capricorn (11° 26')</strong> directly opposite Lagna in the 7th House, forming a dominant Ruchaka Yoga completely hidden in the mandala.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Cosmic Finance True Kundli -->
+        <div class="col-lg-6">
+          <div class="comparison-card card-new">
+            <div class="card-top-title">
+              <span>
+                <span class="lang-hi">✔ कॉस्मिक फाइनेंस प्रामाणिक वैदिक कुंडली</span>
+                <span class="lang-en">✔ Cosmic Finance Authentic Vedic Kundli</span>
+              </span>
+              <span class="card-badge">
+                <span class="lang-hi">मानक पारशरी D1 चार्ट</span>
+                <span class="lang-en">Canonical Parashari D1</span>
+              </span>
+            </div>
+            <div class="chart-display-box">
+              <img src="/images/clients/anurag_white_chart.png" alt="Cosmic Finance Authentic Kundli - Anurag Rathi" class="shadow-sm">
+            </div>
+            <div class="card-text-body">
+              <h4>
+                <span class="lang-hi">कॉस्मिक फाइनेंस की गणना 100% सही क्यों है:</span>
+                <span class="lang-en">Why Cosmic Finance is 100% Mathematically Correct:</span>
+              </h4>
+              <ul class="analysis-points">
+                <li>
+                  <span class="lang-hi"><strong>वास्तविक उदित लग्न (कर्क 4):</strong> रायपुर में मध्यरात्रि 2:02 बजे पूर्वी क्षितिज पर <strong>18° 59' कर्क राशि (4)</strong> उदित हो रही थी। लग्न का स्वामी चंद्रमा है।</span>
+                  <span class="lang-en"><strong>True Rising Horizon (Lagna):</strong> At 02:02 AM in Raipur, the eastern horizon was at <strong>18° 59' Cancer (Karka 4)</strong>, ruled by the Moon.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>दोहरा पंच महापुरुष राजयोग:</strong>
+                    <br>&bull; <strong>मालव्य योग:</strong> चौथे भाव में स्वराशि तुला का शुक्र (विलासिता, भव्य भवन व वाहन सुख)।
+                    <br>&bull; <strong>रुचक योग:</strong> सातवें भाव में मकर राशि में परम उच्च का मंगल (उच्च नेतृत्व, व्यापारिक धाक व सशक्त पार्टनरशिप)।</span>
+                  <span class="lang-en"><strong>Dual Pancha Mahapurusha Yogas:</strong>
                     <br>&bull; <strong>Malavya Yoga:</strong> Venus in 4th House (Libra) in Swa-Kshetra (Own Sign).
-                    <br>&bull; <strong>Ruchaka Yoga:</strong> Mars in 7th House (Capricorn) in peak Exaltation (Uchcha).
-                  </li>
-                  <li>
-                    <strong>True Wealth &amp; Speculation Geometry:</strong> 5th House (Scorpio) hosts Saturn, giving patient, deep market research capability and disciplined swing trading.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Comparative Planetary Breakdown Table -->
-        <div class="breakdown-card p-4 mb-5">
-          <h3 class="text-gold h4 mb-3">Planetary Forensic Alignment Table (Anurag Rathi)</h3>
-          <div class="table-responsive">
-            <table class="table table-cosmic align-middle">
-              <thead>
-                <tr>
-                  <th>Planet (Graha)</th>
-                  <th>Zodiac Sign</th>
-                  <th>Bhavishyam Mandala Placement</th>
-                  <th>Cosmic Finance True House</th>
-                  <th>Dignity &amp; Financial Impact</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong class="text-gold">Lagna (Ascendant)</strong></td>
-                  <td>Cancer (Karka 4)</td>
-                  <td>Symbolic 4 at top petal</td>
-                  <td><span class="badge bg-primary">1st House (Tanu)</span></td>
-                  <td>Ruled by Moon; highly intuitive, protective of capital, agile</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-amber">Sun (Surya)</strong></td>
-                  <td>Virgo (Kanya 6)</td>
-                  <td>Grouped with Ketu at top-left</td>
-                  <td><span class="badge bg-secondary">3rd House (Sahaja)</span></td>
-                  <td>2nd Lord in 3rd; energetic self-made commercial initiatives</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-pink">Venus (Shukra)</strong></td>
-                  <td>Libra (Tula 7)</td>
-                  <td>Grouped with Mercury at left box</td>
-                  <td><span class="badge bg-gold">4th House (Sukha)</span></td>
-                  <td><strong>MALAVYA YOGA (Own Sign)</strong>; supreme luxury assets, physical property</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-emerald">Mercury (Budh)</strong></td>
-                  <td>Libra (Tula 7)</td>
-                  <td>Grouped with Venus at left box</td>
-                  <td><span class="badge bg-gold">4th House (Sukha)</span></td>
-                  <td>Commercial intelligence applied to asset valuation and trade contracts</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-purple">Saturn (Shani)</strong></td>
-                  <td>Scorpio (Vrishchika 8)</td>
-                  <td>Grouped with Moon at bottom-left</td>
-                  <td><span class="badge bg-warning">5th House (Buddhi)</span></td>
-                  <td>Disciplined, calculated risk assessment in speculative markets</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-silver">Moon (Chandra)</strong></td>
-                  <td>Sagittarius (Dhanu 9)</td>
-                  <td>Placed in center circle (Mula 4)</td>
-                  <td><span class="badge bg-secondary">6th House (Shatru)</span></td>
-                  <td>Lagna Lord in 6th; crisis management mastery and analytical diligence</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-danger">Mars (Mangal)</strong></td>
-                  <td>Capricorn (Makara 10)</td>
-                  <td>Placed in bottom box</td>
-                  <td><span class="badge bg-success">7th House (Kalatra)</span></td>
-                  <td><strong>RUCHAKA YOGA (Exalted)</strong>; authoritative partnerships and high deal velocity</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-warning">Jupiter (Guru) [R]</strong></td>
-                  <td>Aquarius (Kumbha 11)</td>
-                  <td>Grouped with Rahu at bottom-right</td>
-                  <td><span class="badge bg-secondary">8th House (Randhra)</span></td>
-                  <td>9th Lord in 8th; deep financial research, occult mathematics, asymmetric windfalls</td>
-                </tr>
-                <tr>
-                  <td><strong class="text-violet">Rahu [R]</strong></td>
-                  <td>Pisces (Meena 12)</td>
-                  <td>Grouped with Jupiter at bottom-right</td>
-                  <td><span class="badge bg-info">9th House (Bhagya)</span></td>
-                  <td>Unconventional philosophy, international business networks</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Core Educational Pillar: 4 Fundamental Differences -->
-      <div class="educational-pillars-card p-5 mb-5">
-        <h3 class="text-gold h3 mb-4 text-center">The 4 Foundational Axioms: Why Canonical Parashari Charts Rule</h3>
-        <div class="row g-4 mt-2">
-          <div class="col-md-6 col-lg-3">
-            <div class="axiom-box p-3 rounded h-100">
-              <div class="axiom-num">01</div>
-              <h5 class="text-gold mb-2">Lagna ≠ Chandra Rashi</h5>
-              <p class="small text-muted mb-0">
-                The <strong>Ascendant (Lagna)</strong> represents the body, life path, and physical reality at the eastern horizon. The <strong>Moon Sign (Chandra Rashi)</strong> represents emotional perception. Placing the Moon sign in the center confuses perception with concrete destiny.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="axiom-box p-3 rounded h-100">
-              <div class="axiom-num">02</div>
-              <h5 class="text-gold mb-2">1° Moves Every 4 Minutes</h5>
-              <p class="small text-muted mb-0">
-                While planets linger in a sign for weeks or months, the rising Lagna rotates through a complete sign every <strong>120 minutes</strong>. Without precise Local Sidereal Time (RAMC) and geographic coordinates, life-defining Kendras and Trikonas rotate into the wrong houses.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="axiom-box p-3 rounded h-100">
-              <div class="axiom-num">03</div>
-              <h5 class="text-gold mb-2">Degrees Dictate Yogas</h5>
-              <p class="small text-muted mb-0">
-                A planet at 0° is in infancy (Bala), at 15° is in peak power (Yuva), and at 29° is in old age (Vriddha). Mandalas omit degrees entirely. Cosmic Finance computes exact degrees, minutes, and seconds to evaluate genuine yogic potency.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3">
-            <div class="axiom-box p-3 rounded h-100">
-              <div class="axiom-num">04</div>
-              <h5 class="text-gold mb-2">Timing via Vimshottari</h5>
-              <p class="small text-muted mb-0">
-                Timing financial breakthroughs or market risks requires calculating the exact elapsed arc of the Janma Nakshatra. Symbolic mandalas cannot provide Dasha timelines. Cosmic Finance provides the exact Mahadasha and Antardasha dates.
-              </p>
+                    <br>&bull; <strong>Ruchaka Yoga:</strong> Mars in 7th House (Capricorn) in peak Exaltation (Uchcha).</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>5वें भाव में शनि (अनुशासित ट्रेडिंग व रिसर्च):</strong> पांचवें बुद्धि व सट्टा भाव (वृश्चिक) में शनि जातक को बाजार में धैर्य, गहन तकनीकी अध्ययन और अनुशासित स्विंग ट्रेडिंग की शक्ति देता है।</span>
+                  <span class="lang-en"><strong>5th House Saturn (Speculation Discipline):</strong> 5th House hosts Saturn, giving patient, deep market research capability and disciplined swing trading execution.</span>
+                </li>
+                <li>
+                  <span class="lang-hi"><strong>लग्नेश चंद्रमा 6ठे भाव में:</strong> कठिन और विषम परिस्थितियों में शांत रहकर संकट प्रबंधन और प्रतिस्पर्धियों पर विजय पाने की अद्भुत क्षमता।</span>
+                  <span class="lang-en"><strong>Lagna Lord Moon in 6th House:</strong> Crisis management mastery, analytical diligence, and resilience under market pressure.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Call to Action Banner -->
-      <div class="consultation-banner text-center p-5 rounded">
-        <h3 class="text-gold mb-2">Verify Your Personal Trading Kundli</h3>
-        <p class="text-light mb-4 max-w-700 mx-auto">
-          Experience the uncompromising precision of the Cosmic Finance Classical Jyotish Engine. Calculate your true 12 Bhavas, speculation potential, and active Dasha.
+      <!-- Planetary Comparison Table -->
+      <div class="table-container">
+        <div class="table-title">
+          <span class="lang-hi">ग्रह स्थिति तुलनात्मक तालिका &bull; अनुराग राठी</span>
+          <span class="lang-en">Planetary Forensic Alignment Table &bull; Anurag Rathi</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table custom-table align-middle">
+            <thead>
+              <tr>
+                <th><span class="lang-hi">ग्रह (Graha)</span><span class="lang-en">Planet</span></th>
+                <th><span class="lang-hi">राशि एवं अंश (Sign &amp; Degree)</span><span class="lang-en">Zodiac Sign &amp; Degree</span></th>
+                <th><span class="lang-hi">पुराने चार्ट में स्थान</span><span class="lang-en">Mandala Placement</span></th>
+                <th><span class="lang-hi">कॉस्मिक फाइनेंस वास्तविक भाव</span><span class="lang-en">True House (Bhava)</span></th>
+                <th><span class="lang-hi">प्रभाव एवं वित्तीय महत्व</span><span class="lang-en">Dignity &amp; Financial Impact</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>लग्न (Lagna)</strong></td>
+                <td>कर्क (Cancer 4) 18° 59'</td>
+                <td>शीर्ष पर 4 का अंक</td>
+                <td><span class="badge-bhava">1st भाव (तनु)</span></td>
+                <td><span class="lang-hi">स्वामी चंद्रमा; तीव्र अंतर्ज्ञान, पूंजी की सुरक्षा के प्रति सजग</span><span class="lang-en">Ruled by Moon; highly intuitive, protective of capital</span></td>
+              </tr>
+              <tr>
+                <td><strong>सूर्य (Sun)</strong></td>
+                <td>कन्या (Virgo 6) 22° 35'</td>
+                <td>ऊपरी बाईं ओर केतु के साथ</td>
+                <td><span class="badge-bhava">3rd भाव (पराक्रम)</span></td>
+                <td><span class="lang-hi">2nd लॉर्ड 3rd में; स्वयं के पुरुषार्थ व उद्यम से धन संचय</span><span class="lang-en">2nd Lord in 3rd; self-made commercial initiatives</span></td>
+              </tr>
+              <tr>
+                <td><strong>शुक्र (Venus)</strong></td>
+                <td>तुला (Libra 7) 24° 40'</td>
+                <td>बाईं ओर बुध के साथ</td>
+                <td><span class="badge-bhava">4th भाव (सुख)</span></td>
+                <td><span class="badge-dignity-good">मालव्य योग (स्वराशि)</span> <span class="lang-hi">सर्वोत्तम अचल संपत्ति, भौतिक वैभव व संपत्तियां</span><span class="lang-en">MALAVYA YOGA (Own Sign); prime luxury assets, real estate</span></td>
+              </tr>
+              <tr>
+                <td><strong>बुध (Mercury)</strong></td>
+                <td>तुला (Libra 7) 12° 46'</td>
+                <td>बाईं ओर शुक्र के साथ</td>
+                <td><span class="badge-bhava">4th भाव (सुख)</span></td>
+                <td><span class="lang-hi">व्यापारिक बुद्धि, वित्तीय विश्लेषण एवं अनुबंध कौशल</span><span class="lang-en">Commercial intelligence applied to asset valuation</span></td>
+              </tr>
+              <tr>
+                <td><strong>शनि (Saturn)</strong></td>
+                <td>वृश्चिक (Scorpio 8) 10° 19'</td>
+                <td>निचले बाईं ओर चंद्रमा के साथ</td>
+                <td><span class="badge-bhava">5th भाव (बुद्धि/सट्टा)</span></td>
+                <td><span class="lang-hi">शेयर बाजार व सट्टा में गहरा धैर्य और अनुशासित गणना</span><span class="lang-en">Disciplined, calculated risk assessment in markets</span></td>
+              </tr>
+              <tr>
+                <td><strong>चंद्रमा (Moon)</strong></td>
+                <td>धनु (Sagittarius 9) 12° 47'</td>
+                <td>मध्य वृत्त में (मूला 4)</td>
+                <td><span class="badge-bhava">6th भाव (प्रतिस्पर्धा)</span></td>
+                <td><span class="lang-hi">लग्नेश 6ठे भाव में; संकट प्रबंधन व विरोधियों पर विजय</span><span class="lang-en">Lagna Lord in 6th; crisis management mastery</span></td>
+              </tr>
+              <tr>
+                <td><strong>मंगल (Mars)</strong></td>
+                <td>मकर (Capricorn 10) 11° 26'</td>
+                <td>निचले बॉक्स में</td>
+                <td><span class="badge-bhava">7th भाव (साझेदारी)</span></td>
+                <td><span class="badge-dignity-good">रुचक योग (परम उच्च)</span> <span class="lang-hi">सशक्त कारोबारी साझेदारी, नेतृत्व व अधिकार</span><span class="lang-en">RUCHAKA YOGA (Exalted); authoritative partnerships</span></td>
+              </tr>
+              <tr>
+                <td><strong>गुरु (Jupiter) [R]</strong></td>
+                <td>कुंभ (Aquarius 11) 23° 55'</td>
+                <td>निचले दाईं ओर राहु के साथ</td>
+                <td><span class="badge-bhava">8th भाव (गूढ़ शोध)</span></td>
+                <td><span class="lang-hi">9th लॉर्ड 8th में; गूढ़ वित्तीय शोध, अचानक अप्रत्याशित लाभ</span><span class="lang-en">9th Lord in 8th; deep financial research &amp; windfalls</span></td>
+              </tr>
+              <tr>
+                <td><strong>राहु (Rahu) [R]</strong></td>
+                <td>मीन (Pisces 12) 27° 14'</td>
+                <td>निचले दाईं ओर गुरु के साथ</td>
+                <td><span class="badge-bhava">9th भाव (भाग्य)</span></td>
+                <td><span class="lang-hi">अपरंपरागत दर्शन, विदेशी व्यापार व लंबी दूरी के संबंध</span><span class="lang-en">Unconventional philosophy, international business networks</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================================================================== -->
+    <!-- ==================== 4 FOUNDATIONAL AXIOMS ========================= -->
+    <!-- ==================================================================== -->
+    <section class="case-container">
+      <div class="text-center mb-4">
+        <span class="badge-case-num">
+          <span class="lang-hi">ज्योतिष विज्ञान के आधारभूत नियम</span>
+          <span class="lang-en">CORE FOUNDATIONAL AXIOMS</span>
+        </span>
+        <h3 class="case-title">
+          <span class="lang-hi">प्रामाणिक वैदिक ज्योतिष के 4 मूलभूत सिद्धांत</span>
+          <span class="lang-en">The 4 Foundational Axioms of Canonical Jyotish</span>
+        </h3>
+        <p class="text-muted small">
+          <span class="lang-hi">क्यों पारंपरिक पारशरी चार्ट ही वित्तीय व जीवन फलित का सर्वोच्च वैज्ञानिक आधार है:</span>
+          <span class="lang-en">Why canonical Parashari charts are the undisputed gold standard for financial timing:</span>
         </p>
-        <div class="d-flex justify-content-center gap-3 flex-wrap">
-          <a href="/trading-kundli" class="btn btn-gold btn-lg">Calculate Your True Kundli &rarr;</a>
-          <a href="https://wa.me/<%= constants.WHATSAPP_NUMBER_RAW %>?text=<%= encodeURIComponent('Namaste Dr. Ashish Patni ji, I reviewed the Kundli Forensic Comparison and would like an authentic astrological audit of my birth chart.') %>" class="btn btn-outline-gold btn-lg" target="_blank" rel="noopener">Consult Dr. Ashish Patni on WhatsApp</a>
-        </div>
       </div>
 
-    </div>
-  </section>
-</div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="axiom-card">
+            <div class="axiom-num">01</div>
+            <div class="axiom-title">
+              <span class="lang-hi">लग्न ≠ चंद्र राशि</span>
+              <span class="lang-en">Lagna ≠ Chandra Rashi</span>
+            </div>
+            <p class="axiom-desc">
+              <span class="lang-hi"><strong>लग्न (उदित राशि)</strong> जातक के शरीर, भौतिक वास्तविकता और कर्म का आधार है। <strong>चंद्र राशि</strong> केवल मानसिक धारणा को दर्शाती है। चंद्र राशि को केंद्र में रखने से पूरा जीवन फलित भ्रमित हो जाता है।</span>
+              <span class="lang-en">The <strong>Ascendant (Lagna)</strong> represents the body, life path, and physical reality at the eastern horizon. The <strong>Moon Sign</strong> represents emotional perception. Placing Moon in the center confuses perception with concrete destiny.</span>
+            </p>
+          </div>
+        </div>
 
-<style>
-/* Forensic Comparison Styles */
-.kundli-comparison-wrapper {
-  background-color: #080c15;
-  color: #e2e8f0;
-  min-height: 100vh;
-}
-.text-gold { color: #f59e0b !important; }
-.text-emerald { color: #10b981 !important; }
-.text-silver { color: #e2e8f0 !important; }
-.text-pink { color: #f472b6 !important; }
-.text-purple { color: #c084fc !important; }
-.text-violet { color: #a855f7 !important; }
-.text-amber { color: #fbbf24 !important; }
+        <div class="col-md-6 col-lg-3">
+          <div class="axiom-card">
+            <div class="axiom-num">02</div>
+            <div class="axiom-title">
+              <span class="lang-hi">प्रत्येक 4 मिनट में 1° बदलाव</span>
+              <span class="lang-en">1° Moves Every 4 Mins</span>
+            </div>
+            <p class="axiom-desc">
+              <span class="lang-hi">ग्रह हफ्तों तक एक राशि में रहते हैं, लेकिन लग्न हर <strong>120 मिनट में पूरी राशि बदल लेता है</strong>। सटीक जन्म समय और अक्षांश/देशांतर के बिना केंद्र व त्रिकोण भाव गलत हो जाते हैं।</span>
+              <span class="lang-en">While planets linger in a sign for weeks, the rising Lagna rotates through a complete sign every <strong>120 minutes</strong>. Without precise coordinates and time, life-defining Kendras and Trikonas rotate into the wrong houses.</span>
+            </p>
+          </div>
+        </div>
 
-.client-tab-btn {
-  background: #0f172a;
-  border: 1px solid #334155;
-  color: #cbd5e1;
-  padding: 10px 22px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.client-tab-btn:hover {
-  border-color: #f59e0b;
-  color: #f8fafc;
-  transform: translateY(-2px);
-}
-.client-tab-btn.active {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  border-color: #f59e0b;
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
-  color: #f59e0b;
-}
-.tab-avatar {
-  font-size: 1.3rem;
-  background: rgba(245, 158, 11, 0.15);
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-}
-.tab-text {
-  text-align: left;
-  line-height: 1.2;
-}
-.tab-text small {
-  display: block;
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
+        <div class="col-md-6 col-lg-3">
+          <div class="axiom-card">
+            <div class="axiom-num">03</div>
+            <div class="axiom-title">
+              <span class="lang-hi">अंशों से तय होते हैं योग</span>
+              <span class="lang-en">Degrees Dictate Yogas</span>
+            </div>
+            <p class="axiom-desc">
+              <span class="lang-hi">0° पर ग्रह बाल अवस्था में, 15° पर पूर्ण युवा और 29° पर वृद्ध होता है। मंडल चार्ट अंश छोड़ देते हैं। कॉस्मिक फाइनेंस प्रत्येक ग्रह के सूक्ष्म अंशों की गणना कर वास्तविक राजयोग शक्ति मापता है।</span>
+              <span class="lang-en">A planet at 0° is in infancy (Bala), at 15° is in peak power (Yuva), and at 29° is in old age (Vriddha). Mandalas omit degrees entirely. Cosmic Finance computes exact degrees and minutes to evaluate genuine yogic potency.</span>
+            </p>
+          </div>
+        </div>
 
-.client-panel {
-  display: none;
-  animation: fadeIn 0.35s ease-in-out;
-}
-.client-panel.active {
-  display: block;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+        <div class="col-md-6 col-lg-3">
+          <div class="axiom-card">
+            <div class="axiom-num">04</div>
+            <div class="axiom-title">
+              <span class="lang-hi">विंशोत्तरी दशा से समय निर्धारण</span>
+              <span class="lang-en">Timing via Vimshottari</span>
+            </div>
+            <p class="axiom-desc">
+              <span class="lang-hi">निवेश में कब प्रवेश करना है और कब सतर्क रहना है, यह केवल जन्म नक्षत्र के भुक्तांश से निकली महादशा/अंतर्दशा से ही तय होता है। मंडल चार्ट दशा कालक्रम नहीं दे सकते।</span>
+              <span class="lang-en">Timing financial breakthroughs or market risks requires calculating the exact elapsed arc of the Janma Nakshatra. Symbolic mandalas cannot provide Dasha timelines. Cosmic Finance provides exact Mahadasha and Antardasha dates.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-.audit-summary-card {
-  background: #0d1322;
-  border: 1px solid #1e293b;
-  border-left: 4px solid #f59e0b;
-  border-radius: 12px;
-  padding: 24px;
-}
-.badge-status {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-.badge-warning {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-}
-.verdict-pill {
-  background: #111827;
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 12px 20px;
-  display: inline-block;
-  text-align: right;
-}
-.verdict-label {
-  display: block;
-  font-size: 0.72rem;
-  color: #94a3b8;
-  letter-spacing: 1px;
-}
-.verdict-value {
-  font-size: 1.15rem;
-  font-weight: 700;
-}
+  </main>
 
-.chart-showcase-card {
-  background: #0d1322;
-  border-radius: 14px;
-  border: 1px solid #1e293b;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.25s ease;
-}
-.chart-showcase-card:hover {
-  border-color: #334155;
-}
-.old-chart-card {
-  border-top: 3px solid #ef4444;
-}
-.new-chart-card {
-  border-top: 3px solid #10b981;
-}
-.card-header-bar {
-  padding: 14px 20px;
-  background: #111827;
-  border-bottom: 1px solid #1e293b;
-}
-.chart-tag {
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-.tag-old { color: #f87171; }
-.tag-new { color: #34d399; }
-.chart-type-tag {
-  font-size: 0.75rem;
-  background: #1e293b;
-  padding: 3px 10px;
-  border-radius: 20px;
-  color: #94a3b8;
-}
+  <!-- Interactive Language Switcher Script -->
+  <script>
+    function switchLanguage(lang) {
+      document.body.setAttribute('data-lang', lang);
+      
+      const btnHi = document.getElementById('btnLangHi');
+      const btnEn = document.getElementById('btnLangEn');
 
-.chart-image-wrap {
-  background: #050811;
-  min-height: 380px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.chart-img {
-  max-height: 480px;
-  width: auto;
-  border: 1px solid #1e293b;
-}
+      if (lang === 'hi') {
+        btnHi.classList.add('active');
+        btnEn.classList.remove('active');
+      } else {
+        btnEn.classList.add('active');
+        btnHi.classList.remove('active');
+      }
 
-.analysis-list {
-  padding-left: 20px;
-  margin-bottom: 0;
-}
-.analysis-list li {
-  margin-bottom: 12px;
-  line-height: 1.5;
-  font-size: 0.92rem;
-  color: #cbd5e1;
-}
+      try {
+        localStorage.setItem('cf_report_lang', lang);
+      } catch(e) {}
+    }
 
-.breakdown-card, .educational-pillars-card {
-  background: #0d1322;
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-}
-
-.table-cosmic {
-  color: #e2e8f0;
-  background: transparent;
-  margin-bottom: 0;
-}
-.table-cosmic th {
-  background: #111827;
-  color: #94a3b8;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  border-bottom: 1px solid #334155;
-  padding: 12px 16px;
-}
-.table-cosmic td {
-  padding: 14px 16px;
-  border-bottom: 1px solid #172033;
-  font-size: 0.9rem;
-}
-.table-cosmic tbody tr:hover {
-  background: rgba(30, 41, 59, 0.4);
-}
-
-.axiom-box {
-  background: #111827;
-  border: 1px solid #1e293b;
-  position: relative;
-  overflow: hidden;
-}
-.axiom-num {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: rgba(245, 158, 11, 0.15);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.consultation-banner {
-  background: linear-gradient(135deg, #111827, #0d1322);
-  border: 1px solid #d4af37;
-  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.1);
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const tabBtns = document.querySelectorAll('.client-tab-btn');
-  const panels = document.querySelectorAll('.client-panel');
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const clientId = this.getAttribute('data-client');
-
-      tabBtns.forEach(b => b.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
-
-      this.classList.add('active');
-      const targetPanel = document.getElementById('panel-' + clientId);
-      if (targetPanel) {
-        targetPanel.classList.add('active');
+    // Initialize from storage or default to Hindi
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        const saved = localStorage.getItem('cf_report_lang');
+        if (saved === 'en') {
+          switchLanguage('en');
+        } else {
+          switchLanguage('hi');
+        }
+      } catch(e) {
+        switchLanguage('hi');
       }
     });
-  });
-});
-</script>
+  </script>
+</body>
+</html>

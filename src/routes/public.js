@@ -122,12 +122,14 @@ router.get(['/trading-kundli', '/kundli'], (req, res) => {
   });
 });
 
-// 4a. Client Kundli Forensic Audit & Architectural Comparison
+// 4a. Client Kundli Forensic Audit & Architectural Comparison (Standalone Presentation Document)
 router.get(['/kundli-comparison', '/kundli-audit', '/chart-audit'], (req, res) => {
-  renderWithLayout(res, 'kundli-comparison', {
+  res.render('pages/kundli-comparison', {
+    layout: false,
     pageId: 'kundli-comparison',
-    title: 'Vedic Kundli Forensic Audit & Comparison | Cosmic Finance',
-    description: 'Side-by-side forensic analysis: Demystifying esoteric mandalas vs. canonical Parashari Vedic astrological calculations powered by Cosmic Finance.'
+    title: 'वैदिक कुंडली सत्यापन एवं प्रमाणिक तुलनात्मक रिपोर्ट | Cosmic Finance',
+    description: 'पारंपरिक मंडल यंत्र और कॉस्मिक फाइनेंस की शुद्ध वैदिक गणना का तुलनात्मक विश्लेषण।',
+    ...res.locals
   });
 });
 
