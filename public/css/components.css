@@ -6280,235 +6280,717 @@
 }
 
 /* ==============================================================
-   KUNDLI RESULTS LAYOUT CORRECTIONS (IMAGE 4 ALIGNMENT FIX)
+   ROYAL IVORY & GOLD THEME: KUNDLI FUNNEL & WEALTH DOSSIER
+   Canonical Parashari Vedic Aesthetics • Crisp White Cards • Gilded Accents
    ============================================================== */
-.kundli-result-card {
-  margin-top: 24px;
+body[data-page="kundli"] {
+  background: #fdfbf7 !important;
+  color: #0f172a !important;
 }
 
-.result-header-luxury {
+body[data-page="kundli"] .stars-backdrop {
+  opacity: 0.12 !important;
+}
+
+body[data-page="kundli"] .site-main {
+  background: transparent !important;
+}
+
+.kundli-royal-light-page {
+  background: #fdfbf7;
+  color: #0f172a;
+}
+
+.kundli-royal-light-page .page-header .cosmic-badge {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #7e122a;
+  font-weight: 700;
+}
+
+.kundli-royal-light-page .page-title {
+  color: #7e122a !important;
+  font-family: var(--font-heading);
+  font-weight: 900;
+}
+
+.kundli-royal-light-page .page-title .text-gold {
+  color: #b45309 !important;
+}
+
+.kundli-royal-light-page .page-subtitle {
+  color: #475569 !important;
+  font-size: 1.05rem;
+  max-width: 760px;
+  margin: 10px auto 0;
+}
+
+/* 1. Input Form Card */
+.kundli-royal-light-page .kundli-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-top: 4.5px solid #7e122a !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 40px rgba(180, 83, 9, 0.08), 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 36px;
+  color: #0f172a;
+}
+
+.kundli-royal-light-page .kundli-card-header h2 {
+  font-family: var(--font-heading);
+  color: #7e122a;
+  font-size: 1.55rem;
+  font-weight: 800;
+}
+
+.kundli-royal-light-page .kundli-card-header p {
+  color: #64748b;
+  font-size: 0.88rem;
+}
+
+.kundli-royal-light-page .form-group label {
+  color: #0f172a !important;
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
+.kundli-royal-light-page .form-control {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  border-radius: 10px !important;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  transition: all 0.2s ease;
+}
+
+.kundli-royal-light-page .form-control:focus {
+  border-color: #d97706 !important;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15) !important;
+}
+
+.kundli-royal-light-page .gender-btn {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.kundli-royal-light-page .gender-btn.active {
+  background: #7e122a !important;
+  border-color: #7e122a !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(126, 18, 42, 0.25);
+}
+
+.kundli-royal-light-page .btn-quick-text {
+  color: #b45309;
+  font-weight: 700;
+  font-size: 0.76rem;
+}
+
+.kundli-royal-light-page .btn-show-kundli {
+  background: linear-gradient(135deg, #7e122a 0%, #b45309 100%) !important;
+  color: #ffffff !important;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 14px 44px;
+  border-radius: 9999px;
+  border: none;
+  box-shadow: 0 6px 20px rgba(126, 18, 42, 0.35);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.kundli-royal-light-page .btn-show-kundli:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(126, 18, 42, 0.45);
+}
+
+/* 2. Result Card Container */
+.kundli-royal-light-page .kundli-result-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-top: 5px solid #7e122a !important;
+  border-radius: 22px !important;
+  box-shadow: 0 14px 50px rgba(180, 83, 9, 0.1), 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+  margin-top: 32px;
+  padding: 32px 36px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 3. Luxury Header */
+.kundli-royal-light-page .result-header-luxury {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
-  padding: 20px 24px;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(8, 12, 28, 0.98));
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: var(--radius-xl);
-  margin-bottom: 24px;
+  padding: 20px 26px;
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+  border: 1.5px solid #f59e0b !important;
+  border-radius: 16px !important;
+  margin-bottom: 22px;
 }
 
-.result-badge-gold {
+.kundli-royal-light-page .result-badge-gold {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--gold-400);
+  font-weight: 800;
+  color: #7e122a !important;
   letter-spacing: 0.08em;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
-.result-meta-line {
+.kundli-royal-light-page #resultUserName {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #7e122a !important;
+  margin: 0;
+}
+
+.kundli-royal-light-page .result-meta-line {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  color: #94a3b8;
-  font-size: 0.85rem;
+  color: #475569 !important;
+  font-size: 0.88rem;
+  font-weight: 500;
   margin-top: 6px;
 }
 
-.kundli-charts-row {
+.kundli-royal-light-page .chart-pill {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kundli-royal-light-page .chart-pill.active {
+  background: #7e122a !important;
+  border-color: #7e122a !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+/* 4. Action Toolbar */
+.kundli-action-toolbar {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: 24px;
-  align-items: stretch;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin-bottom: 24px;
 }
 
 @media (max-width: 900px) {
-  .kundli-charts-row {
+  .kundli-action-toolbar {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
 
-.chakra-card-box {
-  background: radial-gradient(circle at center, rgba(17, 24, 39, 0.95), rgba(5, 7, 15, 0.98));
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  border-radius: var(--radius-xl);
-  padding: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+.btn-dossier-action {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  border: none;
+}
+
+.btn-dossier-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn-dossier-action .action-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.btn-dossier-action .action-texts {
   display: flex;
   flex-direction: column;
 }
 
-.chakra-title-bar {
+.btn-dossier-action .action-primary {
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.btn-dossier-action .action-secondary {
+  font-size: 0.72rem;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+.btn-dossier-download {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #10b981;
+}
+
+.btn-dossier-print {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid #334155;
+}
+
+.btn-dossier-consult {
+  background: linear-gradient(135deg, #7e122a 0%, #991b1b 100%) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #f59e0b;
+}
+
+/* Notice Banner */
+.pdf-download-notice {
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  color: #065f46;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.1);
+}
+
+/* 5. Main Charts Row */
+.kundli-royal-light-page .kundli-charts-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: stretch;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 991px) {
+  .kundli-royal-light-page .kundli-charts-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kundli-royal-light-page .chakra-card-box {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 18px !important;
+  padding: 22px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.kundli-royal-light-page .chakra-title-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
   font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #7e122a !important;
 }
 
-.tag-gold {
+.kundli-royal-light-page .tag-gold {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--gold-400);
-  background: rgba(212, 175, 55, 0.12);
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  font-weight: 700;
+  color: #b45309 !important;
+  background: #fffbeb !important;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid #fde68a !important;
 }
 
-.vedic-chakra-visual {
+#northIndianChartContainer {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #ffffff !important;
+  border-radius: 12px;
+  padding: 4px;
 }
 
-.chakra-svg {
+#northIndianChartContainer .cosmic-diamond-svg {
   width: 100%;
-  max-width: 440px;
+  max-width: 600px;
   height: auto;
-  aspect-ratio: 1 / 1;
 }
 
-.chart-house-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: bold;
-  fill: #94a3b8;
-  text-anchor: middle;
-  dominant-baseline: central;
-}
-
-.chart-house-num.gold { fill: #f5be48; }
-.chart-house-num.violet { fill: #a78bfa; }
-.chart-house-num.green { fill: #63d9a5; }
-
-.chart-rashi-text {
-  font-family: var(--font-sans);
-  font-size: 10px;
-  fill: #cbd5e1;
-  text-anchor: middle;
-  dominant-baseline: central;
-}
-
-.chart-rashi-text.gold { fill: #ffd572; font-weight: bold; }
-.chart-rashi-text.violet { fill: #c4b5fd; font-weight: bold; }
-.chart-rashi-text.green { fill: #86efac; font-weight: bold; }
-
-.chart-graha-glyph {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: bold;
-  dominant-baseline: central;
-  text-anchor: middle;
-}
-
-/* 4 Pillars of Financial Astrology Panel */
-.financial-houses-panel {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 30, 0.98));
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  border-radius: var(--radius-xl);
-  padding: 20px 22px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+/* 6. Four Pillars of Wealth Panel */
+.kundli-royal-light-page .financial-houses-panel {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 18px !important;
+  padding: 22px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
   display: flex;
   flex-direction: column;
 }
 
-.panel-header-gold {
+.kundli-royal-light-page .panel-header-gold {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
   font-family: var(--font-heading);
-  font-size: 1.02rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #7e122a !important;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1.5px solid #f1f5f9;
 }
 
-.badge-gold-subtle {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--gold-400);
-  background: rgba(212, 175, 55, 0.12);
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-}
-
-.financial-pillars-list {
+.kundli-royal-light-page .financial-pillars-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
   flex: 1;
 }
 
-.pillar-row {
-  background: rgba(8, 12, 24, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-md);
+.kundli-royal-light-page .pillar-row {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 12px !important;
   padding: 12px 14px;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.pillar-row:hover {
-  border-color: rgba(245, 190, 72, 0.4);
+.kundli-royal-light-page .pillar-row:hover {
   transform: translateX(3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.pillar-row.highlight-gold {
-  background: linear-gradient(135deg, rgba(30, 24, 12, 0.7), rgba(15, 23, 42, 0.8));
-  border: 1px solid rgba(245, 190, 72, 0.4);
-  box-shadow: inset 0 0 15px rgba(245, 190, 72, 0.08);
+.kundli-royal-light-page .pillar-row:nth-child(1) { border-left: 4.5px solid #d97706 !important; }
+.kundli-royal-light-page .pillar-row:nth-child(2) { border-left: 4.5px solid #7c3aed !important; background: #faf5ff !important; }
+.kundli-royal-light-page .pillar-row:nth-child(3) { border-left: 4.5px solid #ea580c !important; }
+.kundli-royal-light-page .pillar-row:nth-child(4) { border-left: 4.5px solid #059669 !important; }
+
+.kundli-royal-light-page .pillar-label strong {
+  color: #0f172a !important;
+  font-size: 0.92rem;
+  font-weight: 700;
 }
 
-.pillar-label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
-}
-
-.pillar-num {
-  font-family: var(--font-mono);
+.kundli-royal-light-page .pillar-sign {
+  color: #b45309 !important;
+  font-weight: 600;
   font-size: 0.78rem;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
 }
 
-.pillar-num.gold { background: rgba(245, 190, 72, 0.2); color: var(--gold-400); }
-.pillar-num.gold-glow { background: rgba(245, 190, 72, 0.28); color: #fff; box-shadow: 0 0 8px rgba(245, 190, 72, 0.5); }
-.pillar-num.violet { background: rgba(167, 139, 250, 0.2); color: #c4b5fd; }
-.pillar-num.green { background: rgba(99, 217, 165, 0.2); color: #86efac; }
-
-.pillar-sign {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  color: var(--gold-400);
-}
-
-.pillar-impact {
-  font-size: 0.82rem;
-  color: #cbd5e1;
-  margin: 0;
+.kundli-royal-light-page .pillar-impact {
+  font-size: 0.84rem;
+  color: #475569 !important;
+  margin: 3px 0 0;
   line-height: 1.45;
 }
 
-/* Celebrity Doctor Ashish Patni Showcase Alignment (Image 4 Fix) */
-.celebrity-consultation-showcase {
-  background: linear-gradient(135deg, rgba(20, 28, 48, 0.95), rgba(10, 15, 28, 0.98));
-  border: 1.5px solid var(--gold-500);
+/* 7. Planetary Positions Table Card */
+.kundli-royal-light-page .planetary-positions-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 18px !important;
+  padding: 24px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  margin-bottom: 28px;
+}
+
+.kundli-royal-light-page .planetary-positions-card .table-header-row h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #7e122a !important;
+}
+
+.kundli-royal-light-page .table-legend {
+  font-size: 0.78rem;
+  color: #64748b !important;
+}
+
+.kundli-royal-light-page .cosmic-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.kundli-royal-light-page .cosmic-table th {
+  background: #7e122a !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.kundli-royal-light-page .cosmic-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b !important;
+  font-size: 0.88rem;
+}
+
+.kundli-royal-light-page .cosmic-table tbody tr:nth-child(even) {
+  background: #fdfcf7 !important;
+}
+
+/* 8. Speculation & Archetype Grid */
+.kundli-royal-light-page .result-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 900px) {
+  .kundli-royal-light-page .result-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kundli-royal-light-page .result-metric-box {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-top: 4px solid #7e122a !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+}
+
+.kundli-royal-light-page .metric-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #64748b !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.kundli-royal-light-page .metric-value {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #7e122a !important;
+  margin: 6px 0;
+  line-height: 1.2;
+}
+
+.kundli-royal-light-page .metric-value.highlight {
+  color: #059669 !important;
+}
+
+.kundli-royal-light-page .metric-desc {
+  font-size: 0.84rem;
+  color: #475569 !important;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* 9. Vimshottari & Dhana Yogas */
+.kundli-royal-light-page .dasha-breakdown-card,
+.kundli-royal-light-page .dhana-yogas-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 18px !important;
+  padding: 22px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
+  margin-bottom: 28px;
+}
+
+.kundli-royal-light-page .dasha-tier-box {
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 16px;
+}
+
+.kundli-royal-light-page .tier-val {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #7e122a !important;
+  margin: 4px 0;
+}
+
+.kundli-royal-light-page .dhana-yoga-item {
+  background: #faf5ff !important;
+  border: 1.5px solid #e9d5ff !important;
+  border-radius: 12px !important;
+  padding: 14px 18px;
+}
+
+.kundli-royal-light-page .dhana-item-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #6b21a8 !important;
+}
+
+.kundli-royal-light-page .dhana-item-desc {
+  color: #3b0764 !important;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 6px 0;
+}
+
+/* 10. Celebrity Founder Showcase (Dr. Ashish Patni) */
+.kundli-royal-light-page .celebrity-consultation-showcase {
+  background: linear-gradient(135deg, #fffdf8 0%, #fef3c7 60%, #ffffff 100%) !important;
+  border: 2px solid #d97706 !important;
+  border-radius: 20px !important;
+  padding: 30px 36px !important;
+  box-shadow: 0 12px 35px rgba(180, 83, 9, 0.12) !important;
+  margin-top: 32px;
+}
+
+.kundli-royal-light-page .consultation-showcase-grid {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .kundli-royal-light-page .consultation-showcase-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+.kundli-royal-light-page .showcase-photo-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kundli-royal-light-page .showcase-photo {
+  width: 180px !important;
+  height: 210px !important;
+  object-fit: cover !important;
+  object-position: center 15% !important;
+  border-radius: 16px !important;
+  border: 2.5px solid #d97706 !important;
+  box-shadow: 0 8px 25px rgba(180, 83, 9, 0.25) !important;
+  background: #ffffff;
+}
+
+.kundli-royal-light-page .showcase-verified-tag {
+  margin-top: 10px;
+  background: #ffffff !important;
+  border: 1px solid #d97706 !important;
+  color: #b45309 !important;
+  font-weight: 700;
+  font-size: 0.74rem;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.kundli-royal-light-page .showcase-doctor-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #7e122a !important;
+  margin-bottom: 4px;
+}
+
+.kundli-royal-light-page .showcase-doctor-title {
+  color: #b45309 !important;
+  font-size: 0.94rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.kundli-royal-light-page .showcase-copy {
+  color: #334155 !important;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.kundli-royal-light-page .chip-gold {
+  background: #ffffff !important;
+  border: 1px solid #fde68a !important;
+  color: #b45309 !important;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.kundli-royal-light-page .btn-whatsapp-vip {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+  border: none;
+}
+
+.kundli-royal-light-page .showcase-cta-group .btn-outline {
+  background: #ffffff !important;
+  border: 1.5px solid #d97706 !important;
+  color: #b45309 !important;
+  font-weight: 700;
+}
+
+.kundli-royal-light-page .showcase-security-note {
+  color: #64748b !important;
+  font-size: 0.8rem;
+  margin-top: 14px;
+}
+
+/* ==============================================================
+   PRINT-SPECIFIC STYLES (@media print)
+   ============================================================== */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .kundli-result-card,
+  .kundli-result-card * {
+    visibility: visible;
+  }
+  .kundli-result-card {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .kundli-action-toolbar,
+  #pdfDownloadNotice,
+  .chart-switch-pills {
+    display: none !important;
+  }
+}
+
   border-radius: var(--radius-xl);
   padding: 28px;
   margin-top: 32px;

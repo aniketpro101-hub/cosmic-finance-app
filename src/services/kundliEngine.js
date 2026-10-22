@@ -361,6 +361,25 @@ function evaluateTradingKundli({
 
   const drAshishWhatsAppUrl = `https://wa.me/${CONSTANTS.WHATSAPP_NUMBER_RAW}?text=${prefilledConsultText}`;
 
+  // 9. Generate Canonical North Indian Vector SVG
+  const { renderNorthIndianChartSvg } = require('./svgKundliChart');
+  const d1Svg = renderNorthIndianChartSvg({
+    chartCode: 'D1',
+    chartTitle: 'COSMIC FINANCE AUTHENTIC JANMA KUNDLI (D1)',
+    subtitle: 'Canonical Parashari Geometry • Lahiri Ayanamsha • Topocentric Sidereal Horizon',
+    client: {
+      name: fullName,
+      dob: dateFormatted,
+      tob: timeFormatted,
+      pob
+    },
+    lagnaSignIndex,
+    lagnaDegrees,
+    lagnaNakshatra: planetsList[0]?.nakshatra || 'Ashwini',
+    lagnaPada: 1,
+    planets: planetsList
+  });
+
   return {
     fullName,
     gender,
@@ -370,6 +389,7 @@ function evaluateTradingKundli({
     ayanamsa,
     chartStyle,
     horaryNumber: horaryNumber || null,
+    d1Svg,
     lagna: {
       signIndex: lagnaSignIndex,
       signName: lagnaSignName,

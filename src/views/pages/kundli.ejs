@@ -1,4 +1,4 @@
-<div class="page-container container section-rhythm">
+<div class="page-container container section-rhythm kundli-royal-light-page">
   <header class="page-header text-center">
     <div class="cosmic-badge">
       <span class="pulsing-star">✦</span>
@@ -103,22 +103,6 @@
             <option value="Chandigarh, Punjab">
           </datalist>
           <span class="field-error" id="pobError"></span>
-        </div>
-
-        <!-- BOT PROTECTION SECURITY VERIFICATION (Number Calculation Challenge) -->
-        <div class="bot-protection-box">
-          <div class="bot-challenge-info">
-            <span class="bot-shield-icon">🛡️</span>
-            <div class="bot-challenge-text">
-              <strong>Human Security Verification</strong>
-              <span>Solve the quick calculation to generate your chart (prevents automated bot abuse):</span>
-            </div>
-          </div>
-          <div class="bot-math-cluster">
-            <span class="bot-math-question mono-num">7 + 5 = ?</span>
-            <input type="number" class="bot-math-input" placeholder="Sum" required aria-label="Security math check">
-            <span class="bot-status-indicator">Verification Required</span>
-          </div>
         </div>
 
         <!-- Advanced Settings Toggle Trigger (Starts Minimized by Default) -->
@@ -257,87 +241,53 @@
         </div>
       </div>
 
+      <!-- EXECUTIVE ACTION TOOLBAR: 3 PRIMARY ACTION BUTTONS -->
+      <div class="kundli-action-toolbar">
+        <button type="button" class="btn-dossier-action btn-dossier-download" id="btnDownloadDossierPdf">
+          <span class="action-icon">📥</span>
+          <div class="action-texts">
+            <span class="action-primary">Download Wealth Dossier (PDF)</span>
+            <span class="action-secondary">Institutional 5-Page Report • D1, D9, D10, D2 &amp; Ashtakavarga</span>
+          </div>
+        </button>
+
+        <button type="button" class="btn-dossier-action btn-dossier-print" id="btnPrintDossier">
+          <span class="action-icon">🖨️</span>
+          <div class="action-texts">
+            <span class="action-primary">Print Dossier</span>
+            <span class="action-secondary">Direct A4 Printable Output</span>
+          </div>
+        </button>
+
+        <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" target="_blank" rel="noopener" class="btn-dossier-action btn-dossier-consult" id="btnUnlockFutureCta">
+          <span class="action-icon">👑</span>
+          <div class="action-texts">
+            <span class="action-primary">Unlock Financial Future</span>
+            <span class="action-secondary">VIP Guidance with Dr. Ashish Patni</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Live Status & Hidden Download Form -->
+      <div id="pdfDownloadNotice" class="pdf-download-notice" style="display: none;">
+        <span class="notice-spinner">⏳</span>
+        <span id="pdfNoticeText">Compiling institutional 5-page PDF dossier... Please wait a few seconds.</span>
+      </div>
+
+      <form id="pdfExportForm" method="POST" action="/api/kundli/pdf" target="_blank" style="display: none;">
+        <input type="hidden" name="analysis" id="pdfAnalysisInput">
+      </form>
+
       <!-- Main Visual Birth Chart Container -->
       <div class="kundli-charts-row">
         <!-- North Indian Diamond Chart -->
         <div class="chakra-card-box" id="chartViewNorth">
           <div class="chakra-title-bar">
-            <span>Lagna Kundli (D1 Rashi Chart)</span>
-            <span class="tag-gold">Geocentric Sidereal</span>
+            <span>Lagna Kundli (D1 Canonical Parashari)</span>
+            <span class="tag-gold">Geocentric Sidereal • Lahiri</span>
           </div>
-          <div class="vedic-chakra-visual">
-            <svg viewBox="0 0 340 340" class="chakra-svg" id="northIndianChartSvg" aria-label="North Indian Vedic Kundli Chart">
-              <!-- Background -->
-              <rect x="10" y="10" width="320" height="320" fill="#070c22" stroke="rgba(245, 190, 72, 0.45)" stroke-width="2"/>
-              <!-- Diagonals -->
-              <line x1="10" y1="10" x2="330" y2="330" stroke="rgba(164, 180, 240, 0.35)" stroke-width="1.5"/>
-              <line x1="330" y1="10" x2="10" y2="330" stroke="rgba(164, 180, 240, 0.35)" stroke-width="1.5"/>
-              <!-- Central Diamond -->
-              <polygon points="170,10 330,170 170,330 10,170" fill="rgba(245, 190, 72, 0.06)" stroke="#f5be48" stroke-width="2"/>
-
-              <!-- House 1 (Lagna) Top Center Diamond -->
-              <text x="170" y="36" class="chart-house-num">1</text>
-              <text x="170" y="58" class="chart-rashi-text" id="svgSign1">Mesha</text>
-              <g id="svgHousePlanets1" transform="translate(170, 85)"></g>
-
-              <!-- House 2 (Dhana) Top Left Triangle -->
-              <text x="90" y="32" class="chart-house-num">2</text>
-              <text x="90" y="50" class="chart-rashi-text" id="svgSign2">Vrish</text>
-              <g id="svgHousePlanets2" transform="translate(90, 72)"></g>
-
-              <!-- House 3 Left Top Triangle -->
-              <text x="45" y="85" class="chart-house-num">3</text>
-              <text x="45" y="105" class="chart-rashi-text" id="svgSign3">Mith</text>
-              <g id="svgHousePlanets3" transform="translate(45, 125)"></g>
-
-              <!-- House 4 (Sukha) Left Center Diamond -->
-              <text x="85" y="165" class="chart-house-num">4</text>
-              <text x="85" y="185" class="chart-rashi-text" id="svgSign4">Kark</text>
-              <g id="svgHousePlanets4" transform="translate(85, 205)"></g>
-
-              <!-- House 5 (Speculation) Left Bottom Triangle -->
-              <circle cx="45" cy="255" r="24" fill="rgba(245, 190, 72, 0.2)" stroke="#f5be48" stroke-dasharray="3,3"/>
-              <text x="45" y="245" class="chart-house-num gold">5</text>
-              <text x="45" y="262" class="chart-rashi-text gold" id="svgSign5">Simh</text>
-              <g id="svgHousePlanets5" transform="translate(45, 280)"></g>
-
-              <!-- House 6 Bottom Left Triangle -->
-              <text x="90" y="300" class="chart-house-num">6</text>
-              <text x="90" y="318" class="chart-rashi-text" id="svgSign6">Kany</text>
-              <g id="svgHousePlanets6" transform="translate(90, 275)"></g>
-
-              <!-- House 7 Bottom Center Diamond -->
-              <text x="170" y="305" class="chart-house-num">7</text>
-              <text x="170" y="322" class="chart-rashi-text" id="svgSign7">Tula</text>
-              <g id="svgHousePlanets7" transform="translate(170, 255)"></g>
-
-              <!-- House 8 Bottom Right Triangle -->
-              <text x="250" y="300" class="chart-house-num">8</text>
-              <text x="250" y="318" class="chart-rashi-text" id="svgSign8">Vris</text>
-              <g id="svgHousePlanets8" transform="translate(250, 275)"></g>
-
-              <!-- House 9 (Bhagya) Right Bottom Triangle -->
-              <circle cx="295" cy="255" r="24" fill="rgba(167, 139, 250, 0.2)" stroke="#a78bfa" stroke-dasharray="3,3"/>
-              <text x="295" y="245" class="chart-house-num violet">9</text>
-              <text x="295" y="262" class="chart-rashi-text violet" id="svgSign9">Dhan</text>
-              <g id="svgHousePlanets9" transform="translate(295, 280)"></g>
-
-              <!-- House 10 Right Center Diamond -->
-              <text x="255" y="165" class="chart-house-num">10</text>
-              <text x="255" y="185" class="chart-rashi-text" id="svgSign10">Maka</text>
-              <g id="svgHousePlanets10" transform="translate(255, 205)"></g>
-
-              <!-- House 11 (Labha) Right Top Triangle -->
-              <circle cx="295" cy="85" r="24" fill="rgba(99, 217, 165, 0.2)" stroke="#63d9a5" stroke-dasharray="3,3"/>
-              <text x="295" y="75" class="chart-house-num green">11</text>
-              <text x="295" y="92" class="chart-rashi-text green" id="svgSign11">Kumb</text>
-              <g id="svgHousePlanets11" transform="translate(295, 115)"></g>
-
-              <!-- House 12 Top Right Triangle -->
-              <text x="250" y="32" class="chart-house-num">12</text>
-              <text x="250" y="50" class="chart-rashi-text" id="svgSign12">Meen</text>
-              <g id="svgHousePlanets12" transform="translate(250, 72)"></g>
-            </svg>
+          <div class="vedic-chakra-visual" id="northIndianChartContainer">
+            <!-- Dynamically populated with full vector SVG -->
           </div>
         </div>
 

@@ -210,17 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
     curForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Bot protection check
-      const botInp = curForm.querySelector('.bot-math-input') || document.querySelector('.bot-math-input');
-      if (botInp) {
-        const val = parseInt(botInp.value.trim(), 10);
-        if (val !== botExpectedAnswer) {
-          alert(`Security Verification: Please solve the human math calculation (${botNum1} + ${botNum2} = ?) correctly to continue.`);
-          botInp.focus();
-          return;
-        }
-      }
-
       const curNameInp = curForm.querySelector('#fullName') || fullNameInput;
       const curGenderInp = curForm.querySelector('#genderInput') || genderInput;
       const curDay = curForm.querySelector('#birthDay') || birthDay;
@@ -354,6 +343,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate North Indian Diamond SVG Houses
     renderNorthIndianSvg(analysis);
 
+    // Wire up Executive Action Toolbar (Download PDF, Print, Unlock VIP)
+    setupActionToolbar(analysis);
+
     // Populate South Indian Grid if active
     renderSouthIndianChart(analysis);
 
@@ -408,8 +400,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 9. North Indian Diamond SVG House Plotter
   function renderNorthIndianSvg(analysis) {
-    if (!analysis || !analysis.houses) return;
+    if (!analysis) return;
+    const container = document.getElementById('northIndianChartContainer');
+    if (container && analysis.d1Svg) {
+      container.innerHTML = analysis.d1Svg;
+      return;
+    }
 
+    if (!analysis.houses) return;
     // Set rashi short labels in houses 1-12
     const shortNames = ['Mesha', 'Vrish', 'Mith', 'Kark', 'Simh', 'Kany', 'Tula', 'Vris', 'Dhan', 'Maka', 'Kumb', 'Meen'];
 
@@ -441,6 +439,72 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+  }
+
+  // 9b. Setup Executive Action Toolbar (Download PDF, Print, Unlock Financial Future)
+  function setupActionToolbar(analysis) {
+    if (!analysis) return;
+
+    // Download PDF Button
+    const btnDownload = document.getElementById('btnDownloadDossierPdf');
+    const noticeEl = document.getElementById('pdfDownloadNotice');
+    const noticeText = document.getElementById('pdfNoticeText');
+    const exportForm = document.getElementById('pdfExportForm');
+    const exportInput = document.getElementById('pdfAnalysisInput');
+
+    if (btnDownload) {
+      btnDownload.onclick = () => {
+        const origContent = btnDownload.innerHTML;
+        btnDownload.innerHTML = `
+          <span class="action-icon">⏳</span>
+          <div class="action-texts">
+            <span class="action-primary">Compiling Executive PDF...</span>
+            <span class="action-secondary">Please wait a few moments</span>
+          </div>
+        `;
+        btnDownload.disabled = true;
+
+        if (noticeEl) {
+          noticeEl.style.display = 'flex';
+          if (noticeText) {
+            noticeText.innerHTML = '✨ <strong>Generating Your 5-Page Wealth Dossier PDF...</strong> Your institutional report is compiling with high-resolution Parashari vector geometry. Your download will start automatically.';
+          }
+        }
+
+        // Native hidden form submission (handles streaming download natively in all desktop & mobile browsers)
+        if (exportForm && exportInput) {
+          exportInput.value = JSON.stringify(analysis);
+          exportForm.submit();
+        } else {
+          // Direct fallback URL
+          const safeName = encodeURIComponent(analysis.fullName || 'Client');
+          window.location.href = `/api/kundli/pdf?fullName=${safeName}&dob=${analysis.dob || ''}&tob=${analysis.tob || ''}&pob=${encodeURIComponent(analysis.pob || '')}`;
+        }
+
+        // Restore button state after short delay
+        setTimeout(() => {
+          btnDownload.innerHTML = origContent;
+          btnDownload.disabled = false;
+          if (noticeText) {
+            noticeText.innerHTML = '✅ <strong>Download Triggered!</strong> Check your browser downloads folder. You can also re-download anytime or use the Print button.';
+          }
+        }, 5000);
+      };
+    }
+
+    // Print Button
+    const btnPrint = document.getElementById('btnPrintDossier');
+    if (btnPrint) {
+      btnPrint.onclick = () => {
+        window.print();
+      };
+    }
+
+    // Unlock Financial Future CTA
+    const btnUnlock = document.getElementById('btnUnlockFutureCta');
+    if (btnUnlock && analysis.consultation && analysis.consultation.whatsappUrl) {
+      btnUnlock.href = analysis.consultation.whatsappUrl;
+    }
   }
 
   // 10. South Indian Fixed Zodiac Grid Plotter

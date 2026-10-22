@@ -15,3 +15,6 @@ build/
 user_ai_prompt.txt
 ooo.md
 cosmic-v2/
+*.pdf
+test-page.html
+test-chart.svg

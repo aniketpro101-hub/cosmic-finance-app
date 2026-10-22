@@ -250,6 +250,91 @@ router.post('/kundli/calculate', formSubmissionLimiter, async (req, res) => {
   }
 });
 
+const { generateWealthDossierPdf } = require('../services/pdfGenerator');
+
+// 2b. Executive Wealth Dossier PDF Compilation Endpoint
+router.post('/kundli/pdf', async (req, res) => {
+  const fs = require('fs');
+  try {
+    let analysis = req.body.analysis;
+    if (typeof analysis === 'string') {
+      try {
+        analysis = JSON.parse(analysis);
+      } catch (e) {
+        analysis = null;
+      }
+    }
+    if (!analysis) {
+      let { fullName, gender, dob, tob, pob, day, month, year, hrs, min, sec } = req.body;
+      if (!dob && day && month && year) {
+        dob = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      }
+      if (!tob && (hrs !== undefined || min !== undefined)) {
+        tob = `${String(hrs || 12).padStart(2, '0')}:${String(min || 0).padStart(2, '0')}:${String(sec || 0).padStart(2, '0')}`;
+      }
+      analysis = evaluateTradingKundli({
+        fullName: fullName || 'Valued Client',
+        gender: gender || 'Male',
+        dob: dob || '1990-01-15',
+        tob: tob || '12:00:00',
+        pob: pob || 'Mumbai, Maharashtra'
+      });
+    }
+
+    const pdfPath = await generateWealthDossierPdf(analysis);
+    const safeName = (analysis.fullName || 'Client').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const filename = `Cosmic_Finance_Wealth_Dossier_${safeName}.pdf`;
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+
+    const stream = fs.createReadStream(pdfPath);
+    stream.pipe(res);
+    stream.on('end', () => {
+      try { fs.unlinkSync(pdfPath); } catch (e) {}
+    });
+    stream.on('error', (err) => {
+      console.error('Stream error while sending PDF:', err);
+      try { fs.unlinkSync(pdfPath); } catch (e) {}
+    });
+  } catch (err) {
+    console.error('Error generating Wealth Dossier PDF:', err);
+    res.status(500).json({ error: 'Failed to generate Wealth Dossier PDF: ' + err.message });
+  }
+});
+
+router.get('/kundli/pdf', async (req, res) => {
+  const fs = require('fs');
+  try {
+    const { fullName, gender, dob, tob, pob } = req.query;
+    const analysis = evaluateTradingKundli({
+      fullName: fullName || 'Valued Client',
+      gender: gender || 'Male',
+      dob: dob || '1990-01-15',
+      tob: tob || '12:00:00',
+      pob: pob || 'Mumbai, Maharashtra'
+    });
+
+    const pdfPath = await generateWealthDossierPdf(analysis);
+    const safeName = (analysis.fullName || 'Client').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const filename = `Cosmic_Finance_Wealth_Dossier_${safeName}.pdf`;
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+
+    const stream = fs.createReadStream(pdfPath);
+    stream.pipe(res);
+    stream.on('end', () => {
+      try { fs.unlinkSync(pdfPath); } catch (e) {}
+    });
+    stream.on('error', (err) => {
+      try { fs.unlinkSync(pdfPath); } catch (e) {}
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to generate Wealth Dossier PDF.' });
+  }
+});
+
 // 3. Lead Capture from Call Request or WhatsApp Intent
 router.post('/leads/inquiry', formSubmissionLimiter, (req, res) => {
   const { fullName, phone, leadId, notes } = req.body;
