@@ -65,11 +65,11 @@ body.theme-light h3,
 body.theme-light h4,
 body.theme-light h5,
 body.theme-light h6 {
-  color: #7e122a !important;
+  color: #7e122a;
 }
 
 body.theme-light p {
-  color: #334155 !important;
+  color: #334155;
 }
 
 body.theme-light .stars-backdrop {

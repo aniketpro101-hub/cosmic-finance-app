@@ -25,11 +25,11 @@
   <%- include('../partials/footer') %>
 
   <!-- Core Scripts -->
-  <script src="/js/main.js?v=4.6"></script>
-  <script src="/js/cosmic-effects.js?v=4.6"></script>
+  <script src="/js/main.js?v=4.7"></script>
+  <script src="/js/cosmic-effects.js?v=4.7"></script>
   <% if (typeof extraScripts !== 'undefined' && extraScripts.length) { %>
     <% extraScripts.forEach(function(src) { %>
-      <script src="<%= src.includes('?') ? src : src + '?v=4.6' %>"></script>
+      <script src="<%= src.includes('?') ? src : src + '?v=4.7' %>"></script>
     <% }); %>
   <% } %>
 </body>

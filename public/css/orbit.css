@@ -1535,3 +1535,188 @@
 }
 
 
+
+
+/* =========================================================================
+   LIGHT THEME OVERRIDES FOR OBSERVATORY & 4D TIME MACHINE
+   ========================================================================= */
+body.theme-light .hero-orbit-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 16px 50px rgba(126, 18, 42, 0.08) !important;
+}
+
+body.theme-light .orbit-card-header {
+  background: #fdfbf7 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+body.theme-light .orbit-status-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .btn-v2-pill {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+body.theme-light .btn-v2-pill.active {
+  background: #fffbeb !important;
+  border-color: #b45309 !important;
+  color: #b45309 !important;
+  box-shadow: 0 0 12px rgba(180, 83, 9, 0.2) !important;
+}
+
+body.theme-light .btn-math-pill {
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+}
+
+body.theme-light .btn-math-pill:hover,
+body.theme-light .btn-math-pill.active {
+  background: #dbeafe !important;
+  border-color: #3b82f6 !important;
+  color: #1e40af !important;
+}
+
+body.theme-light .jpl-telemetry-badge {
+  background: #fdfbf7 !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+body.theme-light .planetary-hour-badge {
+  background: #fffbeb !important;
+  border-color: #fde68a !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .orbit-zoom-hud {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.theme-light .zoom-btn {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .zoom-btn:hover {
+  background: #fffbeb !important;
+  border-color: #b45309 !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .zoom-level-pill {
+  color: #0f172a !important;
+}
+
+body.theme-light .orbit-planet-badge {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+body.theme-light .orbit-planet-badge:hover,
+body.theme-light .orbit-planet-badge.active {
+  background: #fffbeb !important;
+  border-color: #b45309 !important;
+  color: #b45309 !important;
+  box-shadow: 0 2px 10px rgba(180, 83, 9, 0.15) !important;
+}
+
+body.theme-light .time-machine-cockpit {
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%) !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 10px 30px rgba(126, 18, 42, 0.06) !important;
+}
+
+body.theme-light .time-machine-controls-header {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+body.theme-light .tm-header-left strong {
+  color: #7e122a !important;
+}
+
+body.theme-light .tm-sub {
+  color: #64748b !important;
+}
+
+body.theme-light .tm-date-display .tm-label {
+  color: #64748b !important;
+}
+
+body.theme-light .tm-date-display strong {
+  color: #7e122a !important;
+}
+
+body.theme-light .tm-preset-chip {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+body.theme-light .tm-preset-chip:hover {
+  background: #fffbeb !important;
+  border-color: #b45309 !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .tm-preset-chip.active {
+  background: #7e122a !important;
+  border-color: #7e122a !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(126, 18, 42, 0.25) !important;
+}
+
+body.theme-light .tm-market-readout-panel {
+  background: #fdfbf7 !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: none !important;
+}
+
+body.theme-light .tm-readout-stat {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body.theme-light .tm-readout-stat:hover {
+  background: #fffdf5 !important;
+  border-color: #b45309 !important;
+}
+
+body.theme-light .tm-readout-stat .stat-name {
+  color: #64748b !important;
+}
+
+body.theme-light .tm-readout-stat .stat-val {
+  color: #7e122a !important;
+}
+
+body.theme-light .canvas-3d-hint {
+  color: #64748b !important;
+}
+
+body.theme-light .inspect-panel {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 10px 30px rgba(126, 18, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .inspect-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .inspect-sign {
+  color: #b45309 !important;
+}
+
+body.theme-light .inspect-desc {
+  color: #334155 !important;
+}

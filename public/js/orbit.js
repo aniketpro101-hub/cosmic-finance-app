@@ -235,10 +235,20 @@ document.addEventListener('DOMContentLoaded', () => {
       desktopCanvas.height = height3D;
 
       const { cx, cy } = getSceneCenter();
+      const isLight = document.body.classList.contains('theme-light') || 
+                      document.documentElement.getAttribute('data-theme') === 'light' ||
+                      (typeof localStorage !== 'undefined' && localStorage.getItem('cosmic_site_theme') === 'light');
+
       cachedBgGrad = ctx3D.createRadialGradient(cx, cy, 30, cx, cy, Math.max(width3D, height3D) * 0.75);
-      cachedBgGrad.addColorStop(0, '#0c122c');
-      cachedBgGrad.addColorStop(0.4, '#060a1a');
-      cachedBgGrad.addColorStop(1, '#03050d');
+      if (isLight) {
+        cachedBgGrad.addColorStop(0, '#fdfbf7');
+        cachedBgGrad.addColorStop(0.5, '#f7f4ee');
+        cachedBgGrad.addColorStop(1, '#ede5d4');
+      } else {
+        cachedBgGrad.addColorStop(0, '#0c122c');
+        cachedBgGrad.addColorStop(0.4, '#060a1a');
+        cachedBgGrad.addColorStop(1, '#03050d');
+      }
 
       if (!userHasZoomed) {
         targetCamDist = getBaseCamDist();
@@ -248,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupDesktopDimensions();
     window.addEventListener('resize', setupDesktopDimensions, { passive: true });
+    window.addEventListener('cosmic-theme-changed', setupDesktopDimensions);
     window.addEventListener('orientationchange', () => {
       setTimeout(setupDesktopDimensions, 100);
     }, { passive: true });
@@ -463,14 +474,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render 3D Parallax Starfield
     if (!isLowPerformance) {
+      const isCurLight = document.body.classList.contains('theme-light');
       stars3D.forEach(star => {
         const p = project3D(star.x, star.y, star.z, cx, cy);
         if (p.visible) {
           const alpha = star.brightness * (0.6 + 0.4 * Math.sin(simTime * star.twinkleSpeed * 100));
           ctx3D.beginPath();
           ctx3D.arc(p.x, p.y, Math.max(0.6, star.size * p.scale), 0, Math.PI * 2);
-          ctx3D.fillStyle = star.hue;
-          ctx3D.globalAlpha = Math.min(1, Math.max(0, alpha));
+          ctx3D.fillStyle = isCurLight ? '#b45309' : star.hue;
+          ctx3D.globalAlpha = isCurLight ? Math.min(0.2, Math.max(0, alpha * 0.2)) : Math.min(1, Math.max(0, alpha));
           ctx3D.fill();
         }
       });
