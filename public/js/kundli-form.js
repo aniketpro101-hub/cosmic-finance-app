@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. CURRENT LOCATION Button & Universal City Autocomplete
   const pobLatInp = document.getElementById('pobLat');
   const pobLngInp = document.getElementById('pobLng');
-  const cityDropdown = document.getElementById('cityAutocompleteDropdown');
 
   if (btnCurrentLocation && pobInput) {
     btnCurrentLocation.addEventListener('click', () => {
@@ -149,58 +148,161 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Live Universal City Autocomplete Search
-  if (pobInput && cityDropdown) {
-    let debounceTimer = null;
-    pobInput.addEventListener('input', (e) => {
-      const val = e.target.value.trim();
-      clearTimeout(debounceTimer);
-      if (val.length < 2) {
-        cityDropdown.style.display = 'none';
-        cityDropdown.innerHTML = '';
-        return;
-      }
+  // Universal City Autocomplete Initializer (Supports all forms: Home & Kundli pages)
+  function initCityAutocomplete() {
+    const cityInputs = document.querySelectorAll('.pob-autocomplete-input, #pob, input[name="pob"]');
 
-      debounceTimer = setTimeout(async () => {
-        try {
-          const res = await fetch(`/api/geo/cities?q=${encodeURIComponent(val)}`);
-          const data = await res.json();
-          if (data.status === 'success' && Array.isArray(data.cities) && data.cities.length > 0) {
-            cityDropdown.innerHTML = data.cities.map(c => `
-              <li class="city-autocomplete-item" data-lat="${c.lat}" data-lng="${c.lng}" data-name="${c.name}">
-                <span class="city-pin">📍</span>
-                <span class="city-name-text">${c.name}</span>
-                <span class="city-coords">${c.lat.toFixed(2)}°, ${c.lng.toFixed(2)}°</span>
-              </li>
-            `).join('');
-            cityDropdown.style.display = 'block';
+    cityInputs.forEach(inputEl => {
+      const container = inputEl.closest('.pob-input-wrapper') || inputEl.closest('.input-icon-wrap') || inputEl.parentElement;
+      const form = inputEl.closest('form');
+      const dropdown = (container && container.querySelector('.city-autocomplete-dropdown')) ||
+                       (form && form.querySelector('.city-autocomplete-dropdown')) ||
+                       document.getElementById('cityAutocompleteDropdown');
 
-            // Wire up click on each suggestion
-            cityDropdown.querySelectorAll('.city-autocomplete-item').forEach(item => {
-              item.addEventListener('click', () => {
-                pobInput.value = item.getAttribute('data-name');
-                if (pobLatInp) pobLatInp.value = item.getAttribute('data-lat');
-                if (pobLngInp) pobLngInp.value = item.getAttribute('data-lng');
-                cityDropdown.style.display = 'none';
-                cityDropdown.innerHTML = '';
-              });
-            });
+      const latInp = (container && container.querySelector('input[name="lat"]')) ||
+                     (form && form.querySelector('input[name="lat"]')) ||
+                     document.getElementById('pobLat');
+
+      const lngInp = (container && container.querySelector('input[name="lng"]')) ||
+                     (form && form.querySelector('input[name="lng"]')) ||
+                     document.getElementById('pobLng');
+
+      if (!dropdown) return;
+
+      let debounceTimer = null;
+      let activeIndex = -1;
+      let currentResults = [];
+
+      function highlightItem(index) {
+        const items = dropdown.querySelectorAll('.city-autocomplete-item');
+        items.forEach((item, idx) => {
+          if (idx === index) {
+            item.classList.add('is-active');
+            item.setAttribute('aria-selected', 'true');
+            item.scrollIntoView({ block: 'nearest' });
           } else {
-            cityDropdown.style.display = 'none';
+            item.classList.remove('is-active');
+            item.removeAttribute('aria-selected');
           }
-        } catch (err) {
-          cityDropdown.style.display = 'none';
-        }
-      }, 200);
-    });
-
-    // Close dropdown on click outside
-    document.addEventListener('click', (e) => {
-      if (!pobInput.contains(e.target) && !cityDropdown.contains(e.target)) {
-        cityDropdown.style.display = 'none';
+        });
       }
+
+      function selectCity(cityObj) {
+        if (!cityObj) return;
+        inputEl.value = cityObj.name;
+        if (latInp) latInp.value = cityObj.lat;
+        if (lngInp) lngInp.value = cityObj.lng;
+
+        // Also update advanced coordinates drawer if available
+        const latDeg = document.getElementById('latDeg');
+        const latMin = document.getElementById('latMin');
+        const longDeg = document.getElementById('longDeg');
+        const longMin = document.getElementById('longMin');
+        if (latDeg) latDeg.value = Math.floor(Math.abs(cityObj.lat));
+        if (latMin) latMin.value = Math.round((Math.abs(cityObj.lat) % 1) * 60);
+        if (longDeg) longDeg.value = Math.floor(Math.abs(cityObj.lng));
+        if (longMin) longMin.value = Math.round((Math.abs(cityObj.lng) % 1) * 60);
+
+        dropdown.style.display = 'none';
+        dropdown.innerHTML = '';
+        currentResults = [];
+        activeIndex = -1;
+      }
+
+      // Input event listener: fetches live suggestions as user types
+      inputEl.addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        clearTimeout(debounceTimer);
+        activeIndex = -1;
+
+        // Reset stale coordinates so un-selected city edits trigger accurate geo resolution
+        if (latInp) latInp.value = '';
+        if (lngInp) lngInp.value = '';
+
+        if (val.length < 2) {
+          dropdown.style.display = 'none';
+          dropdown.innerHTML = '';
+          currentResults = [];
+          return;
+        }
+
+        debounceTimer = setTimeout(async () => {
+          try {
+            const res = await fetch(`/api/geo/cities?q=${encodeURIComponent(val)}`);
+            const data = await res.json();
+            if (data.status === 'success' && Array.isArray(data.cities) && data.cities.length > 0) {
+              currentResults = data.cities;
+              dropdown.innerHTML = data.cities.map((c, i) => {
+                const parts = c.name.split(',');
+                const mainName = parts[0].trim();
+                const restName = parts.slice(1).join(',').trim();
+                return `
+                  <li class="city-autocomplete-item" data-index="${i}" data-lat="${c.lat}" data-lng="${c.lng}" data-name="${c.name}" role="option">
+                    <span class="city-pin">📍</span>
+                    <span class="city-name-text"><strong>${mainName}</strong>${restName ? ', ' + restName : ''}</span>
+                    <span class="city-coords">${c.lat.toFixed(2)}°, ${c.lng.toFixed(2)}°</span>
+                  </li>
+                `;
+              }).join('');
+              dropdown.style.display = 'block';
+
+              // Click handler on suggestions
+              dropdown.querySelectorAll('.city-autocomplete-item').forEach(item => {
+                item.addEventListener('click', (ev) => {
+                  ev.preventDefault();
+                  ev.stopPropagation();
+                  const idx = parseInt(item.getAttribute('data-index'), 10);
+                  selectCity(currentResults[idx]);
+                });
+              });
+            } else {
+              dropdown.style.display = 'none';
+              currentResults = [];
+            }
+          } catch (err) {
+            dropdown.style.display = 'none';
+            currentResults = [];
+          }
+        }, 150);
+      });
+
+      // Keyboard navigation (ArrowDown, ArrowUp, Enter, Escape)
+      inputEl.addEventListener('keydown', (e) => {
+        if (dropdown.style.display === 'none' || currentResults.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          activeIndex = (activeIndex + 1) % currentResults.length;
+          highlightItem(activeIndex);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          activeIndex = (activeIndex - 1 + currentResults.length) % currentResults.length;
+          highlightItem(activeIndex);
+        } else if (e.key === 'Enter') {
+          if (activeIndex >= 0 && activeIndex < currentResults.length) {
+            e.preventDefault();
+            selectCity(currentResults[activeIndex]);
+          } else if (currentResults.length > 0) {
+            // Auto-select first suggestion if Enter pressed without highlighting
+            e.preventDefault();
+            selectCity(currentResults[0]);
+          }
+        } else if (e.key === 'Escape') {
+          dropdown.style.display = 'none';
+        }
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!inputEl.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.style.display = 'none';
+        }
+      });
     });
   }
+
+  // Initialize universal autocomplete on all forms
+  initCityAutocomplete();
 
   // Initialize all advanced settings drawers to strictly hidden by default everywhere
   document.querySelectorAll('.advanced-settings-drawer').forEach(drawer => {
@@ -291,9 +393,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const hrs = curHrs ? parseInt(curHrs.value, 10) : 12;
       const min = curMin ? parseInt(curMin.value, 10) : 0;
       const sec = curSec ? parseInt(curSec.value, 10) : 0;
-      const pob = curPob ? curPob.value.trim() : 'Mumbai, Maharashtra';
-      const lat = curPobLat && curPobLat.value ? parseFloat(curPobLat.value) : null;
-      const lng = curPobLng && curPobLng.value ? parseFloat(curPobLng.value) : null;
+      let pob = curPob ? curPob.value.trim() : 'Mumbai, Maharashtra';
+      let lat = curPobLat && curPobLat.value ? parseFloat(curPobLat.value) : null;
+      let lng = curPobLng && curPobLng.value ? parseFloat(curPobLng.value) : null;
+
+      // If lat or lng is missing, or if user typed a city name without clicking dropdown, auto-resolve immediately
+      if (!lat || !lng || isNaN(lat) || isNaN(lng)) {
+        try {
+          const geoRes = await fetch(`/api/geo/cities?q=${encodeURIComponent(pob)}`);
+          const geoData = await geoRes.json();
+          if (geoData.status === 'success' && geoData.cities && geoData.cities.length > 0) {
+            const topMatch = geoData.cities[0];
+            pob = topMatch.name;
+            lat = topMatch.lat;
+            lng = topMatch.lng;
+            if (curPob) curPob.value = topMatch.name;
+            if (curPobLat) curPobLat.value = topMatch.lat;
+            if (curPobLng) curPobLng.value = topMatch.lng;
+          }
+        } catch (e) {
+          // Graceful fallback handled by backend resolveCoordinates
+        }
+      }
 
       if (!fullName) {
         alert('Please enter your Full Name.');

@@ -515,24 +515,13 @@
               <div class="compact-field-row">
                 <div class="compact-field flex-grow">
                   <label for="pob">Place of Birth <span class="req">*</span></label>
-                  <div class="input-icon-wrap">
+                  <div class="input-icon-wrap pob-input-wrapper">
                     <span class="f-icon">📍</span>
-                    <input type="text" id="pob" name="pob" class="compact-input" list="indianCities" placeholder="City, State" value="Mumbai, Maharashtra" required>
+                    <input type="text" id="pob" name="pob" class="compact-input pob-autocomplete-input" autocomplete="off" placeholder="Type ANY city worldwide (e.g. Gaya, Jaipur, Dubai, Patna)" value="Mumbai, Maharashtra" required>
+                    <input type="hidden" id="pobLat" name="lat" value="19.0760">
+                    <input type="hidden" id="pobLng" name="lng" value="72.8777">
+                    <ul id="cityAutocompleteDropdown" class="city-autocomplete-dropdown" style="display:none;" role="listbox"></ul>
                   </div>
-                  <datalist id="indianCities">
-                    <option value="Mumbai, Maharashtra">
-                    <option value="Delhi, NCR">
-                    <option value="Bengaluru, Karnataka">
-                    <option value="Ahmedabad, Gujarat">
-                    <option value="Kolkata, West Bengal">
-                    <option value="Chennai, Tamil Nadu">
-                    <option value="Hyderabad, Telangana">
-                    <option value="Pune, Maharashtra">
-                    <option value="Surat, Gujarat">
-                    <option value="Jaipur, Rajasthan">
-                    <option value="Indore, Madhya Pradesh">
-                    <option value="Lucknow, Uttar Pradesh">
-                  </datalist>
                 </div>
 
                 <div class="compact-field">

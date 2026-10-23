@@ -146,6 +146,7 @@ function evaluateTradingKundli({
   const coords = resolveCoordinates(pob, lat, lng);
   const geoLat = coords.lat;
   const geoLng = coords.lng;
+  const resolvedPob = coords.name || pob;
 
   // Convert local birth time (IST default +05:30) to UTC for accurate ephemeris
   const tzOffset = 5.5;
@@ -378,7 +379,7 @@ function evaluateTradingKundli({
       name: fullName,
       dob: dateFormatted,
       tob: timeFormatted,
-      pob
+      pob: resolvedPob
     },
     lagnaSignIndex,
     lagnaDegrees,
@@ -392,7 +393,8 @@ function evaluateTradingKundli({
     gender,
     dob: dateFormatted,
     tob: timeFormatted,
-    pob,
+    pob: resolvedPob,
+    coordinates: { lat: geoLat, lng: geoLng },
     ayanamsa,
     chartStyle,
     horaryNumber: horaryNumber || null,

@@ -242,7 +242,7 @@ router.post('/kundli/calculate', formSubmissionLimiter, async (req, res) => {
       fullName,
       dob,
       tob || 'Approximate',
-      pob,
+      analysis.pob || pob,
       analysis.speculationYoga.badge,
       analysis.personality.title,
       analysis.favoredAsset,
