@@ -180,6 +180,19 @@ router.get('/patterns', (req, res) => {
   }
 });
 
+const { searchCitiesAsync, resolveCoordinates } = require('../services/cityService');
+
+// Universal Location / City Autocomplete Search
+router.get('/geo/cities', async (req, res) => {
+  const query = req.query.q || req.query.query || '';
+  try {
+    const results = await searchCitiesAsync(query, 8);
+    return res.json({ status: 'success', cities: results });
+  } catch (err) {
+    return res.json({ status: 'success', cities: [] });
+  }
+});
+
 const { evaluateTradingKundli, evaluateTradingKundliAsync } = require('../services/kundliEngine');
 
 // 2. Kundli Calculation & Comprehensive Analysis Engine
@@ -250,40 +263,42 @@ router.post('/kundli/calculate', formSubmissionLimiter, async (req, res) => {
   }
 });
 
-const { generateWealthDossierPdf } = require('../services/pdfGenerator');
+const { generateWealthDossierPdf, buildDossierHtml } = require('../services/pdfGenerator');
 
-// 2b. Executive Wealth Dossier PDF Compilation Endpoint
+// 2b. Executive Wealth Dossier PDF Compilation & High-Res Printable Fallback
 router.post('/kundli/pdf', async (req, res) => {
   const fs = require('fs');
-  try {
-    let analysis = req.body.analysis;
-    if (typeof analysis === 'string') {
-      try {
-        analysis = JSON.parse(analysis);
-      } catch (e) {
-        analysis = null;
-      }
+  let analysis = req.body.analysis;
+  if (typeof analysis === 'string') {
+    try {
+      analysis = JSON.parse(analysis);
+    } catch (e) {
+      analysis = null;
     }
-    if (!analysis) {
-      let { fullName, gender, dob, tob, pob, day, month, year, hrs, min, sec } = req.body;
-      if (!dob && day && month && year) {
-        dob = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      }
-      if (!tob && (hrs !== undefined || min !== undefined)) {
-        tob = `${String(hrs || 12).padStart(2, '0')}:${String(min || 0).padStart(2, '0')}:${String(sec || 0).padStart(2, '0')}`;
-      }
-      analysis = evaluateTradingKundli({
-        fullName: fullName || 'Valued Client',
-        gender: gender || 'Male',
-        dob: dob || '1990-01-15',
-        tob: tob || '12:00:00',
-        pob: pob || 'Mumbai, Maharashtra'
-      });
+  }
+  if (!analysis) {
+    let { fullName, gender, dob, tob, pob, day, month, year, hrs, min, sec, lat, lng } = req.body;
+    if (!dob && day && month && year) {
+      dob = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     }
+    if (!tob && (hrs !== undefined || min !== undefined)) {
+      tob = `${String(hrs || 12).padStart(2, '0')}:${String(min || 0).padStart(2, '0')}:${String(sec || 0).padStart(2, '0')}`;
+    }
+    analysis = evaluateTradingKundli({
+      fullName: fullName || 'Valued Client',
+      gender: gender || 'Male',
+      dob: dob || '1990-01-15',
+      tob: tob || '12:00:00',
+      pob: pob || 'Mumbai, Maharashtra',
+      lat, lng
+    });
+  }
 
+  const safeName = (analysis.fullName || 'Client').replace(/[^a-zA-Z0-9_-]/g, '_');
+  const filename = `Cosmic_Finance_Wealth_Dossier_${safeName}.pdf`;
+
+  try {
     const pdfPath = await generateWealthDossierPdf(analysis);
-    const safeName = (analysis.fullName || 'Client').replace(/[^a-zA-Z0-9_-]/g, '_');
-    const filename = `Cosmic_Finance_Wealth_Dossier_${safeName}.pdf`;
 
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
@@ -298,26 +313,51 @@ router.post('/kundli/pdf', async (req, res) => {
       try { fs.unlinkSync(pdfPath); } catch (e) {}
     });
   } catch (err) {
-    console.error('Error generating Wealth Dossier PDF:', err);
-    res.status(500).json({ error: 'Failed to generate Wealth Dossier PDF: ' + err.message });
+    console.warn('Native PDF compiler unavailable, serving standalone high-resolution printable Wealth Dossier:', err.message);
+    let html = buildDossierHtml(analysis);
+    html = html.replace('</body>', `
+      <div class="no-print" style="position:fixed; top:14px; right:18px; z-index:99999; display:flex; gap:10px; font-family:'Montserrat', sans-serif;">
+        <button onclick="window.print()" style="background:#7e122a; color:#fff; border:none; padding:10px 22px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.35); display:flex; align-items:center; gap:6px;">
+          <span>🖨️</span> Save as PDF / Print
+        </button>
+        <button onclick="window.close()" style="background:#334155; color:#fff; border:none; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">
+          ✕ Close
+        </button>
+      </div>
+      <style>
+        @media print {
+          .no-print { display: none !important; }
+        }
+      </style>
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          setTimeout(() => { window.print(); }, 700);
+        });
+      </script>
+      </body>
+    `);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.send(html);
   }
 });
 
 router.get('/kundli/pdf', async (req, res) => {
   const fs = require('fs');
-  try {
-    const { fullName, gender, dob, tob, pob } = req.query;
-    const analysis = evaluateTradingKundli({
-      fullName: fullName || 'Valued Client',
-      gender: gender || 'Male',
-      dob: dob || '1990-01-15',
-      tob: tob || '12:00:00',
-      pob: pob || 'Mumbai, Maharashtra'
-    });
+  const { fullName, gender, dob, tob, pob, lat, lng } = req.query;
+  const analysis = evaluateTradingKundli({
+    fullName: fullName || 'Valued Client',
+    gender: gender || 'Male',
+    dob: dob || '1990-01-15',
+    tob: tob || '12:00:00',
+    pob: pob || 'Mumbai, Maharashtra',
+    lat, lng
+  });
 
+  const safeName = (analysis.fullName || 'Client').replace(/[^a-zA-Z0-9_-]/g, '_');
+  const filename = `Cosmic_Finance_Wealth_Dossier_${safeName}.pdf`;
+
+  try {
     const pdfPath = await generateWealthDossierPdf(analysis);
-    const safeName = (analysis.fullName || 'Client').replace(/[^a-zA-Z0-9_-]/g, '_');
-    const filename = `Cosmic_Finance_Wealth_Dossier_${safeName}.pdf`;
 
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
@@ -331,7 +371,31 @@ router.get('/kundli/pdf', async (req, res) => {
       try { fs.unlinkSync(pdfPath); } catch (e) {}
     });
   } catch (err) {
-    res.status(500).json({ error: 'Failed to generate Wealth Dossier PDF.' });
+    console.warn('Native PDF compiler unavailable, serving standalone high-resolution printable Wealth Dossier:', err.message);
+    let html = buildDossierHtml(analysis);
+    html = html.replace('</body>', `
+      <div class="no-print" style="position:fixed; top:14px; right:18px; z-index:99999; display:flex; gap:10px; font-family:'Montserrat', sans-serif;">
+        <button onclick="window.print()" style="background:#7e122a; color:#fff; border:none; padding:10px 22px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.35); display:flex; align-items:center; gap:6px;">
+          <span>🖨️</span> Save as PDF / Print
+        </button>
+        <button onclick="window.close()" style="background:#334155; color:#fff; border:none; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">
+          ✕ Close
+        </button>
+      </div>
+      <style>
+        @media print {
+          .no-print { display: none !important; }
+        }
+      </style>
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          setTimeout(() => { window.print(); }, 700);
+        });
+      </script>
+      </body>
+    `);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    return res.send(html);
   }
 });
 

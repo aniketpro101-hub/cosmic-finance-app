@@ -143,12 +143,9 @@ function evaluateTradingKundli({
   }
 
   // Resolve coordinates for topocentric calculation
-  let geoLat = lat, geoLng = lng;
-  if (!geoLat || !geoLng) {
-    const coords = resolveCoordinates(pob);
-    geoLat = coords.lat;
-    geoLng = coords.lng;
-  }
+  const coords = resolveCoordinates(pob, lat, lng);
+  const geoLat = coords.lat;
+  const geoLng = coords.lng;
 
   // Convert local birth time (IST default +05:30) to UTC for accurate ephemeris
   const tzOffset = 5.5;

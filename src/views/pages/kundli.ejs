@@ -85,23 +85,12 @@
               </button>
             </div>
           </div>
-          <input type="text" id="pob" name="pob" class="form-control" list="indianCities" placeholder="e.g. Mumbai, Maharashtra" value="Mumbai, Maharashtra" required>
-          <datalist id="indianCities">
-            <option value="Mumbai, Maharashtra">
-            <option value="Delhi, NCR">
-            <option value="Bengaluru, Karnataka">
-            <option value="Ahmedabad, Gujarat">
-            <option value="Kolkata, West Bengal">
-            <option value="Chennai, Tamil Nadu">
-            <option value="Hyderabad, Telangana">
-            <option value="Pune, Maharashtra">
-            <option value="Surat, Gujarat">
-            <option value="Jaipur, Rajasthan">
-            <option value="Indore, Madhya Pradesh">
-            <option value="Lucknow, Uttar Pradesh">
-            <option value="Nagpur, Maharashtra">
-            <option value="Chandigarh, Punjab">
-          </datalist>
+          <div class="pob-input-wrapper">
+            <input type="text" id="pob" name="pob" class="form-control" autocomplete="off" placeholder="Type ANY city worldwide (e.g. Jaipur, Dubai, London, Patna)" value="Mumbai, Maharashtra" required>
+            <input type="hidden" id="pobLat" name="lat" value="19.0760">
+            <input type="hidden" id="pobLng" name="lng" value="72.8777">
+            <ul id="cityAutocompleteDropdown" class="city-autocomplete-dropdown" style="display:none;" role="listbox"></ul>
+          </div>
           <span class="field-error" id="pobError"></span>
         </div>
 

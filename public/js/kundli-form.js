@@ -109,7 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. CURRENT LOCATION Button
+  // 3. CURRENT LOCATION Button & Universal City Autocomplete
+  const pobLatInp = document.getElementById('pobLat');
+  const pobLngInp = document.getElementById('pobLng');
+  const cityDropdown = document.getElementById('cityAutocompleteDropdown');
+
   if (btnCurrentLocation && pobInput) {
     btnCurrentLocation.addEventListener('click', () => {
       if (navigator.geolocation) {
@@ -119,6 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const lat = pos.coords.latitude;
             const lng = pos.coords.longitude;
             pobInput.value = `Current Location (${lat.toFixed(2)}°N, ${lng.toFixed(2)}°E)`;
+            if (pobLatInp) pobLatInp.value = lat;
+            if (pobLngInp) pobLngInp.value = lng;
             const latDeg = document.getElementById('latDeg');
             const latMin = document.getElementById('latMin');
             const longDeg = document.getElementById('longDeg');
@@ -131,12 +137,67 @@ document.addEventListener('DOMContentLoaded', () => {
           },
           () => {
             pobInput.value = 'Mumbai, Maharashtra';
+            if (pobLatInp) pobLatInp.value = '19.0760';
+            if (pobLngInp) pobLngInp.value = '72.8777';
             btnCurrentLocation.innerHTML = '<span>📍 Mumbai (Default)</span>';
           },
           { timeout: 5000 }
         );
       } else {
         pobInput.value = 'Mumbai, Maharashtra';
+      }
+    });
+  }
+
+  // Live Universal City Autocomplete Search
+  if (pobInput && cityDropdown) {
+    let debounceTimer = null;
+    pobInput.addEventListener('input', (e) => {
+      const val = e.target.value.trim();
+      clearTimeout(debounceTimer);
+      if (val.length < 2) {
+        cityDropdown.style.display = 'none';
+        cityDropdown.innerHTML = '';
+        return;
+      }
+
+      debounceTimer = setTimeout(async () => {
+        try {
+          const res = await fetch(`/api/geo/cities?q=${encodeURIComponent(val)}`);
+          const data = await res.json();
+          if (data.status === 'success' && Array.isArray(data.cities) && data.cities.length > 0) {
+            cityDropdown.innerHTML = data.cities.map(c => `
+              <li class="city-autocomplete-item" data-lat="${c.lat}" data-lng="${c.lng}" data-name="${c.name}">
+                <span class="city-pin">📍</span>
+                <span class="city-name-text">${c.name}</span>
+                <span class="city-coords">${c.lat.toFixed(2)}°, ${c.lng.toFixed(2)}°</span>
+              </li>
+            `).join('');
+            cityDropdown.style.display = 'block';
+
+            // Wire up click on each suggestion
+            cityDropdown.querySelectorAll('.city-autocomplete-item').forEach(item => {
+              item.addEventListener('click', () => {
+                pobInput.value = item.getAttribute('data-name');
+                if (pobLatInp) pobLatInp.value = item.getAttribute('data-lat');
+                if (pobLngInp) pobLngInp.value = item.getAttribute('data-lng');
+                cityDropdown.style.display = 'none';
+                cityDropdown.innerHTML = '';
+              });
+            });
+          } else {
+            cityDropdown.style.display = 'none';
+          }
+        } catch (err) {
+          cityDropdown.style.display = 'none';
+        }
+      }, 200);
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', (e) => {
+      if (!pobInput.contains(e.target) && !cityDropdown.contains(e.target)) {
+        cityDropdown.style.display = 'none';
       }
     });
   }
@@ -219,6 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const curMin = curForm.querySelector('#birthMin') || birthMin;
       const curSec = curForm.querySelector('#birthSec') || birthSec;
       const curPob = curForm.querySelector('#pob') || pobInput;
+      const curPobLat = curForm.querySelector('#pobLat') || document.getElementById('pobLat');
+      const curPobLng = curForm.querySelector('#pobLng') || document.getElementById('pobLng');
 
       const fullName = curNameInp ? curNameInp.value.trim() : 'Trader';
       const gender = curGenderInp ? curGenderInp.value : 'Male';
@@ -229,6 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const min = curMin ? parseInt(curMin.value, 10) : 0;
       const sec = curSec ? parseInt(curSec.value, 10) : 0;
       const pob = curPob ? curPob.value.trim() : 'Mumbai, Maharashtra';
+      const lat = curPobLat && curPobLat.value ? parseFloat(curPobLat.value) : null;
+      const lng = curPobLng && curPobLng.value ? parseFloat(curPobLng.value) : null;
 
       if (!fullName) {
         alert('Please enter your Full Name.');
@@ -255,6 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
           day, month, year,
           hrs, min, sec,
           pob,
+          lat,
+          lng,
           ayanamsa,
           chartStyle,
           horaryNumber
@@ -441,6 +508,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Helper to open the dedicated 5-page Institutional Wealth Dossier in a clean window
+  function openWealthDossierWindow(analysisData, autoPrint = false) {
+    if (!analysisData) return;
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `/kundli/dossier${autoPrint ? '?print=1' : ''}`;
+    form.target = '_blank';
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'analysis';
+    input.value = JSON.stringify(analysisData);
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    setTimeout(() => {
+      try { document.body.removeChild(form); } catch (e) {}
+    }, 1500);
+  }
+
   // 9b. Setup Executive Action Toolbar (Download PDF, Print, Unlock Financial Future)
   function setupActionToolbar(analysis) {
     if (!analysis) return;
@@ -449,8 +535,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDownload = document.getElementById('btnDownloadDossierPdf');
     const noticeEl = document.getElementById('pdfDownloadNotice');
     const noticeText = document.getElementById('pdfNoticeText');
-    const exportForm = document.getElementById('pdfExportForm');
-    const exportInput = document.getElementById('pdfAnalysisInput');
 
     if (btnDownload) {
       btnDownload.onclick = () => {
@@ -458,45 +542,36 @@ document.addEventListener('DOMContentLoaded', () => {
         btnDownload.innerHTML = `
           <span class="action-icon">⏳</span>
           <div class="action-texts">
-            <span class="action-primary">Compiling Executive PDF...</span>
-            <span class="action-secondary">Please wait a few moments</span>
+            <span class="action-primary">Opening Wealth Dossier...</span>
+            <span class="action-secondary">Ready for instant PDF Save</span>
           </div>
         `;
-        btnDownload.disabled = true;
 
         if (noticeEl) {
           noticeEl.style.display = 'flex';
           if (noticeText) {
-            noticeText.innerHTML = '✨ <strong>Generating Your 5-Page Wealth Dossier PDF...</strong> Your institutional report is compiling with high-resolution Parashari vector geometry. Your download will start automatically.';
+            noticeText.innerHTML = '✨ <strong>Opening Your 5-Page Wealth Dossier...</strong> High-resolution Parashari vector geometry loaded. In the print dialog, select <strong>"Save as PDF"</strong> to save your report.';
           }
         }
 
-        // Native hidden form submission (handles streaming download natively in all desktop & mobile browsers)
-        if (exportForm && exportInput) {
-          exportInput.value = JSON.stringify(analysis);
-          exportForm.submit();
-        } else {
-          // Direct fallback URL
-          const safeName = encodeURIComponent(analysis.fullName || 'Client');
-          window.location.href = `/api/kundli/pdf?fullName=${safeName}&dob=${analysis.dob || ''}&tob=${analysis.tob || ''}&pob=${encodeURIComponent(analysis.pob || '')}`;
-        }
+        // Open standalone 5-page dossier formatted for immediate PDF save/print
+        openWealthDossierWindow(analysis, true);
 
         // Restore button state after short delay
         setTimeout(() => {
           btnDownload.innerHTML = origContent;
-          btnDownload.disabled = false;
           if (noticeText) {
-            noticeText.innerHTML = '✅ <strong>Download Triggered!</strong> Check your browser downloads folder. You can also re-download anytime or use the Print button.';
+            noticeText.innerHTML = '✅ <strong>Dossier Loaded in New Tab!</strong> You can save as PDF or print anytime.';
           }
-        }, 5000);
+        }, 3000);
       };
     }
 
-    // Print Button
+    // Print Button (Prints ONLY the 5-page dossier report, completely free of website chrome)
     const btnPrint = document.getElementById('btnPrintDossier');
     if (btnPrint) {
       btnPrint.onclick = () => {
-        window.print();
+        openWealthDossierWindow(analysis, true);
       };
     }
 

@@ -11603,6 +11603,160 @@ div#advancedSettingsDrawer.hidden {
   box-shadow: 0 0 16px rgba(245, 190, 72, 0.45);
 }
 
+/* =========================================================================
+   35. UNIVERSAL CITY AUTOCOMPLETE & ISOLATED REPORT PRINT STYLES
+   ========================================================================= */
+
+.pob-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.city-autocomplete-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 9999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+}
+
+.city-autocomplete-item {
+  padding: 9px 14px;
+  font-size: 13.5px;
+  color: #1e293b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.15s ease;
+}
+
+.city-autocomplete-item:last-child {
+  border-bottom: none;
+}
+
+.city-autocomplete-item:hover,
+.city-autocomplete-item.is-active {
+  background: #f8fafc;
+  color: #7e122a;
+}
+
+.city-autocomplete-item .city-pin {
+  color: #b45309;
+  font-size: 13px;
+}
+
+.city-autocomplete-item .city-coords {
+  margin-left: auto;
+  font-size: 11px;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+/* =========================================================================
+   36. ISOLATED REPORT PRINTING (@media print)
+   Guarantees that clicking Print prints ONLY the generated Kundli report,
+   NOT the website header, navigation, form, buttons, ads, or footer.
+   ========================================================================= */
+
+@media print {
+  /* Hide all website chrome, navigation, headers, forms, buttons */
+  header,
+  nav,
+  footer,
+  .site-header,
+  .site-footer,
+  .navbar,
+  .nav-bar,
+  .cosmic-nav,
+  .page-header,
+  .disclaimer-footer,
+  .floating-whatsapp,
+  .whatsapp-float,
+  .form-card,
+  #kundliCalculatorForm,
+  .advanced-settings-bar,
+  .advanced-settings-drawer,
+  .kundli-action-toolbar,
+  .pdf-download-notice,
+  .quick-location-actions,
+  .btn,
+  button,
+  .pulsing-star,
+  .ambient-orb,
+  #particles-js,
+  .site-disclaimer-strip,
+  .cosmic-badge {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Force clean white background and high-contrast dark text */
+  html,
+  body,
+  .page-container,
+  .kundli-royal-light-page {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    min-height: auto !important;
+    box-shadow: none !important;
+  }
+
+  /* Display ONLY the result card */
+  #resultCard,
+  #kundliResultsSection {
+    display: block !important;
+    background: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Clean up cards inside results */
+  .kundli-chart-card,
+  .financial-houses-grid,
+  .dasha-timeline-card,
+  .result-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Vector SVG print optimization */
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+}
+
+
 
 
 

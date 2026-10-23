@@ -122,6 +122,64 @@ router.get(['/trading-kundli', '/kundli'], (req, res) => {
   });
 });
 
+// 4a. Standalone Institutional Wealth Dossier (5-Page Printable / PDF Report View)
+const { evaluateTradingKundli } = require('../services/kundliEngine');
+const { buildDossierHtml } = require('../services/pdfGenerator');
+
+router.all(['/kundli/dossier', '/wealth-dossier', '/kundli-report'], (req, res) => {
+  let analysis = req.body?.analysis || req.query?.analysis;
+  if (typeof analysis === 'string') {
+    try {
+      analysis = JSON.parse(analysis);
+    } catch (e) {
+      analysis = null;
+    }
+  }
+
+  if (!analysis) {
+    const params = req.method === 'POST' ? req.body : req.query;
+    const { fullName, gender, dob, tob, pob, day, month, year, hrs, min, sec, lat, lng } = params;
+    analysis = evaluateTradingKundli({
+      fullName: fullName || 'Valued Client',
+      gender: gender || 'Male',
+      dob: dob || (year && month && day ? `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}` : '1990-01-15'),
+      tob: tob || (hrs !== undefined ? `${String(hrs || 12).padStart(2, '0')}:${String(min || 0).padStart(2, '0')}:${String(sec || 0).padStart(2, '0')}` : '12:00:00'),
+      pob: pob || 'Mumbai, Maharashtra',
+      lat, lng
+    });
+  }
+
+  let html = buildDossierHtml(analysis);
+  const shouldAutoPrint = req.query?.print === '1' || req.body?.print === '1';
+
+  html = html.replace('</body>', `
+    <div class="no-print" style="position:fixed; top:14px; right:18px; z-index:99999; display:flex; gap:10px; font-family:'Montserrat', sans-serif;">
+      <button onclick="window.print()" style="background:#7e122a; color:#fff; border:none; padding:10px 22px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.35); display:flex; align-items:center; gap:6px;">
+        <span>🖨️</span> Save as PDF / Print
+      </button>
+      <button onclick="window.close()" style="background:#334155; color:#fff; border:none; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">
+        ✕ Close
+      </button>
+    </div>
+    <style>
+      @media print {
+        .no-print { display: none !important; }
+      }
+    </style>
+    ${shouldAutoPrint ? `
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => { window.print(); }, 700);
+      });
+    </script>
+    ` : ''}
+    </body>
+  `);
+
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  return res.send(html);
+});
+
 // 4a. Client Kundli Forensic Audit & Architectural Comparison (Standalone Presentation Document)
 router.get(['/kundli-comparison', '/kundli-audit', '/chart-audit'], (req, res) => {
   res.render('pages/kundli-comparison', {

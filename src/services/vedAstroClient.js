@@ -33,18 +33,10 @@ const KNOWN_LOCATIONS = {
   'chandigarh': { lat: 30.7333, lng: 76.7794, name: 'Chandigarh' }
 };
 
-function resolveCoordinates(pobString) {
-  if (!pobString || typeof pobString !== 'string') {
-    return KNOWN_LOCATIONS.mumbai;
-  }
-  const clean = pobString.toLowerCase().trim();
-  for (const [key, coords] of Object.entries(KNOWN_LOCATIONS)) {
-    if (clean.includes(key)) {
-      return coords;
-    }
-  }
-  // Default to Mumbai (India's Financial Capital / Dalal Street)
-  return KNOWN_LOCATIONS.mumbai;
+const { resolveCoordinates: resolveCityCoordinates } = require('./cityService');
+
+function resolveCoordinates(pobString, lat = null, lng = null) {
+  return resolveCityCoordinates(pobString, lat, lng);
 }
 
 // In-memory cache to guarantee zero-lag UX
