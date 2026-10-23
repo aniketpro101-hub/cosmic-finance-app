@@ -334,6 +334,7 @@ router.get(['/chronicles/:slug', '/market-chronicles/:slug', '/rise-and-fall/:sl
 
   if (!chronicle) {
     return res.status(404).render('layouts/main', {
+      ...res.locals,
       pageId: '404',
       title: 'Case Study Not Found | Cosmic Finance',
       currentPath: req.path,
