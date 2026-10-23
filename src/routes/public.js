@@ -79,7 +79,7 @@ router.get('/', (req, res) => {
       '/js/market-data.js',
       '/js/panchang.js',
       '/js/gann-chakra.js',
-      '/js/kundli-form.js'
+      '/js/kundli-form.js?v=4.3'
     ]
   });
 });
@@ -118,7 +118,7 @@ router.get(['/trading-kundli', '/kundli'], (req, res) => {
     pageId: 'kundli',
     title: CONSTANTS.SITEMAP.KUNDLI.title,
     description: 'Calculate your Vedic trading propensity, speculation yoga, and planetary archetypes.',
-    extraScripts: ['/js/kundli-form.js']
+    extraScripts: ['/js/kundli-form.js?v=4.3']
   });
 });
 
@@ -153,17 +153,115 @@ router.all(['/kundli/dossier', '/wealth-dossier', '/kundli-report'], (req, res) 
   const shouldAutoPrint = req.query?.print === '1' || req.body?.print === '1';
 
   html = html.replace('</body>', `
-    <div class="no-print" style="position:fixed; top:14px; right:18px; z-index:99999; display:flex; gap:10px; font-family:'Montserrat', sans-serif;">
-      <button onclick="window.print()" style="background:#7e122a; color:#fff; border:none; padding:10px 22px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.35); display:flex; align-items:center; gap:6px;">
-        <span>🖨️</span> Save as PDF / Print
-      </button>
-      <button onclick="window.close()" style="background:#334155; color:#fff; border:none; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">
-        ✕ Close
-      </button>
+    <div class="dossier-screen-header no-print">
+      <div class="dossier-header-brand">
+        <span class="dossier-crest">✦</span>
+        <div class="dossier-brand-info">
+          <strong>COSMIC FINANCE &bull; INSTITUTIONAL WEALTH DOSSIER</strong>
+          <span class="dossier-sub-info">5-Page Authentic Vedic Report &bull; ${analysis.fullName || 'Valued Client'}</span>
+        </div>
+      </div>
+      <div class="dossier-header-actions">
+        <button type="button" class="btn-dossier-download-main" onclick="window.print()">
+          <span>📥</span> Download PDF / Save Report
+        </button>
+        <button type="button" class="btn-dossier-close-main" onclick="window.close()">
+          ✕ Close
+        </button>
+      </div>
     </div>
     <style>
+      .dossier-screen-header {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        background: #7e122a;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 24px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      .dossier-header-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .dossier-crest {
+        font-size: 1.4rem;
+        color: #f5be48;
+        line-height: 1;
+      }
+      .dossier-brand-info strong {
+        display: block;
+        font-size: 0.95rem;
+        letter-spacing: 0.05em;
+        color: #ffffff;
+        font-family: 'Cinzel', serif;
+      }
+      .dossier-sub-info {
+        display: block;
+        font-size: 0.74rem;
+        color: #fde68a;
+      }
+      .dossier-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .btn-dossier-download-main {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        color: #ffffff;
+        border: 1px solid #fde68a;
+        padding: 9px 20px;
+        border-radius: 8px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.15s ease;
+      }
+      .btn-dossier-download-main:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+      }
+      .btn-dossier-close-main {
+        background: #334155;
+        color: #ffffff;
+        border: none;
+        padding: 9px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      @media (max-width: 640px) {
+        .dossier-screen-header {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 10px;
+          padding: 10px 14px;
+        }
+        .dossier-header-actions {
+          display: flex;
+          gap: 8px;
+        }
+        .btn-dossier-download-main {
+          flex: 1;
+          justify-content: center;
+          font-size: 0.82rem;
+          padding: 9px 12px;
+        }
+      }
       @media print {
-        .no-print { display: none !important; }
+        .no-print, .dossier-screen-header { display: none !important; }
       }
     </style>
     ${shouldAutoPrint ? `

@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const pobInput = document.getElementById('pob');
 
   const btnCurrentLocation = document.getElementById('btnCurrentLocation');
-  const btnSetNow = document.getElementById('btnSetNow');
   const btnToggleSettings = document.getElementById('btnToggleSettings');
   const advancedSettingsDrawer = document.getElementById('advancedSettingsDrawer');
   const settingsIcon = document.getElementById('settingsIcon');
@@ -96,18 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 2. NOW Button (Pre-fills live system date and time)
-  if (btnSetNow) {
-    btnSetNow.addEventListener('click', () => {
-      const now = new Date();
-      if (birthDay) birthDay.value = now.getDate();
-      if (birthMonth) birthMonth.value = now.getMonth() + 1;
-      if (birthYear) birthYear.value = now.getFullYear();
-      if (birthHrs) birthHrs.value = now.getHours();
-      if (birthMin) birthMin.value = now.getMinutes();
-      if (birthSec) birthSec.value = now.getSeconds();
-    });
-  }
 
   // 3. CURRENT LOCATION Button & Universal City Autocomplete
   const pobLatInp = document.getElementById('pobLat');
@@ -537,6 +524,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate South Indian Grid if active
     renderSouthIndianChart(analysis);
 
+    // Synchronize initial chart display with user's chart preference
+    if (analysis.chartStyle === 'South Indian') {
+      if (btnChartStyleSouth) btnChartStyleSouth.classList.add('active');
+      if (btnChartStyleNorth) btnChartStyleNorth.classList.remove('active');
+      if (chartViewNorth) chartViewNorth.classList.add('hidden');
+      if (chartViewSouth) chartViewSouth.classList.remove('hidden');
+    } else {
+      if (btnChartStyleNorth) btnChartStyleNorth.classList.add('active');
+      if (btnChartStyleSouth) btnChartStyleSouth.classList.remove('active');
+      if (chartViewNorth) chartViewNorth.classList.remove('hidden');
+      if (chartViewSouth) chartViewSouth.classList.add('hidden');
+    }
+
     // Populate Planetary Positions Table
     renderPlanetaryTable(analysis.planets);
 
@@ -671,18 +671,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (noticeEl) {
           noticeEl.style.display = 'flex';
           if (noticeText) {
-            noticeText.innerHTML = '✨ <strong>Opening Your 5-Page Wealth Dossier...</strong> High-resolution Parashari vector geometry loaded. In the print dialog, select <strong>"Save as PDF"</strong> to save your report.';
+            noticeText.innerHTML = '✨ <strong>Opening Your 5-Page Wealth Dossier...</strong> High-resolution Parashari vector geometry loaded. Click <strong>"Download PDF / Save Report"</strong> on the report toolbar to save as PDF.';
           }
         }
 
-        // Open standalone 5-page dossier formatted for immediate PDF save/print
-        openWealthDossierWindow(analysis, true);
+        // Open standalone 5-page dossier showing the full report with prominent top download bar
+        openWealthDossierWindow(analysis, false);
 
         // Restore button state after short delay
         setTimeout(() => {
           btnDownload.innerHTML = origContent;
           if (noticeText) {
-            noticeText.innerHTML = '✅ <strong>Dossier Loaded in New Tab!</strong> You can save as PDF or print anytime.';
+            noticeText.innerHTML = '✅ <strong>Dossier Loaded in New Tab!</strong> Use the top bar button to Download PDF or print anytime.';
           }
         }, 3000);
       };
@@ -703,45 +703,83 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 10. South Indian Fixed Zodiac Grid Plotter
+  // 10. South Indian Fixed Zodiac Grid Plotter (Royal Light Styling & Responsive Layout)
   function renderSouthIndianChart(analysis) {
     if (!southIndianGrid || !analysis || !analysis.planets) return;
 
-    // South Indian Chart has fixed zodiac signs:
-    // Row 1: Pisces, Aries, Taurus, Gemini
-    // Row 2: Aquarius, (Center), (Center), Cancer
-    // Row 3: Capricorn, (Center), (Center), Leo
-    // Row 4: Sagittarius, Scorpio, Libra, Virgo
-    const southSignOrder = [
-      11, 0, 1, 2,
-      10, null, null, 3,
-      9, null, null, 4,
-      8, 7, 6, 5
+    // Fixed South Indian sign coordinates:
+    // Sign index: 0=Aries/Mesha, 1=Taurus/Vrishabha, ... 11=Pisces/Meena
+    const southSigns = [
+      { id: 11, sa: 'Meena', en: 'Pisces', col: 1, row: 1 },
+      { id: 0,  sa: 'Mesha', en: 'Aries', col: 2, row: 1 },
+      { id: 1,  sa: 'Vrishabha', en: 'Taurus', col: 3, row: 1 },
+      { id: 2,  sa: 'Mithuna', en: 'Gemini', col: 4, row: 1 },
+      { id: 3,  sa: 'Karka', en: 'Cancer', col: 4, row: 2 },
+      { id: 4,  sa: 'Simha', en: 'Leo', col: 4, row: 3 },
+      { id: 5,  sa: 'Kanya', en: 'Virgo', col: 4, row: 4 },
+      { id: 6,  sa: 'Tula', en: 'Libra', col: 3, row: 4 },
+      { id: 7,  sa: 'Vrischika', en: 'Scorpio', col: 2, row: 4 },
+      { id: 8,  sa: 'Dhanu', en: 'Sagittarius', col: 1, row: 4 },
+      { id: 9,  sa: 'Makara', en: 'Capricorn', col: 1, row: 3 },
+      { id: 10, sa: 'Kumbha', en: 'Aquarius', col: 1, row: 2 }
     ];
 
-    const signNames = ['Mesha (Aries)', 'Vrishabha', 'Mithuna', 'Karka', 'Simha', 'Kanya', 'Tula', 'Vrischika', 'Dhanu', 'Makara', 'Kumbha', 'Meena'];
+    function getGrahaClass(name) {
+      const n = (name || '').toLowerCase();
+      if (n.includes('sun')) return 'graha-sun';
+      if (n.includes('moon')) return 'graha-moon';
+      if (n.includes('mars')) return 'graha-mars';
+      if (n.includes('mercury')) return 'graha-mercury';
+      if (n.includes('jupiter')) return 'graha-jupiter';
+      if (n.includes('venus')) return 'graha-venus';
+      if (n.includes('saturn')) return 'graha-saturn';
+      if (n.includes('rahu')) return 'graha-rahu';
+      if (n.includes('ketu')) return 'graha-ketu';
+      return 'graha-default';
+    }
 
-    southIndianGrid.innerHTML = southSignOrder.map(sIdx => {
-      if (sIdx === null) {
-        return `<div class="si-box center-void"></div>`;
-      }
+    const cellsHtml = southSigns.map(sign => {
+      const isLagna = (sign.id === analysis.lagna.signIndex);
+      const occupants = analysis.planets.filter(p => p.rashiIndex === sign.id);
 
-      const isLagna = sIdx === analysis.lagna.signIndex;
-      const occupants = analysis.planets.filter(p => p.rashiIndex === sIdx);
-      const occupantStr = occupants.map(p => `${p.glyph} ${p.name.slice(0, 2)}${p.isRetrograde ? '℞' : ''}`).join(', ');
+      const occupantChips = occupants.map(p => {
+        const cls = getGrahaClass(p.name);
+        const deg = Math.floor(p.degrees % 30);
+        return `
+          <span class="si-graha-chip ${cls}" title="${escapeHtml(p.name)}: ${p.degreesDisplay}">
+            <span class="g-glyph">${p.glyph}</span>
+            <span class="g-name">${escapeHtml(p.name.slice(0, 2))}</span>
+            <span class="g-deg">${deg}°</span>
+            ${p.isRetrograde ? '<span class="g-rx">℞</span>' : ''}
+          </span>
+        `;
+      }).join('');
 
       return `
-        <div class="si-box ${isLagna ? 'si-lagna-box' : ''}">
+        <div class="si-box ${isLagna ? 'si-lagna-box' : ''}" style="grid-column: ${sign.col}; grid-row: ${sign.row};" data-sign="${sign.id}">
           <div class="si-sign-header">
-            <span>${signNames[sIdx]}</span>
+            <span class="si-sign-name">${sign.sa} <small>(${sign.en})</small></span>
             ${isLagna ? '<span class="si-asc-tag">ASC</span>' : ''}
           </div>
           <div class="si-planets-content">
-            ${occupantStr ? `<span class="si-planets">${occupantStr}</span>` : '<span class="si-empty">—</span>'}
+            ${occupantChips || '<span class="si-empty">—</span>'}
           </div>
         </div>
       `;
     }).join('');
+
+    const centerMandalaHtml = `
+      <div class="si-center-mandala" style="grid-column: 2 / 4; grid-row: 2 / 4;">
+        <div class="mandala-crest">✦</div>
+        <div class="mandala-title">COSMIC FINANCE</div>
+        <div class="mandala-sub">South Indian Chakra</div>
+        <div class="mandala-client">${escapeHtml(analysis.fullName || 'Trader')}</div>
+        <div class="mandala-meta">Lagna: <strong>${escapeHtml(analysis.lagna.signName.split(' ')[0])}</strong></div>
+        <div class="mandala-ayanamsha">${escapeHtml(analysis.ayanamsa)}</div>
+      </div>
+    `;
+
+    southIndianGrid.innerHTML = cellsHtml + centerMandalaHtml;
   }
 
   // 11. Planetary Positions Matrix Table Plotter

@@ -4662,107 +4662,293 @@
   aspect-ratio: 1 / 1;
 }
 
-/* South Indian Square Grid */
-.south-indian-grid {
+/* =========================================================================
+   SOUTH INDIAN FIXED ZODIAC MATRIX (Royal Light Astrological Styling)
+   ========================================================================= */
+.south-indian-grid,
+.south-indian-grid-chart {
   width: 100%;
   max-width: 520px;
   aspect-ratio: 1 / 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  border: 2px solid var(--gold-500);
-  border-radius: var(--radius-md);
-  background: #050711;
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+  gap: 2px;
+  background: #d4af37 !important; /* Gold inner dividing lines */
+  border: 3px solid #7e122a !important; /* Royal Burgundy Outer Frame */
+  border-radius: 12px;
+  padding: 3px;
+  box-shadow: 0 6px 24px rgba(126, 18, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-.south-cell {
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  padding: 6px;
+.si-box {
+  background: #fffdf9 !important; /* Warm Royal Off-White */
+  padding: 6px 6px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 4px;
+  overflow: hidden;
+  border-radius: 4px;
   position: relative;
-  background: rgba(15, 23, 42, 0.6);
-  min-height: 80px;
+  box-sizing: border-box;
+  min-height: 0;
 }
 
-.south-cell.lagna-cell {
-  background: rgba(212, 175, 55, 0.15);
-  border: 1.5px solid var(--gold-400);
+.si-box.si-lagna-box {
+  background: #fefce8 !important; /* Golden Ascendant Glow */
+  border: 1.5px solid #d97706;
 }
 
-.south-cell-header {
+.si-sign-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.68rem;
-  color: #94a3b8;
-  font-family: var(--font-mono);
+  gap: 3px;
+  padding-bottom: 3px;
+  border-bottom: 1px dashed #e2e8f0;
 }
 
-.south-sign-name {
-  color: var(--gold-400);
-  font-weight: 700;
+.si-sign-name {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #7e122a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
 }
 
-.south-bhava-num {
+.si-sign-name small {
+  font-size: 0.62rem;
+  font-weight: 500;
   color: #64748b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.south-planets-chips {
+.si-asc-tag {
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: #b45309;
+  padding: 1px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.si-planets-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 4px;
+  align-content: flex-start;
+  gap: 3px;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
-.south-graha-chip {
+.si-empty {
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  margin: auto;
+}
+
+.si-graha-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5px;
+  font-size: 0.68rem;
+  font-weight: 700;
   padding: 2px 5px;
   border-radius: 4px;
-  background: rgba(30, 41, 59, 0.9);
-  color: #ffffff;
-  font-size: 0.7rem;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #e2e8f0;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
-.south-graha-chip.vakri {
-  color: #f87171;
-  border-color: rgba(248, 113, 113, 0.4);
+.si-graha-chip .g-glyph {
+  font-size: 0.72rem;
+  line-height: 1;
 }
 
-.south-graha-chip.exalted {
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.4);
+.si-graha-chip .g-name {
+  font-size: 0.68rem;
+  font-weight: 800;
 }
 
-.south-center-box {
+.si-graha-chip .g-deg {
+  font-size: 0.60rem;
+  color: #64748b;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.si-graha-chip .g-rx {
+  font-size: 0.62rem;
+  color: #ef4444;
+  font-weight: 800;
+}
+
+/* Planet-Specific Color Schemes for Maximum Dignity & Readability */
+.si-graha-chip.graha-sun {
+  color: #9a3412;
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+.si-graha-chip.graha-moon {
+  color: #334155;
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+.si-graha-chip.graha-mars {
+  color: #991b1b;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+.si-graha-chip.graha-mercury {
+  color: #047857;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+.si-graha-chip.graha-jupiter {
+  color: #b45309;
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+.si-graha-chip.graha-venus {
+  color: #9d174d;
+  background: #fdf2f8;
+  border-color: #fbcfe8;
+}
+.si-graha-chip.graha-saturn {
+  color: #1e3a8a;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+.si-graha-chip.graha-rahu,
+.si-graha-chip.graha-ketu {
+  color: #6b21a8;
+  background: #faf5ff;
+  border-color: #e9d5ff;
+}
+
+/* Central Mandala Hub of the South Indian Chakra */
+.si-center-mandala {
   grid-column: 2 / 4;
   grid-row: 2 / 4;
-  background: radial-gradient(circle, rgba(20, 30, 55, 0.9), rgba(5, 7, 15, 0.95));
-  border: 1px dashed rgba(212, 175, 55, 0.4);
+  background: linear-gradient(135deg, #fffdf8 0%, #fefcf3 100%) !important;
+  border: 1.5px solid #d4af37;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 12px;
+  padding: 10px 8px;
+  box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.12);
+  overflow: hidden;
 }
 
-.south-center-title {
-  color: var(--gold-400);
-  font-family: var(--font-heading);
-  font-size: 0.98rem;
+.mandala-crest {
+  font-size: 1.15rem;
+  color: #b45309;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.mandala-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #7e122a;
+  letter-spacing: 0.08em;
+}
+
+.mandala-sub {
+  font-size: 0.62rem;
   font-weight: 700;
-  margin-bottom: 4px;
+  color: #b45309;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 1px;
 }
 
-.south-center-meta {
-  color: #94a3b8;
-  font-size: 0.74rem;
-  font-family: var(--font-mono);
+.mandala-client {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+
+.mandala-meta {
+  font-size: 0.64rem;
+  color: #475569;
+  margin-top: 2px;
+}
+
+.mandala-ayanamsha {
+  font-size: 0.58rem;
+  color: #b45309;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 2px;
+}
+
+/* Mobile Responsive Optimizations for South Indian Chart */
+@media (max-width: 640px) {
+  .south-indian-grid,
+  .south-indian-grid-chart {
+    border-width: 2px !important;
+    padding: 2px !important;
+    gap: 1.5px !important;
+  }
+  .si-box {
+    padding: 3px 2px !important;
+    gap: 2px !important;
+  }
+  .si-sign-name {
+    font-size: 0.56rem !important;
+  }
+  .si-sign-name small {
+    display: none !important;
+  }
+  .si-asc-tag {
+    font-size: 0.50rem !important;
+    padding: 0 2px !important;
+  }
+  .si-graha-chip {
+    font-size: 0.56rem !important;
+    padding: 1px 3px !important;
+    gap: 1.5px !important;
+  }
+  .si-graha-chip .g-glyph {
+    font-size: 0.60rem !important;
+  }
+  .si-graha-chip .g-deg {
+    display: none !important;
+  }
+  .mandala-crest {
+    font-size: 0.85rem !important;
+  }
+  .mandala-title {
+    font-size: 0.65rem !important;
+  }
+  .mandala-sub {
+    font-size: 0.50rem !important;
+  }
+  .mandala-client {
+    font-size: 0.62rem !important;
+  }
+  .mandala-meta {
+    font-size: 0.52rem !important;
+  }
+  .mandala-ayanamsha {
+    display: none !important;
+  }
 }
 
 /* Financial Houses Four Pillars */
@@ -6964,6 +7150,65 @@ body[data-page="kundli"] .site-main {
 }
 
 /* ==============================================================
+   MOBILE RESPONSIVE STYLES (@media max-width: 640px)
+   ============================================================== */
+@media (max-width: 640px) {
+  .kundli-royal-light-page .kundli-result-card {
+    padding: 16px 10px !important;
+    margin-top: 16px !important;
+    border-radius: 14px !important;
+  }
+  .kundli-royal-light-page .result-header-luxury {
+    padding: 14px 12px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .kundli-royal-light-page #resultUserName {
+    font-size: 1.22rem !important;
+  }
+  .kundli-royal-light-page .result-meta-line {
+    gap: 8px !important;
+    font-size: 0.78rem !important;
+  }
+  .kundli-royal-light-page .chakra-title-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    margin-bottom: 10px !important;
+  }
+  .kundli-royal-light-page .chakra-title-bar span:first-child {
+    font-size: 0.90rem !important;
+    line-height: 1.3 !important;
+  }
+  .kundli-royal-light-page .chakra-card-box {
+    padding: 12px 8px !important;
+    border-radius: 14px !important;
+  }
+  .kundli-royal-light-page .financial-houses-panel {
+    padding: 14px 12px !important;
+    border-radius: 14px !important;
+  }
+  .kundli-royal-light-page .panel-header-gold {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    font-size: 0.95rem !important;
+  }
+  .kundli-royal-light-page .planetary-positions-card {
+    padding: 14px 10px !important;
+    border-radius: 14px !important;
+  }
+  .kundli-royal-light-page .kundli-charts-row {
+    gap: 16px !important;
+    margin-bottom: 16px !important;
+  }
+  #northIndianChartContainer {
+    padding: 0 !important;
+  }
+}
+
+/* ==============================================================
    PRINT-SPECIFIC STYLES (@media print)
    ============================================================== */
 @media print {
@@ -6991,6 +7236,7 @@ body[data-page="kundli"] .site-main {
   }
 }
 
+.celebrity-consultation-showcase {
   border-radius: var(--radius-xl);
   padding: 28px;
   margin-top: 32px;

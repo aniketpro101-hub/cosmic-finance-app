@@ -121,6 +121,7 @@ a:hover {
 .py-6 { padding-top: var(--space-6) !important; padding-bottom: var(--space-6) !important; }
 .py-8 { padding-top: var(--space-8) !important; padding-bottom: var(--space-8) !important; }
 .col-full { grid-column: 1 / -1; width: 100%; }
+.hidden { display: none !important; }
 
 /* Ambient Stars Canvas Overlay */
 .stars-backdrop {
