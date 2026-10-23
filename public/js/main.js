@@ -2,6 +2,112 @@
  * Cosmic Finance — Main Client Logic
  */
 
+// Universal Theme Switching System (Royal Ivory Light [Default] vs Deep Space Dark)
+(function() {
+  const STORAGE_KEY = 'cosmic_kundli_theme';
+  // Default is 'light' as specifically requested by user ("bu defult keep current ..")
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem(STORAGE_KEY) || 'light';
+    } catch (e) {
+      return 'light';
+    }
+  }
+
+  function applyTheme(theme) {
+    const isDark = (theme === 'dark');
+    if (document.body) {
+      document.body.classList.toggle('theme-dark', isDark);
+      document.body.classList.toggle('theme-light', !isDark);
+    }
+
+    const kundliContainer = document.getElementById('kundliPageContainer') || 
+                            document.querySelector('.kundli-royal-light-page, .kundli-deep-space-page');
+    if (kundliContainer) {
+      if (isDark) {
+        kundliContainer.classList.remove('kundli-royal-light-page');
+        kundliContainer.classList.add('kundli-deep-space-page');
+      } else {
+        kundliContainer.classList.remove('kundli-deep-space-page');
+        kundliContainer.classList.add('kundli-royal-light-page');
+      }
+    }
+
+    // Update navbar buttons
+    const themeToggleIcon = document.getElementById('themeToggleIcon');
+    const drawerThemeIcon = document.getElementById('drawerThemeIcon');
+    const btnThemeToggle = document.getElementById('btnThemeToggle');
+    const drawerThemeLabel = document.getElementById('drawerThemeLabel');
+
+    if (themeToggleIcon) themeToggleIcon.textContent = isDark ? '🌙' : '☀️';
+    if (drawerThemeIcon) drawerThemeIcon.textContent = isDark ? '🌙' : '☀️';
+    if (drawerThemeLabel) drawerThemeLabel.textContent = isDark ? 'Deep Space' : 'Royal Ivory';
+    if (btnThemeToggle) {
+      btnThemeToggle.title = isDark ? 'Switch to Royal Ivory Theme' : 'Switch to Deep Space Theme';
+      btnThemeToggle.setAttribute('aria-label', isDark ? 'Switch to Royal Ivory Theme' : 'Switch to Deep Space Theme');
+    }
+
+    // Update page pill buttons on Kundli page
+    const btnLight = document.getElementById('btnThemeLight');
+    const btnDark = document.getElementById('btnThemeDark');
+    if (btnLight) {
+      btnLight.classList.toggle('active', !isDark);
+      btnLight.setAttribute('aria-pressed', !isDark ? 'true' : 'false');
+    }
+    if (btnDark) {
+      btnDark.classList.toggle('active', isDark);
+      btnDark.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (e) {}
+
+    window.dispatchEvent(new CustomEvent('cosmic-theme-changed', { detail: { theme } }));
+  }
+
+  window.setCosmicTheme = applyTheme;
+  window.getCosmicTheme = getSavedTheme;
+
+  // Initialize immediately if body is ready, or when DOMContentLoaded fires
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      applyTheme(getSavedTheme());
+    });
+  } else {
+    applyTheme(getSavedTheme());
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(getSavedTheme());
+
+    const btnThemeToggle = document.getElementById('btnThemeToggle');
+    if (btnThemeToggle) {
+      btnThemeToggle.addEventListener('click', () => {
+        const cur = getSavedTheme();
+        applyTheme(cur === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    const drawerThemeToggle = document.getElementById('drawerThemeToggle');
+    if (drawerThemeToggle) {
+      drawerThemeToggle.addEventListener('click', () => {
+        const cur = getSavedTheme();
+        applyTheme(cur === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    const btnLight = document.getElementById('btnThemeLight');
+    const btnDark = document.getElementById('btnThemeDark');
+    if (btnLight) {
+      btnLight.addEventListener('click', () => applyTheme('light'));
+    }
+    if (btnDark) {
+      btnDark.addEventListener('click', () => applyTheme('dark'));
+    }
+  });
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Mobile Drawer Navigation Toggle (With Accessible State & Auto-Close)
   const toggleBtn = document.getElementById('mobileMenuToggle');

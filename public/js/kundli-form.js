@@ -354,6 +354,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 6b. Listen for Theme Change events to synchronize charts in real-time
+  window.addEventListener('cosmic-theme-changed', () => {
+    if (activeAnalysisData) {
+      renderNorthIndianSvg(activeAnalysisData);
+      renderSouthIndianChart(activeAnalysisData);
+    }
+  });
+
   // 7. Form Submission Handler
   const activeForms = document.querySelectorAll('#tradingKundliForm, #homeCoordinatesForm');
   activeForms.forEach(curForm => {
@@ -586,12 +594,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 9. North Indian Diamond SVG House Plotter
+  // 9. North Indian Diamond SVG House Plotter (Theme-Aware)
   function renderNorthIndianSvg(analysis) {
     if (!analysis) return;
     const container = document.getElementById('northIndianChartContainer');
-    if (container && analysis.d1Svg) {
-      container.innerHTML = analysis.d1Svg;
+    if (!container) return;
+
+    const isDark = document.body.classList.contains('theme-dark') || 
+                   Boolean(document.querySelector('.kundli-deep-space-page'));
+    const svgCode = (isDark && analysis.d1SvgDark) ? analysis.d1SvgDark : analysis.d1Svg;
+
+    if (svgCode) {
+      container.innerHTML = svgCode;
       return;
     }
 

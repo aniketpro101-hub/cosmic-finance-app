@@ -49,11 +49,17 @@
       </ul>
     </nav>
 
-    <!-- Header Actions (Sound chime, CTA, and responsive mobile toggle) -->
+    <!-- Header Actions (Sound chime, Theme switcher, CTA, and responsive mobile toggle) -->
     <div class="header-actions">
       <!-- Ambient Vedic Micro-Sound Toggle -->
       <button class="btn-sound-toggle" id="btnSoundToggle" aria-label="Toggle Ambient Vedic Sound" title="Sound: Muted (Click to enable harmonic chimes)">
         <span id="soundIcon">🔇</span>
+      </button>
+
+      <!-- Theme Switch Toggle Button (Royal Ivory / Deep Space) -->
+      <button class="btn-theme-toggle" id="btnThemeToggle" aria-label="Switch Theme (Royal Ivory / Deep Space)" title="Switch Theme (Royal Ivory / Deep Space)">
+        <span id="themeToggleIcon">☀️</span>
+        <span class="theme-toggle-label">Theme</span>
       </button>
 
       <!-- Primary High-Conversion Action Button -->
@@ -118,10 +124,10 @@
           <span class="pill-chip-icon">👑</span>
           <span>Dr. Ashish Patni</span>
         </a>
-        <a href="/market-data" class="drawer-pill-chip">
-          <span class="pill-chip-icon">📈</span>
-          <span>Live Markets</span>
-        </a>
+        <button type="button" class="drawer-pill-chip btn-drawer-theme" id="drawerThemeToggle" aria-label="Toggle Theme">
+          <span class="pill-chip-icon" id="drawerThemeIcon">☀️</span>
+          <span id="drawerThemeLabel">Theme Switch</span>
+        </button>
       </div>
 
       <!-- Categorized Navigation -->

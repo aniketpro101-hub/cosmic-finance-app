@@ -79,7 +79,7 @@ router.get('/', (req, res) => {
       '/js/market-data.js',
       '/js/panchang.js',
       '/js/gann-chakra.js',
-      '/js/kundli-form.js?v=4.3'
+      '/js/kundli-form.js?v=4.4'
     ]
   });
 });
@@ -118,7 +118,7 @@ router.get(['/trading-kundli', '/kundli'], (req, res) => {
     pageId: 'kundli',
     title: CONSTANTS.SITEMAP.KUNDLI.title,
     description: 'Calculate your Vedic trading propensity, speculation yoga, and planetary archetypes.',
-    extraScripts: ['/js/kundli-form.js?v=4.3']
+    extraScripts: ['/js/kundli-form.js?v=4.4']
   });
 });
 

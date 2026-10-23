@@ -35,6 +35,18 @@ const GRAHA_COLORS = {
   Ketu: '#475569'
 };
 
+const GRAHA_COLORS_DARK = {
+  Sun: '#fb923c',     // Luminous Amber Orange
+  Moon: '#f1f5f9',    // Glowing Silver Pearl
+  Mars: '#f87171',    // Radiant Mars Crimson
+  Mercury: '#34d399', // Emerald Mercury
+  Jupiter: '#fbbf24', // Luminous Gold Jupiter
+  Venus: '#f472b6',   // Radiant Rose Venus
+  Saturn: '#818cf8',  // Indigo Sapphire Saturn
+  Rahu: '#c084fc',    // Cosmic Violet Rahu
+  Ketu: '#a3a3a3'     // Ethereal Mist Ketu
+};
+
 const GRAHA_HINDI = {
   Sun: 'सूर्य',
   Moon: 'चन्द्र',
@@ -55,6 +67,7 @@ function renderNorthIndianChartSvg({
   chartCode = 'D1',
   chartTitle = 'COSMIC FINANCE AUTHENTIC JANMA KUNDLI (D1)',
   subtitle = 'Canonical Parashari Geometry • Lahiri Ayanamsha • Topocentric Sidereal Horizon',
+  theme = 'light',
   client = {
     name: 'Valued Client',
     dob: '15 January 1990',
@@ -68,6 +81,7 @@ function renderNorthIndianChartSvg({
   planets = [], // array of { name, houseNumber, degreesInSign, degreesDisplay, nakshatra, pada, isRetrograde, dignity, functionalRole }
   isCompact = false
 }) {
+  const isDark = (theme === 'dark');
   const width = isCompact ? 680 : 760;
   const height = isCompact ? 680 : 860;
 
@@ -152,7 +166,8 @@ function renderNorthIndianChartSvg({
     const startY = center.y - ((count - 1) * baseSpacing) / 2;
 
     return list.map((p, idx) => {
-      const color = GRAHA_COLORS[p.name] || '#1e293b';
+      const colorMap = isDark ? GRAHA_COLORS_DARK : GRAHA_COLORS;
+      const color = colorMap[p.name] || (isDark ? '#f1f5f9' : '#1e293b');
       const hindiName = GRAHA_HINDI[p.name] || p.name;
       const degText = p.degreesDisplay || `${Math.floor(p.degreesInSign || 0)}°`;
       const nakText = p.nakshatra ? `${degText} ${p.nakshatra}` : degText;
@@ -173,16 +188,17 @@ function renderNorthIndianChartSvg({
 
       let roleTag = '';
       if (p.functionalRole && !isCompact) {
-        let roleColor = '#059669';
-        if (p.dignity === 'Debilitated' || p.dignity === 'Neecha') roleColor = '#dc2626';
-        if (h === 5) roleColor = '#7c3aed';
-        if (h === 9) roleColor = '#ea580c';
-        if (h === 11) roleColor = '#475569';
+        let roleColor = isDark ? '#34d399' : '#059669';
+        if (p.dignity === 'Debilitated' || p.dignity === 'Neecha') roleColor = isDark ? '#f87171' : '#dc2626';
+        if (h === 5) roleColor = isDark ? '#c084fc' : '#7c3aed';
+        if (h === 9) roleColor = isDark ? '#fb923c' : '#ea580c';
+        if (h === 11) roleColor = isDark ? '#94a3b8' : '#475569';
         roleTag = `<text x="${center.x}" y="${curY + 22}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="8.5" font-weight="600" fill="${roleColor}" text-anchor="${center.align}">${p.functionalRole}</text>`;
       }
 
       const fontSize = isCompact ? '11' : (count > 2 ? '11.5' : '12.5');
       const degFontSize = isCompact ? '8.5' : '9.5';
+      const degColor = isDark ? '#94a3b8' : '#475569';
 
       return `
         <g class="graha-entry" data-graha="${p.name}">
@@ -191,7 +207,7 @@ function renderNorthIndianChartSvg({
             <tspan fill="${color}">${hindiName}</tspan> <tspan font-family="'Montserrat', sans-serif">${p.name.toUpperCase()}${badge}</tspan>
           </text>
           <!-- Degrees & Nakshatra -->
-          <text x="${center.x}" y="${curY + 12}" font-family="'Montserrat', sans-serif" font-size="${degFontSize}" font-weight="500" fill="#475569" text-anchor="${center.align}">
+          <text x="${center.x}" y="${curY + 12}" font-family="'Montserrat', sans-serif" font-size="${degFontSize}" font-weight="500" fill="${degColor}" text-anchor="${center.align}">
             ${nakText}
           </text>
           ${roleTag}
@@ -201,14 +217,17 @@ function renderNorthIndianChartSvg({
   }
 
   // Render Rashi numbers in circular badges
+  const rashiBg = isDark ? '#0d1536' : '#ffffff';
+  const rashiBorder = isDark ? '#f5be48' : '#b91c1c';
+  const rashiText = isDark ? '#f5be48' : '#b91c1c';
   let rashiBadgesSvg = '';
   for (let h = 1; h <= 12; h++) {
     const pos = signBadgePos[h];
     const signNum = houseSignNum[h];
     rashiBadgesSvg += `
       <g class="rashi-badge" data-house="${h}" data-sign="${signNum}">
-        <circle cx="${pos.x}" cy="${pos.y}" r="11" fill="#ffffff" stroke="#b91c1c" stroke-width="1.3" />
-        <text x="${pos.x}" y="${pos.y + 3.8}" font-family="'Montserrat', sans-serif" font-size="10" font-weight="700" fill="#b91c1c" text-anchor="middle">${signNum}</text>
+        <circle cx="${pos.x}" cy="${pos.y}" r="11" fill="${rashiBg}" stroke="${rashiBorder}" stroke-width="1.3" />
+        <text x="${pos.x}" y="${pos.y + 3.8}" font-family="'Montserrat', sans-serif" font-size="10" font-weight="700" fill="${rashiText}" text-anchor="middle">${signNum}</text>
       </g>
     `;
   }
@@ -219,13 +238,13 @@ function renderNorthIndianChartSvg({
     headerBlock = `
     <!-- ================= TOP HEADER BLOCK ================= -->
     <g class="chart-header">
-      <text x="${width / 2}" y="36" class="chart-title" font-size="19" font-weight="800" fill="#7e122a" text-anchor="middle">
+      <text x="${width / 2}" y="36" class="chart-title" font-size="19" font-weight="800" fill="${isDark ? '#ffffff' : '#7e122a'}" text-anchor="middle">
         ${chartTitle}
       </text>
-      <text x="${width / 2}" y="56" font-family="'Montserrat', sans-serif" font-size="10.5" font-weight="600" fill="#b45309" letter-spacing="0.06em" text-anchor="middle">
+      <text x="${width / 2}" y="56" font-family="'Montserrat', sans-serif" font-size="10.5" font-weight="600" fill="${isDark ? '#fcd34d' : '#b45309'}" letter-spacing="0.06em" text-anchor="middle">
         ${subtitle}
       </text>
-      <text x="${width / 2}" y="78" font-family="'Montserrat', sans-serif" font-size="11" font-weight="500" fill="#334155" text-anchor="middle">
+      <text x="${width / 2}" y="78" font-family="'Montserrat', sans-serif" font-size="11" font-weight="500" fill="${isDark ? '#cbd5e1' : '#334155'}" text-anchor="middle">
         <tspan font-weight="600">Name:</tspan> ${client.name} &nbsp;|&nbsp; 
         <tspan font-weight="600">DOB:</tspan> ${client.dob} &nbsp;|&nbsp; 
         <tspan font-weight="600">Time:</tspan> ${client.tob} &nbsp;|&nbsp; 
@@ -235,19 +254,28 @@ function renderNorthIndianChartSvg({
     `;
   }
 
+  const svgBgColor = isDark ? '#080c1e' : '#ffffff';
+  const outerBorderColor = isDark ? '#f59e0b' : '#7e122a';
+  const innerBorderColor = isDark ? '#d4af37' : '#f59e0b';
+  const baseRectFill = isDark ? '#090e24' : '#ffffff';
+  const parashariLineStroke = isDark ? '#f5be48' : '#7e122a';
+  const binduFill = isDark ? '#f59e0b' : '#f59e0b';
+  const binduStroke = isDark ? '#d4af37' : '#7e122a';
+  const binduCore = isDark ? '#ffffff' : '#7e122a';
+
   return `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="auto" class="cosmic-diamond-svg" style="max-width:${width}px; background:#ffffff; border-radius:14px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="auto" class="cosmic-diamond-svg" style="max-width:${width}px; background:${svgBgColor}; border-radius:14px;">
   <defs>
-    <!-- Kendra Royal Ivory Shading -->
+    <!-- Kendra Shading Gradient -->
     <radialGradient id="kendraGlowGrad_${chartCode}" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fffbeb" stop-opacity="0.95" />
-      <stop offset="70%" stop-color="#fef3c7" stop-opacity="0.55" />
-      <stop offset="100%" stop-color="#fef9c3" stop-opacity="0.35" />
+      <stop offset="0%" stop-color="${isDark ? '#f59e0b' : '#fffbeb'}" stop-opacity="${isDark ? '0.22' : '0.95'}" />
+      <stop offset="70%" stop-color="${isDark ? '#d97706' : '#fef3c7'}" stop-opacity="${isDark ? '0.08' : '0.55'}" />
+      <stop offset="100%" stop-color="${isDark ? '#b45309' : '#fef9c3'}" stop-opacity="${isDark ? '0.02' : '0.35'}" />
     </radialGradient>
 
     <!-- Outer Frame Drop Shadow -->
     <filter id="softChartShadow_${chartCode}" x="-3%" y="-2%" width="106%" height="106%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.08"/>
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="${isDark ? '#000000' : '#0f172a'}" flood-opacity="${isDark ? '0.5' : '0.08'}"/>
     </filter>
   </defs>
 
@@ -264,16 +292,16 @@ function renderNorthIndianChartSvg({
   ${headerBlock}
 
   <!-- ================= DOUBLE LUXURY BORDER ================= -->
-  <!-- Outer Rounded Crimson Border -->
-  <rect x="${isCompact ? 6 : 14}" y="${isCompact ? 6 : 90}" width="${width - (isCompact ? 12 : 28)}" height="${height - (isCompact ? 12 : 106)}" rx="16" ry="16" fill="none" stroke="#7e122a" stroke-width="2.6" filter="url(#softChartShadow_${chartCode})" />
+  <!-- Outer Rounded Crimson/Gold Border -->
+  <rect x="${isCompact ? 6 : 14}" y="${isCompact ? 6 : 90}" width="${width - (isCompact ? 12 : 28)}" height="${height - (isCompact ? 12 : 106)}" rx="16" ry="16" fill="none" stroke="${outerBorderColor}" stroke-width="2.6" filter="url(#softChartShadow_${chartCode})" />
   <!-- Inner Delicate Gold Pinstripe -->
-  <rect x="${isCompact ? 12 : 22}" y="${isCompact ? 12 : 98}" width="${width - (isCompact ? 24 : 44)}" height="${height - (isCompact ? 24 : 122)}" rx="10" ry="10" fill="none" stroke="#f59e0b" stroke-width="1.1" opacity="0.85" />
+  <rect x="${isCompact ? 12 : 22}" y="${isCompact ? 12 : 98}" width="${width - (isCompact ? 24 : 44)}" height="${height - (isCompact ? 24 : 122)}" rx="10" ry="10" fill="none" stroke="${innerBorderColor}" stroke-width="1.1" opacity="0.85" />
 
   <!-- ================= CHART BACKGROUNDS ================= -->
   <!-- Base Background for whole square -->
-  <rect x="${chartX}" y="${chartY}" width="${chartSize}" height="${chartSize}" fill="#ffffff" />
+  <rect x="${chartX}" y="${chartY}" width="${chartSize}" height="${chartSize}" fill="${baseRectFill}" />
 
-  <!-- Kendra Houses Shading (Houses 1, 4, 7, 10 in Golden Ivory) -->
+  <!-- Kendra Houses Shading (Houses 1, 4, 7, 10) -->
   <!-- House 1 (Top Diamond) -->
   <polygon points="${midX},${chartY} ${qX3},${qY1} ${midX},${midY} ${qX1},${qY1}" fill="url(#kendraGlowGrad_${chartCode})" />
   <!-- House 4 (Left Diamond) -->
@@ -284,7 +312,7 @@ function renderNorthIndianChartSvg({
   <polygon points="${qX3},${qY1} ${rightX},${midY} ${qX3},${qY3} ${midX},${midY}" fill="url(#kendraGlowGrad_${chartCode})" />
 
   <!-- ================= GEOMETRIC PARASHARI LINES ================= -->
-  <g stroke="#7e122a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+  <g stroke="${parashariLineStroke}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
     <!-- Outer Square of the Chart -->
     <rect x="${chartX}" y="${chartY}" width="${chartSize}" height="${chartSize}" fill="none" />
 
@@ -300,18 +328,18 @@ function renderNorthIndianChartSvg({
   </g>
 
   <!-- Center Bindu Hub -->
-  <circle cx="${midX}" cy="${midY}" r="8" fill="#f59e0b" stroke="#7e122a" stroke-width="1.8" />
-  <circle cx="${midX}" cy="${midY}" r="2.5" fill="#7e122a" />
+  <circle cx="${midX}" cy="${midY}" r="8" fill="${binduFill}" stroke="${binduStroke}" stroke-width="1.8" />
+  <circle cx="${midX}" cy="${midY}" r="2.5" fill="${binduCore}" />
 
   <!-- ================= HOUSE 1: LAGNA DISPLAY ================= -->
   <g class="lagna-core-block">
-    <text x="${midX}" y="${chartY + chartSize * 0.11}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="${isCompact ? '13' : '15'}" font-weight="700" fill="#0f172a" text-anchor="middle">
-      <tspan fill="#0f172a">लग्न</tspan> <tspan font-family="'Montserrat', sans-serif" fill="#1e3a8a">LAGNA</tspan>
+    <text x="${midX}" y="${chartY + chartSize * 0.11}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="${isCompact ? '13' : '15'}" font-weight="700" fill="${isDark ? '#ffffff' : '#0f172a'}" text-anchor="middle">
+      <tspan fill="${isDark ? '#ffffff' : '#0f172a'}">लग्न</tspan> <tspan font-family="'Montserrat', sans-serif" fill="${isDark ? '#fcd34d' : '#1e3a8a'}">LAGNA</tspan>
     </text>
-    <text x="${midX}" y="${chartY + chartSize * 0.11 + 15}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '9.5' : '11'}" font-weight="600" fill="#334155" text-anchor="middle">
+    <text x="${midX}" y="${chartY + chartSize * 0.11 + 15}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '9.5' : '11'}" font-weight="600" fill="${isDark ? '#e2e8f0' : '#334155'}" text-anchor="middle">
       ${lagnaDegFormatted} ${lagnaNakshatra} (${lagnaPada})
     </text>
-    <text x="${midX}" y="${chartY + chartSize * 0.11 + 29}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '8.5' : '9.5'}" font-weight="500" fill="#64748b" text-anchor="middle">
+    <text x="${midX}" y="${chartY + chartSize * 0.11 + 29}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '8.5' : '9.5'}" font-weight="500" fill="${isDark ? '#94a3b8' : '#64748b'}" text-anchor="middle">
       ${lagnaRashiEn} / ${lagnaRashiHi} (Lord: ${lagnaLord})
     </text>
   </g>
