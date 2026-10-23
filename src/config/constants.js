@@ -82,13 +82,13 @@ const CONSTANTS = {
       'Ph.D. in Vedic Astro-Sciences & Mathematical Jyotish',
       'Pioneer of Vedic Multi-Asset Planetary Cycle Timing',
       'ABDC Indexed Academic Research Publication Author',
-      'Over 25,000+ Individual Horoscopes & Name-Numerology Charts Evaluated',
+      'Over 2,500+ Individual Horoscopes & Name-Numerology Charts Evaluated',
       'Keynote Speaker at National Astrological & Economic Summits',
       'Personal Mentor to Corporate Leaders, Industrialists & HNI Investors'
     ],
     stats: {
       experience: '20+ Yrs',
-      clients: '25,000+',
+      clients: '2,500+',
       countries: '45+',
       research: 'ABDC Indexed',
       awards: '8+ State Honours'

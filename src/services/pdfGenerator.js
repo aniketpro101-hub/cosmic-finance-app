@@ -274,6 +274,25 @@ function buildDossierHtml(analysis) {
       box-sizing: border-box;
       padding: 2mm 0;
     }
+
+    /* Screen Document Presentation (Institutional Portfolio View) */
+    @media screen {
+      body {
+        background: #090e24 !important;
+        padding: 30px 14px 80px !important;
+      }
+      .dossier-page {
+        max-width: 210mm !important;
+        width: 100% !important;
+        min-height: 297mm !important;
+        max-height: none !important;
+        margin: 0 auto 36px auto !important;
+        background: #ffffff !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(245, 190, 72, 0.2) !important;
+        border-radius: 8px !important;
+        padding: 12mm 14mm !important;
+      }
+    }
     
     /* Top Header Bar */
     .dossier-top-bar {
@@ -557,7 +576,8 @@ function buildDossierHtml(analysis) {
       margin-bottom: 6px;
     }
     .div-svg-wrap {
-      max-width: 82mm;
+      max-width: 90mm;
+      width: 100%;
       margin: 0 auto;
     }
     .div-interpretation {
@@ -994,11 +1014,11 @@ function buildDossierHtml(analysis) {
           </div>
           <div style="font-size:7.5pt; color:#64748b;">Solar (Leo) vs Lunar (Cancer) Divisions</div>
         </div>
-        <div style="display:flex; gap:12px; align-items:center; margin-top:6px;">
-          <div style="max-width:55mm; flex-shrink:0;">
+        <div style="display:flex; gap:14px; align-items:center; margin-top:6px;">
+          <div style="max-width:82mm; width:82mm; flex-shrink:0;">
             ${svgD2}
           </div>
-          <div style="flex:1; text-align:left; font-size:7.5pt; color:#334155; line-height:1.4;">
+          <div style="flex:1; text-align:left; font-size:7.8pt; color:#334155; line-height:1.45;">
             <p><strong>D2 Hora Astrological Principles:</strong> In classical Parashari Jyotish, the 2nd division (Hora) partitions all cosmic wealth into two eternal polarities:</p>
             <ul style="margin-left:14px; margin-top:4px;">
               <li><strong>Solar Hora (Leo / Surya):</strong> Dynamic enterprise earnings, bullion accrual, capital risk taking, and sovereign independence.</li>
@@ -1130,7 +1150,7 @@ function buildDossierHtml(analysis) {
           <div class="plaque-name">Dr. Ashish Patni</div>
           <div class="plaque-subtitle">Founder, Bhavishyam (www.bhavishyam.com) &bull; 20+ Yrs Multi-Asset Research</div>
           <div class="plaque-creds">
-            Ph.D. in Vedic Astro-Sciences &bull; 25,000+ Horoscopes Evaluated &bull; Personal Mentor to Industrialists &amp; Family Offices across 45 Countries
+            Ph.D. in Vedic Astro-Sciences &bull; 2,500+ Horoscopes Evaluated &bull; Personal Mentor to Industrialists &amp; Family Offices across 45 Countries
           </div>
         </div>
         <div class="plaque-actions">

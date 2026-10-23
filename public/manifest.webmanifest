@@ -1,0 +1,43 @@
+{
+  "name": "Cosmic Finance — Vedic Multi-Asset Astrology",
+  "short_name": "Cosmic Finance",
+  "description": "Planetary transits, Nakshatra cycles, and Vedic numerology across equities, gold, crude oil, and crypto. Personal guidance by Dr. Ashish Patni.",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#050814",
+  "theme_color": "#080c1e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/dr_ashish_patni_executive.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/dr_ashish_patni_executive.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "business", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Live Market Telemetry",
+      "url": "/market-data",
+      "description": "View live sidereal telemetry and planetary hours"
+    },
+    {
+      "name": "Weekly Astro Outlook",
+      "url": "/weekly-outlook",
+      "description": "Latest macro astrological guidance from Dr. Ashish Patni"
+    },
+    {
+      "name": "Personal Kundli",
+      "url": "/trading-kundli",
+      "description": "Enter birth coordinates for personal wealth timing"
+    }
+  ]
+}

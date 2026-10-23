@@ -7,12 +7,18 @@
           <span class="pulsing-star">✦</span>
           <span>VEDIC MULTI-ASSET FINANCIAL ASTROLOGY &amp; NUMEROLOGY</span>
         </div>
-        <h1 class="hero-title" style="font-size: clamp(1.75rem, 5vw, 3.8rem); margin-top: 6px; margin-bottom: 8px;">
-          Where Stars Meet <span class="dynamic-street-wrapper text-gold"><span id="dynamicStreetText">Multi-Asset Markets</span></span>
+        <h1 class="hero-title">
+          <span class="hero-title-prefix">Where Stars Meet</span>
+          <span class="hero-title-dynamic dynamic-street-wrapper text-gold"><span id="dynamicStreetText">Dalal Street</span></span>
         </h1>
-        <p class="hero-subtext" style="margin: 0 auto 12px; max-width: 780px;">
-          Decipher planetary transits, Nakshatra movements, and Vedic numerology across equities, precious metals, energy, commodities, real estate, and digital assets. Personal guidance by celebrity astrologer <strong>Dr. Ashish Patni</strong>.
-        </p>
+        <div class="hero-hindi-punchbox" style="margin: 0 auto 14px; max-width: 820px;">
+          <p class="hindi-tagline-punch">
+            "जब ग्रह बदलते हैं अपनी चाल — तभी बदलते हैं बाज़ार के बड़े समीकरण और वेल्थ की तक़दीर!"
+          </p>
+          <p class="hindi-subline-detail">
+            निफ़्टी, सोना, क्रूड से लेकर क्रिप्टो तक — वैदिक काल-चक्र और ग्रह-गोचर का अचूक गणित। सेलिब्रिटी ज्योतिषाचार्य <strong>डॉ. आशीष पटनी</strong> द्वारा व्यक्तिगत मार्गदर्शन।
+          </p>
+        </div>
         <div class="trust-calculation-banner" style="max-width: 760px; margin: 0 auto 14px;">
           <span class="trust-icon">⚖️</span>
           <span class="trust-text"><strong>Multi-Asset Scope:</strong> Authentic Geocentric Ephemeris • 0.001° Sidereal Precision • Personal Horoscope Wealth Timing</span>
@@ -24,9 +30,6 @@
           </a>
           <a href="#drAshishPrestigeSection" class="btn btn-outline btn-lg" style="border-color: rgba(245, 190, 72, 0.6); color: var(--gold-400);">
             <span>👑 Dr. Ashish Patni (VIP Guidance)</span>
-          </a>
-          <a href="/market-data" class="btn btn-outline btn-lg">
-            <span>📊 Multi-Asset Dashboard</span>
           </a>
         </div>
       </div>
@@ -52,6 +55,9 @@
           </div>
 
           <div class="header-right-badges">
+            <a href="/market-data" class="btn-dashboard-pill" title="Open Full Live Multi-Asset Telemetry Terminal">
+              <span>📊</span> Multi-Asset Dashboard &rarr;
+            </a>
             <button class="btn-v2-pill btn-math-pill" id="btnToggleCalcDrawer" title="Inspect Ephemeris & Mathematical formulas">
               <span>📐</span> Calculation Math
             </button>
@@ -476,10 +482,119 @@
   </section>
 
   <!-- ==============================================================
+       LATEST ADMIN UPDATES: WEEKLY OUTLOOK & ARTICLES SHOWCASE
+       (Live updates published by Dr. Ashish Patni)
+       ============================================================== -->
+  <section class="latest-admin-updates-section" id="latestUpdatesSection" style="padding: 40px 0; background: linear-gradient(180deg, rgba(8,12,30,0) 0%, rgba(13,21,54,0.4) 50%, rgba(8,12,30,0) 100%);">
+    <div class="container">
+      <div class="section-header text-center" style="margin-bottom: 24px;">
+        <div class="cosmic-badge" style="margin: 0 auto 8px;">
+          <span class="pulsing-star">✦</span>
+          <span>DIRECT FROM DR. ASHISH PATNI</span>
+        </div>
+        <h2 style="font-size: clamp(1.6rem, 3.2vw, 2.4rem); font-weight: 800; margin-bottom: 6px;">
+          Latest Cosmic <span class="text-gold">Market Mandate &amp; Insights</span>
+        </h2>
+        <p style="color: var(--text-dim); max-width: 680px; margin: 0 auto; font-size: 0.95rem;">
+          Weekly planetary cycle write-ups, Nifty/Gold turning points, and in-depth research articles published directly by celebrity astrologer Dr. Ashish Patni.
+        </p>
+      </div>
+
+      <div class="updates-showcase-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: stretch;">
+        <!-- Left Column: Active Weekly Outlook Card -->
+        <div class="outlook-live-card" style="background: rgba(15, 23, 42, 0.7); border: 1.5px solid rgba(245, 190, 72, 0.35); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          <div class="live-card-badge" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 800; color: #f5be48; background: rgba(245, 190, 72, 0.12); padding: 4px 12px; border-radius: 20px; align-self: flex-start; margin-bottom: 14px;">
+            <span class="v2-dot-green"></span> ACTIVE WEEKLY ASTRO-OUTLOOK
+          </div>
+          <% if (typeof latestOutlook !== 'undefined' && latestOutlook) { %>
+            <div>
+              <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Week Horizon</div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 2px 0 10px 0;"><%= latestOutlook.week_range %></h3>
+              
+              <div style="background: rgba(30, 41, 59, 0.6); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; border-left: 3px solid #f5be48;">
+                <div style="font-size: 0.72rem; color: #f5be48; font-weight: 700; text-transform: uppercase;">Active Planetary Alignments</div>
+                <div style="font-size: 0.88rem; color: #e2e8f0; font-weight: 600;"><%= latestOutlook.planetary_transits %></div>
+              </div>
+
+              <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 14px;">
+                <%= latestOutlook.market_commentary ? latestOutlook.market_commentary.slice(0, 180) + '...' : 'Planetary transit analysis across multi-asset classes...' %>
+              </p>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px;">
+                <% if (latestOutlook.nifty_sensex_outlook) { %>
+                  <div style="background: rgba(15, 23, 42, 0.8); padding: 8px 10px; border-radius: 8px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.06);">
+                    <strong style="color: #60a5fa; display: block;">📈 Nifty / Sensex:</strong>
+                    <span style="color: #94a3b8;"><%= latestOutlook.nifty_sensex_outlook.slice(0, 70) %></span>
+                  </div>
+                <% } %>
+                <% if (latestOutlook.gold_outlook) { %>
+                  <div style="background: rgba(15, 23, 42, 0.8); padding: 8px 10px; border-radius: 8px; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.06);">
+                    <strong style="color: #f5be48; display: block;">🪙 Gold / Bullion:</strong>
+                    <span style="color: #94a3b8;"><%= latestOutlook.gold_outlook.slice(0, 70) %></span>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+            <a href="/weekly-outlook" class="btn btn-gold" style="width: 100%; text-align: center; justify-content: center;">
+              <span>Read Full Weekly Outlook &amp; Strategy &rarr;</span>
+            </a>
+          <% } else { %>
+            <div>
+              <h3 style="font-size: 1.2rem; color: #ffffff;">Weekly Macro Planetary Outlook</h3>
+              <p style="color: #94a3b8; font-size: 0.9rem;">Dr. Ashish Patni publishes institutional multi-asset cycle analysis every weekend.</p>
+            </div>
+            <a href="/weekly-outlook" class="btn btn-outline" style="width: 100%; text-align: center; justify-content: center;">
+              <span>Explore Weekly Outlook Archive &rarr;</span>
+            </a>
+          <% } %>
+        </div>
+
+        <!-- Right Column: Latest Articles by Dr. Ashish Patni -->
+        <div class="articles-live-card" style="background: rgba(15, 23, 42, 0.7); border: 1.5px solid rgba(148, 163, 184, 0.2); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          <div>
+            <div class="live-card-badge" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 800; color: #60a5fa; background: rgba(96, 165, 250, 0.12); padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;">
+              <span>📚</span> LATEST RESEARCH ARTICLES
+            </div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin: 0 0 14px 0;">Vedic Macro Articles &amp; Insights</h3>
+
+            <div class="mini-articles-list" style="display: flex; flex-direction: column; gap: 12px;">
+              <% if (typeof latestArticles !== 'undefined' && latestArticles.length > 0) { %>
+                <% latestArticles.forEach(function(art) { %>
+                  <a href="/articles/<%= art.slug %>" class="mini-article-item" style="text-decoration: none; display: block; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 10px; padding: 12px; transition: all 0.2s ease;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                      <span style="font-size: 0.7rem; font-weight: 700; color: #f5be48; text-transform: uppercase;"><%= art.category %></span>
+                      <span style="font-size: 0.7rem; color: #94a3b8;"><%= art.read_time || '5 min' %></span>
+                    </div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #f1f5f9; line-height: 1.35; margin-bottom: 4px;"><%= art.title %></div>
+                    <p style="font-size: 0.78rem; color: #94a3b8; margin: 0; line-height: 1.4;">
+                      <%= art.excerpt ? art.excerpt.slice(0, 95) + '...' : '' %>
+                    </p>
+                  </a>
+                <% }); %>
+              <% } else { %>
+                <p style="color: #94a3b8; font-size: 0.88rem;">Articles are being updated regularly by our editorial research desk.</p>
+              <% } %>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px; display: flex; gap: 10px;">
+            <a href="/articles" class="btn btn-outline" style="flex: 1; text-align: center; justify-content: center; font-size: 0.85rem;">
+              <span>View All Articles &rarr;</span>
+            </a>
+            <a href="/chronicles" class="btn btn-outline" style="flex: 1; text-align: center; justify-content: center; font-size: 0.85rem; border-color: rgba(245, 190, 72, 0.4); color: var(--gold-400);">
+              <span>Market Chronicles &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================================
        NEW SECTION D: FRONT-PAGE "ENTER YOUR BIRTH COORDINATES" (KUNDLI FUNNEL)
        (With Bot-Protection Math Verification, Minimized [+] SETTINGS & VIP Lock Card)
        ============================================================== -->
-  <section class="front-coordinates-section" id="birthCoordinatesFront">
+    <section class="front-coordinates-section" id="birthCoordinatesFront">
     <div class="container">
       <div class="compact-coordinates-panel" id="kundliFormCard">
         <!-- Console Top Strip -->
@@ -574,15 +689,15 @@
             </div>
           </div>
 
-          <!-- Bottom Interactive Bar: Human Security + Collapsible Settings + Submit -->
-          <div class="compact-bottom-strip">
-            <!-- Inline Bot Protection Verification -->
-            <div class="compact-bot-chip">
-              <span class="bot-icon">🛡️</span>
+          <!-- Bottom Control Strip -->
+          <div class="compact-sub-strip">
+            <!-- Math Bot Verification -->
+            <div class="compact-bot-check">
+              <span class="bot-shield">🛡️</span>
               <span class="bot-prompt">Human Check:</span>
-              <span class="bot-math-question mono-num">7 + 5 = ?</span>
-              <input type="number" class="compact-bot-input bot-math-input" placeholder="Sum" required aria-label="Bot protection sum">
-              <span class="bot-status-indicator"></span>
+              <span class="bot-equation" id="botEquationText">5 + 2 = ?</span>
+              <input type="number" id="botMathAnswer" class="compact-bot-input" placeholder="Sum" required aria-label="Bot protection sum">
+              <span class="bot-status-indicator" id="humanCheckError"></span>
             </div>
 
             <!-- [+] Settings Trigger (Strictly Hidden by Default) -->
@@ -680,325 +795,297 @@
         </form>
       </div>
 
-      <!-- Loading State Ceremony -->
-      <div class="kundli-processing" id="kundliProcessingState" style="display: none;">
-        <div class="processing-spinner"></div>
-        <h3 class="processing-title">Synchronizing Celestial Ephemeris...</h3>
-        <p class="processing-subtitle">Computing Lagna, Planetary Bhavas, and Multi-Asset Alignment.</p>
+    <div class="kundli-processing-state" id="kundliProcessingState" style="display: none;">
+      <div class="celestial-spinner">
+        <div class="orbit-ring ring-1"></div>
+        <div class="orbit-ring ring-2"></div>
+        <div class="celestial-core">✦</div>
+      </div>
+      <h3>Calculating Natal Ephemeris...</h3>
+      <p>Plotting 12 Bhavas, planetary dignities, and financial speculation yogas</p>
+    </div>
+
+    <!-- Step 2: Instant Impressive Kundli Display Result -->
+    <div class="kundli-result-card" id="kundliResultCard" style="display: none;">
+      <!-- Result Top Header -->
+      <div class="result-header-luxury">
+        <div class="result-header-left">
+          <span class="result-badge-gold">✦ VEDIC FINANCIAL HOROSCOPE</span>
+          <h2 id="resultUserName">Analysis for Vikram</h2>
+          <div class="result-meta-line" id="resultMetaLine">
+            <span>📅 15-Jan-1994 &bull; 12:00 PM</span>
+            <span>📍 Mumbai, Maharashtra</span>
+            <span>🪐 Ascendant: Aries (Mesha)</span>
+          </div>
+        </div>
+        <div class="result-header-right">
+          <div class="chart-switch-pills">
+            <button type="button" class="chart-pill active" id="btnChartStyleNorth">North Indian</button>
+            <button type="button" class="chart-pill" id="btnChartStyleSouth">South Indian</button>
+          </div>
+        </div>
       </div>
 
-      <!-- Calculation Result Stage (Interactive Kundli Output) -->
-      <div class="kundli-result-card" id="kundliResultCard" style="display: none;">
-        <div class="result-header">
-          <div class="result-badge">✦ VEDIC HOROSCOPE CALCULATION</div>
-          <h2 id="resultUserName">Vedic Financial Kundli</h2>
-          <div class="result-meta-line" id="resultMetaLine"></div>
-        </div>
+      <!-- EXECUTIVE ACTION TOOLBAR: 3 PRIMARY ACTION BUTTONS -->
+      <div class="kundli-action-toolbar">
+        <button type="button" class="btn-dossier-action btn-dossier-download" id="btnDownloadDossierPdf">
+          <span class="action-icon">📥</span>
+          <div class="action-texts">
+            <span class="action-primary">Download Wealth Dossier (PDF)</span>
+            <span class="action-secondary">Institutional 5-Page Report • D1, D9, D10, D2 &amp; Ashtakavarga</span>
+          </div>
+        </button>
 
-        <!-- Speculation & Personality Overview Strip -->
-        <div class="propensity-overview-grid">
-          <div class="propensity-card">
-            <span class="p-card-label">Speculation Tendency</span>
-            <div class="p-card-val text-gold" id="speculationScore">Calculating...</div>
-            <p class="p-card-desc" id="speculationDesc"></p>
+        <button type="button" class="btn-dossier-action btn-dossier-print" id="btnPrintDossier">
+          <span class="action-icon">🖨️</span>
+          <div class="action-texts">
+            <span class="action-primary">Print Dossier</span>
+            <span class="action-secondary">Direct A4 Printable Output</span>
           </div>
-          <div class="propensity-card">
-            <span class="p-card-label">Vedic Financial Archetype</span>
-            <div class="p-card-val text-violet" id="personalityArchetype">Calculating...</div>
-            <p class="p-card-desc" id="personalityDesc"></p>
-          </div>
-          <div class="propensity-card">
-            <span class="p-card-label">Favored Asset Class Alignment</span>
-            <div class="p-card-val text-emerald" id="favoredAsset">Calculating...</div>
-            <p class="p-card-desc">Traditional astrological affinity based on ruling Grahas.</p>
-          </div>
-        </div>
+        </button>
 
-        <!-- 4 Key Financial Houses Breakdown -->
-        <div class="financial-pillars-box mt-4">
-          <h3 class="pillars-title">Key Wealth &amp; Speculation Bhavas (Houses)</h3>
-          <div class="pillars-grid">
-            <div class="pillar-card">
-              <span class="pillar-num">2nd Bhava</span>
-              <strong>Dhana (Accumulated Wealth)</strong>
-              <span class="pillar-sign" id="h2SignDisplay">—</span>
-            </div>
-            <div class="pillar-card">
-              <span class="pillar-num">5th Bhava</span>
-              <strong>Purva Punya &amp; Speculation</strong>
-              <span class="pillar-sign" id="h5SignDisplay">—</span>
-            </div>
-            <div class="pillar-card">
-              <span class="pillar-num">9th Bhava</span>
-              <strong>Bhagya (Fortune &amp; Expansion)</strong>
-              <span class="pillar-sign" id="h9SignDisplay">—</span>
-            </div>
-            <div class="pillar-card">
-              <span class="pillar-num">11th Bhava</span>
-              <strong>Labha (Gains &amp; Desires)</strong>
-              <span class="pillar-sign" id="h11SignDisplay">—</span>
-            </div>
+        <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" target="_blank" rel="noopener" class="btn-dossier-action btn-dossier-consult" id="btnUnlockFutureCta">
+          <span class="action-icon">👑</span>
+          <div class="action-texts">
+            <span class="action-primary">Unlock Financial Future</span>
+            <span class="action-secondary">VIP Guidance with Dr. Ashish Patni</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Live Status & Hidden Download Form -->
+      <div id="pdfDownloadNotice" class="pdf-download-notice" style="display: none;">
+        <span class="notice-spinner">⏳</span>
+        <span id="pdfNoticeText">Compiling institutional 5-page PDF dossier... Please wait a few seconds.</span>
+      </div>
+
+      <form id="pdfExportForm" method="POST" action="/api/kundli/pdf" target="_blank" style="display: none;">
+        <input type="hidden" name="analysis" id="pdfAnalysisInput">
+      </form>
+
+      <!-- Main Visual Birth Chart Container -->
+      <div class="kundli-charts-row">
+        <!-- North Indian Diamond Chart -->
+        <div class="chakra-card-box" id="chartViewNorth">
+          <div class="chakra-title-bar">
+            <span>Lagna Kundli (D1 Canonical Parashari)</span>
+            <span class="tag-gold">Geocentric Sidereal • Lahiri</span>
+          </div>
+          <div class="vedic-chakra-visual" id="northIndianChartContainer">
+            <!-- Dynamically populated with full vector SVG -->
           </div>
         </div>
 
-        <!-- Chart Style Switcher Toolbar -->
-        <div class="chart-style-toolbar mt-4">
-          <span class="toolbar-label">Chart Projection:</span>
-          <div class="style-toggle-group">
-            <button type="button" class="btn-chart-toggle active" id="btnChartStyleNorth">North Indian (Diamond)</button>
-            <button type="button" class="btn-chart-toggle" id="btnChartStyleSouth">South Indian (Matrix)</button>
+        <!-- South Indian Square Chart View -->
+        <div class="chakra-card-box hidden" id="chartViewSouth">
+          <div class="chakra-title-bar">
+            <span>South Indian Natal Chart</span>
+            <span class="tag-gold">Fixed Sign Matrix</span>
+          </div>
+          <div class="south-indian-grid" id="southIndianGrid">
+            <!-- Populated via JavaScript -->
           </div>
         </div>
 
-        <!-- North Indian Diamond SVG Chart -->
-        <div class="chart-display-container" id="chartViewNorth">
-          <div class="diamond-chart-wrapper">
-            <svg class="kundli-diamond-svg" viewBox="0 0 500 500" width="100%" height="auto">
-              <rect x="10" y="10" width="480" height="480" fill="#090d24" stroke="#f5be48" stroke-width="2.2" rx="8"/>
-              <line x1="10" y1="10" x2="490" y2="490" stroke="#f5be48" stroke-width="1.6" opacity="0.6"/>
-              <line x1="490" y1="10" x2="10" y2="490" stroke="#f5be48" stroke-width="1.6" opacity="0.6"/>
-              <polygon points="250,10 490,250 250,490 10,250" fill="none" stroke="#f5be48" stroke-width="2.2"/>
-              <!-- House 1 (Lagna) -->
-              <g class="h-label-group" transform="translate(250, 140)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="'IBM Plex Mono', monospace">H1 (Lagna)</text>
-                <text x="0" y="20" text-anchor="middle" fill="#f5be48" font-size="14" font-weight="bold" id="svgSign1">Mesha</text>
-                <g id="svgHousePlanets1" transform="translate(0, 40)"></g>
-              </g>
-              <!-- House 2 -->
-              <g class="h-label-group" transform="translate(130, 80)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H2</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign2"></text>
-                <g id="svgHousePlanets2" transform="translate(0, 32)"></g>
-              </g>
-              <!-- House 3 -->
-              <g class="h-label-group" transform="translate(70, 140)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H3</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign3"></text>
-                <g id="svgHousePlanets3" transform="translate(0, 32)"></g>
-              </g>
-              <!-- House 4 -->
-              <g class="h-label-group" transform="translate(140, 250)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="11">H4</text>
-                <text x="0" y="18" text-anchor="middle" fill="#f5be48" font-size="13" id="svgSign4"></text>
-                <g id="svgHousePlanets4" transform="translate(0, 36)"></g>
-              </g>
-              <!-- House 5 -->
-              <g class="h-label-group" transform="translate(70, 360)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H5</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign5"></text>
-                <g id="svgHousePlanets5" transform="translate(0, 32)"></g>
-              </g>
-              <!-- House 6 -->
-              <g class="h-label-group" transform="translate(130, 420)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H6</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign6"></text>
-                <g id="svgHousePlanets6" transform="translate(0, 32)"></g>
-              </g>
-              <!-- House 7 -->
-              <g class="h-label-group" transform="translate(250, 360)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="11">H7</text>
-                <text x="0" y="18" text-anchor="middle" fill="#f5be48" font-size="13" id="svgSign7"></text>
-                <g id="svgHousePlanets7" transform="translate(0, 36)"></g>
-              </g>
-              <!-- House 8 -->
-              <g class="h-label-group" transform="translate(370, 420)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H8</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign8"></text>
-                <g id="svgHousePlanets8" transform="translate(0, 32)"></g>
-              </g>
-              <!-- House 9 -->
-              <g class="h-label-group" transform="translate(430, 360)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H9</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign9"></text>
-                <g id="svgHousePlanets9" transform="translate(0, 32)"></g>
-              </g>
-              <!-- House 10 -->
-              <g class="h-label-group" transform="translate(360, 250)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="11">H10</text>
-                <text x="0" y="18" text-anchor="middle" fill="#f5be48" font-size="13" id="svgSign10"></text>
-                <g id="svgHousePlanets10" transform="translate(0, 36)"></g>
-              </g>
-              <!-- House 11 -->
-              <g class="h-label-group" transform="translate(430, 140)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H11</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign11"></text>
-                <g id="svgHousePlanets11" transform="translate(0, 32)"></g>
-              </g>
-              <!-- House 12 -->
-              <g class="h-label-group" transform="translate(370, 80)">
-                <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="10">H12</text>
-                <text x="0" y="16" text-anchor="middle" fill="#f5be48" font-size="12" id="svgSign12"></text>
-                <g id="svgHousePlanets12" transform="translate(0, 32)"></g>
-              </g>
-            </svg>
+        <!-- 4 Key Financial Houses Breakdown Card -->
+        <div class="financial-houses-panel">
+          <div class="panel-header-gold">
+            <span>🏛️ वित्तीय ज्योतिष के चार मुख्य स्तम्भ (Four Wealth Pillars)</span>
+            <span class="badge-gold-subtle">धन एवं लाभ विश्लेषण (Wealth Matrix)</span>
           </div>
-        </div>
 
-        <!-- South Indian Fixed Zodiac Grid Chart -->
-        <div class="chart-display-container hidden" id="chartViewSouth">
-          <div class="south-indian-grid-chart" id="southIndianGrid"></div>
-        </div>
-
-        <!-- Planetary Positions Matrix Table -->
-        <div class="planetary-positions-box mt-4">
-          <h3 class="table-title">Planetary Placements &amp; Dignity Matrix</h3>
-          <div class="table-responsive">
-            <table class="planetary-data-table">
-              <thead>
-                <tr>
-                  <th>Planet</th>
-                  <th>Symbol</th>
-                  <th>Rashi (Sign)</th>
-                  <th>Degree</th>
-                  <th>Nakshatra</th>
-                  <th>Pada</th>
-                  <th>House</th>
-                  <th>Motion</th>
-                  <th>Dignity</th>
-                </tr>
-              </thead>
-              <tbody id="planetaryTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- ==============================================================
-             LOCKED FULL SPECIFICATIONS VIP CONSULTATION CARD
-             (Direct WhatsApp Booking with Dr. Ashish Patni)
-             ============================================================== -->
-        <div class="locked-specifications-card">
-          <div class="locked-card-grid">
-            <div class="locked-photo-col">
-              <div class="locked-avatar-wrap">
-                <img src="<%= founder.photo %>" alt="<%= founder.name %> — VIP Astrologer" class="locked-avatar-img">
+          <div class="financial-pillars-list">
+            <!-- 2nd House -->
+            <div class="pillar-row">
+              <div class="pillar-label">
+                <span class="pillar-num gold">2nd</span>
+                <div>
+                  <strong>द्वितीय भाव — धन भाव (2nd House • Dhana Bhava)</strong>
+                  <span class="pillar-sign" id="h2SignDisplay">वृषभ (Taurus) &bull; स्वामी: शुक्र (Venus)</span>
+                </div>
               </div>
+              <p class="pillar-impact" id="h2ImpactText">संचित कोष (Liquid Treasury), बैंक बैलेंस और पूंजी कम्पाउंडिंग क्षमता (Capital Compounding Capacity).</p>
             </div>
-            <div class="locked-content-col">
-              <h3>To Unlock Full Personalized Specification</h3>
-              <p class="locked-subhead" id="lockedConsultantNotice">
-                To unlock full personalized specification, Vimshottari Mahadasha timing, name-numerology compatibility and transit remedies, please contact VIP Astrologer Dr. Ashish Patni.
-              </p>
-              <div class="locked-perks-list">
-                <div class="locked-perk-item"><span class="chk">✓</span> Complete 12-Bhava Wealth &amp; Asset Dynamics</div>
-                <div class="locked-perk-item"><span class="chk">✓</span> Active Mahadasha &amp; Antardasha Wealth Windows</div>
-                <div class="locked-perk-item"><span class="chk">✓</span> Personalized Name-Numerology Multi-Asset Match</div>
-                <div class="locked-perk-item"><span class="chk">✓</span> Custom Astronomical Transit Remedies &amp; Muhurat</div>
+
+            <!-- 5th House -->
+            <div class="pillar-row highlight-gold">
+              <div class="pillar-label">
+                <span class="pillar-num gold-glow">5th</span>
+                <div>
+                  <strong>पंचम भाव — पूर्व पुण्य एवं सट्टा (5th House • Speculation &amp; Asset Allocation)</strong>
+                  <span class="pillar-sign" id="h5SignDisplay">सिंह (Leo) &bull; स्वामी: सूर्य (Sun)</span>
+                </div>
               </div>
+              <p class="pillar-impact" id="h5ImpactText">सट्टा व ट्रेडिंग अंतर्ज्ञान (Speculative Intuition), मल्टी-एसेट एलोकेशन और बाज़ार चक्र टाइमिंग (Market Timing Acumen).</p>
             </div>
-            <div class="locked-action-col">
-              <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" id="lockedWhatsAppCta" class="btn btn-whatsapp-prestige" target="_blank" rel="noopener">
-                <span>💬 Consult VIP Astrologer Dr. Ashish Patni</span>
+
+            <!-- 9th House -->
+            <div class="pillar-row">
+              <div class="pillar-label">
+                <span class="pillar-num violet">9th</span>
+                <div>
+                  <strong>नवम भाव — भाग्य भाव (9th House • Bhagya Bhava — Macro Luck)</strong>
+                  <span class="pillar-sign" id="h9SignDisplay">धनु (Sagittarius) &bull; स्वामी: गुरु (Jupiter)</span>
+                </div>
+              </div>
+              <p class="pillar-impact" id="h9ImpactText">दीर्घकालिक बाज़ार अनुकूलता (Macro Market Tailwinds), अप्रत्याशित लाभ और पीढ़ीगत धन संचय (Generational Wealth).</p>
+            </div>
+
+            <!-- 11th House -->
+            <div class="pillar-row">
+              <div class="pillar-label">
+                <span class="pillar-num green">11th</span>
+                <div>
+                  <strong>एकादश भाव — लाभ भाव (11th House • Labha Bhava — Realized Gains)</strong>
+                  <span class="pillar-sign" id="h11SignDisplay">कुम्भ (Aquarius) &bull; स्वामी: शनि (Saturn)</span>
+                </div>
+              </div>
+              <p class="pillar-impact" id="h11ImpactText">वास्तविक लाभ बुकिंग (Profit Booking Velocity), मल्टीबैगर रिटर्न और कुल पूंजी वृद्धि (Net Worth Expansion).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complete Planetary Positions Matrix Table -->
+      <div class="planetary-positions-card">
+        <div class="table-header-row">
+          <h3>ग्रह स्थिति एवं बल विवरण (Natal Planetary Longitudes &amp; Dignities)</h3>
+          <span class="table-legend">उच्च-सटीक निरयण पंचांग द्वारा गणित (High-Precision Sidereal Ephemeris)</span>
+        </div>
+        <div class="table-responsive">
+          <table class="cosmic-table" id="planetaryTable">
+            <thead>
+              <tr>
+                <th>ग्रह (Planet)</th>
+                <th>प्रतीक</th>
+                <th>राशि (Rashi)</th>
+                <th>अंश (Degree)</th>
+                <th>नक्षत्र (Nakshatra)</th>
+                <th>पद (Pada)</th>
+                <th>भाव (House)</th>
+                <th>गति (Motion)</th>
+                <th>स्थिति / बल (Dignity)</th>
+              </tr>
+            </thead>
+            <tbody id="planetaryTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Speculation & Trading Personality Summary -->
+      <div class="result-metrics-grid">
+        <div class="result-metric-box">
+          <span class="metric-label">सट्टा योग (5th Bhava Speculation Yoga)</span>
+          <span class="metric-value highlight" id="speculationScore">उच्च सट्टा योग (Apex Speculative Instinct)</span>
+          <p class="metric-desc" id="speculationDesc">5वें एवं 11वें भाव की शुभ युति तीव्र बाज़ार दूरदर्शिता (Sharp Market Foresight) और स्विंग ट्रेडिंग साइकल्स के साथ स्वाभाविक तालमेल दर्शाती है।</p>
+        </div>
+        <div class="result-metric-box">
+          <span class="metric-label">ट्रेडिंग व्यक्तित्व (Trading Personality Archetype)</span>
+          <span class="metric-value" id="personalityArchetype">सटीक स्विंग रणनीतिकार</span>
+          <p class="metric-desc" id="personalityDesc">धैर्य एवं उच्च-संभावना वाले टेक्निकल सेटअप्स (High-Probability Setups) पर निर्भरता। भावुकता से मुक्त होकर अनुशासित स्विंग ट्रेडिंग।</p>
+        </div>
+        <div class="result-metric-box">
+          <span class="metric-label">अनुकूलित संपत्ति वर्ग (Harmonized Asset Class)</span>
+          <span class="metric-value" id="favoredAsset">Bullion &amp; Sovereign Debt</span>
+          <p class="metric-desc">ग्रह स्थिति एवं दशा के अनुसार आपकी कुंडली के लिए सबसे अधिक अनुकूल और लाभदायक संपत्ति वर्ग (Favorable asset allocation).</p>
+        </div>
+      </div>
+
+      <!-- Vimshottari Mahadasha & Antardasha Timeline -->
+      <div class="result-metric-box dasha-breakdown-card" id="dashaBreakdownBox">
+        <div class="dasha-header">
+          <span class="metric-label">सक्रिय ग्रह दशा काल (Active Vimshottari Dasha Engine)</span>
+          <span class="dasha-badge" id="birthNakshatraLabel">जन्म नक्षत्र (Birth Nakshatra): Calculating...</span>
+        </div>
+        <div class="dasha-timelines-grid">
+          <div class="dasha-tier-box">
+            <span class="tier-label">वर्तमान महादशा (Current Ruling Mahadasha)</span>
+            <div class="tier-val" id="mahadashaLord">राहु (Rahu) महादशा</div>
+            <span class="tier-dates" id="mahadashaDates">2010 – 2028</span>
+            <p class="tier-desc" id="mahadashaDesc">दीर्घकालिक संपत्ति निर्माण, मैक्रो ट्रेंड्स और जीवन के मुख्य वित्तीय चक्रों का नियमन करती है।</p>
+          </div>
+          <div class="dasha-tier-box">
+            <span class="tier-label">सक्रिय अन्तर्दशा (Active Sub-Period)</span>
+            <div class="tier-val" id="antardashaLord">चन्द्र (Chandra) अन्तर्दशा</div>
+            <span class="tier-dates" id="antardashaDates">2025 – 2027</span>
+            <p class="tier-desc">तात्कालिक ट्रेडिंग मनोवृत्ति, तरलता चक्र और अल्पकालिक बाज़ार निर्णयों का नियमन करती है।</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detected Classical Dhana & Wealth Yogas -->
+      <div class="result-metric-box dhana-yogas-card" id="dhanaYogasBox">
+        <div class="dasha-header">
+          <div>
+            <span class="metric-label">शास्त्रीय धन एवं समृद्धि योग (Classical Dhana &amp; Wealth Yogas)</span>
+            <div class="dhana-subtitle">वृहत् पाराशर होरा शास्त्र एवं सारावली के शास्त्रीय नियमों द्वारा पहचाने गए योग (Classical Parashari Vedic Rules)</div>
+          </div>
+          <span class="dasha-badge">✦ शास्त्रीय वैदिक सूत्र</span>
+        </div>
+        <div class="dhana-yogas-grid" id="dhanaYogasList">
+          <!-- Populated dynamically via kundli-form.js -->
+        </div>
+      </div>
+
+      <!-- ==============================================================
+           LARGER-THAN-LIFE CELEBRITY CONSULTATION CARD: DR. ASHISH PATNI
+           ============================================================== -->
+      <div class="celebrity-consultation-showcase" id="drAshishConsultationCard">
+        <div class="consultation-showcase-grid">
+          <div class="showcase-photo-frame">
+            <img src="/images/dr_ashish_patni_executive.png" alt="Dr. Ashish Patni — Celebrity Financial Astrologer &amp; Master Numerologist" class="showcase-photo">
+            <div class="showcase-verified-tag">
+              <span class="star-icon">✦</span>
+              <span>VIP Financial Astrologer &amp; Numerologist</span>
+            </div>
+          </div>
+
+          <div class="showcase-details">
+            <div class="showcase-badge">EXCLUSIVE 1-ON-1 PERSONAL GUIDANCE</div>
+            <h3 class="showcase-doctor-name">Dr. Ashish Patni</h3>
+            <div class="showcase-doctor-title">
+              Celebrity Financial Astrologer &bull; Master Numerologist &bull; Founder, Bhavishyam (<a href="https://www.bhavishyam.com" target="_blank" rel="noopener">www.bhavishyam.com</a>)
+            </div>
+
+            <p class="showcase-copy">
+              Your birth coordinates reveal traditional Vedic astrological alignments and wealth yogas. For complete personalized guidance regarding your <strong>multi-asset financial cycles, name numerology harmony, personal Mahadasha timing, and specific transit remedies</strong>, consult directly with <strong>Dr. Ashish Patni</strong>.
+            </p>
+
+            <div class="showcase-highlights-row">
+              <span class="chip-gold">✓ Multi-Asset Planetary Timing</span>
+              <span class="chip-gold">✓ Personal Horoscope Wealth Houses</span>
+              <span class="chip-gold">✓ Name &amp; Business Numerology</span>
+              <span class="chip-gold">✓ Vimshottari Dasha Remedies</span>
+            </div>
+
+            <div class="showcase-cta-group">
+              <a href="https://wa.me/<%= founder.whatsappNumber %>?text=<%= encodeURIComponent(whatsappMessage) %>" id="kundliWhatsAppLink" class="btn btn-whatsapp-vip btn-lg" target="_blank" rel="noopener">
+                <span class="wa-icon">💬</span>
+                <span>Consult VIP Astrologer Dr. Ashish Patni on WhatsApp</span>
               </a>
-              <span class="text-xs text-dim">Direct 1-on-1 Confidential Guidance</span>
+              <a href="https://www.bhavishyam.com" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
+                <span>Visit www.bhavishyam.com</span>
+                <span class="btn-arrow">&rarr;</span>
+              </a>
+            </div>
+
+            <div class="showcase-security-note">
+              🔒 100% Confidential Personal Consultation &bull; Trusted by Top Industrialists, Family Offices &amp; Traders Globally
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- ==============================================================
        NEW SECTION E: MARKET CHRONICLES SPOTLIGHT
        (Astrological Case Studies of Market Titans, Legends & Turning Points)
        ============================================================== -->
-  <section class="home-chronicles-spotlight" id="homeChroniclesSection">
-    <div class="container">
-      <div class="home-chronicles-header">
-        <div>
-          <div class="cosmic-badge mb-2">
-            <span class="pulsing-star">✦</span>
-            <span>CELESTIAL ARCHIVES &amp; MARKET LESSONS</span>
-          </div>
-          <h2 class="section-title">Market Chronicles: <span class="text-gold">Titans, Legends &amp; Turning Points</span></h2>
-          <p class="section-subtitle" style="margin-bottom: 0;">
-            Deconstructing how planetary transits, Rahu illusions, and Saturnian karma governed the greatest fortunes, dramatic turning points, and unbroken legends in financial history.
-          </p>
-        </div>
-        <div>
-          <a href="/chronicles" class="btn btn-outline btn-md">
-            <span>Explore All 10 Market Chronicles &rarr;</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Symmetrical 2x2 Grid of Featured Case Studies -->
-      <div class="home-chronicles-grid">
-        <% if (typeof featuredChronicles !== 'undefined' && featuredChronicles.length) { %>
-          <% featuredChronicles.forEach(function(item) { %>
-            <article class="chronicle-card <%= item.isUnbrokenLegend ? 'unbroken-legend-card' : '' %>">
-              <div class="chronicle-media-wrap">
-                <img 
-                  src="<%= item.image %>" 
-                  alt="<%= item.name %> — <%= item.moniker %>" 
-                  class="chronicle-card-img" 
-                  loading="lazy" 
-                  onerror="this.src='/images/dr_ashish_patni_executive.png'"
-                >
-                <div class="chronicle-badge-overlay">
-                  <% if (item.isUnbrokenLegend) { %>
-                    <span class="c-legend-badge">★ THE UNBROKEN LEGEND</span>
-                  <% } else { %>
-                    <span class="c-era-badge"><%= item.era %></span>
-                    <span class="c-category-badge"><%= item.category %></span>
-                  <% } %>
-                </div>
-                <div class="chronicle-asset-pill">
-                  <span><%= item.assetClass %></span>
-                </div>
-              </div>
-
-              <div class="chronicle-card-body">
-                <h3 class="chronicle-card-title">
-                  <a href="/chronicles/<%= item.slug %>"><%= item.name %></a>
-                </h3>
-                <div class="chronicle-moniker <%= item.isUnbrokenLegend ? 'text-gold' : '' %>"><%= item.moniker %></div>
-                <p class="chronicle-tagline">"<%= item.tagline %>"</p>
-
-                <div class="chronicle-astro-preview">
-                  <div class="astro-p-row">
-                    <span class="p-kicker">🪐 Cosmic Yoga:</span>
-                    <span class="p-desc text-gold"><%= item.astrologicalBlueprint.wealthYoga %></span>
-                  </div>
-                  <div class="astro-p-row">
-                    <% if (item.isUnbrokenLegend) { %>
-                      <span class="p-kicker">🛡️ Planetary Shield:</span>
-                      <span class="p-desc text-green"><%= item.astrologicalBlueprint.fallTrigger %></span>
-                    <% } else { %>
-                      <span class="p-kicker">⚡ Turning Point:</span>
-                      <span class="p-desc text-red"><%= item.astrologicalBlueprint.fallTrigger %></span>
-                    <% } %>
-                  </div>
-                </div>
-
-                <div class="chronicle-quantum-grid">
-                  <div class="quantum-item">
-                    <span class="q-label">Peak Asset Valuation</span>
-                    <strong class="q-val text-green"><%= item.peakNetWorth %></strong>
-                  </div>
-                  <div class="quantum-item">
-                    <% if (item.isUnbrokenLegend) { %>
-                      <span class="q-label">Capital Preservation</span>
-                      <strong class="q-val text-gold">100% Unbroken Record</strong>
-                    <% } else { %>
-                      <span class="q-label">Exposure / Downfall</span>
-                      <strong class="q-val text-red"><%= item.fallQuantum %></strong>
-                    <% } %>
-                  </div>
-                </div>
-
-                <div class="chronicle-card-footer">
-                  <span class="astro-tag">📜 <%= item.isUnbrokenLegend ? 'Legend Astrological Study' : 'Astrological Deconstruction' %></span>
-                  <a href="/chronicles/<%= item.slug %>" class="btn btn-outline btn-xs <%= item.isUnbrokenLegend ? 'btn-legend-gold' : '' %>">
-                    <span>Read Blueprint &rarr;</span>
-                  </a>
-                </div>
-              </div>
-            </article>
-          <% }); %>
-        <% } %>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- ==============================================================
        1. LIVE INSTRUMENTS PANEL (Screenshot 1 Aligned)
@@ -1536,6 +1623,106 @@
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Market Chronicles moved after Gann & Chakra -->
+  <section class="home-chronicles-spotlight" id="homeChroniclesSection">
+    <div class="container">
+      <div class="home-chronicles-header">
+        <div>
+          <div class="cosmic-badge mb-2">
+            <span class="pulsing-star">✦</span>
+            <span>CELESTIAL ARCHIVES &amp; MARKET LESSONS</span>
+          </div>
+          <h2 class="section-title">Market Chronicles: <span class="text-gold">Titans, Legends &amp; Turning Points</span></h2>
+          <p class="section-subtitle" style="margin-bottom: 0;">
+            Deconstructing how planetary transits, Rahu illusions, and Saturnian karma governed the greatest fortunes, dramatic turning points, and unbroken legends in financial history.
+          </p>
+        </div>
+        <div>
+          <a href="/chronicles" class="btn btn-outline btn-md">
+            <span>Explore All 10 Market Chronicles &rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Symmetrical 2x2 Grid of Featured Case Studies -->
+      <div class="home-chronicles-grid">
+        <% if (typeof featuredChronicles !== 'undefined' && featuredChronicles.length) { %>
+          <% featuredChronicles.forEach(function(item) { %>
+            <article class="chronicle-card <%= item.isUnbrokenLegend ? 'unbroken-legend-card' : '' %>">
+              <div class="chronicle-media-wrap">
+                <img 
+                  src="<%= item.image %>" 
+                  alt="<%= item.name %> — <%= item.moniker %>" 
+                  class="chronicle-card-img" 
+                  loading="lazy" 
+                  onerror="this.src='/images/dr_ashish_patni_executive.png'"
+                >
+                <div class="chronicle-badge-overlay">
+                  <% if (item.isUnbrokenLegend) { %>
+                    <span class="c-legend-badge">★ THE UNBROKEN LEGEND</span>
+                  <% } else { %>
+                    <span class="c-era-badge"><%= item.era %></span>
+                    <span class="c-category-badge"><%= item.category %></span>
+                  <% } %>
+                </div>
+                <div class="chronicle-asset-pill">
+                  <span><%= item.assetClass %></span>
+                </div>
+              </div>
+
+              <div class="chronicle-card-body">
+                <h3 class="chronicle-card-title">
+                  <a href="/chronicles/<%= item.slug %>"><%= item.name %></a>
+                </h3>
+                <div class="chronicle-moniker <%= item.isUnbrokenLegend ? 'text-gold' : '' %>"><%= item.moniker %></div>
+                <p class="chronicle-tagline">"<%= item.tagline %>"</p>
+
+                <div class="chronicle-astro-preview">
+                  <div class="astro-p-row">
+                    <span class="p-kicker">🪐 Cosmic Yoga:</span>
+                    <span class="p-desc text-gold"><%= item.astrologicalBlueprint.wealthYoga %></span>
+                  </div>
+                  <div class="astro-p-row">
+                    <% if (item.isUnbrokenLegend) { %>
+                      <span class="p-kicker">🛡️ Planetary Shield:</span>
+                      <span class="p-desc text-green"><%= item.astrologicalBlueprint.fallTrigger %></span>
+                    <% } else { %>
+                      <span class="p-kicker">⚡ Turning Point:</span>
+                      <span class="p-desc text-red"><%= item.astrologicalBlueprint.fallTrigger %></span>
+                    <% } %>
+                  </div>
+                </div>
+
+                <div class="chronicle-quantum-grid">
+                  <div class="quantum-item">
+                    <span class="q-label">Peak Asset Valuation</span>
+                    <strong class="q-val text-green"><%= item.peakNetWorth %></strong>
+                  </div>
+                  <div class="quantum-item">
+                    <% if (item.isUnbrokenLegend) { %>
+                      <span class="q-label">Capital Preservation</span>
+                      <strong class="q-val text-gold">100% Unbroken Record</strong>
+                    <% } else { %>
+                      <span class="q-label">Exposure / Downfall</span>
+                      <strong class="q-val text-red"><%= item.fallQuantum %></strong>
+                    <% } %>
+                  </div>
+                </div>
+
+                <div class="chronicle-card-footer">
+                  <span class="astro-tag">📜 <%= item.isUnbrokenLegend ? 'Legend Astrological Study' : 'Astrological Deconstruction' %></span>
+                  <a href="/chronicles/<%= item.slug %>" class="btn btn-outline btn-xs <%= item.isUnbrokenLegend ? 'btn-legend-gold' : '' %>">
+                    <span>Read Blueprint &rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          <% }); %>
+        <% } %>
       </div>
     </div>
   </section>

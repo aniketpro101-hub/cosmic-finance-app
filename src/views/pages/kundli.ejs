@@ -178,6 +178,22 @@
           </div>
         </div>
 
+        <!-- Human Check Bot-Protection -->
+        <div class="form-group human-check-group">
+          <div class="human-check-box">
+            <div class="human-check-prompt">
+              <span class="human-check-icon">🛡️</span>
+              <span class="human-check-label">Human Check:</span>
+              <span class="human-check-equation" id="humanCheckEquation">5 + 2 = ?</span>
+              <span class="required">*</span>
+            </div>
+            <div class="human-check-input-wrap">
+              <input type="number" id="humanCheckInput" name="humanCheck" class="form-control human-check-input" placeholder="Sum" required autocomplete="off">
+            </div>
+          </div>
+          <span class="field-error" id="humanCheckError"></span>
+        </div>
+
         <!-- Privacy & Submission -->
         <div class="form-group checkbox-group" style="margin-top: 14px;">
           <label class="consent-label">
@@ -291,8 +307,8 @@
         <!-- 4 Key Financial Houses Breakdown Card -->
         <div class="financial-houses-panel">
           <div class="panel-header-gold">
-            <span>🏛️ Four Pillars of Financial Astrology</span>
-            <span class="badge-gold-subtle">Wealth Matrix</span>
+            <span>🏛️ वित्तीय ज्योतिष के चार मुख्य स्तम्भ (Four Wealth Pillars)</span>
+            <span class="badge-gold-subtle">धन एवं लाभ विश्लेषण (Wealth Matrix)</span>
           </div>
 
           <div class="financial-pillars-list">
@@ -301,11 +317,11 @@
               <div class="pillar-label">
                 <span class="pillar-num gold">2nd</span>
                 <div>
-                  <strong>Dhana Bhava (Liquid Wealth)</strong>
-                  <span class="pillar-sign" id="h2SignDisplay">Taurus (Venus)</span>
+                  <strong>द्वितीय भाव — धन भाव (2nd House • Dhana Bhava)</strong>
+                  <span class="pillar-sign" id="h2SignDisplay">वृषभ (Taurus) &bull; स्वामी: शुक्र (Venus)</span>
                 </div>
               </div>
-              <p class="pillar-impact" id="h2ImpactText">Liquid treasury, bank balances, capital compounding capacity.</p>
+              <p class="pillar-impact" id="h2ImpactText">संचित कोष (Liquid Treasury), बैंक बैलेंस और पूंजी कम्पाउंडिंग क्षमता (Capital Compounding Capacity).</p>
             </div>
 
             <!-- 5th House -->
@@ -313,11 +329,11 @@
               <div class="pillar-label">
                 <span class="pillar-num gold-glow">5th</span>
                 <div>
-                  <strong>Purva Punya &amp; Speculation (Multi-Asset Allocation)</strong>
-                  <span class="pillar-sign" id="h5SignDisplay">Leo (Sun)</span>
+                  <strong>पंचम भाव — पूर्व पुण्य एवं सट्टा (5th House • Speculation &amp; Asset Allocation)</strong>
+                  <span class="pillar-sign" id="h5SignDisplay">सिंह (Leo) &bull; स्वामी: सूर्य (Sun)</span>
                 </div>
               </div>
-              <p class="pillar-impact" id="h5ImpactText">Financial instinct, multi-asset allocation acumen, and timing intuition.</p>
+              <p class="pillar-impact" id="h5ImpactText">सट्टा व ट्रेडिंग अंतर्ज्ञान (Speculative Intuition), मल्टी-एसेट एलोकेशन और बाज़ार चक्र टाइमिंग (Market Timing Acumen).</p>
             </div>
 
             <!-- 9th House -->
@@ -325,11 +341,11 @@
               <div class="pillar-label">
                 <span class="pillar-num violet">9th</span>
                 <div>
-                  <strong>Bhagya Bhava (Fortune &amp; Luck)</strong>
-                  <span class="pillar-sign" id="h9SignDisplay">Sagittarius (Jupiter)</span>
+                  <strong>नवम भाव — भाग्य भाव (9th House • Bhagya Bhava — Macro Luck)</strong>
+                  <span class="pillar-sign" id="h9SignDisplay">धनु (Sagittarius) &bull; स्वामी: गुरु (Jupiter)</span>
                 </div>
               </div>
-              <p class="pillar-impact" id="h9ImpactText">Macro market tailwinds, windfall luck, and generational wealth timing.</p>
+              <p class="pillar-impact" id="h9ImpactText">दीर्घकालिक बाज़ार अनुकूलता (Macro Market Tailwinds), अप्रत्याशित लाभ और पीढ़ीगत धन संचय (Generational Wealth).</p>
             </div>
 
             <!-- 11th House -->
@@ -337,11 +353,11 @@
               <div class="pillar-label">
                 <span class="pillar-num green">11th</span>
                 <div>
-                  <strong>Labha Bhava (Realized Gains &amp; Profits)</strong>
-                  <span class="pillar-sign" id="h11SignDisplay">Aquarius (Saturn)</span>
+                  <strong>एकादश भाव — लाभ भाव (11th House • Labha Bhava — Realized Gains)</strong>
+                  <span class="pillar-sign" id="h11SignDisplay">कुम्भ (Aquarius) &bull; स्वामी: शनि (Saturn)</span>
                 </div>
               </div>
-              <p class="pillar-impact" id="h11ImpactText">Profit booking velocity, multi-bagger returns, and net worth expansion.</p>
+              <p class="pillar-impact" id="h11ImpactText">वास्तविक लाभ बुकिंग (Profit Booking Velocity), मल्टीबैगर रिटर्न और कुल पूंजी वृद्धि (Net Worth Expansion).</p>
             </div>
           </div>
         </div>
@@ -350,22 +366,22 @@
       <!-- Complete Planetary Positions Matrix Table -->
       <div class="planetary-positions-card">
         <div class="table-header-row">
-          <h3>Natal Planetary Longitudes &amp; Dignities</h3>
-          <span class="table-legend">Calculated via High-Precision Sidereal Ephemeris</span>
+          <h3>ग्रह स्थिति एवं बल विवरण (Natal Planetary Longitudes &amp; Dignities)</h3>
+          <span class="table-legend">उच्च-सटीक निरयण पंचांग द्वारा गणित (High-Precision Sidereal Ephemeris)</span>
         </div>
         <div class="table-responsive">
           <table class="cosmic-table" id="planetaryTable">
             <thead>
               <tr>
-                <th>Planet (Graha)</th>
-                <th>Glyph</th>
-                <th>Rashi (Sign)</th>
-                <th>Degree</th>
-                <th>Nakshatra</th>
-                <th>Pada</th>
-                <th>House</th>
-                <th>Motion</th>
-                <th>Dignity</th>
+                <th>ग्रह (Planet)</th>
+                <th>प्रतीक</th>
+                <th>राशि (Rashi)</th>
+                <th>अंश (Degree)</th>
+                <th>नक्षत्र (Nakshatra)</th>
+                <th>पद (Pada)</th>
+                <th>भाव (House)</th>
+                <th>गति (Motion)</th>
+                <th>स्थिति / बल (Dignity)</th>
               </tr>
             </thead>
             <tbody id="planetaryTableBody">
@@ -378,40 +394,40 @@
       <!-- Speculation & Trading Personality Summary -->
       <div class="result-metrics-grid">
         <div class="result-metric-box">
-          <span class="metric-label">Speculation Yoga (5th Bhava)</span>
-          <span class="metric-value highlight" id="speculationScore">Strong (Uchha)</span>
-          <p class="metric-desc" id="speculationDesc">Benefic aspect on the 5th lord indicates natural instinct for disciplined calculation over irrational impulse.</p>
+          <span class="metric-label">सट्टा योग (5th Bhava Speculation Yoga)</span>
+          <span class="metric-value highlight" id="speculationScore">उच्च सट्टा योग (Apex Speculative Instinct)</span>
+          <p class="metric-desc" id="speculationDesc">5वें एवं 11वें भाव की शुभ युति तीव्र बाज़ार दूरदर्शिता (Sharp Market Foresight) और स्विंग ट्रेडिंग साइकल्स के साथ स्वाभाविक तालमेल दर्शाती है।</p>
         </div>
         <div class="result-metric-box">
-          <span class="metric-label">Trading Personality Archetype</span>
-          <span class="metric-value" id="personalityArchetype">Calculated Strategist</span>
-          <p class="metric-desc" id="personalityDesc">Thrives in structured setups; gains compound through swing timeframe patience rather than intraday scalping.</p>
+          <span class="metric-label">ट्रेडिंग व्यक्तित्व (Trading Personality Archetype)</span>
+          <span class="metric-value" id="personalityArchetype">सटीक स्विंग रणनीतिकार</span>
+          <p class="metric-desc" id="personalityDesc">धैर्य एवं उच्च-संभावना वाले टेक्निकल सेटअप्स (High-Probability Setups) पर निर्भरता। भावुकता से मुक्त होकर अनुशासित स्विंग ट्रेडिंग।</p>
         </div>
         <div class="result-metric-box">
-          <span class="metric-label">Harmonized Asset Class</span>
+          <span class="metric-label">अनुकूलित संपत्ति वर्ग (Harmonized Asset Class)</span>
           <span class="metric-value" id="favoredAsset">Bullion &amp; Sovereign Debt</span>
-          <p class="metric-desc">Jupiterian and Solar planetary placements favor steady wealth accrual in metals and capital preservation vehicles.</p>
+          <p class="metric-desc">ग्रह स्थिति एवं दशा के अनुसार आपकी कुंडली के लिए सबसे अधिक अनुकूल और लाभदायक संपत्ति वर्ग (Favorable asset allocation).</p>
         </div>
       </div>
 
       <!-- Vimshottari Mahadasha & Antardasha Timeline -->
       <div class="result-metric-box dasha-breakdown-card" id="dashaBreakdownBox">
         <div class="dasha-header">
-          <span class="metric-label">Active Planetary Timing (Vimshottari Dasha Engine)</span>
-          <span class="dasha-badge" id="birthNakshatraLabel">Birth Nakshatra: Calculating...</span>
+          <span class="metric-label">सक्रिय ग्रह दशा काल (Active Vimshottari Dasha Engine)</span>
+          <span class="dasha-badge" id="birthNakshatraLabel">जन्म नक्षत्र (Birth Nakshatra): Calculating...</span>
         </div>
         <div class="dasha-timelines-grid">
           <div class="dasha-tier-box">
-            <span class="tier-label">Current Ruling Mahadasha</span>
-            <div class="tier-val" id="mahadashaLord">Lord Rahu</div>
+            <span class="tier-label">वर्तमान महादशा (Current Ruling Mahadasha)</span>
+            <div class="tier-val" id="mahadashaLord">राहु (Rahu) महादशा</div>
             <span class="tier-dates" id="mahadashaDates">2010 – 2028</span>
-            <p class="tier-desc" id="mahadashaDesc">Governs transformative volatility cycles and asymmetric market exposure.</p>
+            <p class="tier-desc" id="mahadashaDesc">दीर्घकालिक संपत्ति निर्माण, मैक्रो ट्रेंड्स और जीवन के मुख्य वित्तीय चक्रों का नियमन करती है।</p>
           </div>
           <div class="dasha-tier-box">
-            <span class="tier-label">Active Sub-Period (Antardasha)</span>
-            <div class="tier-val" id="antardashaLord">Lord Moon (Chandra)</div>
+            <span class="tier-label">सक्रिय अन्तर्दशा (Active Sub-Period)</span>
+            <div class="tier-val" id="antardashaLord">चन्द्र (Chandra) अन्तर्दशा</div>
             <span class="tier-dates" id="antardashaDates">2025 – 2027</span>
-            <p class="tier-desc">Governs emotional temperament, risk calibration, and short-term liquidity rotations.</p>
+            <p class="tier-desc">तात्कालिक ट्रेडिंग मनोवृत्ति, तरलता चक्र और अल्पकालिक बाज़ार निर्णयों का नियमन करती है।</p>
           </div>
         </div>
       </div>
@@ -420,10 +436,10 @@
       <div class="result-metric-box dhana-yogas-card" id="dhanaYogasBox">
         <div class="dasha-header">
           <div>
-            <span class="metric-label">Classical Dhana &amp; Speculative Wealth Yogas</span>
-            <div class="dhana-subtitle">Classical wealth combinations detected from Brihat Parasara Hora Sastra &amp; Saravali</div>
+            <span class="metric-label">शास्त्रीय धन एवं समृद्धि योग (Classical Dhana &amp; Wealth Yogas)</span>
+            <div class="dhana-subtitle">वृहत् पाराशर होरा शास्त्र एवं सारावली के शास्त्रीय नियमों द्वारा पहचाने गए योग (Classical Parashari Vedic Rules)</div>
           </div>
-          <span class="dasha-badge">✦ Classical Vedic Rules</span>
+          <span class="dasha-badge">✦ शास्त्रीय वैदिक सूत्र</span>
         </div>
         <div class="dhana-yogas-grid" id="dhanaYogasList">
           <!-- Populated dynamically via kundli-form.js -->

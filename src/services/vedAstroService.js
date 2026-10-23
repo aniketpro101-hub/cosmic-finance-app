@@ -83,7 +83,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(255, 213, 114, 0.6)',
     asset: 'Sovereign Debt & PSU Index',
     symbolLink: 'SENSEX',
-    significance: 'Governs sovereign credit, apex monetary governance, state discretion, and primary market trend.',
+    significance: 'राजकीय ऋण, सर्वोच्च मौद्रिक नियंत्रण और प्राथमिक बाज़ार दिशा का नियमन (Governs sovereign credit, apex monetary governance & primary trend).',
     exaltedSign: 'Aries',
     debilitatedSign: 'Libra',
     ownSigns: ['Leo']
@@ -97,7 +97,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(226, 232, 240, 0.6)',
     asset: 'Intraday Liquidity & FMCG',
     symbolLink: 'NIFTY',
-    significance: 'Governs emotional market sentiment, intraday retail order flow, consumer velocity, and FMCG equities.',
+    significance: 'भावुक बाज़ार धारणा (Market Sentiment), इंट्राडे लिक्विडिटी, रिटेल ऑर्डर फ्लो और FMCG चक्रों का नियमन (Governs sentiment & consumer velocity).',
     exaltedSign: 'Taurus',
     debilitatedSign: 'Scorpio',
     ownSigns: ['Cancer']
@@ -111,7 +111,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(248, 113, 113, 0.6)',
     asset: 'Defense, Real Estate & High Beta',
     symbolLink: 'BANKNIFTY',
-    significance: 'Governs physical capital expenditure, real estate development, defense manufacturing, and aggressive market beta.',
+    significance: 'आक्रामक पूंजी व्यय (Capex), रियल एस्टेट, रक्षा क्षेत्र और हाई-बीटा मोमेंटम का नियमन (Governs aggressive market beta & real assets).',
     exaltedSign: 'Capricorn',
     debilitatedSign: 'Cancer',
     ownSigns: ['Aries', 'Scorpio']
@@ -125,7 +125,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(110, 231, 183, 0.6)',
     asset: 'NIFTY IT, Fintech & Algorithmic Trading',
     symbolLink: 'NIFTY',
-    significance: 'Governs communication networks, software platforms, high-frequency clearing systems, and commercial trade contracts.',
+    significance: 'सटीक विश्लेषणात्मक गणनाएं, आईटी/फिनटेक, एल्गोरिद्मिक ट्रेडिंग और व्यापारिक अनुबंधों का नियमन (Governs analytics, software & trade velocity).',
     exaltedSign: 'Virgo',
     debilitatedSign: 'Pisces',
     ownSigns: ['Gemini', 'Virgo']
@@ -139,7 +139,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(252, 211, 77, 0.6)',
     asset: 'Gold (MCX), Banking & Institutional Capital',
     symbolLink: 'GOLD',
-    significance: 'Governs banking liquidity, bullion reserves, asset accumulation, systemic credit expansion, and macro optimism.',
+    significance: 'बैंकिंग लिक्विडिटी, संस्थागत पूंजी, स्वर्ण भंडार (Gold/Bullion) और मैक्रो समृद्धि का नियमन (Governs banking, asset accumulation & credit expansion).',
     exaltedSign: 'Cancer',
     debilitatedSign: 'Capricorn',
     ownSigns: ['Sagittarius', 'Pisces']
@@ -153,7 +153,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(245, 190, 72, 0.6)',
     asset: 'Luxury Equities, Auto & Precious Metals',
     symbolLink: 'GOLD',
-    significance: 'Governs tangible asset valuation, discretionary consumption, consumer durables, and wealth aesthetics.',
+    significance: 'ठोस संपत्ति मूल्यांकन, ऑटोमोबाइल, लक्ज़री शेयर्स, कमोडिटीज़ और लाभ सौंदर्य का नियमन (Governs tangible asset valuation & consumer discretion).',
     exaltedSign: 'Pisces',
     debilitatedSign: 'Virgo',
     ownSigns: ['Taurus', 'Libra']
@@ -167,7 +167,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(192, 132, 252, 0.6)',
     asset: 'Heavy Infrastructure, Metals & Energy',
     symbolLink: 'BANKNIFTY',
-    significance: 'Governs core industrial capacity, capital goods, commodity extraction, regulatory compression, and valuation discipline.',
+    significance: 'औद्योगिक बुनियादी ढांचा (Infrastructure), मेटल्स, ऊर्जा और कठोर पूंजी अनुशासन का नियमन (Governs core industrial capacity & valuation discipline).',
     exaltedSign: 'Libra',
     debilitatedSign: 'Aries',
     ownSigns: ['Capricorn', 'Aquarius']
@@ -181,7 +181,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(129, 140, 248, 0.6)',
     asset: 'Cryptocurrencies & High-Leverage Options',
     symbolLink: 'BTC',
-    significance: 'Governs technological disruption, speculative frenzy, algorithmic leverage shocks, and options volatility skew.',
+    significance: 'अचानक तकनीकी व्यवधान, सट्टा उन्माद (Speculative Frenzy), हाई-लीवरेज ऑप्शंस और क्रिप्टो वोलैटिलिटी का नियमन (Governs volatility surges & disruption).',
     exaltedSign: 'Taurus',
     debilitatedSign: 'Scorpio',
     ownSigns: ['Aquarius']
@@ -195,7 +195,7 @@ const NAVAGRAHA_CONFIG = {
     glow: 'rgba(251, 113, 133, 0.6)',
     asset: 'Macro Hedging, Gold Mining & Unwinding',
     symbolLink: 'GOLD',
-    significance: 'Governs liquidity contraction, sudden capitulation, debt liquidation, and systemic deleveraging.',
+    significance: 'लिक्विडिटी संकुचन, जोखिम हेजिंग, अप्रत्याशित बिकवाली और पूंजी सुरक्षा का नियमन (Governs macro hedging, gold mining & deleveraging).',
     exaltedSign: 'Scorpio',
     debilitatedSign: 'Taurus',
     ownSigns: ['Scorpio']

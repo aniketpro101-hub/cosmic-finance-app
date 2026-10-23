@@ -31,6 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnRandomKP = document.getElementById('btnRandomKP');
   const horaryInput = document.getElementById('horaryNumber');
 
+  // Human Check Math Verification
+  const humanCheckEquation = document.getElementById('humanCheckEquation');
+  const humanCheckInput = document.getElementById('humanCheckInput');
+  const humanCheckError = document.getElementById('humanCheckError');
+  let humanNum1 = 5;
+  let humanNum2 = 2;
+
+  function initHumanCheck() {
+    humanNum1 = Math.floor(Math.random() * 5) + 3; // 3 to 7
+    humanNum2 = Math.floor(Math.random() * 5) + 2; // 2 to 6
+    document.querySelectorAll('.human-check-equation, #humanCheckEquation, #botEquationText, .bot-equation').forEach(el => {
+      el.textContent = `${humanNum1} + ${humanNum2} = ?`;
+    });
+  }
+  initHumanCheck();
+
   // Result Elements
   const resultUserName = document.getElementById('resultUserName');
   const resultMetaLine = document.getElementById('resultMetaLine');
@@ -416,6 +432,26 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Verify Human Check
+      const curHumanCheck = curForm.querySelector('#humanCheckInput, #botMathAnswer, input[name="humanCheck"]') || document.getElementById('humanCheckInput') || document.getElementById('botMathAnswer');
+      const curHumanError = curForm.querySelector('#humanCheckError, .bot-status-indicator') || document.getElementById('humanCheckError');
+      if (curHumanCheck) {
+        const val = parseInt(curHumanCheck.value, 10);
+        const expected = humanNum1 + humanNum2;
+        if (isNaN(val) || val !== expected) {
+          if (curHumanError) {
+            curHumanError.textContent = `Human Check failed. Please solve: ${humanNum1} + ${humanNum2} = ${expected}`;
+            curHumanError.style.color = '#ef4444';
+          } else {
+            alert(`Human Check failed. Please solve: ${humanNum1} + ${humanNum2} = ${expected}`);
+          }
+          curHumanCheck.focus();
+          return;
+        } else if (curHumanError) {
+          curHumanError.textContent = '';
+        }
+      }
+
       if (!day || !month || !year) {
         alert('Please specify your Day, Month, and Year of birth.');
         return;
@@ -475,6 +511,92 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Universal Bilingual Hindi-English Astronomical & Astrological Dictionaries
+  const GRAHA_NAMES_HI = {
+    Sun: 'सूर्य',
+    Moon: 'चन्द्र',
+    Mars: 'मङ्गल',
+    Mercury: 'बुध',
+    Jupiter: 'गुरु',
+    Venus: 'शुक्र',
+    Saturn: 'शनि',
+    Rahu: 'राहु',
+    Ketu: 'केतु'
+  };
+
+  const RASHI_NAMES_HI = {
+    Aries: 'मेष',
+    Taurus: 'वृषभ',
+    Gemini: 'मिथुन',
+    Cancer: 'कर्क',
+    Leo: 'सिंह',
+    Virgo: 'कन्या',
+    Libra: 'तुला',
+    Scorpio: 'वृश्चिक',
+    Sagittarius: 'धनु',
+    Capricorn: 'मकर',
+    Aquarius: 'कुम्भ',
+    Pisces: 'मीन',
+    Mesha: 'मेष',
+    Vrishabha: 'वृषभ',
+    Mithuna: 'मिथुन',
+    Karka: 'कर्क',
+    Simha: 'सिंह',
+    Kanya: 'कन्या',
+    Tula: 'तुला',
+    Vrischika: 'वृश्चिक',
+    Dhanu: 'धनु',
+    Makara: 'मकर',
+    Kumbha: 'कुम्भ',
+    Meena: 'मीन'
+  };
+
+  const NAKSHATRA_NAMES_HI = {
+    Ashwini: 'अश्विनी',
+    Bharani: 'भरणी',
+    Krittika: 'कृत्तिका',
+    Rohini: 'रोहिणी',
+    Mrigashira: 'मृगशिरा',
+    Ardra: 'आर्द्रा',
+    Punarvasu: 'पुनर्वसु',
+    Pushya: 'पुष्य',
+    Ashlesha: 'आश्लेषा',
+    Magha: 'मघा',
+    'Purva Phalguni': 'पूर्वाफाल्गुनी',
+    'Uttara Phalguni': 'उत्तराफाल्गुनी',
+    Hasta: 'हस्त',
+    Chitra: 'चित्रा',
+    Swati: 'स्वाति',
+    Vishakha: 'विशाखा',
+    Anuradha: 'अनुराधा',
+    Jyeshtha: 'ज्येष्ठा',
+    Mula: 'मूल',
+    'Purva Ashadha': 'पूर्वाषाढ़ा',
+    'Uttara Ashadha': 'उत्तराषाढ़ा',
+    Shravana: 'श्रवण',
+    Dhanishta: 'धनिष्ठा',
+    Shatabhisha: 'शतभिषा',
+    'Purva Bhadrapada': 'पूर्वाभाद्रपद',
+    'Uttara Bhadrapada': 'उत्तराभाद्रपद',
+    Revati: 'रेवती'
+  };
+
+  const DIGNITY_MAP_HI = {
+    exalted: { hi: 'उच्च', en: 'Exalted', cls: 'exalted' },
+    uchcha: { hi: 'उच्च', en: 'Exalted', cls: 'exalted' },
+    debilitated: { hi: 'नीच', en: 'Debilitated', cls: 'debilitated' },
+    neecha: { hi: 'नीच', en: 'Debilitated', cls: 'debilitated' },
+    own: { hi: 'स्वराशि', en: 'Own Sign', cls: 'own' },
+    'own sign': { hi: 'स्वराशि', en: 'Own Sign', cls: 'own' },
+    swakshetra: { hi: 'स्वराशि', en: 'Own Sign', cls: 'own' },
+    friendly: { hi: 'मित्र राशि', en: 'Friendly', cls: 'friendly' },
+    mitra: { hi: 'मित्र राशि', en: 'Friendly', cls: 'friendly' },
+    neutral: { hi: 'सम राशि', en: 'Neutral', cls: 'neutral' },
+    sama: { hi: 'सम राशि', en: 'Neutral', cls: 'neutral' },
+    enemy: { hi: 'शत्रु राशि', en: 'Enemy', cls: 'enemy' },
+    shatru: { hi: 'शत्रु राशि', en: 'Enemy', cls: 'enemy' }
+  };
+
   // 8. Master Render Function for Full Kundli Results
   function renderKundliResults(analysis) {
     if (!analysis) return;
@@ -491,14 +613,16 @@ document.addEventListener('DOMContentLoaded', () => {
       lockedWaBtn.href = `https://wa.me/919039610001?text=${encodeURIComponent(msg)}`;
     }
 
-    // Header metadata
+    // Header metadata (Bilingual Hindi-English)
     if (resultUserName) resultUserName.textContent = `Vedic Financial Kundli for ${analysis.fullName}`;
     if (resultMetaLine) {
+      const lagnaRaw = (analysis.lagna.signName || '').split(' ')[0];
+      const lagnaHi = RASHI_NAMES_HI[lagnaRaw] || lagnaRaw;
       resultMetaLine.innerHTML = `
-        <span>📅 ${analysis.dob} (${analysis.tob})</span>
-        <span>📍 ${analysis.pob}</span>
-        <span>🪐 Lagna: <strong>${analysis.lagna.signName}</strong> (${analysis.lagna.degreesDisplay})</span>
-        <span>🛡️ Ayanamsha: ${analysis.ayanamsa}</span>
+        <span>📅 <strong>जन्म तिथि:</strong> ${analysis.dob} (${analysis.tob})</span>
+        <span>📍 <strong>स्थान:</strong> ${escapeHtml(analysis.pob)}</span>
+        <span>🪐 <strong>लग्न (Ascendant):</strong> ${lagnaHi} (${escapeHtml(analysis.lagna.signName)}) &bull; ${analysis.lagna.degreesDisplay}</span>
+        <span>🛡️ <strong>अयनांश:</strong> ${escapeHtml(analysis.ayanamsa)}</span>
       `;
     }
 
@@ -509,18 +633,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (personalityDesc) personalityDesc.textContent = analysis.personality.description;
     if (favoredAsset) favoredAsset.textContent = analysis.favoredAsset;
 
-    // Financial Pillars
+    // Financial Pillars (Bilingual Hindi-English)
     if (analysis.financialHouses) {
       const fh = analysis.financialHouses;
       const h2Sign = document.getElementById('h2SignDisplay');
       const h5Sign = document.getElementById('h5SignDisplay');
       const h9Sign = document.getElementById('h9SignDisplay');
       const h11Sign = document.getElementById('h11SignDisplay');
+      const h2Impact = document.getElementById('h2ImpactText');
+      const h5Impact = document.getElementById('h5ImpactText');
+      const h9Impact = document.getElementById('h9ImpactText');
+      const h11Impact = document.getElementById('h11ImpactText');
 
-      if (h2Sign && fh.house2Dhana) h2Sign.textContent = `${fh.house2Dhana.signName.split(' ')[0]} (Lord: ${fh.house2Dhana.lord})`;
-      if (h5Sign && fh.house5Speculation) h5Sign.textContent = `${fh.house5Speculation.signName.split(' ')[0]} (Lord: ${fh.house5Speculation.lord})`;
-      if (h9Sign && fh.house9Bhagya) h9Sign.textContent = `${fh.house9Bhagya.signName.split(' ')[0]} (Lord: ${fh.house9Bhagya.lord})`;
-      if (h11Sign && fh.house11Labha) h11Sign.textContent = `${fh.house11Labha.signName.split(' ')[0]} (Lord: ${fh.house11Labha.lord})`;
+      if (h2Sign && fh.house2Dhana) {
+        const rawS = fh.house2Dhana.signName.split(' ')[0];
+        const sHi = RASHI_NAMES_HI[rawS] || rawS;
+        const lHi = GRAHA_NAMES_HI[fh.house2Dhana.lord] || fh.house2Dhana.lord;
+        h2Sign.innerHTML = `<strong>${sHi} (${rawS})</strong> &bull; स्वामी: ${lHi} (${fh.house2Dhana.lord})`;
+        if (h2Impact) h2Impact.innerHTML = `संचित कोष (Liquid Treasury), बैंक बैलेंस और पूंजी कम्पाउंडिंग क्षमता (Capital Compounding).`;
+      }
+      if (h5Sign && fh.house5Speculation) {
+        const rawS = fh.house5Speculation.signName.split(' ')[0];
+        const sHi = RASHI_NAMES_HI[rawS] || rawS;
+        const lHi = GRAHA_NAMES_HI[fh.house5Speculation.lord] || fh.house5Speculation.lord;
+        h5Sign.innerHTML = `<strong>${sHi} (${rawS})</strong> &bull; स्वामी: ${lHi} (${fh.house5Speculation.lord})`;
+        if (h5Impact) h5Impact.innerHTML = `सट्टा व ट्रेडिंग अंतर्ज्ञान (Speculative Intuition), मल्टी-एसेट एलोकेशन और बाज़ार चक्र टाइमिंग (Market Timing Acumen).`;
+      }
+      if (h9Sign && fh.house9Bhagya) {
+        const rawS = fh.house9Bhagya.signName.split(' ')[0];
+        const sHi = RASHI_NAMES_HI[rawS] || rawS;
+        const lHi = GRAHA_NAMES_HI[fh.house9Bhagya.lord] || fh.house9Bhagya.lord;
+        h9Sign.innerHTML = `<strong>${sHi} (${rawS})</strong> &bull; स्वामी: ${lHi} (${fh.house9Bhagya.lord})`;
+        if (h9Impact) h9Impact.innerHTML = `दीर्घकालिक बाज़ार अनुकूलता (Macro Market Tailwinds), अप्रत्याशित लाभ और पीढ़ीगत धन संचय (Generational Wealth).`;
+      }
+      if (h11Sign && fh.house11Labha) {
+        const rawS = fh.house11Labha.signName.split(' ')[0];
+        const sHi = RASHI_NAMES_HI[rawS] || rawS;
+        const lHi = GRAHA_NAMES_HI[fh.house11Labha.lord] || fh.house11Labha.lord;
+        h11Sign.innerHTML = `<strong>${sHi} (${rawS})</strong> &bull; स्वामी: ${lHi} (${fh.house11Labha.lord})`;
+        if (h11Impact) h11Impact.innerHTML = `वास्तविक लाभ बुकिंग (Profit Booking Velocity), मल्टीबैगर रिटर्न और कुल पूंजी वृद्धि (Net Worth Expansion).`;
+      }
     }
 
     // Populate North Indian Diamond SVG Houses
@@ -548,26 +700,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate Planetary Positions Table
     renderPlanetaryTable(analysis.planets);
 
-    // Populate Vimshottari Dasha
+    // Populate Vimshottari Dasha (Bilingual Hindi-English)
     if (analysis.vimshottariDasha) {
       const vd = analysis.vimshottariDasha;
       const nakLabel = document.getElementById('birthNakshatraLabel');
-      if (nakLabel) nakLabel.textContent = `Birth Nakshatra: ${vd.birthNakshatra} (${vd.birthMoonLongitude}°)`;
+      const birthNakHi = NAKSHATRA_NAMES_HI[vd.birthNakshatra] || vd.birthNakshatra;
+      if (nakLabel) nakLabel.textContent = `जन्म नक्षत्र (Birth Nakshatra): ${birthNakHi} (${vd.birthNakshatra} • ${vd.birthMoonLongitude}°)`;
 
       if (vd.activeMahadasha) {
         const mLord = document.getElementById('mahadashaLord');
         const mDates = document.getElementById('mahadashaDates');
         const mDesc = document.getElementById('mahadashaDesc');
-        if (mLord) mLord.textContent = `${vd.activeMahadasha.glyph} Lord ${vd.activeMahadasha.lord} (${vd.activeMahadasha.vedic})`;
-        if (mDates) mDates.textContent = `${vd.activeMahadasha.startDate} to ${vd.activeMahadasha.endDate}`;
+        const mHi = GRAHA_NAMES_HI[vd.activeMahadasha.lord] || vd.activeMahadasha.vedic;
+        if (mLord) mLord.textContent = `${vd.activeMahadasha.glyph} ${mHi} (${vd.activeMahadasha.lord}) महादशा`;
+        if (mDates) mDates.textContent = `${vd.activeMahadasha.startDate} से ${vd.activeMahadasha.endDate}`;
         if (mDesc) mDesc.textContent = vd.activeMahadasha.significance;
       }
 
       if (vd.activeAntardasha) {
         const aLord = document.getElementById('antardashaLord');
         const aDates = document.getElementById('antardashaDates');
-        if (aLord) aLord.textContent = `Lord ${vd.activeAntardasha.lord} (${vd.activeAntardasha.vedic})`;
-        if (aDates) aDates.textContent = `${vd.activeAntardasha.startDate} to ${vd.activeAntardasha.endDate}`;
+        const aHi = GRAHA_NAMES_HI[vd.activeAntardasha.lord] || vd.activeAntardasha.vedic;
+        if (aLord) aLord.textContent = `${aHi} (${vd.activeAntardasha.lord}) अन्तर्दशा`;
+        if (aDates) aDates.textContent = `${vd.activeAntardasha.startDate} से ${vd.activeAntardasha.endDate}`;
       }
     }
 
@@ -578,7 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="dhana-yoga-item">
           <div class="dhana-item-top">
             <span class="dhana-item-name">${escapeHtml(yoga.name)}</span>
-            <span class="dhana-category-badge badge-gold">✦ Auspicious Dhana Yoga</span>
+            <span class="dhana-category-badge badge-gold">✦ शुभ धन योग (Auspicious Dhana Yoga)</span>
           </div>
           <p class="dhana-item-desc">${escapeHtml(yoga.impact)}</p>
           <div class="dhana-item-footer">
@@ -795,27 +950,38 @@ document.addEventListener('DOMContentLoaded', () => {
     southIndianGrid.innerHTML = cellsHtml + centerMandalaHtml;
   }
 
-  // 11. Planetary Positions Matrix Table Plotter
+  // 11. Planetary Positions Matrix Table Plotter (Prominent Hindi with English Bilingual Subtext)
   function renderPlanetaryTable(planets) {
     if (!planetaryTableBody || !planets) return;
 
     planetaryTableBody.innerHTML = planets.map(p => {
       const isRetro = p.isRetrograde;
+      const gNameHi = GRAHA_NAMES_HI[p.name] || p.vedicName || p.name;
+      const rawRashi = (p.rashiName || '').split(' ')[0];
+      const rashiHi = RASHI_NAMES_HI[rawRashi] || RASHI_NAMES_HI[p.rashiVedic] || rawRashi;
+      const rashiEn = p.rashiName || rawRashi;
+      const nakHi = NAKSHATRA_NAMES_HI[p.nakshatra] || p.nakshatra;
+
+      const digKey = (p.dignity || 'neutral').toLowerCase().trim();
+      const digInfo = DIGNITY_MAP_HI[digKey] || { hi: p.dignity, en: p.dignity, cls: 'neutral' };
+
+      const motionBadge = isRetro
+        ? '<span class="badge-motion vakri">℞ वक्री (Retrograde)</span>'
+        : '<span class="badge-motion direct">मार्गी (Direct)</span>';
+
+      const dignityBadge = `<span class="badge-dignity ${digInfo.cls}"><strong>${digInfo.hi}</strong> <small>(${digInfo.en})</small></span>`;
+
       return `
         <tr>
-          <td><strong>${escapeHtml(p.name)}</strong> (${escapeHtml(p.vedicName)})</td>
-          <td class="glyph-cell">${p.glyph}</td>
-          <td>${escapeHtml(p.rashiName)} (${escapeHtml(p.rashiVedic)})</td>
-          <td class="mono-deg">${p.degreesDisplay}</td>
-          <td>${escapeHtml(p.nakshatra)}</td>
-          <td>Pada ${p.pada}</td>
-          <td class="house-cell">House ${p.houseNumber}</td>
-          <td>
-            ${isRetro ? '<span class="badge-motion vakri">℞ Retrograde</span>' : '<span class="badge-motion direct">Direct</span>'}
-          </td>
-          <td>
-            <span class="badge-dignity ${p.dignity.toLowerCase()}">${escapeHtml(p.dignity)}</span>
-          </td>
+          <td><strong class="hi-planet-name" style="font-size: 1.05rem; color: var(--accent-gold);">${gNameHi}</strong> <span class="en-sub" style="font-size: 0.82rem; opacity: 0.85;">(${escapeHtml(p.name)})</span></td>
+          <td class="glyph-cell" style="font-size: 1.25rem;">${p.glyph}</td>
+          <td><strong class="hi-rashi-name" style="font-size: 0.98rem;">${rashiHi}</strong> <span class="en-sub" style="font-size: 0.82rem; opacity: 0.85;">(${escapeHtml(rashiEn)})</span></td>
+          <td class="mono-deg" style="font-weight: 700;">${p.degreesDisplay}</td>
+          <td><strong class="hi-nak-name" style="font-size: 0.98rem;">${nakHi}</strong> <span class="en-sub" style="font-size: 0.82rem; opacity: 0.85;">(${escapeHtml(p.nakshatra)})</span></td>
+          <td><strong>पद ${p.pada}</strong></td>
+          <td class="house-cell"><strong>${p.houseNumber}वां भाव</strong> <small>(${p.houseNumber}th)</small></td>
+          <td>${motionBadge}</td>
+          <td>${dignityBadge}</td>
         </tr>
       `;
     }).join('');

@@ -122,14 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (w <= 430) return 1180; // 390px - 430px: iPhone 12/13/14/15/16 Pro, Galaxy S23/S24
     if (w <= 640) return 1040; // Phablets / Foldables
     if (w <= 900) return 820;  // Tablets
-    if (w <= 1200) return 720; // Small Laptops / Screens
-    return 660;                // Desktop (Full HD / 4K)
+    if (w <= 1200) return 660; // Small Laptops / Screens
+    return 520;                // Desktop (Full HD / 4K): calibrated for majestic 127% view matching Reference Image 2
   }
 
   function updateZoomPill() {
     try {
       if (zoomLevelPill && typeof targetCamDist === 'number') {
-        const base = getBaseCamDist();
+        const base = 660; // reference desktop baseline
         const pct = Math.round((base / targetCamDist) * 100);
         zoomLevelPill.textContent = `${pct}%`;
       }
@@ -145,14 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let ctx3D = null;
   let width3D = 600, height3D = 460;
-  let camPitch = 0.46; // Tilt angle (radians) ~26.4 deg for majestic 3D perspective without distortion
-  let camYaw = -0.35;   // Rotation angle (radians)
+  let camPitch = 0.52; // Tilt angle (radians) matching User Reference Image 2
+  let camYaw = -0.32;   // Rotation angle (radians)
   let camDist = getBaseCamDist();   // Calibrated dynamically for device screen width
   let targetCamDist = getBaseCamDist();
   let userHasZoomed = false;
   let isDragging = false;
   let lastMouseX = 0, lastMouseY = 0;
-  let targetPitch = 0.46, targetYaw = -0.35;
+  let targetPitch = 0.52, targetYaw = -0.32;
   let velYaw = 0, velPitch = 0;
   let animFrameId = null;
 
@@ -1405,8 +1405,8 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       userHasZoomed = false;
       targetCamDist = getBaseCamDist();
-      targetPitch = 0.46;
-      targetYaw = -0.35;
+      targetPitch = 0.52;
+      targetYaw = -0.32;
       updateZoomPill();
     });
   }

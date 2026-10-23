@@ -150,9 +150,17 @@ router.post('/articles/create', requireAdminAuth, (req, res) => {
     db.prepare(`
       INSERT INTO articles (slug, title, excerpt, content, category, author_name, author_bio, read_time, status, published_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'approved', CURRENT_TIMESTAMP)
-    `).run(slug, title, excerpt || '', content, category || 'Basics', authorName || 'Cosmic Finance Team', authorBio || 'Staff Astrological Analyst', readTime || '5 min read');
+    `).run(slug, title, excerpt || '', content, category || 'Basics', authorName || 'Dr. Ashish Patni', authorBio || 'Celebrity Financial Astrologer & Master Numerologist', readTime || '5 min read');
+
+    // Broadcast Push Notification
+    pushService.broadcastPushNotification({
+      title: '📰 New Research Article: ' + title,
+      body: excerpt || 'New Vedic financial market insights published by Dr. Ashish Patni.',
+      url: `/articles/${slug}`,
+      category: 'article'
+    });
   }
-  res.redirect(`${CONSTANTS.ADMIN_PATH}/articles`);
+  res.redirect(`${CONSTANTS.ADMIN_PATH}/articles?created=true`);
 });
 
 // 6. GET Leads Management Deck (With decryption)
@@ -218,14 +226,58 @@ router.get('/analytics', requireAdminAuth, (req, res) => {
 });
 
 // Phase 10: Weekly Macro Outlook & Public Track Record Management
+const pushService = require('../services/pushService');
+
 router.get('/outlook', requireAdminAuth, (req, res) => {
   const outlooks = db.prepare('SELECT * FROM weekly_outlook ORDER BY published_at DESC').all();
   const trackRecords = db.prepare('SELECT * FROM macro_track_record ORDER BY published_date DESC').all();
   res.render('admin/outlook', {
     adminPath: CONSTANTS.ADMIN_PATH,
     outlooks,
-    trackRecords
+    trackRecords,
+    published: req.query.published === 'true'
   });
+});
+
+// Admin: Publish New Weekly Astro-Market Outlook
+router.post('/outlook/create', requireAdminAuth, (req, res) => {
+  const {
+    weekRange,
+    planetaryTransits,
+    marketCommentary,
+    niftySensexOutlook,
+    goldOutlook,
+    cryptoOutlook,
+    nasdaqOutlook
+  } = req.body;
+
+  if (weekRange && marketCommentary) {
+    db.prepare(`
+      INSERT INTO weekly_outlook (
+        week_range, planetary_transits, market_commentary,
+        nifty_sensex_outlook, gold_outlook, crypto_outlook, nasdaq_outlook,
+        is_published, published_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, 1, CURRENT_TIMESTAMP)
+    `).run(
+      weekRange,
+      planetaryTransits || 'Major planetary alignments & Nakshatra transits active this week',
+      marketCommentary,
+      niftySensexOutlook || '',
+      goldOutlook || '',
+      cryptoOutlook || '',
+      nasdaqOutlook || ''
+    );
+
+    // Broadcast Push Notification to all subscribed users
+    pushService.broadcastPushNotification({
+      title: '🌟 New Weekly Astro-Market Outlook Live!',
+      body: `Dr. Ashish Patni has released the Cosmic Mandate for ${weekRange}. Check planetary stock & gold timing now.`,
+      url: '/weekly-outlook',
+      category: 'outlook'
+    });
+  }
+
+  res.redirect(`${CONSTANTS.ADMIN_PATH}/outlook?published=true`);
 });
 
 router.post('/outlook/verify-outcome', requireAdminAuth, (req, res) => {

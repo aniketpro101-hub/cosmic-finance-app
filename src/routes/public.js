@@ -56,12 +56,22 @@ function renderWithLayout(res, view, options = {}) {
 
 // 1. Home Page
 router.get('/', (req, res) => {
-  // Fetch latest daily thoughts and featured articles from database
+  // Fetch latest daily thoughts from database
   let thoughts = [];
   try {
     thoughts = db.prepare("SELECT * FROM daily_thoughts WHERE is_published = 1 AND (datetime(published_at) <= datetime('now') OR published_at IS NULL) ORDER BY published_at DESC LIMIT 5").all();
   } catch (e) {
     console.error('Error fetching thoughts:', e.message);
+  }
+
+  // Fetch Latest Admin Weekly Outlook & Latest Articles for Homepage Live Showcase
+  let latestOutlook = null;
+  let latestArticles = [];
+  try {
+    latestOutlook = db.prepare("SELECT * FROM weekly_outlook WHERE is_published = 1 ORDER BY published_at DESC LIMIT 1").get() || null;
+    latestArticles = db.prepare("SELECT * FROM articles WHERE status = 'approved' ORDER BY published_at DESC LIMIT 3").all() || [];
+  } catch (e) {
+    console.error('Error fetching latest outlook/articles for home:', e.message);
   }
 
   // Featured Market Chronicles for Homepage (Harshad Mehta, Rakesh Jhunjhunwala Legend, Jesse Livermore, Vijay Mallya)
@@ -73,6 +83,8 @@ router.get('/', (req, res) => {
     title: CONSTANTS.SITEMAP.HOME.title,
     description: 'Explore financial astrology macro commentary alongside live Indian equity indices, gold, and crypto.',
     thoughts,
+    latestOutlook,
+    latestArticles,
     featuredChronicles,
     extraScripts: [
       '/js/orbit.js',

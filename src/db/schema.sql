@@ -148,3 +148,22 @@ CREATE TABLE IF NOT EXISTS historical_patterns (
   methodology_note TEXT NOT NULL,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- PWA Web Push Subscriptions
+CREATE TABLE IF NOT EXISTS push_subscriptions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  endpoint TEXT UNIQUE NOT NULL,
+  subscription_json TEXT NOT NULL,
+  user_agent TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Push Notifications Broadcast Log
+CREATE TABLE IF NOT EXISTS push_notifications (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  url TEXT DEFAULT '/',
+  category TEXT DEFAULT 'general',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

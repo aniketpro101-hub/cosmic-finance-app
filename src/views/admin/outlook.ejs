@@ -31,7 +31,91 @@
         <span class="text-secondary text-sm">Verify outcomes to automatically update the public record</span>
       </header>
 
-      <div class="admin-content-inner">
+        <% if (typeof published !== 'undefined' && published) { %>
+          <div class="alert alert-success mb-4" style="background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; padding: 12px; border-radius: 8px;">
+            ✅ <strong>Weekly Outlook Published Successfully!</strong> Live update pushed to homepage and broadcasted to subscribers.
+          </div>
+        <% } %>
+
+        <!-- 1. Publish New Weekly Outlook Form -->
+        <div class="admin-panel mb-6" style="border-top: 3px solid var(--gold-400);">
+          <h3>✨ Publish New Weekly Astro-Market Outlook (Dr. Ashish Patni)</h3>
+          <p class="text-sm text-secondary mb-4">Sharing a new weekly view automatically updates the Home Page headline card and sends instant push notifications to mobile &amp; desktop subscribers.</p>
+
+          <form action="<%= adminPath %>/outlook/create" method="POST" class="cosmic-form">
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="weekRangeOutlook">Week Range / Title *</label>
+                <input type="text" id="weekRangeOutlook" name="weekRange" class="form-control" placeholder="e.g. Oct 26 – Nov 01, 2026" required>
+              </div>
+              <div class="form-group col-half">
+                <label for="planetaryTransits">Key Planetary Alignments &amp; Nakshatras *</label>
+                <input type="text" id="planetaryTransits" name="planetaryTransits" class="form-control" placeholder="e.g. Sun in Swati, Mars-Rahu square, Mercury trine Jupiter" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="marketCommentary">Comprehensive Market Commentary &amp; Cosmic Mandate *</label>
+              <textarea id="marketCommentary" name="marketCommentary" class="form-control" rows="4" placeholder="Detail the macro cycle, planetary tides, liquidity expectations, and sector rotation..." required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="niftySensexOutlook">Nifty &amp; Sensex View / Cosmic Levels</label>
+                <input type="text" id="niftySensexOutlook" name="niftySensexOutlook" class="form-control" placeholder="e.g. Bullish bias above 25,400; crucial reversal node on Wednesday">
+              </div>
+              <div class="form-group col-half">
+                <label for="goldOutlook">Precious Metals (Gold &amp; Silver COMEX/MCX)</label>
+                <input type="text" id="goldOutlook" name="goldOutlook" class="form-control" placeholder="e.g. Solar bullion acceleration cycle favored; key accumulation zone">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-half">
+                <label for="cryptoOutlook">Digital Assets &amp; Web3 (BTC / ETH)</label>
+                <input type="text" id="cryptoOutlook" name="cryptoOutlook" class="form-control" placeholder="e.g. Rahu-driven high velocity breakout expected over weekend">
+              </div>
+              <div class="form-group col-half">
+                <label for="nasdaqOutlook">Global Indices (NASDAQ / S&amp;P 500 / Crude)</label>
+                <input type="text" id="nasdaqOutlook" name="nasdaqOutlook" class="form-control" placeholder="e.g. Tech earnings cross-currents; Crude Oil Martian volatility">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg">
+              <span>🌟 Publish Weekly Outlook &amp; Push Notification &rarr;</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Published Outlooks History -->
+        <div class="admin-panel mb-6">
+          <h3>Published Weekly Outlooks (<%= outlooks.length %>)</h3>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th>Planetary Transits</th>
+                <th>Nifty &amp; Gold View</th>
+                <th>Published At</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (outlooks.length === 0) { %>
+                <tr><td colspan="4" class="text-center text-muted">No weekly outlooks published yet.</td></tr>
+              <% } else { %>
+                <% outlooks.forEach(o => { %>
+                  <tr>
+                    <td><strong><%= o.week_range %></strong></td>
+                    <td><small><%= o.planetary_transits %></small></td>
+                    <td><small><strong>Nifty:</strong> <%= o.nifty_sensex_outlook || '-' %><br><strong>Gold:</strong> <%= o.gold_outlook || '-' %></small></td>
+                    <td><small class="text-muted"><%= o.published_at %></small></td>
+                  </tr>
+                <% }); %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
         <!-- Outcome Verification Form -->
         <div class="admin-panel mb-6">
           <h3>Verify Historical Macro Call Outcome</h3>

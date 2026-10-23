@@ -518,4 +518,41 @@ router.post('/news/sync', async (req, res) => {
   }
 });
 
+// PWA Web Push Notification Endpoints
+const pushService = require('../services/pushService');
+
+router.post('/push/subscribe', (req, res) => {
+  try {
+    const { subscription } = req.body;
+    const userAgent = req.headers['user-agent'] || '';
+    const id = pushService.saveSubscription(subscription, userAgent);
+    return res.json({ status: 'success', subscriptionId: id });
+  } catch (err) {
+    return res.status(500).json({ error: 'Subscription failed: ' + err.message });
+  }
+});
+
+router.get('/push/latest', (req, res) => {
+  try {
+    const latest = pushService.getLatestNotification();
+    return res.json({ status: 'success', notification: latest });
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to retrieve notification' });
+  }
+});
+
+router.post('/push/send-test', (req, res) => {
+  try {
+    const result = pushService.broadcastPushNotification({
+      title: '🌟 Test Cosmic Market Alert',
+      body: 'Planetary alignments updated. Real-time telemetry connection verified.',
+      url: '/weekly-outlook',
+      category: 'test'
+    });
+    return res.json({ status: 'success', ...result });
+  } catch (err) {
+    return res.status(500).json({ error: 'Broadcast failed: ' + err.message });
+  }
+});
+
 module.exports = router;

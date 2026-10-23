@@ -82,12 +82,12 @@ function renderNorthIndianChartSvg({
   isCompact = false
 }) {
   const isDark = (theme === 'dark');
-  const width = isCompact ? 680 : 760;
-  const height = isCompact ? 680 : 860;
+  const width = isCompact ? 720 : 760;
+  const height = isCompact ? 720 : 860;
 
-  // Chart square dimensions
-  const chartX = isCompact ? 20 : 35;
-  const chartY = isCompact ? 20 : 110;
+  // Chart square dimensions (with spacious margins preventing any border clipping)
+  const chartX = isCompact ? 40 : 35;
+  const chartY = isCompact ? 40 : 110;
   const chartSize = isCompact ? 640 : 690;
   const midX = chartX + chartSize / 2;
   const midY = chartY + chartSize / 2;
@@ -123,91 +123,131 @@ function renderNorthIndianChartSvg({
   const lagnaLord = SIGN_LORDS[lagnaSignIndex];
   const lagnaDegFormatted = `${Math.floor(lagnaDegrees)}° ${Math.round((lagnaDegrees % 1) * 60)}'`;
 
-  // Define house content centers (for placing text without overlapping borders)
+  // Define house content centers (for placing text without overlapping borders or badges)
   const houseCenters = {
-    1: { x: midX, y: chartY + chartSize * 0.28, align: 'middle' },
-    2: { x: chartX + chartSize * 0.23, y: chartY + chartSize * 0.14, align: 'middle' },
-    3: { x: chartX + chartSize * 0.12, y: chartY + chartSize * 0.25, align: 'middle' },
-    4: { x: chartX + chartSize * 0.24, y: midY, align: 'middle' },
-    5: { x: chartX + chartSize * 0.13, y: chartY + chartSize * 0.72, align: 'middle' },
-    6: { x: chartX + chartSize * 0.23, y: chartY + chartSize * 0.85, align: 'middle' },
+    1: { x: midX, y: chartY + chartSize * 0.22, align: 'middle' },
+    2: { x: qX1, y: chartY + chartSize * 0.16, align: 'middle' },
+    3: { x: chartX + chartSize * 0.16, y: qY1, align: 'middle' },
+    4: { x: qX1, y: midY, align: 'middle' },
+    5: { x: chartX + chartSize * 0.16, y: qY3, align: 'middle' },
+    6: { x: qX1, y: chartY + chartSize * 0.84, align: 'middle' },
     7: { x: midX, y: chartY + chartSize * 0.76, align: 'middle' },
-    8: { x: chartX + chartSize * 0.77, y: chartY + chartSize * 0.85, align: 'middle' },
-    9: { x: chartX + chartSize * 0.87, y: chartY + chartSize * 0.72, align: 'middle' },
-    10: { x: chartX + chartSize * 0.76, y: midY, align: 'middle' },
-    11: { x: chartX + chartSize * 0.87, y: chartY + chartSize * 0.25, align: 'middle' },
-    12: { x: chartX + chartSize * 0.77, y: chartY + chartSize * 0.14, align: 'middle' }
+    8: { x: qX3, y: chartY + chartSize * 0.84, align: 'middle' },
+    9: { x: chartX + chartSize * 0.84, y: qY3, align: 'middle' },
+    10: { x: qX3, y: midY, align: 'middle' },
+    11: { x: chartX + chartSize * 0.84, y: qY1, align: 'middle' },
+    12: { x: qX3, y: chartY + chartSize * 0.16, align: 'middle' }
   };
 
-  // Positions of Rashi sign badges (circular red chips at canonical intersection points)
+  // Canonical positions of Rashi sign badges (Perimeter & Kendra Apex Distribution)
+  // Ensures 0 clustering, 0 badge pairing, and maximum clearance from planets
+  const badgeInset = isCompact ? 22 : 28;
   const signBadgePos = {
-    1: { x: midX, y: midY - 34 },
-    2: { x: qX1 + 18, y: qY1 - 18 },
-    3: { x: qX1 - 18, y: qY1 + 18 },
-    4: { x: midX - 34, y: midY },
-    5: { x: qX1 - 18, y: qY3 - 18 },
-    6: { x: qX1 + 18, y: qY3 + 18 },
-    7: { x: midX, y: midY + 34 },
-    8: { x: qX3 - 18, y: qY3 + 18 },
-    9: { x: qX3 + 18, y: qY3 - 18 },
-    10: { x: midX + 34, y: midY },
-    11: { x: qX3 + 18, y: qY1 + 18 },
-    12: { x: qX3 - 18, y: qY1 - 18 }
+    // 4 Kendra Diamonds: Neatly situated at inner apexes facing central bindu
+    1: { x: midX, y: midY - (isCompact ? 22 : 26) },
+    4: { x: midX - (isCompact ? 22 : 26), y: midY },
+    7: { x: midX, y: midY + (isCompact ? 22 : 26) },
+    10: { x: midX + (isCompact ? 22 : 26), y: midY },
+
+    // 8 Triangles: Spaced comfortably along the outer square perimeter
+    2: { x: chartX + chartSize * 0.13, y: chartY + badgeInset },
+    12: { x: chartX + chartSize * 0.87, y: chartY + badgeInset },
+    3: { x: chartX + badgeInset, y: chartY + chartSize * 0.13 },
+    5: { x: chartX + badgeInset, y: chartY + chartSize * 0.87 },
+    6: { x: chartX + chartSize * 0.13, y: bottomY - badgeInset },
+    8: { x: chartX + chartSize * 0.87, y: bottomY - badgeInset },
+    9: { x: rightX - badgeInset, y: chartY + chartSize * 0.87 },
+    11: { x: rightX - badgeInset, y: chartY + chartSize * 0.13 }
   };
 
-  // Helper to render planet entries inside a house
+  // Helper to render planet entries inside a house with dynamic auto-scaling
   function renderPlanetsInHouse(h) {
     const list = housePlanets[h] || [];
     const center = houseCenters[h];
     if (list.length === 0) return '';
 
     const count = list.length;
-    const baseSpacing = count > 2 ? 30 : 38;
+    const colorMap = isDark ? GRAHA_COLORS_DARK : GRAHA_COLORS;
+
+    // For House 1 (Lagna), planets sit below the Lagna header block
+    if (h === 1) {
+      const startY = isCompact ? (chartY + chartSize * 0.24) : (chartY + chartSize * 0.28);
+      const spacing = count > 2 ? (isCompact ? 18 : 22) : (isCompact ? 24 : 30);
+
+      return list.map((p, idx) => {
+        const color = colorMap[p.name] || (isDark ? '#f1f5f9' : '#1e293b');
+        const hindiName = GRAHA_HINDI[p.name] || p.name;
+        const curY = startY + idx * spacing;
+        const degText = p.degreesDisplay || `${Math.floor(p.degreesInSign || 0)}°`;
+        const rx = p.isRetrograde && p.name !== 'Rahu' && p.name !== 'Ketu' ? ' [R]' : '';
+        const exa = (p.dignity === 'Exalted' || p.dignity === 'Uchcha') ? ' [EXA]' : (p.dignity === 'Debilitated' || p.dignity === 'Neecha' ? ' [DEB]' : '');
+
+        return `
+          <g class="graha-entry" data-graha="${p.name}">
+            <text x="${center.x}" y="${curY}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="${isCompact ? '13' : '15'}" font-weight="800" fill="${color}" text-anchor="middle">
+              ${hindiName} ${p.name.toUpperCase()}${rx}${exa} <tspan font-family="'Montserrat', sans-serif" font-size="${isCompact ? '11' : '12'}" font-weight="600" fill="${isDark ? '#cbd5e1' : '#475569'}">${degText}</tspan>
+            </text>
+          </g>
+        `;
+      }).join('\n');
+    }
+
+    // High planet density formatting (e.g. 3+ planets, or D2 Hora where 4-6 planets crowd Cancer/Leo)
+    if (count >= 3 || isCompact) {
+      const lineSpacing = count >= 5 ? (isCompact ? 17 : 20) : (count >= 3 ? (isCompact ? 19 : 24) : (isCompact ? 22 : 28));
+      const startY = center.y - ((count - 1) * lineSpacing) / 2;
+      const fontSize = count >= 5 ? (isCompact ? '11' : '12.5') : (count >= 3 ? (isCompact ? '12.5' : '14') : (isCompact ? '14' : '16'));
+      const degFontSize = count >= 5 ? (isCompact ? '9.5' : '10.5') : (isCompact ? '10.5' : '12');
+
+      return list.map((p, idx) => {
+        const color = colorMap[p.name] || (isDark ? '#f1f5f9' : '#1e293b');
+        const hindiName = GRAHA_HINDI[p.name] || p.name;
+        const degText = p.degreesDisplay || `${Math.floor(p.degreesInSign || 0)}°`;
+        const rx = p.isRetrograde && p.name !== 'Rahu' && p.name !== 'Ketu' ? ' [R]' : '';
+        const exa = (p.dignity === 'Exalted' || p.dignity === 'Uchcha') ? ' [EXA]' : (p.dignity === 'Debilitated' || p.dignity === 'Neecha' ? ' [DEB]' : '');
+        const curY = startY + idx * lineSpacing;
+
+        return `
+          <g class="graha-entry" data-graha="${p.name}">
+            <text x="${center.x}" y="${curY}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="${fontSize}" font-weight="800" fill="${color}" text-anchor="${center.align}">
+              ${hindiName} ${p.name.toUpperCase()}${rx}${exa} <tspan font-family="'Montserrat', sans-serif" font-size="${degFontSize}" font-weight="600" fill="${isDark ? '#e2e8f0' : '#475569'}">${degText}</tspan>
+            </text>
+          </g>
+        `;
+      }).join('\n');
+    }
+
+    // Standard 1 or 2 planets layout in full chart view (Spacious 2-line rendering)
+    const baseSpacing = count === 2 ? 40 : 0;
     const startY = center.y - ((count - 1) * baseSpacing) / 2;
 
     return list.map((p, idx) => {
-      const colorMap = isDark ? GRAHA_COLORS_DARK : GRAHA_COLORS;
       const color = colorMap[p.name] || (isDark ? '#f1f5f9' : '#1e293b');
       const hindiName = GRAHA_HINDI[p.name] || p.name;
       const degText = p.degreesDisplay || `${Math.floor(p.degreesInSign || 0)}°`;
-      const nakText = p.nakshatra ? `${degText} ${p.nakshatra}` : degText;
-
-      let badge = '';
-      if (p.isRetrograde && p.name !== 'Rahu' && p.name !== 'Ketu') {
-        badge = ' [R]';
-      }
-      if (p.dignity === 'Exalted' || p.dignity === 'Uchcha') {
-        badge = ' [EXA]';
-      } else if (p.dignity === 'Debilitated' || p.dignity === 'Neecha') {
-        badge = ' [DEB]';
-      }
-
-      const curY = (h === 1) 
-        ? (chartY + chartSize * 0.24 + idx * 36)
-        : (startY + idx * baseSpacing);
+      const nakText = p.nakshatra ? `${degText} • ${p.nakshatra}` : degText;
+      const rx = p.isRetrograde && p.name !== 'Rahu' && p.name !== 'Ketu' ? ' [R]' : '';
+      const exa = (p.dignity === 'Exalted' || p.dignity === 'Uchcha') ? ' [EXA]' : (p.dignity === 'Debilitated' || p.dignity === 'Neecha' ? ' [DEB]' : '');
+      const curY = startY + idx * baseSpacing;
 
       let roleTag = '';
-      if (p.functionalRole && !isCompact) {
+      if (p.functionalRole && count === 1) {
         let roleColor = isDark ? '#34d399' : '#059669';
         if (p.dignity === 'Debilitated' || p.dignity === 'Neecha') roleColor = isDark ? '#f87171' : '#dc2626';
         if (h === 5) roleColor = isDark ? '#c084fc' : '#7c3aed';
         if (h === 9) roleColor = isDark ? '#fb923c' : '#ea580c';
         if (h === 11) roleColor = isDark ? '#94a3b8' : '#475569';
-        roleTag = `<text x="${center.x}" y="${curY + 22}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="8.5" font-weight="600" fill="${roleColor}" text-anchor="${center.align}">${p.functionalRole}</text>`;
+        roleTag = `<text x="${center.x}" y="${curY + 28}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="11.5" font-weight="700" fill="${roleColor}" text-anchor="${center.align}">${p.functionalRole}</text>`;
       }
-
-      const fontSize = isCompact ? '11' : (count > 2 ? '11.5' : '12.5');
-      const degFontSize = isCompact ? '8.5' : '9.5';
-      const degColor = isDark ? '#94a3b8' : '#475569';
 
       return `
         <g class="graha-entry" data-graha="${p.name}">
-          <!-- Planet Title: Sanskrit + English + Badge -->
-          <text x="${center.x}" y="${curY}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="${fontSize}" font-weight="700" fill="${color}" text-anchor="${center.align}">
-            <tspan fill="${color}">${hindiName}</tspan> <tspan font-family="'Montserrat', sans-serif">${p.name.toUpperCase()}${badge}</tspan>
+          <!-- Planet Title: Sanskrit + English + Dignity -->
+          <text x="${center.x}" y="${curY}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="16.5" font-weight="900" fill="${color}" text-anchor="${center.align}">
+            <tspan fill="${color}">${hindiName}</tspan> <tspan font-family="'Montserrat', sans-serif">${p.name.toUpperCase()}${rx}${exa}</tspan>
           </text>
           <!-- Degrees & Nakshatra -->
-          <text x="${center.x}" y="${curY + 12}" font-family="'Montserrat', sans-serif" font-size="${degFontSize}" font-weight="500" fill="${degColor}" text-anchor="${center.align}">
+          <text x="${center.x}" y="${curY + 16}" font-family="'Montserrat', sans-serif" font-size="12" font-weight="700" fill="${isDark ? '#e2e8f0' : '#334155'}" text-anchor="${center.align}">
             ${nakText}
           </text>
           ${roleTag}
@@ -216,7 +256,7 @@ function renderNorthIndianChartSvg({
     }).join('\n');
   }
 
-  // Render Rashi numbers in circular badges
+  // Render Rashi numbers in circular badges (High-Legibility Sized Badges)
   const rashiBg = isDark ? '#0d1536' : '#ffffff';
   const rashiBorder = isDark ? '#f5be48' : '#b91c1c';
   const rashiText = isDark ? '#f5be48' : '#b91c1c';
@@ -224,10 +264,12 @@ function renderNorthIndianChartSvg({
   for (let h = 1; h <= 12; h++) {
     const pos = signBadgePos[h];
     const signNum = houseSignNum[h];
+    const radius = isCompact ? 12.5 : 14;
+    const fontSize = isCompact ? '11.5' : '13';
     rashiBadgesSvg += `
       <g class="rashi-badge" data-house="${h}" data-sign="${signNum}">
-        <circle cx="${pos.x}" cy="${pos.y}" r="11" fill="${rashiBg}" stroke="${rashiBorder}" stroke-width="1.3" />
-        <text x="${pos.x}" y="${pos.y + 3.8}" font-family="'Montserrat', sans-serif" font-size="10" font-weight="700" fill="${rashiText}" text-anchor="middle">${signNum}</text>
+        <circle cx="${pos.x}" cy="${pos.y}" r="${radius}" fill="${rashiBg}" stroke="${rashiBorder}" stroke-width="1.6" />
+        <text x="${pos.x}" y="${pos.y + 4.5}" font-family="'Montserrat', sans-serif" font-size="${fontSize}" font-weight="900" fill="${rashiText}" text-anchor="middle">${signNum}</text>
       </g>
     `;
   }
@@ -293,9 +335,9 @@ function renderNorthIndianChartSvg({
 
   <!-- ================= DOUBLE LUXURY BORDER ================= -->
   <!-- Outer Rounded Crimson/Gold Border -->
-  <rect x="${isCompact ? 6 : 14}" y="${isCompact ? 6 : 90}" width="${width - (isCompact ? 12 : 28)}" height="${height - (isCompact ? 12 : 106)}" rx="16" ry="16" fill="none" stroke="${outerBorderColor}" stroke-width="2.6" filter="url(#softChartShadow_${chartCode})" />
+  <rect x="${isCompact ? 14 : 14}" y="${isCompact ? 14 : 90}" width="${width - (isCompact ? 28 : 28)}" height="${height - (isCompact ? 28 : 106)}" rx="16" ry="16" fill="none" stroke="${outerBorderColor}" stroke-width="2.6" filter="url(#softChartShadow_${chartCode})" />
   <!-- Inner Delicate Gold Pinstripe -->
-  <rect x="${isCompact ? 12 : 22}" y="${isCompact ? 12 : 98}" width="${width - (isCompact ? 24 : 44)}" height="${height - (isCompact ? 24 : 122)}" rx="10" ry="10" fill="none" stroke="${innerBorderColor}" stroke-width="1.1" opacity="0.85" />
+  <rect x="${isCompact ? 22 : 22}" y="${isCompact ? 22 : 98}" width="${width - (isCompact ? 44 : 44)}" height="${height - (isCompact ? 24 : 122)}" rx="10" ry="10" fill="none" stroke="${innerBorderColor}" stroke-width="1.1" opacity="0.85" />
 
   <!-- ================= CHART BACKGROUNDS ================= -->
   <!-- Base Background for whole square -->
@@ -333,14 +375,14 @@ function renderNorthIndianChartSvg({
 
   <!-- ================= HOUSE 1: LAGNA DISPLAY ================= -->
   <g class="lagna-core-block">
-    <text x="${midX}" y="${chartY + chartSize * 0.11}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="${isCompact ? '13' : '15'}" font-weight="700" fill="${isDark ? '#ffffff' : '#0f172a'}" text-anchor="middle">
-      <tspan fill="${isDark ? '#ffffff' : '#0f172a'}">लग्न</tspan> <tspan font-family="'Montserrat', sans-serif" fill="${isDark ? '#fcd34d' : '#1e3a8a'}">LAGNA</tspan>
+    <text x="${midX}" y="${isCompact ? (chartY + chartSize * 0.11) : (chartY + chartSize * 0.09)}" font-family="'Noto Sans Devanagari', 'Montserrat', sans-serif" font-size="${isCompact ? '16' : '21'}" font-weight="900" fill="${isDark ? '#ffffff' : '#0f172a'}" text-anchor="middle">
+      <tspan fill="${isDark ? '#ffffff' : '#0f172a'}">लग्न</tspan> <tspan font-family="'Montserrat', sans-serif" fill="${isDark ? '#fcd34d' : '#7e122a'}">LAGNA</tspan>
     </text>
-    <text x="${midX}" y="${chartY + chartSize * 0.11 + 15}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '9.5' : '11'}" font-weight="600" fill="${isDark ? '#e2e8f0' : '#334155'}" text-anchor="middle">
-      ${lagnaDegFormatted} ${lagnaNakshatra} (${lagnaPada})
+    <text x="${midX}" y="${isCompact ? (chartY + chartSize * 0.11 + 19) : (chartY + chartSize * 0.09 + 22)}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '12' : '15'}" font-weight="700" fill="${isDark ? '#e2e8f0' : '#1e293b'}" text-anchor="middle">
+      ${lagnaDegFormatted} &bull; ${lagnaNakshatra} (Pada ${lagnaPada})
     </text>
-    <text x="${midX}" y="${chartY + chartSize * 0.11 + 29}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '8.5' : '9.5'}" font-weight="500" fill="${isDark ? '#94a3b8' : '#64748b'}" text-anchor="middle">
-      ${lagnaRashiEn} / ${lagnaRashiHi} (Lord: ${lagnaLord})
+    <text x="${midX}" y="${isCompact ? (chartY + chartSize * 0.11 + 35) : (chartY + chartSize * 0.09 + 40)}" font-family="'Montserrat', sans-serif" font-size="${isCompact ? '11.5' : '13.5'}" font-weight="700" fill="${isDark ? '#f5be48' : '#b45309'}" text-anchor="middle">
+      ${lagnaRashiEn.toUpperCase()} (${lagnaRashiHi}) &bull; Lord: ${lagnaLord}
     </text>
   </g>
 

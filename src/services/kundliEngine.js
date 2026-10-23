@@ -71,28 +71,28 @@ const SIGN_LORDS = [
 
 const PERSONALITY_TYPES = [
   {
-    type: 'Calculated Swing Strategist',
+    type: 'Calculated Swing Strategist (सटीक स्विंग रणनीतिकार)',
     ruler: 'Budh-Guru (Mercury-Jupiter)',
-    description: 'Thrives on high-probability technical setups combined with patient timeframe execution. Rarely acts on emotional impulse; excels in structured risk-reward swing trading.',
-    favoredAsset: 'NIFTY Index & Large-Cap Bluechips'
+    description: 'धैर्य एवं उच्च-संभावना वाले टेक्निकल सेटअप्स (High-Probability Setups) पर निर्भरता। भावुकता से मुक्त होकर अनुशासित स्विंग ट्रेडिंग और रिस्क-रिवार्ड निष्पादन में महारत। Thrives on high-probability technical setups combined with patient timeframe execution.',
+    favoredAsset: 'NIFTY Index & Large-Cap Bluechips (निफ्टी एवं लार्ज-कैप शेयर्स)'
   },
   {
-    type: 'Intuitive High-Beta Explorer',
+    type: 'Intuitive High-Beta Explorer (तीव्र मोमेंटम अन्वेषक)',
     ruler: 'Rahu-Mangal (Rahu-Mars)',
-    description: 'High risk tolerance with sharp instinct for sudden volatility surges, momentum breakthroughs, and asymmetrical payoffs. Requires strict stop-loss rules to prevent overtrading.',
-    favoredAsset: 'Cryptocurrencies & High-Beta Tech Stocks'
+    description: 'अचानक आने वाली वोलैटिलिटी और मोमेंटम ब्रेकआउट्स को पकड़ने की तेज अंतर्ज्ञान क्षमता। ओवरट्रेडिंग से बचाव हेतु सख्त स्टॉप-लॉस अनिवार्य। High risk tolerance with sharp instinct for sudden volatility surges and asymmetrical payoffs.',
+    favoredAsset: 'Cryptocurrencies & High-Beta Tech Stocks (हाई-बीटा शेयर्स व डिजिटल एसेट्स)'
   },
   {
-    type: 'Disciplined Capital Preserver',
+    type: 'Disciplined Capital Preserver (अनुशासित पूंजी संरक्षक)',
     ruler: 'Shani-Surya (Saturn-Sun)',
-    description: 'Prioritizes capital defense and downside limitation above all else. Exceptional emotional temperament during market panic and long-cycle bear regimes.',
-    favoredAsset: 'Gold (MCX), Sovereign Bullion & Defensive Sectors'
+    description: 'पूंजी सुरक्षा और डाउनसाइड रिस्क सीमित करने को सर्वोच्च प्राथमिकता। बाज़ार की घबराहट और मंदी के दौर में उत्कृष्ट मानसिक स्थिरता। Prioritizes capital defense and downside limitation above all else.',
+    favoredAsset: 'Gold (MCX), Sovereign Bullion & Defensive Sectors (सोना, चांदी व सुरक्षित फंड्स)'
   },
   {
-    type: 'Momentum Liquidity Rider',
+    type: 'Momentum Liquidity Rider (तरलता एवं सेक्टर रोटेशन राइडर)',
     ruler: 'Chandra-Shukra (Moon-Venus)',
-    description: 'Attuned to broad market sentiment waves, consumer demand trends, and liquidity shifts. Highly agile in capitalizing on trending sectoral rotations.',
-    favoredAsset: 'Banking, FMCG & Auto Sector Indices'
+    description: 'बाज़ार की लिक्विडिटी और उपभोक्ता मांग चक्रों के साथ चलने में माहिर। सेक्टर रोटेशन और ट्रेंडिंग स्टॉक्स में त्वरित गति से लाभ अर्जन। Attuned to broad market sentiment waves, consumer demand trends, and liquidity shifts.',
+    favoredAsset: 'Banking, FMCG & Auto Sector Indices (बैंकिंग, एफएमसीजी एवं ऑटो सेक्टर्स)'
   }
 ];
 
@@ -209,52 +209,52 @@ function evaluateTradingKundli({
     let marketSignificance = '';
     switch (h) {
       case 1:
-        bhavaName = 'Lagna (Tanu / Self)';
-        marketSignificance = 'Core trading psychology, temperament, emotional discipline, and cognitive stamina.';
+        bhavaName = 'तनु भाव (Lagna / Self & Trading Temperament)';
+        marketSignificance = 'व्यक्तिगत ट्रेडिंग मनोविज्ञान (Trading Psychology), मानसिक अनुशासन और बाज़ार दबाव सहने की क्षमता (Cognitive Stamina).';
         break;
       case 2:
-        bhavaName = 'Dhana (Wealth / Liquid Capital)';
-        marketSignificance = 'Treasury reserves, cash liquidity, capital compounding, and banking savings.';
+        bhavaName = 'धन भाव (Dhana / Liquid Capital & Treasury)';
+        marketSignificance = 'तरल पूंजी भंडार (Liquid Treasury Reserves), बैंक बैलेंस और पूंजी कम्पाउंडिंग क्षमता (Capital Compounding).';
         break;
       case 3:
-        bhavaName = 'Sahaja (Courage / Enterprise)';
-        marketSignificance = 'Tactical execution courage, short-term trading initiative, and broker communications.';
+        bhavaName = 'सहज भाव (Sahaja / Courage & Tactical Agility)';
+        marketSignificance = 'ट्रेडिंग निष्पादन का साहस (Execution Courage), अल्पकालिक सौदे और त्वरित निर्णय लेने की क्षमता (Tactical Agility).';
         break;
       case 4:
-        bhavaName = 'Sukha (Assets / Fixed Capital)';
-        marketSignificance = 'Fixed property, physical bullion vaults, real estate, and portfolio comfort.';
+        bhavaName = 'सुख भाव (Sukha / Fixed Capital & Real Assets)';
+        marketSignificance = 'स्थिर संपत्ति, भौतिक सोना-चांदी भंडार (Physical Bullion Vaults), रियल एस्टेट और पोर्टफोलियो सुरक्षा.';
         break;
       case 5:
-        bhavaName = 'Purva Punya (Speculation / Multi-Asset Allocation)';
-        marketSignificance = 'Intuitive asset allocation, multi-market risk intelligence, capital timing, and speculation acumen.';
+        bhavaName = 'पूर्व पुण्य एवं सट्टा भाव (Purva Punya / Speculation & Asset Allocation)';
+        marketSignificance = 'सट्टा व ट्रेडिंग अंतर्ज्ञान (Speculative Intuition), मल्टी-एसेट एलोकेशन और बाज़ार टाइमिंग क्षमता (Market Timing Acumen).';
         break;
       case 6:
-        bhavaName = 'Shatru (Debt / Margin / Competition)';
-        marketSignificance = 'Leverage control, margin call management, risk mitigation, and competitive edge.';
+        bhavaName = 'शत्रु एवं ऋण भाव (Shatru / Margin, Risk & Drawdown Defense)';
+        marketSignificance = 'मार्जिन व लीवरेज नियंत्रण (Leverage Control), जोखिम प्रबंधन और बाज़ार में प्रतिस्पर्धी बढ़त (Competitive Edge).';
         break;
       case 7:
-        bhavaName = 'Kalatra (Partnerships / Counterparties)';
-        marketSignificance = 'Joint ventures, broker counterparty stability, client contracts, and fund syndicates.';
+        bhavaName = 'जाया भाव (Kalatra / Counterparties & Joint Ventures)';
+        marketSignificance = 'पार्टनरशिप्स, ब्रोकर सुरक्षा, संस्थागत सिंडिकेट्स और बड़े ट्रेडिंग अनुबंध (Institutional Counterparties).';
         break;
       case 8:
-        bhavaName = 'Randhra (Sudden Windfalls / Volatility)';
-        marketSignificance = 'Sudden asymmetric market moves, black swan crash navigation, and unexpected capital surges.';
+        bhavaName = 'रन्ध्र भाव (Randhra / Volatility & Sudden Windfalls)';
+        marketSignificance = 'अचानक अप्रत्याशित वित्तीय उछाल (Sudden Windfalls), ब्लैक-स्वान घटनाओं से सुरक्षा और वोलैटिलिटी नेविगेशन.';
         break;
       case 9:
-        bhavaName = 'Bhagya (Fortune / Macro Luck)';
-        marketSignificance = 'Macro tailwinds, favorable market regimes, institutional backing, and generational prosperity.';
+        bhavaName = 'भाग्य भाव (Bhagya / Fortune & Macro Market Tailwinds)';
+        marketSignificance = 'दीर्घकालिक भाग्यीय अनुकूलता (Macro Tailwinds), संस्थागत समर्थन और पीढ़ीगत धन संचय (Generational Prosperity).';
         break;
       case 10:
-        bhavaName = 'Karma (Career / Market Mastery)';
-        marketSignificance = 'Professional trading status, public track record, institutional fund management, and leadership.';
+        bhavaName = 'कर्म भाव (Karma / Career & Market Mastery)';
+        marketSignificance = 'पेशेवर ट्रेडिंग स्थिति (Professional Trading Mastery), सार्वजनिक ट्रैक रिकॉर्ड और फंड मैनेजमेंट नेतृत्व.';
         break;
       case 11:
-        bhavaName = 'Labha (Realized Gains / Compounding)';
-        marketSignificance = 'Net profit conversion, multi-bagger payoffs, compounding velocity, and capital dividends.';
+        bhavaName = 'लाभ भाव (Labha / Realized Profits & Compounding)';
+        marketSignificance = 'वास्तविक लाभ बुकिंग (Net Profit Conversion), मल्टीबैगर रिटर्न और तीव्र पूंजी कम्पाउंडिंग (Compounding Velocity).';
         break;
       case 12:
-        bhavaName = 'Vyaya (Expenditure / Hedging)';
-        marketSignificance = 'Stop-loss defense, drawdown containment, international diversification, and capital tax efficiency.';
+        bhavaName = 'व्यय भाव (Vyaya / Hedging & Drawdown Containment)';
+        marketSignificance = 'स्टॉप-लॉस सुरक्षा, ड्राडाउन नियंत्रण, वैश्विक विविधीकरण और टैक्स दक्षता (Stop-loss Defense & Hedging).';
         break;
     }
 
@@ -285,17 +285,17 @@ function evaluateTradingKundli({
   const h11Occupants = house11.occupants.length;
 
   let specScore = 'High';
-  let specBadge = 'Uchha (Apex Speculative Instinct)';
-  let specDesc = 'Prominent planetary alignment activating the 5th and 11th bhavas indicates sharp market foresight, strong risk-reward intuition, and natural alignment with equity swing cycles.';
+  let specBadge = 'उच्च सट्टा योग (Apex Speculative Instinct)';
+  let specDesc = '5वें एवं 11वें भाव की शुभ युति तीव्र बाज़ार दूरदर्शिता (Sharp Market Foresight) और स्विंग ट्रेडिंग साइकल्स के साथ स्वाभाविक तालमेल दर्शाती है (High risk-reward intuition combined with patient equity cycle alignment).';
 
   if (h5BeneficOccupants > 0 && h11Occupants > 0) {
     specScore = 'Superb';
-    specBadge = 'Raja Dhana Yoga (Exceptional Speculation)';
-    specDesc = 'Powerful conjunction of intelligence and gain lords. Exceptional talent for detecting asymmetric equity and commodity breakouts before the crowd.';
+    specBadge = 'राजा धन योग (Raja Dhana Yoga — Exceptional Speculation)';
+    specDesc = 'बुद्धि एवं लाभ भाव के स्वामियों का अत्यंत शक्तिशाली योग (Intelligence & Gain Lords Conjunction)। यह योग बाज़ार में अन्य लोगों से पूर्व बड़े ब्रेकआउट्स और मल्टी-एसेट अवसरों को पहचानने की असाधारण अंतर्ज्ञान क्षमता प्रदान करता है (Exceptional talent for detecting asymmetric equity & commodity breakouts).';
   } else if (h5MaleficOccupants > 0 && h5BeneficOccupants === 0) {
     specScore = 'Disciplined';
-    specBadge = 'Madhyama (Mechanical Rules Required)';
-    specDesc = 'Planetary indicators favor strict systematic trading rules, automated stop-losses, and hedging over emotional discretionary gambling.';
+    specBadge = 'मध्यम योग — यांत्रिक नियम आवश्यक (Madhyama — Mechanical Rules Required)';
+    specDesc = '5वें भाव पर पाप प्रभाव के कारण सख्त नियम-आधारित ट्रेडिंग (Strict Systematic Rules), अनुशासित स्टॉप-लॉस और हेजिंग अनिवार्य है। भावुक सट्टेबाज़ी से बचें (Planetary indicators favor automated risk management over emotional discretionary trading).';
   }
 
   // 5. Detect Classical Dhana & Wealth Yogas
@@ -307,9 +307,9 @@ function evaluateTradingKundli({
     const diffSigns = ((jup.rashiIndex - moon.rashiIndex + 12) % 12);
     if ([0, 3, 6, 9].includes(diffSigns)) {
       detectedYogas.push({
-        name: 'Gaja Kesari Yoga',
-        classicalSource: 'Brihat Parasara Hora Sastra',
-        impact: 'Immense long-term wealth stability, institutional respect, and enduring capital compounding across market cycles.'
+        name: 'गजकेसरी योग (Gaja Kesari Yoga)',
+        classicalSource: 'वृहत् पाराशर होरा शास्त्र (Brihat Parasara Hora Sastra)',
+        impact: 'दीर्घकालिक वित्तीय स्थिरता (Long-term Wealth Stability), संस्थागत सम्मान और बाज़ार के उतार-चढ़ाव में निरंतर पूंजी वृद्धि (Enduring Capital Compounding across market cycles).'
       });
     }
   }
@@ -319,9 +319,9 @@ function evaluateTradingKundli({
   const merc = planetsList.find(p => p.name === 'Mercury');
   if (sun && merc && sun.rashiIndex === merc.rashiIndex) {
     detectedYogas.push({
-      name: 'Budhaditya Yoga',
-      classicalSource: 'Saravali (Kalyana Varma)',
-      impact: 'Sharp analytical market acumen, rapid financial calculations, and mastery of algorithmic or technical chart dynamics.'
+      name: 'बुधादित्य योग (Budhaditya Yoga)',
+      classicalSource: 'सारावली (Saravali - Kalyana Varma)',
+      impact: 'तीक्ष्ण विश्लेषणात्मक वित्तीय बुद्धि (Sharp Analytical Acumen), तीव्र गणनाएं और तकनीकी चार्ट डायनामिक्स पर पूर्ण नियंत्रण (Mastery of Algorithmic & Technical Chart Dynamics).'
     });
   }
 
@@ -329,18 +329,18 @@ function evaluateTradingKundli({
   const mars = planetsList.find(p => p.name === 'Mars');
   if (moon && mars && (moon.rashiIndex === mars.rashiIndex || Math.abs(moon.rashiIndex - mars.rashiIndex) === 6)) {
     detectedYogas.push({
-      name: 'Chandra-Mangala Dhana Yoga',
-      classicalSource: 'Phaladeepika',
-      impact: 'High-velocity liquid wealth generation, sharp capital monetization, and proactive commercial enterprise.'
+      name: 'चन्द्र-मङ्गल धन योग (Chandra-Mangala Dhana Yoga)',
+      classicalSource: 'फलदीपिका (Phaladeepika)',
+      impact: 'तीव्र गति से तरल पूंजी अर्जन (High-Velocity Liquid Wealth Generation), उत्कृष्ट मुद्रीकरण क्षमता और सक्रिय व्यापारिक लाभ (Proactive Commercial Enterprise).'
     });
   }
 
   // Default Lakshmi Yoga if no major yoga
   if (detectedYogas.length === 0) {
     detectedYogas.push({
-      name: 'Bhagya-Labha Alignment',
-      classicalSource: 'Classical Parashari Jyotish',
-      impact: 'Favorable alignment between 9th and 11th houses indicating steady compounding growth and disciplined wealth retention.'
+      name: 'भाग्य-लाभ शुभ समन्वय (Bhagya-Labha Alignment)',
+      classicalSource: 'शास्त्रीय पराशरी ज्योतिष (Classical Parashari Jyotish)',
+      impact: '9वें एवं 11वें भाव का शुभ समन्वय, जो स्थिर कम्पाउंडिंग विकास और अनुशासित पूंजी संचय प्रदान करता है (Steady Compounding Growth & Disciplined Capital Retention).'
     });
   }
 
