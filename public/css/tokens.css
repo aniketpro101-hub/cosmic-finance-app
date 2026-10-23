@@ -162,6 +162,45 @@
   --duration-ambient: 8000ms;
 }
 
+/* =========================================================================
+   ROYAL IVORY & GOLD THEME TOKENS (LIGHT THEME SPECIFICATION)
+   ========================================================================= */
+body.theme-light,
+[data-theme="light"] {
+  /* 1. Background Canvas (Warm Ivory & Royal Cream) */
+  --bg-space-950: #fdfbf7;
+  --bg-space-900: #f7f4ee;
+  --bg-space-800: #ffffff;
+  --bg-space-700: #f1ede4;
+  --bg-space-600: #e8e2d5;
+
+  --space-bg-deepest: #fdfbf7;
+  --space-bg-mid: #f7f4ee;
+  --space-bg-card: #ffffff;
+  --space-bg-card-hover: #faf8f3;
+  --space-bg-glass: rgba(255, 255, 255, 0.94);
+  --space-border-subtle: #e2e8f0;
+  --space-border-glow: rgba(180, 83, 9, 0.25);
+
+  /* 2. Text Tones (High-Contrast Starlight Dark) */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-dim: #64748b;
+  --text-muted: #64748b;
+  --text-gold: #b45309;
+
+  /* 3. Jewel Accents adapted for Light Theme */
+  --gold-500: #b45309;
+  --gold-400: #d97706;
+  --gold-glow: rgba(180, 83, 9, 0.2);
+
+  /* Gradients & Shadows */
+  --grad-cosmic-card: linear-gradient(145deg, #ffffff 0%, #fdfbf7 100%);
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 8px 30px rgba(126, 18, 42, 0.08);
+  --shadow-gold: 0 0 20px rgba(180, 83, 9, 0.15);
+}
+
 /* Tabular Numerals Discipline — Eliminates horizontal digit jitter during live ticking */
 .telemetry-value,
 .asset-price,

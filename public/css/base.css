@@ -48,6 +48,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 { font-size: var(--text-4xl); font-weight: 700; letter-spacing: -0.03em; }
+
+/* Light Theme Base Overrides (Royal Ivory & Gold Specification) */
+body.theme-light {
+  background-color: #fdfbf7 !important;
+  color: #0f172a !important;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 85% 30%, rgba(126, 18, 42, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, #fdfbf7 0%, #f7f4ee 50%, #fdfbf7 100%) !important;
+}
+
+body.theme-light h1,
+body.theme-light h2,
+body.theme-light h3,
+body.theme-light h4,
+body.theme-light h5,
+body.theme-light h6 {
+  color: #7e122a !important;
+}
+
+body.theme-light p {
+  color: #334155 !important;
+}
+
+body.theme-light .stars-backdrop {
+  opacity: 0.06 !important;
+}
 h2 { font-size: var(--text-3xl); font-weight: 700; letter-spacing: -0.025em; }
 h3 { font-size: var(--text-2xl); font-weight: 600; letter-spacing: -0.02em; }
 h4 { font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.015em; }

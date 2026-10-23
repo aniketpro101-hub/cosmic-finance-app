@@ -600,8 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('northIndianChartContainer');
     if (!container) return;
 
-    const isDark = document.body.classList.contains('theme-dark') || 
-                   Boolean(document.querySelector('.kundli-deep-space-page'));
+    const isDark = !document.body.classList.contains('theme-light');
     const svgCode = (isDark && analysis.d1SvgDark) ? analysis.d1SvgDark : analysis.d1Svg;
 
     if (svgCode) {

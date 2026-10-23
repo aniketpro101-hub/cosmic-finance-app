@@ -6478,16 +6478,11 @@ body[data-page="kundli"] .stars-backdrop {
   opacity: 0.12 !important;
 }
 
-body[data-page="kundli"].theme-light .site-main,
-body[data-page="kundli"]:not(.theme-dark) .site-main {
-  background: #fdfbf7 !important;
-}
-
-body[data-page="kundli"].theme-dark .site-main {
+body.theme-light .site-main {
   background: transparent !important;
 }
 
-.kundli-royal-light-page {
+body.theme-light {
   background: #fdfbf7;
   color: #0f172a;
 }
@@ -7304,545 +7299,541 @@ body[data-page="kundli"].theme-dark .site-main {
   }
 }
 
-/* Dedicated Theme Switcher Bar on Kundli Page */
-.kundli-theme-switch-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 14px auto 20px;
+/* =========================================================================
+   34.11 GLOBAL ROYAL IVORY & GOLD LIGHT THEME (WHOLE WEBSITE SPECIFICATION)
+   Aligned with the Royal Ivory Reference Palette (#fdfbf7, #7e122a, #b45309)
+   ========================================================================= */
+
+/* 1. Header & Navigation (Global Light Theme) */
+body.theme-light .site-header {
+  background: rgba(253, 251, 247, 0.95) !important;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+  box-shadow: 0 4px 20px rgba(126, 18, 42, 0.06) !important;
 }
 
-.theme-switch-wrapper {
-  display: inline-flex;
-  background: #f1f5f9;
-  border: 1.5px solid #cbd5e1;
-  padding: 3px;
-  border-radius: 9999px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.25s ease;
+body.theme-light .brand-logo .logo-word-cosmic {
+  color: #7e122a !important;
 }
 
-.kundli-deep-space-page .theme-switch-wrapper {
-  background: rgba(15, 23, 42, 0.85);
-  border-color: rgba(245, 190, 72, 0.35);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+body.theme-light .brand-logo .logo-word-finance {
+  color: #b45309 !important;
 }
 
-.theme-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  border-radius: 9999px;
-  border: none;
-  background: transparent;
-  color: #64748b;
-  font-family: var(--font-heading);
-  font-size: 0.82rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+body.theme-light .nav-link {
+  color: #334155 !important;
 }
 
-.kundli-deep-space-page .theme-toggle-btn {
-  color: #94a3b8;
+body.theme-light .nav-link:hover,
+body.theme-light .nav-link.active {
+  color: #7e122a !important;
+  font-weight: 700 !important;
 }
 
-.theme-toggle-btn.active {
-  background: #7e122a;
-  color: #ffffff;
-  box-shadow: 0 2px 10px rgba(126, 18, 42, 0.35);
+body.theme-light .btn-sound-toggle,
+body.theme-light .btn-theme-toggle {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #7e122a !important;
 }
 
-.kundli-deep-space-page .theme-toggle-btn.active {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: #080c1c;
-  box-shadow: 0 2px 14px rgba(245, 190, 72, 0.5);
+body.theme-light .btn-sound-toggle:hover,
+body.theme-light .btn-theme-toggle:hover {
+  background: #fffbeb !important;
+  border-color: #b45309 !important;
+  color: #b45309 !important;
+  box-shadow: 0 0 14px rgba(180, 83, 9, 0.25) !important;
 }
 
-.theme-toggle-btn:hover:not(.active) {
-  color: #0f172a;
+body.theme-light .btn-header-cta {
+  background: linear-gradient(135deg, #7e122a 0%, #991b1b 100%) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #f59e0b !important;
+  box-shadow: 0 4px 15px rgba(126, 18, 42, 0.25) !important;
 }
 
-.kundli-deep-space-page .theme-toggle-btn:hover:not(.active) {
-  color: #ffffff;
+body.theme-light .hamburger-bar {
+  background-color: #7e122a !important;
+}
+
+body.theme-light .mobile-drawer {
+  background: #fdfbf7 !important;
+  border-left: 2px solid #b45309 !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .mobile-drawer-header {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+body.theme-light .mobile-nav-link {
+  color: #334155 !important;
+  border-bottom: 1px solid #f1ede4 !important;
+}
+
+body.theme-light .mobile-nav-link:hover,
+body.theme-light .mobile-nav-link.active {
+  color: #7e122a !important;
+  background: #fffbeb !important;
+}
+
+body.theme-light .drawer-kundli-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-left: 4px solid #7e122a !important;
+}
+
+body.theme-light .drawer-pill-chip {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #7e122a !important;
+}
+
+/* 2. Page Canvas, Typography, & Cosmic Badges */
+body.theme-light .page-title,
+body.theme-light .section-title,
+body.theme-light .hero-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .page-title .text-gold,
+body.theme-light .section-title .text-gold,
+body.theme-light .hero-title .text-gold {
+  color: #b45309 !important;
+}
+
+body.theme-light .page-subtitle,
+body.theme-light .section-subtitle,
+body.theme-light .hero-subtitle {
+  color: #475569 !important;
+}
+
+body.theme-light .cosmic-badge {
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+  color: #7e122a !important;
+  box-shadow: none !important;
+}
+
+body.theme-light .tag-gold,
+body.theme-light .badge-gold {
+  background: #fffbeb !important;
+  border: 1px solid #fde68a !important;
+  color: #b45309 !important;
+}
+
+/* 3. Universal Cards Across Entire Website */
+body.theme-light .card,
+body.theme-light .instrument-card,
+body.theme-light .outlook-card,
+body.theme-light .chronicle-card,
+body.theme-light .article-card,
+body.theme-light .news-card,
+body.theme-light .feed-card,
+body.theme-light .pattern-card,
+body.theme-light .stat-card,
+body.theme-light .market-panel-card,
+body.theme-light .channel-card,
+body.theme-light .form-card,
+body.theme-light .legal-document-card,
+body.theme-light .panchang-card,
+body.theme-light .kundli-card,
+body.theme-light .kundli-result-card,
+body.theme-light .chakra-card-box,
+body.theme-light .financial-houses-panel,
+body.theme-light .planetary-positions-card,
+body.theme-light .dasha-breakdown-card,
+body.theme-light .dhana-yogas-card,
+body.theme-light .result-metric-box,
+body.theme-light .celebrity-consultation-showcase,
+body.theme-light .home-diagram-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.02) !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .card:hover,
+body.theme-light .instrument-card:hover,
+body.theme-light .outlook-card:hover,
+body.theme-light .chronicle-card:hover,
+body.theme-light .article-card:hover,
+body.theme-light .news-card:hover,
+body.theme-light .home-diagram-card:hover {
+  border-color: #d4af37 !important;
+  box-shadow: 0 8px 30px rgba(126, 18, 42, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+body.theme-light .card-title,
+body.theme-light .chronicle-card-title,
+body.theme-light .outlook-card-title,
+body.theme-light .panchang-limb-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .card-title a,
+body.theme-light .chronicle-card-title a {
+  color: #7e122a !important;
+}
+
+body.theme-light .card-title a:hover,
+body.theme-light .chronicle-card-title a:hover {
+  color: #b45309 !important;
+}
+
+body.theme-light .card-excerpt,
+body.theme-light .card-meta-top,
+body.theme-light .card-footer {
+  color: #475569 !important;
+}
+
+/* 4. Live Market Telemetry & Tickers */
+body.theme-light .instrument-card .inst-name {
+  color: #0f172a !important;
+}
+
+body.theme-light .instrument-card .inst-price {
+  color: #7e122a !important;
+}
+
+body.theme-light .market-hero-hud,
+body.theme-light .market-telemetry-banner {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* 5. Forms, Controls & Autocomplete */
+body.theme-light .form-control,
+body.theme-light input[type="text"],
+body.theme-light input[type="number"],
+body.theme-light input[type="email"],
+body.theme-light input[type="tel"],
+body.theme-light select,
+body.theme-light textarea {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .form-control:focus,
+body.theme-light input:focus,
+body.theme-light select:focus,
+body.theme-light textarea:focus {
+  border-color: #b45309 !important;
+  box-shadow: 0 0 12px rgba(180, 83, 9, 0.2) !important;
+  background: #ffffff !important;
+}
+
+body.theme-light .form-group label {
+  color: #0f172a !important;
+}
+
+body.theme-light .form-group label .required {
+  color: #dc2626 !important;
+}
+
+body.theme-light .city-autocomplete-dropdown {
+  background: #ffffff !important;
+  border: 1.5px solid #cbd5e1 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.theme-light .city-autocomplete-dropdown li {
+  color: #0f172a !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body.theme-light .city-autocomplete-dropdown li:hover,
+body.theme-light .city-autocomplete-dropdown li.active {
+  background: #fffbeb !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .gender-toggle-group {
+  background: #f8fafc !important;
+  border: 1.5px solid #cbd5e1 !important;
+}
+
+body.theme-light .gender-btn {
+  color: #475569 !important;
+}
+
+body.theme-light .gender-btn.active {
+  background: #7e122a !important;
+  color: #ffffff !important;
+}
+
+body.theme-light .advanced-settings-bar {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #7e122a !important;
+}
+
+body.theme-light .advanced-settings-drawer,
+body.theme-light .advanced-settings-box {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* 6. Universal Tables Across Website */
+body.theme-light table,
+body.theme-light .cosmic-table,
+body.theme-light .market-table,
+body.theme-light .planetary-data-table {
+  background: #ffffff !important;
+}
+
+body.theme-light table th,
+body.theme-light .cosmic-table th,
+body.theme-light .planetary-data-table th {
+  background: #7e122a !important;
+  color: #ffffff !important;
+}
+
+body.theme-light table td,
+body.theme-light .cosmic-table td,
+body.theme-light .planetary-data-table td {
+  color: #1e293b !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body.theme-light table tbody tr:nth-child(even),
+body.theme-light .cosmic-table tbody tr:nth-child(even),
+body.theme-light .planetary-data-table tbody tr:nth-child(even) {
+  background: #fdfcf7 !important;
+}
+
+/* 7. Action Buttons */
+body.theme-light .btn-gold,
+body.theme-light .btn-primary,
+body.theme-light .btn-show-kundli {
+  background: linear-gradient(135deg, #7e122a 0%, #991b1b 100%) !important;
+  color: #ffffff !important;
+  border: 1.5px solid #f59e0b !important;
+  box-shadow: 0 4px 18px rgba(126, 18, 42, 0.25) !important;
+}
+
+body.theme-light .btn-gold:hover,
+body.theme-light .btn-primary:hover,
+body.theme-light .btn-show-kundli:hover {
+  background: linear-gradient(135deg, #991b1b 0%, #7e122a 100%) !important;
+  box-shadow: 0 6px 24px rgba(126, 18, 42, 0.35) !important;
+}
+
+body.theme-light .btn-outline,
+body.theme-light .btn-outline-gold {
+  background: #ffffff !important;
+  border: 1.5px solid #b45309 !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .btn-quick-text {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #7e122a !important;
+}
+
+/* 8. Charts Styling in Light Theme */
+body.theme-light .south-indian-grid,
+body.theme-light .south-indian-grid-chart {
+  background: #7e122a !important;
+  border: 3.5px solid #7e122a !important;
+}
+
+body.theme-light .si-box {
+  background: #fffdf9 !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .si-box.si-lagna-box {
+  background: #fefce8 !important;
+  border: 1.5px solid #d97706 !important;
+}
+
+body.theme-light .si-sign-name {
+  color: #7e122a !important;
+}
+
+body.theme-light .si-center-mandala {
+  background: linear-gradient(135deg, #fffdf8 0%, #fefcf3 100%) !important;
+  border: 1.5px solid #d4af37 !important;
+}
+
+body.theme-light .mandala-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .mandala-sub {
+  color: #b45309 !important;
+}
+
+body.theme-light .mandala-client {
+  color: #0f172a !important;
+}
+
+body.theme-light #northIndianChartContainer {
+  background: #ffffff !important;
+}
+
+/* 9. Footer & Regulatory Disclaimers */
+body.theme-light .site-footer {
+  background: #f7f4ee !important;
+  border-top: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+  color: #334155 !important;
+}
+
+body.theme-light .footer-title,
+body.theme-light .footer-heading,
+body.theme-light .footer-brand-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .brand-tagline {
+  color: #b45309 !important;
+}
+
+body.theme-light .brand-description {
+  color: #475569 !important;
+}
+
+body.theme-light .footer-link,
+body.theme-light .footer-links a {
+  color: #475569 !important;
+}
+
+body.theme-light .footer-link:hover,
+body.theme-light .footer-links a:hover {
+  color: #7e122a !important;
+}
+
+body.theme-light .footer-statutory-notice {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+body.theme-light .footer-bottom {
+  border-top: 1px solid #e2e8f0 !important;
+  color: #64748b !important;
+}
+
+body.theme-light .disclaimer-banner,
+body.theme-light .persistent-disclaimer {
+  background: #fffbeb !important;
+  border-top: 1.5px solid #fde68a !important;
+  color: #78350f !important;
+}
+
+body.theme-light .disclaimer-trust-principle {
+  color: #92400e !important;
+}
+
+/* 10. Dedicated Widgets (Panchang, Gann, Chronicles) */
+body.theme-light .gann-wheel-wrapper,
+body.theme-light .gann-card,
+body.theme-light .panchang-main-heading,
+body.theme-light .panchang-kicker {
+  color: #7e122a !important;
+}
+
+body.theme-light .gann-cell {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .gann-cell.gann-cardinal {
+  background: #fffbeb !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .gann-cell.gann-fixed {
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+}
+
+body.theme-light .panchang-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .panchang-limb-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .panchang-value {
+  color: #b45309 !important;
 }
 
 /* =========================================================================
-   34.11 DEEP SPACE (DARK) THEME: KUNDLI FUNNEL & WEALTH DOSSIER
+   34.12 DEEP SPACE DARK THEME OVERRIDES (AUTHENTIC DEFAULT BASELINE)
    ========================================================================= */
-
-.kundli-deep-space-page {
-  background: transparent;
-  color: #f1f5f9;
-}
-
-.kundli-deep-space-page .page-header .cosmic-badge {
-  background: rgba(245, 190, 72, 0.12) !important;
-  border: 1px solid rgba(245, 190, 72, 0.35) !important;
-  color: #fcd34d !important;
-  box-shadow: 0 0 15px rgba(245, 190, 72, 0.15);
-}
-
-.kundli-deep-space-page .page-title {
-  color: #ffffff !important;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-}
-
-.kundli-deep-space-page .page-title .text-gold {
-  color: #f5be48 !important;
-  text-shadow: 0 0 25px rgba(245, 190, 72, 0.4);
-}
-
-.kundli-deep-space-page .page-subtitle {
-  color: #94a3b8 !important;
-}
-
-/* 1. Deep Space Input Form Card */
-.kundli-deep-space-page .kundli-card {
-  background: linear-gradient(135deg, rgba(13, 19, 43, 0.95) 0%, rgba(8, 12, 28, 0.98) 100%) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.35) !important;
-  border-top: 4.5px solid #f59e0b !important;
-  border-radius: 20px !important;
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(245, 190, 72, 0.12) !important;
-  color: #f1f5f9 !important;
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 32px 36px;
-}
-
-.kundli-deep-space-page .kundli-card-header h2 {
-  font-family: var(--font-heading);
-  color: #ffffff !important;
-  font-size: 1.55rem;
-  font-weight: 800;
-  text-shadow: 0 0 12px rgba(245, 190, 72, 0.2);
-}
-
-.kundli-deep-space-page .kundli-card-header p {
-  color: #94a3b8 !important;
-  font-size: 0.88rem;
-}
-
-.kundli-deep-space-page .form-group label {
-  color: #e2e8f0 !important;
-  font-weight: 700;
-}
-
-.kundli-deep-space-page .form-group label .required {
-  color: #f87171 !important;
-}
-
-.kundli-deep-space-page .form-control {
-  background: rgba(15, 23, 42, 0.85) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.25) !important;
-  color: #ffffff !important;
-  border-radius: 10px !important;
-  transition: all 0.2s ease;
-}
-
-.kundli-deep-space-page .form-control:focus {
-  border-color: #f5be48 !important;
-  box-shadow: 0 0 16px rgba(245, 190, 72, 0.35) !important;
-  background: rgba(15, 23, 42, 0.95) !important;
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page select.form-control option {
-  background: #0b112c !important;
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page .gender-toggle-group {
-  background: rgba(15, 23, 42, 0.85) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.25) !important;
-  border-radius: 10px !important;
-}
-
-.kundli-deep-space-page .gender-btn {
-  color: #94a3b8 !important;
-  background: transparent !important;
-  font-weight: 600;
-}
-
-.kundli-deep-space-page .gender-btn.active {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
-  color: #ffffff !important;
-  font-weight: 700;
-  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.4) !important;
-}
-
-.kundli-deep-space-page .btn-quick-text {
-  background: rgba(15, 23, 42, 0.75) !important;
-  border: 1px solid rgba(245, 190, 72, 0.3) !important;
-  color: #fcd34d !important;
-  font-weight: 600;
-  border-radius: 6px;
-}
-
-.kundli-deep-space-page .btn-quick-text:hover {
-  background: rgba(245, 190, 72, 0.18) !important;
-  border-color: #f5be48 !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 12px rgba(245, 190, 72, 0.3) !important;
-}
-
-.kundli-deep-space-page .city-autocomplete-dropdown {
-  background: #0b112c !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.4) !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85) !important;
-}
-
-.kundli-deep-space-page .city-autocomplete-dropdown li {
-  color: #e2e8f0 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.kundli-deep-space-page .city-autocomplete-dropdown li:hover,
-.kundli-deep-space-page .city-autocomplete-dropdown li.active {
-  background: rgba(245, 190, 72, 0.18) !important;
-  color: #fcd34d !important;
-}
-
-.kundli-deep-space-page .advanced-settings-bar {
-  background: rgba(15, 23, 42, 0.75) !important;
-  border: 1px solid rgba(245, 190, 72, 0.25) !important;
-  color: #fcd34d !important;
-}
-
-.kundli-deep-space-page .btn-toggle-settings {
-  color: #fcd34d !important;
-}
-
-.kundli-deep-space-page .settings-hint {
-  color: #94a3b8 !important;
-}
-
-.kundli-deep-space-page .advanced-settings-drawer,
-.kundli-deep-space-page .advanced-settings-box {
-  background: rgba(10, 15, 30, 0.95) !important;
-  border: 1px solid rgba(245, 190, 72, 0.35) !important;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5) !important;
-}
-
-.kundli-deep-space-page .adv-header h3 {
-  color: #fcd34d !important;
-}
-
-.kundli-deep-space-page .btn-show-kundli {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
-  color: #080c1c !important;
-  font-weight: 800 !important;
-  border: 1.5px solid #fde68a !important;
-  box-shadow: 0 6px 30px rgba(245, 190, 72, 0.45) !important;
-}
-
-.kundli-deep-space-page .btn-show-kundli:hover {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 35px rgba(245, 190, 72, 0.6) !important;
-}
-
-/* 2. Deep Space Result Card */
-.kundli-deep-space-page .kundli-result-card {
-  background: linear-gradient(135deg, rgba(13, 19, 43, 0.95) 0%, rgba(8, 12, 28, 0.98) 100%) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.35) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 190, 72, 0.15) !important;
-  color: #f1f5f9 !important;
-}
-
-.kundli-deep-space-page .result-header-luxury {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.35) !important;
-}
-
-.kundli-deep-space-page .result-badge-gold {
-  color: #f5be48 !important;
-}
-
-.kundli-deep-space-page #resultUserName {
-  color: #ffffff !important;
-  text-shadow: 0 0 15px rgba(245, 190, 72, 0.3);
-}
-
-.kundli-deep-space-page .result-meta-line {
-  color: #94a3b8 !important;
-}
-
-.kundli-deep-space-page .chart-pill {
-  background: rgba(15, 23, 42, 0.8) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.3) !important;
-  color: #cbd5e1 !important;
-}
-
-.kundli-deep-space-page .chart-pill.active {
-  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
-  border-color: #f5be48 !important;
-  color: #ffffff !important;
-  box-shadow: 0 2px 10px rgba(217, 119, 6, 0.4) !important;
-}
-
-.kundli-deep-space-page .chakra-card-box {
-  background: rgba(10, 15, 30, 0.88) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.25) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6) !important;
-}
-
-.kundli-deep-space-page .chakra-title-bar {
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page .tag-gold {
-  color: #fcd34d !important;
-  background: rgba(245, 190, 72, 0.12) !important;
-  border: 1px solid rgba(245, 190, 72, 0.3) !important;
-}
-
-.kundli-deep-space-page #northIndianChartContainer {
-  background: #090e24 !important;
-  border: 1px solid rgba(245, 190, 72, 0.2) !important;
-}
-
-/* 3. Deep Space South Indian Chart */
-.kundli-deep-space-page .south-indian-grid,
-.kundli-deep-space-page .south-indian-grid-chart {
+body.theme-dark .south-indian-grid,
+body:not(.theme-light) .south-indian-grid {
   background: #d4af37 !important;
   border: 3.5px solid #d4af37 !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.25) !important;
 }
 
-.kundli-deep-space-page .si-box {
+body.theme-dark .si-box,
+body:not(.theme-light) .si-box {
   background: #0b112c !important;
   color: #f1f5f9 !important;
 }
 
-.kundli-deep-space-page .si-box.si-lagna-box {
+body.theme-dark .si-box.si-lagna-box,
+body:not(.theme-light) .si-box.si-lagna-box {
   background: #17203d !important;
   border: 1.5px solid #f59e0b !important;
 }
 
-.kundli-deep-space-page .si-sign-header {
-  border-bottom: 1px dashed rgba(245, 190, 72, 0.25) !important;
-}
-
-.kundli-deep-space-page .si-sign-name {
+body.theme-dark .si-sign-name,
+body:not(.theme-light) .si-sign-name {
   color: #f5be48 !important;
 }
 
-.kundli-deep-space-page .si-sign-name small {
-  color: #94a3b8 !important;
-}
-
-.kundli-deep-space-page .si-center-mandala {
+body.theme-dark .si-center-mandala,
+body:not(.theme-light) .si-center-mandala {
   background: linear-gradient(135deg, #0e1635 0%, #080c1c 100%) !important;
   border: 1.5px solid #f5be48 !important;
   box-shadow: inset 0 0 20px rgba(245, 190, 72, 0.2) !important;
 }
 
-.kundli-deep-space-page .mandala-crest {
+body.theme-dark .mandala-crest,
+body:not(.theme-light) .mandala-crest {
   color: #fcd34d !important;
 }
 
-.kundli-deep-space-page .mandala-title {
+body.theme-dark .mandala-title,
+body:not(.theme-light) .mandala-title {
   color: #ffffff !important;
 }
 
-.kundli-deep-space-page .mandala-sub {
+body.theme-dark .mandala-sub,
+body:not(.theme-light) .mandala-sub {
   color: #f5be48 !important;
 }
 
-.kundli-deep-space-page .mandala-client {
+body.theme-dark .mandala-client,
+body:not(.theme-light) .mandala-client {
   color: #ffffff !important;
 }
 
-.kundli-deep-space-page .mandala-meta {
+body.theme-dark .mandala-meta,
+body:not(.theme-light) .mandala-meta {
   color: #94a3b8 !important;
 }
 
-.kundli-deep-space-page .mandala-ayanamsha {
+body.theme-dark .mandala-ayanamsha,
+body:not(.theme-light) .mandala-ayanamsha {
   color: #fcd34d !important;
 }
 
-/* 4. Deep Space Four Pillars */
-.kundli-deep-space-page .financial-houses-panel {
-  background: rgba(10, 15, 30, 0.88) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.25) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6) !important;
-}
-
-.kundli-deep-space-page .panel-header-gold {
-  color: #ffffff !important;
-  border-bottom: 1.5px solid rgba(245, 190, 72, 0.2) !important;
-}
-
-.kundli-deep-space-page .pillar-row {
-  background: rgba(15, 23, 42, 0.75) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.2) !important;
-}
-
-.kundli-deep-space-page .pillar-label strong {
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page .pillar-sign {
-  color: #f5be48 !important;
-}
-
-.kundli-deep-space-page .pillar-impact {
-  color: #94a3b8 !important;
-}
-
-/* 5. Deep Space Planetary Table */
-.kundli-deep-space-page .planetary-positions-card {
-  background: rgba(10, 15, 30, 0.88) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.25) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6) !important;
-}
-
-.kundli-deep-space-page .planetary-positions-card .table-header-row h3 {
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page .table-legend {
-  color: #94a3b8 !important;
-}
-
-.kundli-deep-space-page .cosmic-table th {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%) !important;
-  color: #fcd34d !important;
-  border-bottom: 2px solid rgba(245, 190, 72, 0.35) !important;
-}
-
-.kundli-deep-space-page .cosmic-table td {
-  color: #e2e8f0 !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.kundli-deep-space-page .cosmic-table tbody tr:nth-child(even) {
-  background: rgba(15, 23, 42, 0.45) !important;
-}
-
-/* 6. Deep Space Metrics, Dasha & Yogas */
-.kundli-deep-space-page .result-metric-box,
-.kundli-deep-space-page .dasha-breakdown-card,
-.kundli-deep-space-page .dhana-yogas-card {
-  background: rgba(10, 15, 30, 0.88) !important;
-  border: 1.5px solid rgba(245, 190, 72, 0.25) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6) !important;
-  color: #f1f5f9 !important;
-}
-
-.kundli-deep-space-page .result-metric-box h3,
-.kundli-deep-space-page .dasha-breakdown-card h3,
-.kundli-deep-space-page .dhana-yogas-card h3 {
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page .metric-label {
-  color: #94a3b8 !important;
-}
-
-.kundli-deep-space-page .metric-value {
-  color: #f5be48 !important;
-}
-
-.kundli-deep-space-page .metric-desc {
-  color: #cbd5e1 !important;
-}
-
-.kundli-deep-space-page .dasha-tier-box,
-.kundli-deep-space-page .dhana-yoga-item {
-  background: rgba(15, 23, 42, 0.75) !important;
+body.theme-dark #northIndianChartContainer,
+body:not(.theme-light) #northIndianChartContainer {
+  background: #090e24 !important;
   border: 1px solid rgba(245, 190, 72, 0.2) !important;
-}
-
-.kundli-deep-space-page .tier-val {
-  color: #f5be48 !important;
-}
-
-.kundli-deep-space-page .dhana-item-name {
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page .dhana-item-desc {
-  color: #94a3b8 !important;
-}
-
-/* 7. Deep Space Celebrity Consultation */
-.kundli-deep-space-page .celebrity-consultation-showcase {
-  background: linear-gradient(135deg, rgba(20, 28, 48, 0.95), rgba(10, 15, 28, 0.98)) !important;
-  border: 1.5px solid var(--gold-500) !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.2) !important;
-}
-
-.kundli-deep-space-page .showcase-doctor-name {
-  color: #ffffff !important;
-}
-
-.kundli-deep-space-page .showcase-doctor-title {
-  color: #f5be48 !important;
-}
-
-.kundli-deep-space-page .showcase-copy {
-  color: #cbd5e1 !important;
-}
-
-.kundli-deep-space-page .showcase-security-note {
-  color: #94a3b8 !important;
-}
-
-/* 8. Deep Space Mobile Responsive Overrides */
-@media (max-width: 640px) {
-  .kundli-deep-space-page .kundli-result-card {
-    padding: 16px 10px !important;
-    margin-top: 16px !important;
-    border-radius: 14px !important;
-  }
-  .kundli-deep-space-page .result-header-luxury {
-    padding: 14px 12px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 12px !important;
-  }
-  .kundli-deep-space-page #resultUserName {
-    font-size: 1.22rem !important;
-  }
-  .kundli-deep-space-page .result-meta-line {
-    gap: 8px !important;
-    font-size: 0.78rem !important;
-  }
-  .kundli-deep-space-page .chakra-title-bar {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 6px !important;
-    margin-bottom: 10px !important;
-  }
-  .kundli-deep-space-page .chakra-title-bar span:first-child {
-    font-size: 0.90rem !important;
-    line-height: 1.3 !important;
-  }
-  .kundli-deep-space-page .chakra-card-box {
-    padding: 12px 8px !important;
-    border-radius: 14px !important;
-  }
-  .kundli-deep-space-page .financial-houses-panel {
-    padding: 14px 12px !important;
-    border-radius: 14px !important;
-  }
-  .kundli-deep-space-page .panel-header-gold {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 6px !important;
-    font-size: 0.95rem !important;
-  }
-  .kundli-deep-space-page .planetary-positions-card {
-    padding: 14px 10px !important;
-    border-radius: 14px !important;
-  }
-  .kundli-deep-space-page .kundli-charts-row {
-    gap: 16px !important;
-    margin-bottom: 16px !important;
-  }
 }
 
 .celebrity-consultation-showcase {

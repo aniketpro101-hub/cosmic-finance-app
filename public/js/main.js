@@ -2,35 +2,28 @@
  * Cosmic Finance — Main Client Logic
  */
 
-// Universal Theme Switching System (Royal Ivory Light [Default] vs Deep Space Dark)
+// Universal Global Website Theme Switching System (Deep Space Dark [Default] vs Royal Ivory Light)
 (function() {
-  const STORAGE_KEY = 'cosmic_kundli_theme';
-  // Default is 'light' as specifically requested by user ("bu defult keep current ..")
+  const STORAGE_KEY = 'cosmic_site_theme';
+  // Default is 'dark' (the authentic baseline of the website)
   function getSavedTheme() {
     try {
-      return localStorage.getItem(STORAGE_KEY) || 'light';
+      return localStorage.getItem(STORAGE_KEY) || 'dark';
     } catch (e) {
-      return 'light';
+      return 'dark';
     }
   }
 
   function applyTheme(theme) {
-    const isDark = (theme === 'dark');
+    const isLight = (theme === 'light');
     if (document.body) {
-      document.body.classList.toggle('theme-dark', isDark);
-      document.body.classList.toggle('theme-light', !isDark);
+      document.body.classList.toggle('theme-light', isLight);
+      document.body.classList.toggle('theme-dark', !isLight);
     }
-
-    const kundliContainer = document.getElementById('kundliPageContainer') || 
-                            document.querySelector('.kundli-royal-light-page, .kundli-deep-space-page');
-    if (kundliContainer) {
-      if (isDark) {
-        kundliContainer.classList.remove('kundli-royal-light-page');
-        kundliContainer.classList.add('kundli-deep-space-page');
-      } else {
-        kundliContainer.classList.remove('kundli-deep-space-page');
-        kundliContainer.classList.add('kundli-royal-light-page');
-      }
+    if (document.documentElement) {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.toggle('theme-light', isLight);
+      document.documentElement.classList.toggle('theme-dark', !isLight);
     }
 
     // Update navbar buttons
@@ -39,24 +32,12 @@
     const btnThemeToggle = document.getElementById('btnThemeToggle');
     const drawerThemeLabel = document.getElementById('drawerThemeLabel');
 
-    if (themeToggleIcon) themeToggleIcon.textContent = isDark ? '🌙' : '☀️';
-    if (drawerThemeIcon) drawerThemeIcon.textContent = isDark ? '🌙' : '☀️';
-    if (drawerThemeLabel) drawerThemeLabel.textContent = isDark ? 'Deep Space' : 'Royal Ivory';
+    if (themeToggleIcon) themeToggleIcon.textContent = isLight ? '🌙' : '☀️';
+    if (drawerThemeIcon) drawerThemeIcon.textContent = isLight ? '🌙' : '☀️';
+    if (drawerThemeLabel) drawerThemeLabel.textContent = isLight ? 'Deep Space' : 'Royal Light';
     if (btnThemeToggle) {
-      btnThemeToggle.title = isDark ? 'Switch to Royal Ivory Theme' : 'Switch to Deep Space Theme';
-      btnThemeToggle.setAttribute('aria-label', isDark ? 'Switch to Royal Ivory Theme' : 'Switch to Deep Space Theme');
-    }
-
-    // Update page pill buttons on Kundli page
-    const btnLight = document.getElementById('btnThemeLight');
-    const btnDark = document.getElementById('btnThemeDark');
-    if (btnLight) {
-      btnLight.classList.toggle('active', !isDark);
-      btnLight.setAttribute('aria-pressed', !isDark ? 'true' : 'false');
-    }
-    if (btnDark) {
-      btnDark.classList.toggle('active', isDark);
-      btnDark.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      btnThemeToggle.title = isLight ? 'Switch to Deep Space (Dark Theme)' : 'Switch to Royal Ivory (Light Theme)';
+      btnThemeToggle.setAttribute('aria-label', isLight ? 'Switch to Deep Space' : 'Switch to Royal Ivory');
     }
 
     try {
@@ -85,7 +66,7 @@
     if (btnThemeToggle) {
       btnThemeToggle.addEventListener('click', () => {
         const cur = getSavedTheme();
-        applyTheme(cur === 'dark' ? 'light' : 'dark');
+        applyTheme(cur === 'light' ? 'dark' : 'light');
       });
     }
 
@@ -93,17 +74,8 @@
     if (drawerThemeToggle) {
       drawerThemeToggle.addEventListener('click', () => {
         const cur = getSavedTheme();
-        applyTheme(cur === 'dark' ? 'light' : 'dark');
+        applyTheme(cur === 'light' ? 'dark' : 'light');
       });
-    }
-
-    const btnLight = document.getElementById('btnThemeLight');
-    const btnDark = document.getElementById('btnThemeDark');
-    if (btnLight) {
-      btnLight.addEventListener('click', () => applyTheme('light'));
-    }
-    if (btnDark) {
-      btnDark.addEventListener('click', () => applyTheme('dark'));
     }
   });
 })();
