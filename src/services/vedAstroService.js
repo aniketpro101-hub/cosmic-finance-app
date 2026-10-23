@@ -7,6 +7,7 @@
  */
 
 const db = require('../db/database');
+const Astronomy = require('astronomy-engine');
 
 const VEDASTRO_API_URL = process.env.VEDASTRO_API_URL || 'https://api.vedastro.org/api';
 const VEDASTRO_API_KEY = process.env.VEDASTRO_API_KEY || '';
@@ -202,13 +203,14 @@ const NAVAGRAHA_CONFIG = {
 };
 
 // 4. Mathematical Geocentric Sidereal Engine (Lahiri Ayanamsha)
+// Powered by high-precision NASA JPL/Meeus ephemeris via astronomy-engine.
 // Computes true Sidereal Longitude, Apparent Velocity (for Retrograde detection),
-// Rashi, Nakshatra, and Pada for all 9 Navagraha on any Date.
+// Rashi, Nakshatra, and Pada for all 9 Navagraha on any Date across centuries.
 
 function getLahiriAyanamsha(julianDay) {
-  // Lahiri Ayanamsha: ~23.85° at J2000.0, precession rate 50.29 arcseconds/year
+  // Canonical Lahiri Ayanamsha matching Indian Astronomical Ephemeris standards
   const t = (julianDay - 2451545.0) / 36525.0; // Centuries from J2000
-  const ayanamsha = 23.856166 + (1.396042 * t) + (0.000308 * t * t);
+  const ayanamsha = 23.857092 + (1.396971 * t) + (0.0003086 * t * t);
   return ayanamsha;
 }
 
@@ -217,105 +219,60 @@ function dateToJulianDay(date) {
   return (d.getTime() / 86400000.0) + 2440587.5;
 }
 
-// Low-overhead, high-accuracy geocentric planetary algorithm based on VSOP87/Meeus simplifications
+// High-precision geocentric planetary algorithm
 function calculateGeocentricPositions(targetDate) {
   const d = new Date(targetDate);
-  const jd = dateToJulianDay(d);
+  const time = Astronomy.MakeTime(d);
+  const jd = (d.getTime() / 86400000.0) + 2440587.5;
   const ayanamsha = getLahiriAyanamsha(jd);
-
-  // Time in Julian Centuries from J2000.0
   const t = (jd - 2451545.0) / 36525.0;
-  // Days from J2000.0
-  const days = jd - 2451545.0;
 
-  // 1. Surya (Sun) Geocentric
-  const sunMeanLong = (280.46646 + 36000.76983 * t) % 360;
-  const sunMeanAnomaly = (357.52911 + 35999.05029 * t) * (Math.PI / 180);
-  const sunCenter = (1.914602 - 0.004817 * t) * Math.sin(sunMeanAnomaly) + 0.019993 * Math.sin(2 * sunMeanAnomaly);
-  const sunTropical = (sunMeanLong + sunCenter + 360) % 360;
-  const sunSidereal = (sunTropical - ayanamsha + 360) % 360;
-
-  // 2. Chandra (Moon) Geocentric
-  const moonMeanLong = (218.3165 + 481267.8813 * t) % 360;
-  const moonMeanAnomaly = (134.9634 + 477198.8675 * t) * (Math.PI / 180);
-  const moonMeanElongation = (297.8502 + 445267.1114 * t) * (Math.PI / 180);
-  const moonCenter = 6.288774 * Math.sin(moonMeanAnomaly) + 1.274027 * Math.sin(2 * moonMeanElongation - moonMeanAnomaly);
-  const moonTropical = (moonMeanLong + moonCenter + 360) % 360;
-  const moonSidereal = (moonTropical - ayanamsha + 360) % 360;
-
-  // 3. Rahu & Ketu (Mean Lunar Nodes — strictly opposite 180°)
-  // Node regresses at ~19.34° per year (period ~18.6 years)
-  const rahuTropical = (125.04452 - 1934.136261 * t + 0.0020708 * t * t + 3600) % 360;
-  const rahuSidereal = (rahuTropical - ayanamsha + 360) % 360;
-  // Ketu is mathematically identical + 180 degrees
-  const ketuSidereal = (rahuSidereal + 180) % 360;
-
-  // Helper for 5 planets with retrograde calculation via geocentric vector difference
-  // (Sun and Earth orbit interaction produces geocentric retrograde loops)
-  function computePlanetSiderealAndVelocity(meanMotion, orbitRadius, initLong, periodDays) {
-    // Current planetary heliocentric longitude
-    const helioLong = ((initLong + (360 / periodDays) * days) % 360) * (Math.PI / 180);
-    const sunRad = sunTropical * (Math.PI / 180);
-
-    // Heliocentric vectors
-    const xp = orbitRadius * Math.cos(helioLong);
-    const yp = orbitRadius * Math.sin(helioLong);
-
-    // Earth vector (approx 1 AU)
-    const xe = Math.cos(sunRad + Math.PI);
-    const ye = Math.sin(sunRad + Math.PI);
-
-    // Geocentric vector (Planet - Earth)
-    const dx = xp - xe;
-    const dy = yp - ye;
-    let geocentricTrop = Math.atan2(dy, dx) * (180 / Math.PI);
-    if (geocentricTrop < 0) geocentricTrop += 360;
-
-    // Delta position over 1 day to calculate apparent velocity
-    const daysNext = days + 0.5;
-    const helioNext = ((initLong + (360 / periodDays) * daysNext) % 360) * (Math.PI / 180);
-    const sunRadNext = ((sunMeanLong + 0.5 * 0.9856) % 360) * (Math.PI / 180);
-    const xpNext = orbitRadius * Math.cos(helioNext);
-    const ypNext = orbitRadius * Math.sin(helioNext);
-    const xeNext = Math.cos(sunRadNext + Math.PI);
-    const yeNext = Math.sin(sunRadNext + Math.PI);
-    let geocentricTropNext = Math.atan2(ypNext - yeNext, xpNext - xeNext) * (180 / Math.PI);
-    if (geocentricTropNext < 0) geocentricTropNext += 360;
-
-    let diff = geocentricTropNext - geocentricTrop;
-    if (diff > 180) diff -= 360;
-    if (diff < -180) diff += 360;
-    const velocity = diff / 0.5; // degrees/day
-
-    const sidereal = (geocentricTrop - ayanamsha + 360) % 360;
-    const isRetrograde = velocity < 0; // Negative velocity = Retrograde (Vakri)
-
-    return { sidereal, isRetrograde, velocity };
+  function getEclipticLong(bodyName, timeObj) {
+    const geoVector = Astronomy.GeoVector(bodyName, timeObj, true);
+    const eclip = Astronomy.Ecliptic(geoVector);
+    return eclip.elon;
   }
 
-  // Classical Mean Planetary Elements:
-  // Mercury: 87.97 days, radius 0.387 AU
-  const merc = computePlanetSiderealAndVelocity(4.092, 0.387, 252.25, 87.969);
-  // Venus: 224.70 days, radius 0.723 AU
-  const ven = computePlanetSiderealAndVelocity(1.602, 0.723, 181.98, 224.701);
-  // Mars: 686.98 days, radius 1.524 AU
-  const mars = computePlanetSiderealAndVelocity(0.524, 1.524, 355.43, 686.980);
-  // Jupiter: 4332.59 days (~11.86 yrs), radius 5.204 AU
-  const jup = computePlanetSiderealAndVelocity(0.083, 5.204, 34.35, 4332.589);
-  // Saturn: 10759.22 days (~29.46 yrs), radius 9.582 AU
-  const sat = computePlanetSiderealAndVelocity(0.033, 9.582, 50.08, 10759.22);
+  // Apparent velocity over 0.25 day (6 hours) to detect Retrograde (Vakri) status
+  const dtDays = 0.25;
+  const dateNext = new Date(d.getTime() + dtDays * 86400000);
+  const timeNext = Astronomy.MakeTime(dateNext);
 
-  const rawPositions = {
-    Sun: { longitude: sunSidereal, isRetrograde: false, velocity: 0.985 },
-    Moon: { longitude: moonSidereal, isRetrograde: false, velocity: 13.176 },
-    Mars: { longitude: mars.sidereal, isRetrograde: mars.isRetrograde, velocity: mars.velocity },
-    Mercury: { longitude: merc.sidereal, isRetrograde: merc.isRetrograde, velocity: merc.velocity },
-    Jupiter: { longitude: jup.sidereal, isRetrograde: jup.isRetrograde, velocity: jup.velocity },
-    Venus: { longitude: ven.sidereal, isRetrograde: ven.isRetrograde, velocity: ven.velocity },
-    Saturn: { longitude: sat.sidereal, isRetrograde: sat.isRetrograde, velocity: sat.velocity },
-    Rahu: { longitude: rahuSidereal, isRetrograde: true, velocity: -0.053 }, // Lunar nodes are always retrograde in Vedic convention
-    Ketu: { longitude: ketuSidereal, isRetrograde: true, velocity: -0.053 }
-  };
+  const majorBodies = [
+    { key: 'Sun', body: 'Sun' },
+    { key: 'Moon', body: 'Moon' },
+    { key: 'Mercury', body: 'Mercury' },
+    { key: 'Venus', body: 'Venus' },
+    { key: 'Mars', body: 'Mars' },
+    { key: 'Jupiter', body: 'Jupiter' },
+    { key: 'Saturn', body: 'Saturn' }
+  ];
+
+  const rawPositions = {};
+  for (const item of majorBodies) {
+    const tropLong = getEclipticLong(item.body, time);
+    const tropNext = getEclipticLong(item.body, timeNext);
+    let diff = tropNext - tropLong;
+    if (diff > 180) diff -= 360;
+    if (diff < -180) diff += 360;
+    const velocity = diff / dtDays;
+
+    const sidereal = (tropLong - ayanamsha + 360) % 360;
+    const isRetrograde = velocity < 0;
+    rawPositions[item.key] = {
+      longitude: sidereal,
+      isRetrograde,
+      velocity
+    };
+  }
+
+  // Rahu & Ketu (Mean Lunar Nodes — strictly opposite 180°)
+  const nodeTrop = (125.04452 - 1934.136261 * t + 0.0020708 * t * t + 360000) % 360;
+  const rahuSidereal = (nodeTrop - ayanamsha + 360) % 360;
+  const ketuSidereal = (rahuSidereal + 180) % 360;
+
+  rawPositions.Rahu = { longitude: rahuSidereal, isRetrograde: true, velocity: -0.053 };
+  rawPositions.Ketu = { longitude: ketuSidereal, isRetrograde: true, velocity: -0.053 };
 
   // Convert each graha into rich Vedic metadata
   const results = {};

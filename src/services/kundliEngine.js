@@ -166,6 +166,16 @@ function evaluateTradingKundli({
   const lagnaSignName = ZODIAC_SIGNS[lagnaSignIndex];
   const lagnaLord = SIGN_LORDS[lagnaSignIndex];
 
+  // Derive Lagna Nakshatra and Pada directly from Lagna Longitude
+  const NAKSHATRA_NAMES = [
+    'Ashwini', 'Bharani', 'Krittika', 'Rohini', 'Mrigashira', 'Ardra', 'Punarvasu', 'Pushya', 'Ashlesha',
+    'Magha', 'Purva Phalguni', 'Uttara Phalguni', 'Hasta', 'Chitra', 'Swati', 'Vishakha', 'Anuradha', 'Jyeshtha',
+    'Mula', 'Purva Ashadha', 'Uttara Ashadha', 'Shravana', 'Dhanishta', 'Shatabhisha', 'Purva Bhadrapada', 'Uttara Bhadrapada', 'Revati'
+  ];
+  const lagnaNakIdx = Math.floor(lagnaLong / 13.333333333333334);
+  const lagnaNakshatra = NAKSHATRA_NAMES[lagnaNakIdx] || 'Ashwini';
+  const lagnaPada = Math.floor((lagnaLong % 13.333333333333334) / 3.3333333333333335) + 1;
+
   // 2. Map All 9 Grahas into Houses (Bhavas) relative to Lagna
   const planetsList = Object.values(natalSky.planets).map(p => {
     const pSignIndex = p.rashi.index;
@@ -375,8 +385,8 @@ function evaluateTradingKundli({
     },
     lagnaSignIndex,
     lagnaDegrees,
-    lagnaNakshatra: planetsList[0]?.nakshatra || 'Ashwini',
-    lagnaPada: 1,
+    lagnaNakshatra,
+    lagnaPada,
     planets: planetsList
   });
 
@@ -395,6 +405,8 @@ function evaluateTradingKundli({
       signName: lagnaSignName,
       degrees: parseFloat(lagnaDegrees.toFixed(2)),
       degreesDisplay: `${Math.floor(lagnaDegrees)}° ${Math.round((lagnaDegrees % 1) * 60)}'`,
+      nakshatra: lagnaNakshatra,
+      pada: lagnaPada,
       lord: lagnaLord
     },
     planets: planetsList,

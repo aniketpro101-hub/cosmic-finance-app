@@ -26,13 +26,13 @@ function getEdgeExecutablePath() {
   if (process.env.EDGE_PATH && fs.existsSync(process.env.EDGE_PATH)) return process.env.EDGE_PATH;
 
   const possiblePaths = [
-    // Windows paths
-    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
-    'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
-    path.join(process.env.LOCALAPPDATA || '', 'Microsoft\\Edge\\Application\\msedge.exe'),
+    // Windows paths (Chrome prioritized, then Edge)
     'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
     'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
     path.join(process.env.LOCALAPPDATA || '', 'Google\\Chrome\\Application\\chrome.exe'),
+    'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe',
+    'C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe',
+    path.join(process.env.LOCALAPPDATA || '', 'Microsoft\\Edge\\Application\\msedge.exe'),
     // Linux / Ubuntu / Docker (Render)
     '/usr/bin/google-chrome',
     '/usr/bin/google-chrome-stable',
@@ -1187,12 +1187,13 @@ async function generateWealthDossierPdf(analysis) {
   fs.writeFileSync(tempHtmlPath, html, 'utf8');
 
   const userDataDir = path.join(os.tmpdir(), `browser_pdf_profile_${id}`);
-  const cmd = `"${edgePath}" --headless --no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu --disable-extensions --disable-background-networking --disable-sync --disable-default-apps --no-first-run --user-data-dir="${userDataDir}" --print-to-pdf="${tempPdfPath}" "${tempHtmlPath}"`;
+  const cmd = `"${edgePath}" --headless=new --no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage --disable-gpu --disable-extensions --no-first-run --user-data-dir="${userDataDir}" --print-to-pdf="${tempPdfPath}" "${tempHtmlPath}"`;
 
   try {
     execSync(cmd, { stdio: 'pipe', timeout: 45000 });
-    // Clean up HTML file
+    // Clean up HTML file and temp profile
     try { fs.unlinkSync(tempHtmlPath); } catch (e) {}
+    try { fs.rmSync(userDataDir, { recursive: true, force: true }); } catch (e) {}
 
     if (!fs.existsSync(tempPdfPath) || fs.statSync(tempPdfPath).size === 0) {
       throw new Error('PDF output file was not created or is empty.');
