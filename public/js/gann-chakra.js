@@ -283,6 +283,10 @@
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, w, h);
 
+      const isLight = document.body.classList.contains('theme-light') || 
+                      document.documentElement.getAttribute('data-theme') === 'light' ||
+                      (typeof localStorage !== 'undefined' && localStorage.getItem('cosmic_site_theme') === 'light');
+
       const cellSize = w / size;
       const cx = w / 2;
       const cy = h / 2;
@@ -301,31 +305,55 @@
           const isTrine = angle === 120 || angle === 240;
 
           // Background Fill
-          if (isCenter) {
-            ctx.fillStyle = 'rgba(245, 190, 72, 0.35)';
-          } else if (isCardinal) {
-            ctx.fillStyle = 'rgba(245, 190, 72, 0.16)';
-          } else if (isOrdinal) {
-            ctx.fillStyle = 'rgba(167, 139, 250, 0.14)';
-          } else if (isTrine) {
-            ctx.fillStyle = 'rgba(56, 189, 248, 0.14)';
+          if (isLight) {
+            if (isCenter) {
+              ctx.fillStyle = 'rgba(245, 190, 72, 0.35)';
+            } else if (isCardinal) {
+              ctx.fillStyle = 'rgba(254, 240, 138, 0.55)';
+            } else if (isOrdinal) {
+              ctx.fillStyle = 'rgba(237, 233, 254, 0.75)';
+            } else if (isTrine) {
+              ctx.fillStyle = 'rgba(224, 242, 254, 0.75)';
+            } else {
+              ctx.fillStyle = '#ffffff';
+            }
+            if (hoveredCell && hoveredCell.r === r && hoveredCell.c === c) {
+              ctx.fillStyle = 'rgba(254, 240, 138, 0.9)';
+            }
           } else {
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.7)';
-          }
-
-          if (hoveredCell && hoveredCell.r === r && hoveredCell.c === c) {
-            ctx.fillStyle = 'rgba(254, 240, 138, 0.45)';
+            if (isCenter) {
+              ctx.fillStyle = 'rgba(245, 190, 72, 0.35)';
+            } else if (isCardinal) {
+              ctx.fillStyle = 'rgba(245, 190, 72, 0.16)';
+            } else if (isOrdinal) {
+              ctx.fillStyle = 'rgba(167, 139, 250, 0.14)';
+            } else if (isTrine) {
+              ctx.fillStyle = 'rgba(56, 189, 248, 0.14)';
+            } else {
+              ctx.fillStyle = 'rgba(15, 23, 42, 0.7)';
+            }
+            if (hoveredCell && hoveredCell.r === r && hoveredCell.c === c) {
+              ctx.fillStyle = 'rgba(254, 240, 138, 0.45)';
+            }
           }
 
           ctx.fillRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
 
           // Border
-          ctx.strokeStyle = isCenter ? '#f5be48' : (isCardinal ? 'rgba(245, 190, 72, 0.5)' : (isOrdinal ? 'rgba(167, 139, 250, 0.4)' : 'rgba(255, 255, 255, 0.08)'));
+          if (isLight) {
+            ctx.strokeStyle = isCenter ? '#b45309' : (isCardinal ? 'rgba(180, 83, 9, 0.5)' : (isOrdinal ? 'rgba(139, 92, 246, 0.45)' : (isTrine ? 'rgba(14, 165, 233, 0.45)' : '#e2e8f0')));
+          } else {
+            ctx.strokeStyle = isCenter ? '#f5be48' : (isCardinal ? 'rgba(245, 190, 72, 0.5)' : (isOrdinal ? 'rgba(167, 139, 250, 0.4)' : 'rgba(255, 255, 255, 0.08)'));
+          }
           ctx.lineWidth = isCenter || isCardinal ? 1.5 : 1;
           ctx.strokeRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
 
           // Number & Angle Text
-          ctx.fillStyle = isCenter ? '#ffd572' : (isCardinal ? '#fde047' : (isOrdinal ? '#c4b5fd' : '#cbd5e1'));
+          if (isLight) {
+            ctx.fillStyle = isCenter ? '#7e122a' : (isCardinal ? '#7e122a' : (isOrdinal ? '#5b21b6' : (isTrine ? '#0369a1' : '#0f172a')));
+          } else {
+            ctx.fillStyle = isCenter ? '#ffd572' : (isCardinal ? '#fde047' : (isOrdinal ? '#c4b5fd' : '#cbd5e1'));
+          }
           ctx.font = `bold ${Math.max(10, Math.round(cellSize * 0.28))}px 'Space Grotesk', sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -334,7 +362,11 @@
           // Degree annotation
           if (!isCenter) {
             ctx.font = `${Math.max(7, Math.round(cellSize * 0.18))}px 'IBM Plex Mono', monospace`;
-            ctx.fillStyle = isCardinal ? '#f5be48' : (isOrdinal ? '#a78bfa' : 'rgba(148, 163, 184, 0.6)');
+            if (isLight) {
+              ctx.fillStyle = isCardinal ? '#b45309' : (isOrdinal ? '#6d28d9' : (isTrine ? '#0284c7' : '#64748b'));
+            } else {
+              ctx.fillStyle = isCardinal ? '#f5be48' : (isOrdinal ? '#a78bfa' : 'rgba(148, 163, 184, 0.6)');
+            }
             ctx.fillText(`${angle}°`, x + cellSize / 2, y + cellSize / 2 + cellSize * 0.26);
           }
         }
@@ -345,7 +377,7 @@
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.lineTo(mousePos.x, mousePos.y);
-        ctx.strokeStyle = '#f5be48';
+        ctx.strokeStyle = isLight ? '#b45309' : '#f5be48';
         ctx.lineWidth = 2.2;
         ctx.setLineDash([4, 4]);
         ctx.stroke();
@@ -449,10 +481,13 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Hook to update base price from live inputs
+    // Hook to update base price and redraw from live inputs & themes
     return {
       setBasePrice: (p) => {
         basePrice = Number(p) || 24871;
+        draw();
+      },
+      redraw: () => {
         draw();
       }
     };
@@ -529,6 +564,10 @@
 
       const cellSize = w / size;
 
+      const isLight = document.body.classList.contains('theme-light') || 
+                      document.documentElement.getAttribute('data-theme') === 'light' ||
+                      (typeof localStorage !== 'undefined' && localStorage.getItem('cosmic_site_theme') === 'light');
+
       // 1. Draw 9x9 Grid Cells
       for (let r = 0; r < size; r++) {
         for (let c = 0; c < size; c++) {
@@ -546,27 +585,46 @@
           const planetHere = nakshatra ? SBC_PLANETS.filter(p => isNakshatraMatch(p.nakshatra, nakshatra.name)) : [];
 
           // Cell Background
-          if (isCorner) {
-            ctx.fillStyle = 'rgba(212, 175, 55, 0.2)';
-          } else if (isPerimeter) {
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-          } else if (inner && inner.type === 'center') {
-            ctx.fillStyle = 'rgba(245, 190, 72, 0.28)';
-          } else if (inner && inner.type === 'rashi') {
-            ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
+          if (isLight) {
+            if (isCorner) {
+              ctx.fillStyle = 'rgba(254, 240, 138, 0.55)';
+            } else if (isPerimeter) {
+              ctx.fillStyle = '#ffffff';
+            } else if (inner && inner.type === 'center') {
+              ctx.fillStyle = 'rgba(254, 240, 138, 0.5)';
+            } else if (inner && inner.type === 'rashi') {
+              ctx.fillStyle = 'rgba(224, 242, 254, 0.75)';
+            } else {
+              ctx.fillStyle = '#fdfbf7';
+            }
+            if (hoveredCell && hoveredCell.r === r && hoveredCell.c === c) {
+              ctx.fillStyle = 'rgba(254, 240, 138, 0.85)';
+            }
           } else {
-            ctx.fillStyle = 'rgba(10, 15, 30, 0.7)';
-          }
-
-          // Highlight Hovered cell
-          if (hoveredCell && hoveredCell.r === r && hoveredCell.c === c) {
-            ctx.fillStyle = 'rgba(254, 240, 138, 0.45)';
+            if (isCorner) {
+              ctx.fillStyle = 'rgba(212, 175, 55, 0.2)';
+            } else if (isPerimeter) {
+              ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+            } else if (inner && inner.type === 'center') {
+              ctx.fillStyle = 'rgba(245, 190, 72, 0.28)';
+            } else if (inner && inner.type === 'rashi') {
+              ctx.fillStyle = 'rgba(56, 189, 248, 0.12)';
+            } else {
+              ctx.fillStyle = 'rgba(10, 15, 30, 0.7)';
+            }
+            if (hoveredCell && hoveredCell.r === r && hoveredCell.c === c) {
+              ctx.fillStyle = 'rgba(254, 240, 138, 0.45)';
+            }
           }
 
           ctx.fillRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
 
           // Cell Border
-          ctx.strokeStyle = isPerimeter ? 'rgba(212, 175, 55, 0.45)' : 'rgba(255, 255, 255, 0.08)';
+          if (isLight) {
+            ctx.strokeStyle = isPerimeter ? 'rgba(180, 83, 9, 0.35)' : '#e2e8f0';
+          } else {
+            ctx.strokeStyle = isPerimeter ? 'rgba(212, 175, 55, 0.45)' : 'rgba(255, 255, 255, 0.08)';
+          }
           ctx.lineWidth = isPerimeter ? 1.4 : 1;
           ctx.strokeRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
 
@@ -575,18 +633,18 @@
           ctx.textBaseline = 'middle';
 
           if (isCorner && corner) {
-            ctx.fillStyle = '#fde047';
+            ctx.fillStyle = isLight ? '#7e122a' : '#fde047';
             ctx.font = `bold ${Math.max(12, Math.round(cellSize * 0.35))}px 'Space Grotesk', sans-serif`;
             ctx.fillText(currentLang === 'hi' ? corner.hi : corner.name, x + cellSize / 2, y + cellSize / 2);
           } else if (nakshatra) {
             // Nakshatra Name
-            ctx.fillStyle = '#f8fafc';
+            ctx.fillStyle = isLight ? '#0f172a' : '#f8fafc';
             ctx.font = `bold ${Math.max(8, Math.round(cellSize * 0.2))}px 'Inter', sans-serif`;
             const nameToDraw = currentLang === 'hi' ? nakshatra.hi : nakshatra.name;
             ctx.fillText(nameToDraw, x + cellSize / 2, y + cellSize * 0.38);
 
             // Ruler Tag
-            ctx.fillStyle = '#94a3b8';
+            ctx.fillStyle = isLight ? '#64748b' : '#94a3b8';
             ctx.font = `${Math.max(7, Math.round(cellSize * 0.16))}px 'IBM Plex Mono', monospace`;
             ctx.fillText(currentLang === 'hi' ? nakshatra.lordHi : nakshatra.ruler, x + cellSize / 2, y + cellSize * 0.68);
 
@@ -604,7 +662,11 @@
               });
             }
           } else if (inner) {
-            ctx.fillStyle = inner.type === 'rashi' ? '#38bdf8' : (inner.type === 'tithi' ? '#a78bfa' : '#cbd5e1');
+            if (isLight) {
+              ctx.fillStyle = inner.type === 'rashi' ? '#0369a1' : (inner.type === 'tithi' ? '#6d28d9' : (inner.type === 'center' ? '#7e122a' : '#334155'));
+            } else {
+              ctx.fillStyle = inner.type === 'rashi' ? '#38bdf8' : (inner.type === 'tithi' ? '#a78bfa' : '#cbd5e1');
+            }
             ctx.font = inner.type === 'center'
               ? `bold ${Math.max(9, Math.round(cellSize * 0.22))}px 'Space Grotesk', sans-serif`
               : `${Math.max(9, Math.round(cellSize * 0.24))}px 'Noto Sans Devanagari', sans-serif`;
@@ -633,7 +695,7 @@
           ctx.moveTo(0, hy);
           ctx.lineTo(w, hy);
         }
-        ctx.strokeStyle = '#ef4444'; // Red laser for high-impact Sammukha
+        ctx.strokeStyle = '#dc2626'; // Red laser for high-impact Sammukha
         ctx.stroke();
 
         // B. Vama & Dakshina Vedha (Left & Right Diagonals)
@@ -642,13 +704,13 @@
         ctx.lineTo(w, h);
         ctx.moveTo(w, 0);
         ctx.lineTo(0, h);
-        ctx.strokeStyle = 'rgba(245, 190, 72, 0.7)'; // Golden diagonal rays
+        ctx.strokeStyle = isLight ? 'rgba(180, 83, 9, 0.85)' : 'rgba(245, 190, 72, 0.7)'; // Golden diagonal rays
         ctx.stroke();
 
         ctx.setLineDash([]);
 
         // Reticle on Hovered Cell
-        ctx.strokeStyle = '#ffffff';
+        ctx.strokeStyle = isLight ? '#7e122a' : '#ffffff';
         ctx.lineWidth = 2;
         ctx.strokeRect(hoveredCell.c * cellSize + 2, hoveredCell.r * cellSize + 2, cellSize - 4, cellSize - 4);
       }
@@ -930,5 +992,13 @@
     updateTargetTable(24871);
     syncRealNiftyPrice();
     syncRealEphemeris();
+
+    // 6. Reactive Theme Change Re-render for Canvas Graphics
+    window.addEventListener('cosmic-theme-changed', () => {
+      if (fullGann && fullGann.redraw) fullGann.redraw();
+      if (homeGann && homeGann.redraw) homeGann.redraw();
+      if (fullSbc && fullSbc.redraw) fullSbc.redraw();
+      if (homeSbc && homeSbc.redraw) homeSbc.redraw();
+    });
   });
 })();

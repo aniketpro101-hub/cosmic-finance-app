@@ -21,6 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   height: 100%;
   width: 100%;
   max-width: 1440px;
@@ -40,6 +41,7 @@
   letter-spacing: -0.02em;
   text-decoration: none;
   flex-shrink: 0;
+  margin-right: 14px;
 }
 
 .logo-symbol {
@@ -536,29 +538,31 @@
   opacity: 1;
 }
 
-/* Laptop Viewport Graceful Balancing (1201px - 1380px) */
-@media (max-width: 1380px) and (min-width: 1201px) {
+/* Laptop Viewport Graceful Balancing (1261px - 1420px) */
+@media (max-width: 1420px) and (min-width: 1261px) {
   .header-container {
     padding: 0 16px;
-  }
-  .desktop-nav .nav-list {
     gap: 14px;
   }
+  .desktop-nav .nav-list {
+    gap: 10px;
+  }
   .nav-link {
-    font-size: 0.84rem;
+    font-size: 0.81rem;
     padding: 4px 0;
   }
   .btn-header-cta {
-    padding: 7px 14px;
-    font-size: 0.82rem;
+    padding: 6px 12px;
+    font-size: 0.80rem;
   }
   .brand-logo {
-    font-size: 1.15rem;
+    font-size: 1.12rem;
+    margin-right: 6px;
   }
 }
 
-/* Switch cleanly to Hamburger on <= 1200px screens */
-@media (max-width: 1200px) {
+/* Switch cleanly to Hamburger on <= 1260px screens */
+@media (max-width: 1260px) {
   .desktop-nav {
     display: none !important;
   }
@@ -7729,7 +7733,7 @@ body.theme-light .disclaimer-trust-principle {
   color: #92400e !important;
 }
 
-/* 10. Dedicated Widgets (Panchang, Gann, Chronicles) */
+/* 10. Dedicated Widgets (Panchang, Gann, Chronicles, Market Data, Founder) */
 body.theme-light .gann-wheel-wrapper,
 body.theme-light .gann-card,
 body.theme-light .panchang-main-heading,
@@ -7753,7 +7757,572 @@ body.theme-light .gann-cell.gann-fixed {
   color: #991b1b !important;
 }
 
+/* Home Gann & Chakra Showcase */
+body.theme-light .home-diagram-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 6px 25px rgba(126, 18, 42, 0.06) !important;
+}
+
+body.theme-light .diagram-card-header {
+  border-bottom: 1px solid #f1ede4 !important;
+}
+
+body.theme-light .d-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .d-meta,
+body.theme-light .d-meta span {
+  color: #475569 !important;
+}
+
+body.theme-light .live-cursor-tag {
+  background: #fffbeb !important;
+  border: 1px solid #fde68a !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .diagram-footer-bar {
+  background: #faf8f4 !important;
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+body.theme-light .diagram-footer-bar .footer-readout {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+body.theme-light .footer-readout .f-label {
+  color: #64748b !important;
+}
+
+body.theme-light .footer-readout .f-val,
+body.theme-light #homeGannReadoutVal,
+body.theme-light #homeSbcReadoutVal {
+  color: #7e122a !important;
+}
+
+/* Market Data: Index Natal Cards & Placements */
+body.theme-light .index-natal-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 8px 30px rgba(126, 18, 42, 0.07) !important;
+}
+
+body.theme-light .index-natal-card::before {
+  background: linear-gradient(90deg, #b45309, #7e122a) !important;
+}
+
+body.theme-light .index-symbol {
+  color: #7e122a !important;
+}
+
+body.theme-light .index-sub {
+  color: #475569 !important;
+}
+
+body.theme-light .launch-place-tag {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+body.theme-light .placement-pill {
+  background: #fdfbf7 !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
+body.theme-light .placement-title {
+  color: #b45309 !important;
+  font-weight: 700 !important;
+}
+
+body.theme-light .placement-val {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+body.theme-light .placement-lord {
+  color: #7e122a !important;
+  font-weight: 600 !important;
+}
+
+body.theme-light .placement-desc {
+  color: #334155 !important;
+  line-height: 1.6 !important;
+}
+
+body.theme-light .index-insight-box {
+  background: #fffbeb !important;
+  border-left: 3px solid #b45309 !important;
+  color: #334155 !important;
+}
+
+body.theme-light .index-insight-box strong {
+  color: #7e122a !important;
+}
+
+body.theme-light .btn-share-index {
+  background: #ffffff !important;
+  border: 1.5px solid #b45309 !important;
+  color: #7e122a !important;
+  font-weight: 600 !important;
+}
+
+body.theme-light .btn-share-index:hover {
+  background: #fffbeb !important;
+  color: #b45309 !important;
+}
+
+/* Market Data: Sector Heatmap & Vikram Samvat */
+body.theme-light .sector-heat-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .sector-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .graha-ruler-tag {
+  background: #fdf4ff !important;
+  border: 1px solid #e879f9 !important;
+  color: #86198f !important;
+}
+
+body.theme-light .coordinate-row {
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body.theme-light .coord-label {
+  color: #64748b !important;
+}
+
+body.theme-light .coord-val {
+  color: #0f172a !important;
+}
+
+body.theme-light .vakri-tag {
+  background: #fffbeb !important;
+  border: 1px solid #f59e0b !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .influence-note {
+  color: #334155 !important;
+}
+
+body.theme-light .samvat-meta-strip {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .meta-label {
+  color: #64748b !important;
+}
+
+body.theme-light .meta-val {
+  color: #b45309 !important;
+}
+
+body.theme-light .samvat-month-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .month-name {
+  color: #7e122a !important;
+}
+
+body.theme-light .month-greg {
+  color: #64748b !important;
+}
+
+body.theme-light .month-idx {
+  color: #b45309 !important;
+}
+
+body.theme-light .metric-lbl {
+  color: #64748b !important;
+}
+
+body.theme-light .market-status-bar {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+body.theme-light .calculation-trust-banner,
+body.theme-light .trust-calculation-banner {
+  background: #fffbeb !important;
+  border: 1.5px solid #fde68a !important;
+  color: #78350f !important;
+}
+
+/* Weekly Outlook */
+body.theme-light .outlook-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: 0 8px 30px rgba(126, 18, 42, 0.06) !important;
+}
+
+body.theme-light .outlook-card::before {
+  background: linear-gradient(90deg, #b45309, #7e122a) !important;
+}
+
+body.theme-light .outlook-badge {
+  background: #fffbeb !important;
+  border: 1px solid #fde68a !important;
+  color: #b45309 !important;
+}
+
+body.theme-light .outlook-headline {
+  color: #7e122a !important;
+}
+
+body.theme-light .outlook-meta {
+  color: #64748b !important;
+}
+
+body.theme-light .outlook-transits-box {
+  background: #fdfbf7 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 3.5px solid #b45309 !important;
+}
+
+body.theme-light .outlook-transits-box h4 {
+  color: #7e122a !important;
+}
+
+body.theme-light .outlook-transits-box li {
+  color: #334155 !important;
+}
+
+body.theme-light .outlook-transits-box li strong {
+  color: #0f172a !important;
+}
+
+body.theme-light .outlook-body-text {
+  color: #334155 !important;
+}
+
+body.theme-light .past-outlooks-heading {
+  color: #7e122a !important;
+  border-color: #e2e8f0 !important;
+}
+
+body.theme-light .archive-item-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .archive-item-card h4 {
+  color: #7e122a !important;
+}
+
+body.theme-light .archive-item-card p {
+  color: #475569 !important;
+}
+
+body.theme-light .archive-date {
+  color: #b45309 !important;
+}
+
+/* Chronicles Detail */
+body.theme-light .c-hero-quote {
+  color: #334155 !important;
+  border-left-color: #b45309 !important;
+}
+
+body.theme-light .c-metrics-banner {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .metric-box .m-lbl {
+  color: #64748b !important;
+}
+
+body.theme-light .metric-box .m-val {
+  color: #7e122a !important;
+}
+
+body.theme-light .blueprint-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .blueprint-card.highlight-gold {
+  background: #fffdf5 !important;
+  border-color: #f59e0b !important;
+}
+
+body.theme-light .blueprint-card.highlight-red {
+  background: #fef2f2 !important;
+  border-color: #f87171 !important;
+}
+
+body.theme-light .blueprint-card.highlight-emerald {
+  background: #f0fdf4 !important;
+  border-color: #4ade80 !important;
+}
+
+body.theme-light .b-card-head {
+  color: #7e122a !important;
+}
+
+body.theme-light .b-card-val {
+  color: #0f172a !important;
+}
+
+body.theme-light .editorial-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .editorial-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .editorial-text {
+  color: #334155 !important;
+}
+
+body.theme-light .phase-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .phase-number-indicator {
+  background: #fffbeb !important;
+  border-color: #b45309 !important;
+}
+
+body.theme-light .phase-roman {
+  color: #7e122a !important;
+}
+
+body.theme-light .phase-heading {
+  color: #7e122a !important;
+}
+
+body.theme-light .phase-body {
+  color: #334155 !important;
+}
+
+body.theme-light .commentary-card {
+  background: #ffffff !important;
+  border: 2px solid #b45309 !important;
+  box-shadow: 0 16px 45px rgba(126, 18, 42, 0.08) !important;
+}
+
+body.theme-light .commentary-header {
+  border-bottom-color: #e2e8f0 !important;
+}
+
+body.theme-light .c-author-name {
+  color: #7e122a !important;
+}
+
+body.theme-light .c-author-role {
+  color: #b45309 !important;
+}
+
+body.theme-light .commentary-body p {
+  color: #334155 !important;
+}
+
+body.theme-light .commentary-rules-box {
+  background: #fdfbf7 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 3.5px solid #7e122a !important;
+  color: #334155 !important;
+}
+
+body.theme-light .commentary-rules-box strong {
+  color: #7e122a !important;
+}
+
+body.theme-light .locked-specifications-card {
+  background: #ffffff !important;
+  border: 2px solid #b45309 !important;
+}
+
+body.theme-light .locked-card-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .locked-spec-item {
+  background: #fdfbf7 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body.theme-light .locked-spec-item .spec-label {
+  color: #64748b !important;
+}
+
+body.theme-light .locked-spec-item .spec-value {
+  color: #0f172a !important;
+}
+
+body.theme-light .related-chronicle-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+/* Founder Page */
+body.theme-light .founder-portal-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .portal-card-header {
+  color: #475569 !important;
+}
+
+body.theme-light .portal-cta-link {
+  color: #7e122a !important;
+  border-color: #7e122a !important;
+}
+
+body.theme-light .founder-stats-strip {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .stat-number {
+  color: #7e122a !important;
+}
+
+body.theme-light .stat-label {
+  color: #475569 !important;
+}
+
+body.theme-light .abdc-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .abdc-content-box {
+  color: #334155 !important;
+}
+
+body.theme-light .award-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .award-name {
+  color: #7e122a !important;
+}
+
+body.theme-light .award-sub {
+  color: #b45309 !important;
+}
+
+body.theme-light .award-card p {
+  color: #475569 !important;
+}
+
+body.theme-light .pillar-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .pillar-title {
+  color: #7e122a !important;
+}
+
+body.theme-light .pillar-text {
+  color: #334155 !important;
+}
+
+body.theme-light .global-footprint-card,
+body.theme-light .certificate-display-card,
+body.theme-light .story-grid-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .cert-metadata-box,
+body.theme-light .story-aside-box {
+  background: #fdfbf7 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+body.theme-light .vip-cta-card {
+  background: linear-gradient(135deg, #fffdf8 0%, #fff7ed 100%) !important;
+  border: 2px solid #b45309 !important;
+}
+
+/* Patterns & Track Record */
+body.theme-light .pattern-stats-preview-grid {
+  background: #fdfbf7 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+body.theme-light .p-stat .p-stat-lbl {
+  color: #64748b !important;
+}
+
+body.theme-light .p-stat .p-stat-val {
+  color: #7e122a !important;
+}
+
+body.theme-light .article-callout-box {
+  background: #fdfbf7 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 3.5px solid #7e122a !important;
+  color: #334155 !important;
+}
+
+body.theme-light .admin-table {
+  background: #ffffff !important;
+}
+
+body.theme-light .admin-table th {
+  background: #7e122a !important;
+  color: #ffffff !important;
+}
+
+body.theme-light .admin-table td {
+  color: #0f172a !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+body.theme-light .author-bio-card,
+body.theme-light .write-for-us-banner {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+/* News */
+body.theme-light .news-ticker-strip {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .news-compliance-box {
+  background: #fffbeb !important;
+  border: 1px solid #fde68a !important;
+  color: #78350f !important;
+}
+
+/* Panchang Section */
+body.theme-light .daily-panchang-section {
+  background: transparent !important;
+}
+
 body.theme-light .panchang-card {
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+body.theme-light .panchang-summary-strip {
   background: #ffffff !important;
   border: 1.5px solid #e2e8f0 !important;
 }
@@ -7764,6 +8333,35 @@ body.theme-light .panchang-limb-title {
 
 body.theme-light .panchang-value {
   color: #b45309 !important;
+}
+
+body.theme-light .muhurat-timing-card.danger-window {
+  background: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  color: #991b1b !important;
+}
+
+body.theme-light .muhurat-timing-card.success-window {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+  color: #166534 !important;
+}
+
+/* Kundli Wealth Dossier & Funnel Elements */
+body.theme-light .dasha-tier-box,
+body.theme-light .dhana-yoga-item {
+  background: #fdfbf7 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+body.theme-light .tier-val,
+body.theme-light .dhana-item-name {
+  color: #7e122a !important;
+}
+
+body.theme-light .dhana-item-desc {
+  color: #475569 !important;
 }
 
 /* =========================================================================
